@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在稀疏 GNSS TEC 上，TFT 能提前 24 小时预报，最优 RMSE 3.33 TECU；太阳 EUV 是最强预测信号。">
+  <meta property="og:title" content="稀疏 GNSS 数据下的 TFT 电离层预报 · GNSS Paper Radar">
+  <meta property="og:description" content="在稀疏 GNSS TEC 上，TFT 能提前 24 小时预报，最优 RMSE 3.33 TECU；太阳 EUV 是最强预测信号。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>稀疏 GNSS 数据下的 TFT 电离层预报 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">深度学习预测 · 2025-08-30 · 值得跟踪 · 匹配度 83</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">稀疏 GNSS 数据下的 TFT 电离层预报</span><span class="lang lang-en lang-inline" data-lang="en">Forecasting the Ionosphere from Sparse GNSS Data with Temporal-Fusion Transformers</span></h1>
+    <p class="poster-title-en">Forecasting the Ionosphere from Sparse GNSS Data with Temporal-Fusion Transformers</p>
+    <p class="poster-authors">Giacomo Acciarini, Simone Mestici, Halil Kelebek, Linnea Wolniewicz, Michael Vergalla, Madhulika Guhathakurta, Umaa Rebbapragada, Bala Poduval</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">论文用 Temporal Fusion Transformer 做电离层 TEC 预报，输入包括太阳辐照、地磁指数和 GNSS VTEC，覆盖 2010–2025 年。模型支持 24 小时提前量，并通过注意力分析给出可解释性；作者同时开源了 ionopy 工具包。</span><span class="lang lang-en lang-block" data-lang="en">This work uses a Temporal Fusion Transformer to forecast ionospheric TEC from solar irradiance, geomagnetic indices and GNSS VTEC over 2010-2025. It supports 24-hour lead times, offers attention-based interpretability, and releases the open-source ionopy toolkit.</span></p>
+    <div class="poster-meta"><span>2025-08-30</span><span>2509.00631</span><span>cs.LG, cs.AI, physics.ao-ph</span><span>深度学习预测</span><a href="https://arxiv.org/abs/2509.00631">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">TFT</span><span class="tag">TEC</span><span class="tag">稀疏观测</span><span class="tag">24 小时</span><span class="tag">EUV</span><span class="tag">ionopy</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">24 h</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">预报提前量</span><span class="lang lang-en lang-inline" data-lang="en">lead time</span></span></div><div class="poster-metric"><strong class="poster-metric-value">3.33 TECU</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">最优 RMSE</span><span class="lang lang-en lang-inline" data-lang="en">best RMSE</span></span></div><div class="poster-metric"><strong class="poster-metric-value">2010–2025</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">数据覆盖</span><span class="lang lang-en lang-inline" data-lang="en">data span</span></span></div><div class="poster-metric"><strong class="poster-metric-value">EUV</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">最强预测信号</span><span class="lang lang-en lang-inline" data-lang="en">strongest signal</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>全球 GNSS TEC 观测在空间上稀疏，经验模型在强空间天气下精度有限；同时，太阳辐照、地磁指数与 TEC 之间存在非线性、滞后和异质采样。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">TFT</span><span class="tag">TEC</span><span class="tag">稀疏观测</span><span class="tag">24 小时</span><span class="tag">EUV</span><span class="tag">ionopy</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>模型在 2010–2025 年数据上支持最长 24 小时提前量，报告的最优 RMSE 低至 3.33 TECU；太阳 EUV 辐照是最强预测信号。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是把 TFT 系统应用于稀疏 GNSS TEC 预报，并配套开源工具；不是全新的网络结构。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>依赖多源数据的时空对齐；稀疏观测意味着空间覆盖不均，模型需要在缺失条件下学习。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>多变量时序预测 + 注意力解释；没有做同化或物理约束。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>用注意力机制在异质驱动因子之间做动态加权，让模型在稀疏观测下仍能捕捉太阳/地磁控制。</p></div></div>
+    <p class="poster-method-essence-note">在稀疏 GNSS TEC 上，TFT 能提前 24 小时预报，最优 RMSE 3.33 TECU；太阳 EUV 是最强预测信号。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>在稀疏 GNSS TEC 上，TFT 能提前 24 小时预报，最优 RMSE 3.33 TECU；太阳 EUV 是最强预测信号。</p><p>论文用 Temporal Fusion Transformer 做电离层 TEC 预报，输入包括太阳辐照、地磁指数和 GNSS VTEC，覆盖 2010–2025 年。模型支持 24 小时提前量，并通过注意力分析给出可解释性；作者同时开源了 ionopy 工具包。</p><h3>研究问题</h3><p>全球 GNSS TEC 观测在空间上稀疏，经验模型在强空间天气下精度有限；同时，太阳辐照、地磁指数与 TEC 之间存在非线性、滞后和异质采样。</p>
+<p>论文要回答：TFT 能否在稀疏观测下做 24 小时 TEC 预报，并给出可解释的驱动因子重要性。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>作者用 Temporal Fusion Transformer 融合太阳辐照、地磁指数和 GNSS VTEC，做时间对齐与预处理，覆盖 2010–2025 年。</p>
+<p>模型支持多步预测，并用注意力分析解释输入变量的贡献；实现以 ionopy 工具包开源。</p><h3>实现层面的关键变化</h3><p>多变量时序预测 + 注意力解释；没有做同化或物理约束。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>模型在 2010–2025 年数据上支持最长 24 小时提前量，报告的最优 RMSE 低至 3.33 TECU；太阳 EUV 辐照是最强预测信号。</p>
+<p>注意力分析提供了可解释性，开源 ionopy 便于复现与社区扩展。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>3.33 TECU 是报告的最优值，不代表所有站点/所有风暴期都能达到；稀疏观测的空间偏差仍可能被低估。</p>
+<p>论文聚焦 TEC，不涉及 ROTI/闪烁或定位误差；24 小时提前量对业务预警是否足够，取决于应用场景。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>TFT 可以作为你 ROTI/TEC 预报的强时序基线；尤其适合比较「加入物理驱动后，尾部事件是否真的改善」。</p>
+<p>EUV 是最强信号这一结论，对特征工程有直接参考：与其堆很多地磁指数，不如先把太阳辐照与滞后结构处理好。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>论文用 Temporal Fusion Transformer 做电离层 TEC 预报，输入包括太阳辐照、地磁指数和 GNSS VTEC，覆盖 2010–2025 年。模型支持 24 小时提前量，并通过注意力分析给出可解释性；作者同时开源了 ionopy 工具包。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>The ionosphere critically influences Global Navigation Satellite Systems (GNSS), satellite communications, and Low Earth Orbit (LEO) operations, yet accurate prediction of its variability remains challenging due to nonlinear couplings between solar, geomagnetic, and thermospheric drivers. Total Electron Content (TEC), a key ionospheric parameter, is derived from GNSS observations, but its reliable forecasting is limited by the sparse nature of global measurements and the limited accuracy of empirical models, especially during strong space weather conditions. In this work, we present a machine learning framework for ionospheric TEC forecasting that leverages Temporal Fusion Transformers (TFT) to predict sparse ionosphere data. Our approach accommodates heterogeneous input sources, including solar irradiance, geomagnetic indices, and GNSS-derived vertical TEC, and applies preprocessing and temporal alignment strategies. Experiments spanning 2010-2025 demonstrate that the model achieves robust predictions up to 24 hours ahead, with root mean square errors as low as 3.33 TECU. Results highlight that solar EUV irradiance provides the strongest predictive signals. Beyond forecasting accuracy, the framework offers interpretability through attention-based analysis, supporting both operational applications and scientific discovery.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2509.00631">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2509.00631">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

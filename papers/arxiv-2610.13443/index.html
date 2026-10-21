@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="多 chirp 干扰下，级联 NLMS 陷波会互相「打架」；LG-ANF 用局部梯度先屏蔽对手再自适应。">
+  <meta property="og:title" content="LG-ANF：多 chirp 干扰下的局部梯度陷波 · GNSS Paper Radar">
+  <meta property="og:description" content="多 chirp 干扰下，级联 NLMS 陷波会互相「打架」；LG-ANF 用局部梯度先屏蔽对手再自适应。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>LG-ANF：多 chirp 干扰下的局部梯度陷波 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">工程感知算法 · 2026-10-09 · 扩展阅读 · 匹配度 81</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">LG-ANF：多 chirp 干扰下的局部梯度陷波</span><span class="lang lang-en lang-inline" data-lang="en">Suppressing Multiple GNSS Interferers with Local-Gradient Adaptive Notch Filtering</span></h1>
+    <p class="poster-title-en">Suppressing Multiple GNSS Interferers with Local-Gradient Adaptive Notch Filtering</p>
+    <p class="poster-authors">Burak Soner, Felix Ott</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">论文针对多 chirp 干扰场景改造级联 NLMS 自适应陷波：把输入搬移到当前频率估计附近、低通滤波再搬回，形成局部带限梯度，从而在自适应前衰减竞争干扰。仿真显示在病态幅度比附近最多恢复 4 dB 带内抑制，硬件实验中固定参数下定位保持时间延长 24 秒。</span><span class="lang lang-en lang-block" data-lang="en">This paper modifies cascaded NLMS adaptive notch filtering for multiple chirp interferers. It translates the input to baseband around the current frequency estimate, low-pass filters, and translates back to form a locally band-limited gradient, attenuating competing interferers before adaptation. Simulations recover up to 4 dB in-band suppression near pathological amplitude ratios, and a hardware experiment extends position-lock survival by 24 seconds.</span></p>
+    <div class="poster-meta"><span>2026-10-09</span><span>2610.13443</span><span>eess.SP</span><span>工程感知算法</span><a href="https://arxiv.org/abs/2610.13443">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">自适应陷波</span><span class="tag">chirp 干扰</span><span class="tag">NLMS</span><span class="tag">抗干扰</span><span class="tag">接收机前端</span><span class="tag">定位保持</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">4 dB</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">带内抑制恢复</span><span class="lang lang-en lang-inline" data-lang="en">in-band suppression</span></span></div><div class="poster-metric"><strong class="poster-metric-value">13 dB</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">边缘参数增益</span><span class="lang lang-en lang-inline" data-lang="en">edge-case gain</span></span></div><div class="poster-metric"><strong class="poster-metric-value">24 s</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">定位保持延长</span><span class="lang lang-en lang-inline" data-lang="en">position-lock extension</span></span></div><div class="poster-metric"><strong class="poster-metric-value">+1</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">额外参数</span><span class="lang lang-en lang-inline" data-lang="en">extra parameter</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>基于 NLMS 的自适应陷波滤波器是 GNSS 接收机抑制窄带干扰的常用手段。多干扰源的传统做法是级联多个 ANF，但当多个 chirp 干扰功率相近时，各级会互相干扰，性能下降。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">自适应陷波</span><span class="tag">chirp 干扰</span><span class="tag">NLMS</span><span class="tag">抗干扰</span><span class="tag">接收机前端</span><span class="tag">定位保持</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>仿真显示，在病态幅度比附近，LG-ANF 相对标准 NLMS-ANF 最多恢复 4 dB 带内抑制；在部分边缘参数组合下可达 13 dB，但作者明确这是逐条件优化后的上界。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是：对级联 NLMS-ANF 的更新规则做局部梯度改造，专门处理相似功率多 chirp。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>需要额外的低通滤波与频率搬移；局部带宽参数需要在不同干扰条件下选择。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>接收机前端陷波，输出净化后的信号；没有改变后续捕获/跟踪/定位算法。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>在自适应之前先做「局部化」，让每个陷波器只看到自己频带附近的误差，避免多个 chirp 互相拉扯。</p></div></div>
+    <p class="poster-method-essence-note">多 chirp 干扰下，级联 NLMS 陷波会互相「打架」；LG-ANF 用局部梯度先屏蔽对手再自适应。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>多 chirp 干扰下，级联 NLMS 陷波会互相「打架」；LG-ANF 用局部梯度先屏蔽对手再自适应。</p><p>论文针对多 chirp 干扰场景改造级联 NLMS 自适应陷波：把输入搬移到当前频率估计附近、低通滤波再搬回，形成局部带限梯度，从而在自适应前衰减竞争干扰。仿真显示在病态幅度比附近最多恢复 4 dB 带内抑制，硬件实验中固定参数下定位保持时间延长 24 秒。</p><h3>研究问题</h3><p>基于 NLMS 的自适应陷波滤波器是 GNSS 接收机抑制窄带干扰的常用手段。多干扰源的传统做法是级联多个 ANF，但当多个 chirp 干扰功率相近时，各级会互相干扰，性能下降。</p>
+<p>论文要解决的是「相似功率多 chirp」这一病态场景：能否在不显著增加复杂度的前提下，让各级独立跟踪各自的 chirp。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>作者提出局部梯度（LG）更新规则：把输入搬移到当前频率估计附近，低通滤波，再搬回原频段，形成局部带限梯度信号，从而在自适应前衰减竞争干扰。</p>
+<p>该修改只增加一个参数，可退化为标准 NLMS-ANF；作者给出梯度平均失效的分析与可视化，并用仿真扫描幅度比，最后在硬件上验证定位保持时间。</p><h3>实现层面的关键变化</h3><p>接收机前端陷波，输出净化后的信号；没有改变后续捕获/跟踪/定位算法。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>仿真显示，在病态幅度比附近，LG-ANF 相对标准 NLMS-ANF 最多恢复 4 dB 带内抑制；在部分边缘参数组合下可达 13 dB，但作者明确这是逐条件优化后的上界。</p>
+<p>硬件实验中固定低通参数 α=0.5，LG-ANF 相对标准 ANF 将定位保持时间延长 24 秒；在非病态多 chirp 场景下，性能退化为标准 NLMS-ANF。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>4 dB/13 dB 是优化后的上界，实际部署需要固定的局部带宽，增益会低于最优值；硬件只验证了一组参数。</p>
+<p>论文聚焦 chirp 干扰，未覆盖宽带压制、脉冲干扰或欺骗；也没有评估对多星座/多频接收机的影响。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>对工程感知很实际：干扰抑制是观测质量的第一道门，前端没处理好，后面的 ROTI/质量指标会被污染。</p>
+<p>如果你在做电离层监测，强干扰可能伪装成 TEC 梯度或周跳；这类前端算法的价值是先把「非电离层」的异常排除掉。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>论文针对多 chirp 干扰场景改造级联 NLMS 自适应陷波：把输入搬移到当前频率估计附近、低通滤波再搬回，形成局部带限梯度，从而在自适应前衰减竞争干扰。仿真显示在病态幅度比附近最多恢复 4 dB 带内抑制，硬件实验中固定参数下定位保持时间延长 24 秒。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>Adaptive notch filters (ANFs) based on the normalized least mean squares (NLMS) algorithm are an established technique for suppressing narrowband interference in GNSS receivers. The traditional solution for multiple interferers is simply cascading the NLMS-ANF into multiple stages but this solution degrades performance when multiple chirp jammers of similar power are present. We propose a low-complexity modification to the cascaded NLMS-ANF update rule to resolve this: a local gradient (LG) formulation: LG-ANF. The LG-ANF forms a locally bandlimited gradient signal by translating the input to baseband around the current frequency estimate, low-pass filtering it, and translating it back, thereby attenuating competing interferers before adaptation. Simulations show that the LG-ANF reduces to the standard NLMS-ANF outside the pathological multi-chirp regime, while recovering up to 4dB of in-band suppression around pathological amplitude ratios under per-condition optimization of the local bandwidth, and up to 13dB for selected edge-case parameter combinations. In a hardware experiment using a fixed alpha_lp=0.5, the LG-ANF extends position-lock survival by 24s relative to the standard ANF.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2610.13443">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2610.13443">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

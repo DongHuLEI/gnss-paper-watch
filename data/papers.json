@@ -1,0 +1,889 @@
+{
+  "edition": {
+    "date": "2026-10-20",
+    "number": "001",
+    "kicker": "GNSS × IONOSPHERE × LEARNING",
+    "title": "定位、电离层与智能感知的每日论文雷达",
+    "subtitle": "沿「高精度定位 → 电离层监测 → 深度学习预测 → 工程感知」四条主线筛选论文；先看它解决了什么工程约束，再看指标涨了多少。",
+    "blurb": "首期从 2025-08 至 2026-10 的候选论文中精选 16 篇，每篇给出方法拆解、关键数字、适用边界，以及与你现有 ROTI–PPP、CDSF-NET、DORIS/ISMR 工作的连接点。",
+    "stats": [
+      { "value": "16", "label": "本期论文" },
+      { "value": "4", "label": "推荐领域" },
+      { "value": "7", "label": "核心推荐" },
+      { "value": "14", "label": "个月跨度" }
+    ],
+    "overview": [
+      "这 16 篇可以放在一条链上看：定位端正在从「单站解算」走向「网络协同 + LEO 增强」；电离层端从「单个指数」走向「多仪器联合归因」；预测端从「网格回归」走向「链路级图结构 + 高时间分辨率」；工程感知端则从「阈值/二值可见」走向「学习型质量评估 + 网络一致性」。",
+      "与你知识库最直接相关的三条线是：① ROTI/弧段状态如何进入 PPP 风险识别（对应 IonoDGNN、t-STEP、CORS-NCI）；② 磁暴期间「密度增强 vs 峰值抬升」和「SED–等离子体层羽流同步」如何改变事件标签与特征设计；③ 观测质量、干扰与完好性如何从接收机前端一路传到定位权重。",
+      "本期不把「指标更高」自动等同于「更值得用」。每篇都标了适用边界：单站/单事件、仿真/实测、区域/全球，以及它没有回答的问题。"
+    ],
+    "threads": [
+      {
+        "domain": "gnss",
+        "title": "定位：网络化与 LEO 化",
+        "text": "协作差分、去中心化 PPP-RTK 改正数、LEO 星座几何、城市 RTK-VI，共同把「定位性能」从单站精度扩展为网络可用性。"
+      },
+      {
+        "domain": "iono",
+        "title": "电离层：从指数到机制",
+        "text": "多仪器联合归因、STEVE 平静期闪烁、D2C 频段外推、SED–等离子体层耦合，说明「低 ROTI」不等于「无风险」。"
+      },
+      {
+        "domain": "ml",
+        "title": "预测：链路级与高分辨率",
+        "text": "动态图 + 星历条件化、30 秒 TEC/ROTI、全球图时空预报、稀疏 TFT，重点都在「保留小尺度结构」。"
+      },
+      {
+        "domain": "perception",
+        "title": "感知：质量、干扰与完好性",
+        "text": "点监督视觉质量、CORS 网络一致性、复合干扰识别、局部梯度陷波，把「观测可不可信」变成可计算量。"
+      }
+    ],
+    "note": [
+      "编选口径：领域相关性 40%、方法增量 25%、证据强度 20%、可复现性 10%、与知识库主线的连接度 5%。",
+      "本期为人工精选，不是 arXiv 全量自动摘要；所有英文摘要来自 arXiv，中文解读为本站撰写，数字均以摘要报告为准。",
+      "未在摘要中给出具体数值的论文，不补造数字；需要精确结果时请回到原文与代码。"
+    ]
+  },
+  "domains": {
+    "gnss": {
+      "label": "GNSS 高精度定位",
+      "en": "GNSS Positioning",
+      "desc": "PPP / PPP-AR / PPP-RTK、RTK、多频多系统、模糊度固定、收敛与可用性。",
+      "long": "关注从观测到解算的完整链路：函数模型、随机模型、模糊度、改正数与网络架构。优先选择能改变「收敛、可用性、连续性」判断的工作。"
+    },
+    "iono": {
+      "label": "电离层监测",
+      "en": "Ionosphere Monitoring",
+      "desc": "TEC / ROTI / GIX、闪烁、磁暴响应、SED 与等离子体层、DORIS/ISMR 观测。",
+      "long": "关注「测到什么」与「为什么」：多仪器联合、事件归因、平静期异常、频段外推，以及这些观测如何转成 GNSS 风险特征。"
+    },
+    "ml": {
+      "label": "深度学习预测",
+      "en": "Deep Learning Forecasting",
+      "desc": "TEC/ROTI 时序预报、图神经网络、Transformer、可解释性与不确定性。",
+      "long": "关注模型是否保留了对定位真正重要的小尺度结构，而不只是把日均曲线拟合得更好。"
+    },
+    "perception": {
+      "label": "工程感知算法",
+      "en": "Engineering Perception",
+      "desc": "观测质量、多路径/NLOS、干扰与欺骗、完好性、鲁棒估计、传感器融合。",
+      "long": "关注算法能否在真实工程约束下落地：标注成本、实时性、故障可解释性，以及误报/漏报的代价。"
+    }
+  },
+  "papers": [
+    {
+      "id": "2610.06759",
+      "slug": "arxiv-2610.06759",
+      "domain": "gnss",
+      "date": "2026-10-05",
+      "score": 88,
+      "tier": "核心推荐",
+      "title_zh": "LEO 星座演化如何改变 PPP 收敛：以 Xona Pulsar 为例",
+      "title_en": "Pulsar Constellation Evolution and PPP Convergence using LEO GNSS",
+      "authors": ["Claire Mah", "Thyagaraja Marathe", "Ananya Vishwanath", "Matteo Gala", "Tyler G. R. Reid", "Qamar Bader"],
+      "cats": ["eess.SP"],
+      "tags": ["LEO", "PPP", "星座几何", "DOP", "收敛", "Xona Pulsar"],
+      "one_liner": "LEO 不是「更强的 GPS」：它让几何变化更快，也让 PPP 收敛评估不能再沿用静态 DOP 逻辑。",
+      "one_liner_en": "LEO is not just a stronger GPS: faster geometry changes the PPP convergence story and breaks static-DOP evaluation habits.",
+      "lead_zh": "这篇以 Xona Pulsar 为例，把 LEO 星座放在四个部署阶段上，比较 GPS、LEO 增强 GPS 与独立 LEO 的可见性、DOP 和 PPP 收敛。它的价值不在给出某个星座的最终性能，而在提醒：LEO 的高动态让「星座几何」和「收敛时间」必须一起评估。",
+      "lead_en": "Using Xona's Pulsar constellation at four deployment stages, this case study compares GPS, LEO-augmented GPS and standalone LEO in visibility, DOP and PPP convergence. Its value is less a final performance number than a reminder that LEO dynamics force geometry and convergence to be evaluated together.",
+      "metrics": [
+        { "value": "4 个", "label": "星座部署阶段", "label_en": "deployment stages" },
+        { "value": "3 种", "label": "定位配置", "label_en": "positioning configurations" },
+        { "value": "2 组", "label": "PPP 收敛案例", "label_en": "PPP convergence cases" }
+      ],
+      "problem": [
+        "LEO 星座被广泛视为下一代 PNT 的增量：信号更强、几何变化更快、可用卫星更多。但现有 GNSS 评估方法大多是为 MEO 的准静态几何设计的，直接套用到 LEO 上，可能把「几何快速变化」误读成「性能不稳定」。",
+        "作者要回答两个具体问题：在不同部署阶段，Pulsar 的可见性和 DOP 如何演化；当 LEO 参与 PPP 时，卫星动态会怎样改变收敛过程。"
+      ],
+      "method": [
+        "论文以 Xona 的 Pulsar 为案例，选取四个星座部署阶段，分别构造 GPS、LEO 增强 GPS、独立 LEO 三种配置，计算可见性与 DOP，并用两组 PPP 场景观察收敛行为。",
+        "作者同时反思了常用评估口径：LEO 的轨道周期短、几何变化快，若仍用固定截止高度角与静态 DOP 统计，容易忽略「收敛窗口内几何已经换了几轮」这一事实。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "不是。它是一篇星座几何与 PPP 收敛的评估型案例研究，核心贡献是部署阶段对比和评估方法的讨论。" },
+        { "h": "有没有额外约束？", "p": "把 LEO 动态显式纳入评估：可见性、DOP 与 PPP 收敛都放在同一时间窗内看，而不是只报一个全天平均。" },
+        { "h": "推理/后端做了什么？", "p": "比较三种配置的卫星可见性与 DOP，并观察 PPP 收敛；没有提出新的模糊度固定或误差建模方法。" },
+        { "h": "方法本质", "p": "把「星座部署阶段」当作自变量，看 LEO 几何演化如何改变 PPP 的可观测性与收敛，而不是把 LEO 当成一个静态的额外频点。" }
+      ],
+      "results": [
+        "摘要报告了四个部署阶段的可见性与 DOP 分析，以及两组 PPP 收敛案例；结论强调 LEO 增强与独立 LEO 的差异，并讨论常用 GNSS 评估方法在 LEO 场景下的适用边界。",
+        "由于摘要未给出具体数值，本站不转写未核实数字。对读者而言，更可操作的是它的评估框架：把部署阶段、几何变化率和收敛时间放在同一张表里。"
+      ],
+      "limits": [
+        "这是单一星座（Pulsar）的案例研究，结论受星座设计、部署进度和仿真假设约束，不能直接外推到所有 LEO 导航系统。",
+        "PPP 部分只有两组收敛案例，适合提出假设，不足以给出统计意义上的性能结论；真实接收机、信号体制和钟差产品的影响仍需实测。"
+      ],
+      "relevance": [
+        "如果你在做 PPP/PPP-AR 的收敛与可用性评估，这篇提醒你把「几何变化率」作为协变量：同样数量的卫星，LEO 的几何在收敛窗口内可能已经显著变化。",
+        "对电离层风险研究也有间接意义：LEO 几何快速变化会改变穿刺点分布和观测弧段结构，进而影响 ROTI/弧段特征的采样方式。"
+      ],
+      "abstract_en": "The objective of this paper is to demonstrate the future impact of a dedicated low-earth-orbit (LEO) Global Navigation Satellite System (GNSS) on positioning, navigation, and timing (PNT), in addition to a reflective discussion on how common GNSS evaluation methods can best reflect LEO satellite dynamics. This paper will feature Xona's LEO constellation, Pulsar, at various stages of deployment in a case study comparing GPS, LEO-augmented GPS, and standalone LEO. Results include visibility and dilution of precision (DOP) analysis for Pulsar at four stages of constellation deployment, as well as two cases exploring how precise point positioning (PPP) convergence is affected by Pulsar's LEO satellite dynamics. Pulsar is highlighted in this paper for its purposeful design that allows for both GNSS augmentation through compatible signals and GNSS independence. As dedicated LEO satellite-based positioning becomes more prominent in the PNT industry, it is important to consider which methods are used to evaluate constellation geometry and positioning performance.",
+      "links": { "abs": "https://arxiv.org/abs/2610.06759", "pdf": "https://arxiv.org/pdf/2610.06759" }
+    },
+    {
+      "id": "2601.06012",
+      "slug": "arxiv-2601.06012",
+      "domain": "gnss",
+      "date": "2026-01-09",
+      "score": 85,
+      "tier": "值得跟踪",
+      "title_zh": "协作式差分 GNSS：把参考站噪声摊到网络里",
+      "title_en": "Cooperative Differential GNSS Positioning: Estimators and Bounds",
+      "authors": ["Helena Calatrava", "Daniel Medina", "Pau Closas"],
+      "cats": ["eess.SP", "stat.AP"],
+      "tags": ["DGNSS", "C-RTK", "Fisher 信息", "参考站噪声", "协作网络"],
+      "one_liner": "差分能消掉共模误差，却把参考站噪声注入用户解；协作能把这份噪声「摊薄」。",
+      "one_liner_en": "Differencing removes common-mode errors but injects reference-station noise; cooperation can dilute that noise across users.",
+      "lead_zh": "论文把协作式差分 GNSS（C-DGNSS）和协作式 RTK（C-RTK）放进统一估计框架，用 Fisher 信息矩阵显式写出网络规模、卫星几何和参考站噪声的关系。它回答的不是「协作一定更好」，而是「在什么条件下，协作能逼近理想参考站」。",
+      "lead_en": "This paper puts cooperative DGNSS and cooperative RTK into a unified estimation framework and uses Fisher information matrices to relate network size, satellite geometry and reference-station noise. It asks not whether cooperation is always better, but when it asymptotically restores the accuracy of an ideal reference station.",
+      "metrics": [
+        { "value": "2 类", "label": "C-DGNSS / C-RTK", "label_en": "cooperative estimators" },
+        { "value": "FIM", "label": "参数化性能界", "label_en": "parameterized bound" },
+        { "value": "仿真", "label": "理论验证", "label_en": "simulation validation" }
+      ],
+      "problem": [
+        "差分 GNSS 通过用户与参考站作差抑制共模误差，但参考站自身的噪声会进入差分观测，成为精度下限。高质量参考站影响较小，混合质量的大规模参考网络则会显著受限。",
+        "论文问的是：如果大量用户能够协作，是否可以在不更换参考站的情况下，缓解参考站噪声，并逼近「无噪声理想参考站」的性能。"
+      ],
+      "method": [
+        "作者建立 C-DGNSS 与 C-RTK 的统一估计框架，推导 Fisher 信息矩阵的参数化表达式，把网络规模、卫星几何和参考站噪声显式放进同一个性能界。",
+        "在此基础上分析协作的渐近行为，并用仿真验证理论结论。框架关注的是估计器与信息界，而不是某一种接收机实现。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "更像统一的理论框架与性能界，而不是一个可直接部署的定位算法；C-DGNSS/C-RTK 的估计器形式是核心。" },
+        { "h": "有没有额外约束？", "p": "需要用户间协作与信息交换；理论分析假设了网络规模、几何和参考站噪声的可建模结构。" },
+        { "h": "推理/后端做了什么？", "p": "推导 Fisher 信息矩阵并分析协作渐近性能，再用仿真验证；没有报告真实 CORS 网络实验。" },
+        { "h": "方法本质", "p": "把「参考站噪声」从单站问题改写成网络估计问题：协作不是简单平均，而是通过信息矩阵结构改变精度下限。" }
+      ],
+      "results": [
+        "论文给出协作式差分与协作式 RTK 的性能界，识别出协作能够渐近恢复理想参考站精度的条件；仿真结果与理论分析一致。",
+        "摘要没有给出具体精度提升数值。对工程读者，最重要的输出是「网络规模—几何—参考站噪声」三者的可计算关系，而不是单一场景的 RMSE。"
+      ],
+      "limits": [
+        "验证限于仿真，尚未覆盖真实 CORS 网络中的站间相关误差、通信时延、丢包和故障站。",
+        "协作假设用户愿意共享信息并保持网络连通；在隐私、成本和实时性约束下，实际可获得的协作规模可能远小于理论分析。"
+      ],
+      "relevance": [
+        "对 PPP-RTK/CORS 的参考站质量加权有直接启发：与其只用距离或站点等级，不如把参考站噪声显式放进网络估计的权重设计。",
+        "它也把「网络一致性」从工程经验提升为可分析对象，适合与你知识库里的 CORS 完好性、NCI 思路对照阅读。"
+      ],
+      "abstract_en": "In Differential GNSS (DGNSS) positioning, differencing measurements between a user and a reference station suppresses common-mode errors but also introduces reference-station noise, which fundamentally limits accuracy. This limitation is minor for high-grade stations but becomes significant when using reference infrastructure of mixed quality. This paper investigates how large-scale user cooperation can mitigate the impact of reference-station noise in conventional (non-cooperative) DGNSS systems. We develop a unified estimation framework for cooperative DGNSS (C-DGNSS) and cooperative real-time kinematic (C-RTK) positioning, and derive parameterized expressions for their Fisher information matrices as functions of network size, satellite geometry, and reference-station noise. This formulation enables theoretical analysis of estimation performance, identifying regimes where cooperation asymptotically restores the accuracy of DGNSS with an ideal (noise-free) reference. Simulations validate these theoretical findings.",
+      "links": { "abs": "https://arxiv.org/abs/2601.06012", "pdf": "https://arxiv.org/pdf/2601.06012" }
+    },
+    {
+      "id": "2512.18773",
+      "slug": "arxiv-2512.18773",
+      "domain": "gnss",
+      "date": "2025-12-21",
+      "score": 87,
+      "tier": "值得跟踪",
+      "title_zh": "全球尺度去中心化 GNSS：用图感知扩散学习做厘米级自定位",
+      "title_en": "Decentralized GNSS at Global Scale via Graph-Aware Diffusion Adaptation",
+      "authors": ["Xue Xian Zheng", "Xing Liu", "Tareq Y. Al-Naffouri"],
+      "cats": ["eess.SP"],
+      "tags": ["去中心化", "图神经网络", "扩散优化", "PPP-RTK", "CORS", "改正数共识"],
+      "one_liner": "把全球 GNSS 网看成一个时变图：每个站只和邻居交换短消息，也能收敛到厘米级并达成改正数共识。",
+      "one_liner_en": "Treat the global GNSS network as a time-varying graph: stations exchange short messages with neighbors yet reach centimeter-level self-localization and consensus corrections.",
+      "lead_zh": "论文提出全球尺度的去中心化 GNSS 架构：把数百个地面站建模为时变图，用深度线性网络学习拓扑感知的混合调度，再通过梯度跟踪扩散完成站间自定位与卫星改正数共识。目标是让 PPP/PPP-RTK 不再依赖单一大中心。",
+      "lead_en": "This work proposes a global-scale decentralized GNSS architecture: hundreds of ground stations form a time-varying graph, a deep linear network learns topology-aware mixing schedules, and gradient-tracking diffusion achieves both station self-localization and consensus satellite corrections, reducing dependence on a central hub for PPP/PPP-RTK.",
+      "metrics": [
+        { "value": "数百站", "label": "全球网络规模", "label_en": "global stations" },
+        { "value": "厘米级", "label": "站间自定位", "label_en": "self-localization" },
+        { "value": "PPP / PPP-RTK", "label": "改正数服务", "label_en": "correction service" }
+      ],
+      "problem": [
+        "网络化 GNSS 依赖集中式处理中心：中心负责收集观测、估计卫星改正数并分发。这种架构在规模、韧性和时延上都受限，一旦中心故障或链路拥塞，整个服务会退化。",
+        "论文想把「网络解算」本身去中心化：每个站只做局部推断，与邻居交换少量信息，最终在全网形成一致的卫星改正数，并同时完成自身定位。"
+      ],
+      "method": [
+        "作者把接收机网络建模为时变图，用深度线性神经网络学习拓扑感知的混合调度（mixing schedule），再采用梯度跟踪扩散策略，让各站局部推断并交换简短消息。",
+        "系统同时优化两个目标：站点的厘米级自定位，以及全网对卫星改正数产品的共识。共识改正数随后广播给用户，支持 PPP 与 PPP-RTK。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：把图感知学习、梯度跟踪扩散和 GNSS 改正数估计组合成一个去中心化架构。" },
+        { "h": "有没有额外约束？", "p": "依赖站间通信拓扑与邻居消息交换；混合调度需要训练，且要适应时变图。" },
+        { "h": "推理/后端做了什么？", "p": "各站局部推断，邻居间交换 succinct messages，迭代到自定位与改正数共识；没有单一中心收集全部观测。" },
+        { "h": "方法本质", "p": "把 GNSS 网络从「中心估计 + 广播」改成「分布式共识」：精度对齐集中式基线，但把扩展性和韧性换成了通信与拓扑设计问题。" }
+      ],
+      "results": [
+        "数值结果显示，该方法在精度上匹配集中式基线，并在收敛速度和通信开销上显著优于现有去中心化方法；站点能够达到厘米级自定位，网络形成一致的改正数产品。",
+        "摘要没有给出具体站数、收敛轮数或通信量数值，适合把它当作架构可行性证据，而不是工程部署的最终性能报告。"
+      ],
+      "limits": [
+        "结果是数值验证，尚未覆盖真实全球网络的链路时延、丢包、时钟同步和恶意节点。",
+        "图学习需要训练，拓扑变化和站点故障下的鲁棒性仍需专门评估；改正数共识的完好性没有被讨论。"
+      ],
+      "relevance": [
+        "对 CORS/PPP-RTK 的架构设计很直接：如果你关心「中心挂了怎么办」，这是一条可落地的分布式替代路线。",
+        "它也把图学习用在「网络调度」而不是「电离层预测」上，提醒你：图模型既可以建模物理场，也可以建模工程网络。"
+      ],
+      "abstract_en": "Network-based Global Navigation Satellite Systems (GNSS) underpin critical infrastructure and autonomous systems, yet typically rely on centralized processing hubs that limit scalability, resilience, and latency. Here we report a global-scale, decentralized GNSS architecture spanning hundreds of ground stations. By modeling the receiver network as a time-varying graph, we employ a deep linear neural network approach to learn topology-aware mixing schedules that optimize information exchange. This enables a gradient tracking diffusion strategy wherein stations execute local inference and exchange succinct messages to achieve two concurrent objectives: centimeter-level self-localization and network-wide consensus on satellite correction products. The consensus products are broadcast to user receivers as corrections, supporting precise point positioning (PPP) and precise point positioning-real-time kinematic (PPP-RTK). Numerical results demonstrate that our method matches the accuracy of centralized baselines while significantly outperforming existing decentralized methods in convergence speed and communication overhead.",
+      "links": { "abs": "https://arxiv.org/abs/2512.18773", "pdf": "https://arxiv.org/pdf/2512.18773" }
+    },
+    {
+      "id": "2609.30814",
+      "slug": "arxiv-2609.30814",
+      "domain": "gnss",
+      "date": "2026-09-25",
+      "score": 86,
+      "tier": "值得跟踪",
+      "title_zh": "SeA-RVINS：城市峡谷里把 RTK、视觉与惯性绑在一起",
+      "title_en": "SeA-RVINS: Semantic-Aware Tightly Coupled RTK-Visual-Inertial System with Correlation-Preserving Robust Estimation for Urban Navigation",
+      "authors": ["Wang Hu", "Bo Wu"],
+      "cats": ["cs.RO", "eess.SY"],
+      "tags": ["RTK", "视觉惯性", "因子图", "多路径", "鲁棒估计", "模糊度延续"],
+      "one_liner": "城市峡谷里，RTK 的多路径和视觉的错关联会互相「传染」；SeA-RVINS 用语义前端和保相关鲁棒估计把两者分开处理。",
+      "one_liner_en": "In urban canyons, RTK multipath and false visual associations can contaminate each other; SeA-RVINS separates them with a semantic frontend and correlation-preserving robust estimation.",
+      "lead_zh": "SeA-RVINS 是一个固定滞后因子图的 RTK-视觉-惯性系统。它先用语义感知的学习型双目前端剔除不可靠跟踪，再对双差 GNSS 采用保持共享枢轴相关结构的动态协方差缩放，并用「短弧共享 + 随机游走软连接」的模糊度延续策略处理断弧。",
+      "lead_en": "SeA-RVINS is a fixed-lag factor-graph RTK-visual-inertial system. A semantic-aware learned stereo frontend rejects unreliable tracks before they enter the graph; double-differenced GNSS uses dynamic covariance scaling that preserves shared-pivot correlation; and a hybrid ambiguity-continuation strategy links short arcs with random-walk factors.",
+      "metrics": [
+        { "value": "1.6 m", "label": "最大水平误差", "label_en": "max horizontal error" },
+        { "value": "100%", "label": "可用率", "label_en": "availability" },
+        { "value": "96.16%", "label": "误差 < 1.0 m", "label_en": "epochs below 1.0 m" },
+        { "value": "20 km", "label": "城市测试路线", "label_en": "urban route" }
+      ],
+      "problem": [
+        "城市环境中的可靠绝对位姿估计同时受两类污染：GNSS 多路径导致观测偏差，视觉错误关联导致长期地标误入因子图。在紧耦合估计器中，这两类错误会通过共享状态相互放大。",
+        "现有鲁棒核多把 GNSS 残差当作独立处理，忽略双差观测共享枢轴带来的相关性；模糊度在频繁断弧时也容易被重置，造成可用性下降。"
+      ],
+      "method": [
+        "系统采用固定滞后因子图，前端用语义感知的学习型双目跟踪，先剔除不可靠轨迹，避免持久性地标进入图优化。",
+        "对双差 GNSS，作者比较 batch、scalar 和 latent-pivot 三种动态协方差缩放形式，并保留共享枢轴的相关结构；模糊度采用混合延续策略：短弧内共享一个模糊度状态，弧段之间用随机游走因子软连接。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是系统级新组合：语义前端、保相关鲁棒估计、模糊度延续三部分共同服务于城市 RTK-VI。" },
+        { "h": "有没有额外约束？", "p": "需要双目图像与语义前端；模糊度延续只在「验证过连续性」的短弧内共享，并非无条件连接。" },
+        { "h": "推理/后端做了什么？", "p": "固定滞后因子图优化，GNSS 双差残差用 DCS 类鲁棒核处理，视觉/惯性/RTK 共同约束位姿与模糊度。" },
+        { "h": "方法本质", "p": "不是单纯换一个鲁棒核，而是把「哪些观测可信」「哪些弧段可共享模糊度」变成前端和图结构层面的决策。" }
+      ],
+      "results": [
+        "在约 20 km 的 TEX-CUP 公开数据路线（约 50% 深度城市）上，latent-pivot 配置达到 100% 可用率、1.6 m 最大水平误差，96.16% 的历元低于 1.0 m，99.90% 低于 1.5 m。",
+        "作者将实现开源。摘要没有分解各模块的单独贡献，因此不能把全部增益归因于某一个鲁棒核或语义前端。"
+      ],
+      "limits": [
+        "验证集中在一条公开城市路线，跨城市、跨季节和不同相机的泛化仍未证明；学习型前端的域偏移会直接影响图优化。",
+        "模糊度延续依赖连续性验证，验证失败时的行为与恢复时间需要看正文；论文也没有专门分析电离层扰动对 RTK 模糊度的影响。"
+      ],
+      "relevance": [
+        "对 PPP-AR/RTK 的工程实现很实用：报告「可用率 + 最大误差 + 分位数」比只报 RMS 更接近用户真正关心的风险。",
+        "保相关鲁棒估计与弧段延续策略，可以和你知识库里的「短弧比例、连续弧龄、定位恢复」特征设计互相印证。"
+      ],
+      "abstract_en": "Reliable absolute pose estimation in urban environments is undermined by outlier measurements and incorrect temporal associations that can persist in tightly coupled estimators. Global Navigation Satellite System (GNSS) observations provide globally referenced measurements but are prone to multipath effects. Visual-inertial sensing supplies local motion constraints, but false visual associations can corrupt the estimator. We present SeA-RVINS, a fixed-lag factor-graph Real-Time Kinematic (RTK) visual-inertial system for robust urban pose estimation. A semantic-aware learned stereo frontend rejects unreliable tracks before persistent landmarks enter the graph. For double-differenced GNSS measurements, SeA-RVINS applies Dynamic Covariance Scaling through configurable batch, scalar, and latent-pivot robust formulations while retaining the shared-pivot correlation structure. We propose a hybrid ambiguity-continuation strategy that shares one ambiguity state over short arcs with verified continuity and softly links successive arcs through random-walk factors. On an approximately 20-km route from the public TEX-CUP dataset, including about 50% deep-urban driving, the latent-pivot configuration achieves 100% availability and a 1.6-m maximum horizontal error, with 96.16% and 99.90% of epochs below 1.0 and 1.5 m, respectively.",
+      "links": { "abs": "https://arxiv.org/abs/2609.30814", "pdf": "https://arxiv.org/pdf/2609.30814" }
+    },
+    {
+      "id": "2603.14454",
+      "slug": "arxiv-2603.14454",
+      "domain": "iono",
+      "date": "2026-03-15",
+      "score": 90,
+      "tier": "核心推荐",
+      "title_zh": "一场正相磁暴的半球不对称：多仪器联合归因",
+      "title_en": "Multi-instrument constraints on a hemispherically asymmetric positive ionospheric storm in the 60-180 deg E sector during the 12-13 November 2025 geomagnetic storm",
+      "authors": ["Pan Xiong", "Jianghe Chen", "Xuhui Shen", "Tong Liu", "Angelo De Santis", "Sergey Pulinets"],
+      "cats": ["physics.geo-ph", "physics.space-ph"],
+      "tags": ["磁暴", "TEC", "半球不对称", "SED", "LSTID", "多仪器"],
+      "one_liner": "一场 Dst −214 nT 的磁暴里，TEC 正相增强在北半球更强更久；但峰值高度没有同步抬升，说明「抬升驱动」解释不够。",
+      "one_liner_en": "During a Dst −214 nT storm, positive TEC enhancement was stronger and longer in the Northern Hemisphere, yet peak height did not rise coherently, challenging uplift-only explanations.",
+      "lead_zh": "论文用 JPL GIM TEC、区域 GNSS、北斗 GEO、COSMIC-2 掩星、测高仪、Swarm、HF Doppler 和 TIMED/GUVI 多源数据，联合分析 2025 年 11 月 12–13 日磁暴在 60–180°E 的电离层响应。核心发现是显著半球不对称的正相风暴，且增强以密度为主，而非一致性的峰值高度抬升。",
+      "lead_en": "Combining JPL GIM TEC, dense regional GNSS, BeiDou GEO links, COSMIC-2 radio occultation, ionosondes, Swarm, HF Doppler and TIMED/GUVI, this study resolves the ionospheric response to the 12-13 November 2025 storm over 60-180°E. It finds a strongly hemispherically asymmetric positive storm that is density-dominated rather than a coherent peak-height uplift.",
+      "metrics": [
+        { "value": "−214 nT", "label": "Dst 最小值", "label_en": "minimum Dst" },
+        { "value": "60–180°E", "label": "分析扇区", "label_en": "longitude sector" },
+        { "value": "8 类", "label": "联合观测手段", "label_en": "instrument types" },
+        { "value": "UT 1–6", "label": "LSTID 跨赤道", "label_en": "LSTID interval" }
+      ],
+      "problem": [
+        "磁暴期间的电离层正相/负相响应由电动力学、热层成分和中性风共同控制，单看 TEC 很难把「密度增加」「峰值高度抬升」「成分变化」区分开，也就难以把扰动归因到具体机制。",
+        "2025 年 11 月 12–13 日的强磁暴提供了一个多仪器同时覆盖的机会。作者要检验：这个扇区的正相增强是否伴随一致的峰值高度抬升，以及南北半球为何不对称。"
+      ],
+      "method": [
+        "作者联合 JPL GIM TEC、密集区域 GNSS、北斗 GEO 连续链路、COSMIC-2 掩星、地面测高仪、Swarm 原位电子密度、HF Doppler 和 TIMED/GUVI 热层成分，做跨仪器的一致性分析。",
+        "分析重点不是单一指数的时序，而是把 TEC、NmF2/foF2、hmF2/h'F2、O/N2 和 LSTID 传播放在同一事件时间轴上，检验不同观测是否支持同一种机制。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "不是。它是一篇多仪器事件归因研究，价值在证据链和机制约束，而不是新模型。" },
+        { "h": "有没有额外约束？", "p": "需要多源数据的时空匹配与交叉校准；不同仪器的采样、覆盖和响应高度不同，不能简单拼接。" },
+        { "h": "推理/后端做了什么？", "p": "对 TEC、电子密度剖面、峰值高度、成分和 Doppler 做联合分析；没有提出预测或定位算法。" },
+        { "h": "方法本质", "p": "用「密度 vs 高度 vs 成分」三个维度拆开正相风暴，避免把 TEC 增加直接等同于电动力学抬升。" }
+      ],
+      "results": [
+        "观测到日侧主导的正相 TEC 风暴，北半球中低纬的增强更强、持续更久；掩星、测高仪和 Swarm 联合显示增强以密度为主，NmF2 与 foF2 增加，但没有扇区尺度一致的 hmF2/h'F2 抬升。",
+        "UT 1–6 有相干的大尺度行进电离层扰动跨赤道传播，而 HF Doppler 振荡在 UT 6–24 才达到最大，说明积分 TEC 响应与反射高度动力学之间存在时间错位；南半球 O/N2  depletion 与更快消退相一致。"
+      ],
+      "limits": [
+        "这是单一磁暴、单一扇区的事件研究，结论不能直接外推到所有经度与季节；北半球 GUVI 覆盖在该时段有限，成分证据并不对称。",
+        "多仪器联合提高了解释力，但仍不能给出唯一的因果归因；论文没有分析该事件对 PPP/RTK 定位误差的具体影响。"
+      ],
+      "relevance": [
+        "对你做磁暴事件标签很有用：TEC 增强不一定意味着峰值高度抬升，若把两者混成一个「扰动等级」，会丢失机制信息。",
+        "「TEC 响应与 Doppler 响应存在时间错位」也提醒你：ROTI 回落、TEC 恢复和 PPP 恢复可能不是同一个时刻，这正是你知识库里「时序失配」问题的物理背景之一。"
+      ],
+      "abstract_en": "Geomagnetic storms drive complex ionospheric responses through coupled electrodynamic and thermospheric processes, yet attributing storm-time TEC perturbations to specific mechanisms remains challenging. We investigate the ionospheric response to the 12-13 November 2025 intense geomagnetic storm (Dst minimum = -214 nT) in the 60-180 deg E sector using a coordinated multi-instrument dataset comprising JPL GIM TEC, dense regional GNSS networks, continuous BeiDou GEO links, COSMIC-2 radio occultation, ground ionosondes, Swarm in-situ electron density, HF Doppler soundings, and TIMED/GUVI thermospheric composition observations. The observations reveal a dayside-dominant positive TEC storm with pronounced hemispheric asymmetry, where Northern Hemisphere mid-to-low latitudes exhibit stronger and longer-lasting enhancement than the Southern Hemisphere. Joint analysis of radio occultation, ionosonde, and Swarm data indicates that the enhancement is density-dominated with NmF2 and foF2 increases but with no coherent, sector-scale peak-height uplift in hmF2 or h'F2, posing challenges for uplift-only electrodynamic interpretations. Coherent large-scale traveling ionospheric disturbances propagate across the equator during UT 1-6, while HF Doppler oscillations maximize later during UT 6-24, revealing a timing offset between integrated TEC responses and reflection-height dynamics.",
+      "links": { "abs": "https://arxiv.org/abs/2603.14454", "pdf": "https://arxiv.org/pdf/2603.14454" }
+    },
+    {
+      "id": "2608.25764",
+      "slug": "arxiv-2608.25764",
+      "domain": "iono",
+      "date": "2026-08-26",
+      "score": 89,
+      "tier": "核心推荐",
+      "title_zh": "平静期的一次弱 STEVE，也能扰动南极 GNSS 信号",
+      "title_en": "A quiet STEVE disturbs navigation satellites' signals in the Antarctic",
+      "authors": ["Daria Kotova", "Luca Spogli", "Yaqi Jin", "Wojciech Miloch"],
+      "cats": ["physics.space-ph"],
+      "tags": ["STEVE", "闪烁", "南极", "50 Hz", "亚极光", "平静期风险"],
+      "one_liner": "地磁平静期的一次弱 STEVE，也能在 50 Hz GNSS 记录里留下可测的相位与幅度闪烁。",
+      "one_liner_en": "A weak STEVE during quiet geomagnetic conditions still produced measurable phase and amplitude scintillation in 50 Hz GNSS recordings.",
+      "lead_zh": "论文首次报告南极上空一次地磁平静期 STEVE 事件与 GNSS 信号波动的对应关系：用协同光学观测和两个南极站的 50 Hz 闪烁数据，发现信号路径与 STEVE 弧相交时相位/幅度闪烁增强，并据此讨论亚极光区在「看似平静」空间天气下的导航脆弱性。",
+      "lead_en": "This paper reports the first STEVE event over Antarctica during quiet geomagnetic conditions with coincident GNSS signal fluctuations. Coordinated optics and 50 Hz scintillation data from two stations show enhanced phase and amplitude scintillation when signal paths intersect the STEVE arc, highlighting navigation vulnerability in subauroral regions under seemingly benign space weather.",
+      "metrics": [
+        { "value": "50 Hz", "label": "闪烁采样率", "label_en": "scintillation cadence" },
+        { "value": "2 站", "label": "南极协同观测", "label_en": "Antarctic stations" },
+        { "value": "130–270 km", "label": "结构高度变化", "label_en": "apparent altitude range" },
+        { "value": "平静期", "label": "地磁条件", "label_en": "quiet geomagnetic" }
+      ],
+      "problem": [
+        "STEVE 是出现在极光椭圆赤道侧的一种窄弧光现象，与强烈的亚极光等离子体流和热层加热有关。这些条件可能产生等离子体不规则体，但此前缺乏「平静期 STEVE 直接影响无线电传播」的直接观测。",
+        "如果弱 STEVE 也能影响 GNSS，那么「地磁平静 = 导航风险低」这一工程假设就不成立，尤其在依赖精密定位的南极科考与航运区域。"
+      ],
+      "method": [
+        "作者联合南极两个站的光学观测与 50 Hz 高频 GNSS 闪烁记录，逐个检查卫星信号路径与 STEVE 弧的几何相交关系，比较相交前后的相位与幅度闪烁。",
+        "同时利用光学结构在不同仰角的投影，估计 STEVE 表观高度的 temporal variation，讨论其与等离子体不规则体的关系。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "不是。它是一篇观测发现型论文，核心是首次把平静期 STEVE 与 GNSS 闪烁在同一时空上对应起来。" },
+        { "h": "有没有额外约束？", "p": "需要高采样率闪烁接收机与光学观测的协同；事件发生在南极，站点几何和观测条件有特殊性。" },
+        { "h": "推理/后端做了什么？", "p": "对 50 Hz GNSS 相位/幅度序列做闪烁分析，并与光学弧位置比对；没有提出预测模型。" },
+        { "h": "方法本质", "p": "把「光学现象—信号路径相交—闪烁增强」三件事锁在同一事件里，用几何相交作为归因证据。" }
+      ],
+      "results": [
+        "在信号路径与 STEVE 弧相交时，两个南极站都观测到增强的相位与幅度闪烁，表明存在等离子体不规则体；光学结构表观高度在约 130–270 km 范围内变化。",
+        "论文强调这是一次相对弱的 STEVE、且发生在平静地磁条件下，因此把 STEVE 的导航影响从「强磁暴/强极光」扩展到更普通的背景。"
+      ],
+      "limits": [
+        "只有一个事件、两个站点，无法统计发生率；光学覆盖与天气条件会限制事件识别。",
+        "论文没有量化对定位误差或 PPP 收敛的影响，也没有区分幅度/相位闪烁对不同类型的接收机与信号体制的差异。"
+      ],
+      "relevance": [
+        "对你做「低 ROTI 是否等于低风险」很直接：平静期也可能出现局地闪烁，单看 ROTI 可能漏掉亚极光/局地结构。",
+        "如果你有 ISMR 或高频闪烁接收机，这篇提供了一个可复现的分析模板：光学弧几何 + 信号路径相交 + 50 Hz 闪烁统计。"
+      ],
+      "abstract_en": "Strong Thermal Emission Velocity Enhancement (STEVE) is a narrow optical phenomenon that occurs equatorward of the auroral oval and is associated with intense subauroral plasma flows and thermospheric heating. Although these conditions can produce plasma irregularities, direct evidence of STEVE effects on radio wave propagation during geomagnetically quiet conditions has so far not been observed. Here we report for the first time a STEVE event observed over Antarctica during quiet geomagnetic conditions and show that it produced measurable fluctuations in the Global Navigation Satellite System (GNSS) signals. Using coordinated optical observations and high-resolution (50 Hz) GNSS scintillation measurements from two Antarctic stations, we identify enhanced phase and amplitude scintillation coincident with intersections between GNSS signal paths and the STEVE arc. The observations indicate the presence of plasma irregularities and suggest substantial temporal variations in the apparent altitude of the optical structure (vertical motion within the 130-270 km range).",
+      "links": { "abs": "https://arxiv.org/abs/2608.25764", "pdf": "https://arxiv.org/pdf/2608.25764" }
+    },
+    {
+      "id": "2602.17143",
+      "slug": "arxiv-2602.17143",
+      "domain": "iono",
+      "date": "2026-02-19",
+      "score": 86,
+      "tier": "值得跟踪",
+      "title_zh": "把 L 波段闪烁外推到直连手机频段",
+      "title_en": "Assessing Ionospheric Scintillation Risk for Direct-to-Cellular Satellite Communications using Frequency-Scaled GNSS Observations",
+      "authors": ["Abdollah Masoud Darya", "Muhammad Mubasshir Shaikh"],
+      "cats": ["eess.SP", "physics.ao-ph", "physics.space-ph"],
+      "tags": ["闪烁", "D2C", "频率外推", "COSMIC-2", "低波段", "N255/N256"],
+      "one_liner": "把 L 波段 GNSS 闪烁按频率外推到直连手机频段：低波段风险是 N255/N256 的两倍以上。",
+      "one_liner_en": "Scaling L-band GNSS scintillation to direct-to-cellular bands shows the low-band occurrence rate is more than twice that at N255/N256.",
+      "lead_zh": "论文用沙迦 5 年地基 GNSS 闪烁数据和 2 年 FORMOSAT-7/COSMIC-2 掩星数据，把 L 波段闪烁外推到 D2C 的低波段与 3GPP N255/N256，比较昼夜、季节和方位特征。结果显示 20–22 LT、春秋分附近最强，且南向链路占主导。",
+      "lead_en": "Using five years of ground-based GNSS scintillation data from Sharjah and two years of FORMOSAT-7/COSMIC-2 occultation data, this study scales L-band scintillation to D2C low-band and 3GPP N255/N256. Occurrence peaks at 20-22 LT around equinoxes, with a strong southward-link dependence.",
+      "metrics": [
+        { "value": "5 年", "label": "沙迦地基数据", "label_en": "ground-based years" },
+        { "value": "2 年", "label": "F7/C2 掩星", "label_en": "RO years" },
+        { "value": "20–22 LT", "label": "闪烁峰值时段", "label_en": "peak local time" },
+        { "value": ">2×", "label": "低波段 vs N255/N256", "label_en": "low-band ratio" }
+      ],
+      "problem": [
+        "直连手机（D2C）卫星链路的上下行都会受到电离层闪烁影响，但 D2C 频段缺乏长期、连续的闪烁观测。地基 GNSS 闪烁接收机覆盖有限，天基掩星可以补足海洋与偏远地区。",
+        "论文要回答：能否用 L 波段 GNSS 闪烁观测，按频率关系外推到 D2C 相关频段，并给出昼夜、季节和方位依赖的风险图景。"
+      ],
+      "method": [
+        "作者使用沙迦 5 年地基 GNSS 闪烁数据与 2 年 F7/C2 掩星数据，按频率缩放把 L 波段幅度闪烁映射到 D2C 低波段、N255 与 N256。",
+        "随后比较地基与天基的昼夜/季节分布，并分析地基观测中的方位依赖，最后讨论不同频段的相对鲁棒性。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "不是新预测模型，而是「频率外推 + 地基/天基交叉验证」的风险评估方法。" },
+        { "h": "有没有额外约束？", "p": "频率缩放依赖闪烁谱与传播几何假设；只分析幅度闪烁，不覆盖相位闪烁和链路预算。" },
+        { "h": "推理/后端做了什么？", "p": "把 L 波段观测按频率缩放到目标频段，统计 occurrence rate 与方位/季节分布，并与掩星结果对照。" },
+        { "h": "方法本质", "p": "把「已有 GNSS 闪烁基础设施」变成「新频段风险代理」，降低 D2C 频段直接观测不足的门槛。" }
+      ],
+      "results": [
+        "地基与天基观测都显示 20–22 LT 的明显日变化峰值，春秋分附近增强，且发生率随太阳活动上升。",
+        "地基观测显示强方位依赖，多数事件出现在南向卫星链路；低波段的闪烁发生率超过 N255/N256 的两倍，说明更高 D2C 频段相对更稳健。"
+      ],
+      "limits": [
+        "结果来自阿联酋一个区域，不能直接代表全球低纬/赤道区；天基掩星与地基接收机的采样几何不同。",
+        "只处理幅度闪烁，频率缩放没有覆盖相位闪烁、强闪烁饱和和非平稳谱；也没有做端到端 D2C 链路误码率验证。"
+      ],
+      "relevance": [
+        "对你做闪烁监测与频率风险管理很有用：可以把「频段—发生率—方位」做成一张工程风险表，而不是只报一个站点 ROTI。",
+        "它也提示：GNSS 闪烁观测的价值不只在 GNSS 自身，还可以外推到通信、D2C 和航空等相邻链路。"
+      ],
+      "abstract_en": "One of the key issues facing Direct-to-Cellular (D2C) satellite communication systems is ionospheric scintillation on the uplink and downlink, which can significantly degrade link quality. This work investigates the spatial and temporal characteristics of amplitude scintillation at D2C frequencies by scaling L-band scintillation observations from Global Navigation Satellite Systems (GNSS) receivers to bands relevant to D2C operation, including the low-band, and 3GPP's N255 and N256. These observations are then compared to scaled radio-occultation scintillation observations from the FORMOSAT-7/COSMIC-2 (F7/C2) mission, which can be used in regions that do not possess ground-based scintillation monitoring stations. As a proof of concept, five years of ground-based GNSS scintillation data from Sharjah, United Arab Emirates, together with two years of F7/C2 observations over the same region, corresponding to the ascending phase of Solar Cycle 25, are analyzed. Both space-based and ground-based observations indicate a pronounced diurnal scintillation peak between 20-22 local time, particularly during the equinoxes, with occurrence rates increasing with solar activity. Ground-based observations also reveal a strong azimuth dependence, with most scintillation events occurring on southward satellite links. The scintillation occurrence rate at the low-band is more than twice that observed at N255 and N256.",
+      "links": { "abs": "https://arxiv.org/abs/2602.17143", "pdf": "https://arxiv.org/pdf/2602.17143" }
+    },
+    {
+      "id": "2609.36110",
+      "slug": "arxiv-2609.36110",
+      "domain": "iono",
+      "date": "2026-09-28",
+      "score": 84,
+      "tier": "值得跟踪",
+      "title_zh": "SED 与等离子体层羽流：75 场磁暴里的同步演化",
+      "title_en": "Temporal Correlation between Ionospheric Storm-Enhanced Density Plume and Plasmaspheric Plume Occurrence",
+      "authors": ["Xiangning Chu", "Shunrong Zhang", "Jacob Bortnik", "Naomi Maruyama", "Jerry Goldstein", "Kausik Chatterjee", "David Malaspina", "Phil Erickson"],
+      "cats": ["physics.space-ph", "physics.comp-ph", "physics.geo-ph"],
+      "tags": ["SED", "等离子体层羽流", "磁暴", "TEC", "DEN3D", "统计"],
+      "one_liner": "75 场磁暴里，SED 羽流与等离子体层羽流全部同时出现，起止时间差在半小时内。",
+      "one_liner_en": "Across 75 storms, every SED plume coincided with a plasmaspheric plume, with onset and end times aligned within half an hour.",
+      "lead_zh": "论文用 2010–2024 年 75 场磁暴的 TEC 数据识别 SED 羽流，并用基于机器学习的 DEN3D 模型导出等离子体层不对称指数来识别等离子体层羽流。统计显示两者在所有事件中同现，起止时间差接近零，且起始与太阳风驱动和地磁活动峰值对齐。",
+      "lead_en": "Using TEC from 75 storms between 2010 and 2024, this study identifies SED plumes and plasmaspheric plumes via a plasmapause-asymmetry index from the machine-learning DEN3D model. Every SED plume coincided with a plasmaspheric plume, with near-zero onset/end lag and alignment with solar-wind and geomagnetic drivers.",
+      "metrics": [
+        { "value": "75 场", "label": "磁暴样本", "label_en": "storms" },
+        { "value": "2010–2024", "label": "统计时段", "label_en": "study period" },
+        { "value": "<30 min", "label": "起止时间差", "label_en": "timing lag" },
+        { "value": "100%", "label": "SED 与羽流同现", "label_en": "coincidence" }
+      ],
+      "problem": [
+        "SED 羽流是磁暴期间中纬电离层 TEC 增强的典型结构，等离子体层羽流则是 plasmasphere 向外延伸的冷等离子体结构。两者都与磁层-电离层耦合有关，但此前缺乏跨多事件的统计同步性证据。",
+        "论文要回答：SED 羽流与等离子体层羽流是否在时间上同步，起始/结束是否由同一组太阳风与地磁驱动控制。"
+      ],
+      "method": [
+        "作者在 2010–2024 年 75 场有足够 TEC 覆盖的磁暴中识别 SED 羽流；同时用基于机器学习的 DEN3D 模型导出 plasmapause asymmetry（PPA）指数，识别等离子体层羽流。",
+        "随后用 superposed epoch analysis 对齐事件起始，比较两类羽流的起止时间与太阳风/地磁指数（电场、耦合函数、AE、不对称环电流等）的峰值。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "不是新预报模型；贡献是跨 75 场磁暴的统计证据，以及用 ML 诊断量连接两类羽流。" },
+        { "h": "有没有额外约束？", "p": "SED 识别依赖 TEC 覆盖；等离子体层羽流依赖 DEN3D/PPA 模型，模型误差会进入统计。" },
+        { "h": "推理/后端做了什么？", "p": "TEC 羽流识别 + PPA 指数 + 事件对齐统计；没有做 GNSS 定位影响评估。" },
+        { "h": "方法本质", "p": "把「电离层 SED」与「等离子体层羽流」从两个独立现象，变成同一磁层-电离层耦合过程的两侧观测。" }
+      ],
+      "results": [
+        "所有识别到的 SED 羽流都伴随等离子体层羽流；两者的起始和结束时间差接近零，在半小时以内。",
+        "叠加历元分析显示，羽流起始与太阳风驱动和地磁活动峰值对齐，包括电场、耦合函数、AE 和不对称环电流指数。"
+      ],
+      "limits": [
+        "统计同现不等于因果；事件筛选依赖 TEC 覆盖，可能漏掉弱事件或海洋/低覆盖区域。",
+        "等离子体层羽流识别依赖 DEN3D 模型与 PPA 阈值，模型误差和阈值选择会影响同现率；论文没有分析对 GNSS 闪烁/定位的直接影响。"
+      ],
+      "relevance": [
+        "如果你在构建磁暴期间的 ROTI/PPP 风险特征，等离子体层状态可以作为一个「背景场」协变量，而不仅是电离层局地指数。",
+        "它也支持你知识库里的多源融合思路：DORIS/GNSS TEC 与空间物理模型（DEN3D）可以互补，而不是互相替代。"
+      ],
+      "abstract_en": "We present a statistical evidence of a temporal correlation between ionospheric storm-enhanced density (SED) and plasmaspheric plumes during magnetic storms. We identified SED plumes in 75 storms between 2010-2024 with sufficient total electron content (TEC) coverage. We also identified plasmaspheric plumes during these storms using a plasmapause asymmetry (PPA) index derived from the machine-learning-based DEN3D model. We found that all SED plumes coincided with plasmaspheric plumes. The start and end times of both phenomena exhibit near-zero lag within a half-hour delay, confirming their synchronized evolution. For the first time, superposed epoch analyses reveal that plume onsets align with solar wind driving and geomagnetic activity, including peaks in the electric field, coupling function, auroral electrojet indices, and the asymmetric ring current index, all of which facilitate plume formation.",
+      "links": { "abs": "https://arxiv.org/abs/2609.36110", "pdf": "https://arxiv.org/pdf/2609.36110" }
+    },
+    {
+      "id": "2604.18379",
+      "slug": "arxiv-2604.18379",
+      "domain": "ml",
+      "date": "2026-04-20",
+      "score": 96,
+      "tier": "核心推荐",
+      "title_zh": "IonoDGNN：沿 GNSS 视线预测 ROTI 不规则体",
+      "title_en": "Forecasting Ionospheric Irregularities on GNSS Lines of Sight Using Dynamic Graphs with Ephemeris Conditioning",
+      "authors": ["Mert Can Turkmen", "Eng Leong Tan", "Yee Hui Lee"],
+      "cats": ["cs.LG", "eess.SP", "physics.geo-ph", "physics.space-ph"],
+      "tags": ["ROTI", "动态图", "GNN", "星历条件化", "链路级预测", "新加坡"],
+      "one_liner": "不把电离层切成网格，而是在 GNSS 穿刺点构成的动态图上预测 ROTI；卫星星历让未来图结构提前可见。",
+      "one_liner_en": "Instead of gridding the ionosphere, IonoDGNN forecasts ROTI on a dynamic graph of GNSS pierce points, using satellite ephemerides to make the future graph known in advance.",
+      "lead_zh": "IonoDGNN 把电离层建模为穿刺点上的动态图，图连接随卫星位置演化。由于卫星轨迹可预测，作者用未来星历构造预测窗口内的图结构，提出「星历条件化」，从而能对只在预测期出现的视线做预测。任务是用新加坡共址接收机 2023–2025 数据做未来 2 小时 ROTI 不规则体的节点级二分类。",
+      "lead_en": "IonoDGNN models the ionosphere as a dynamic graph over ionospheric pierce points whose connectivity evolves with satellite positions. Because satellite trajectories are predictable, future graph structure is constructed from ephemerides, enabling forecasts on lines of sight that appear only in the forecast horizon. It performs node-level binary classification of ROTI irregularities up to two hours ahead using a co-located receiver pair in Singapore from 2023 to 2025.",
+      "metrics": [
+        { "value": "0.55", "label": "Brier Skill Score", "label_en": "Brier Skill Score" },
+        { "value": "0.77", "label": "PR-AUC", "label_en": "PR-AUC" },
+        { "value": "+53% / +58%", "label": "相对 persistence", "label_en": "vs persistence" },
+        { "value": "2 h", "label": "预报提前量", "label_en": "lead time" }
+      ],
+      "problem": [
+        "多数数据驱动电离层模型工作在网格产品上，而 GNSS 观测是沿卫星—接收机视线的、采样结构随时间变化的。网格化会抹掉「哪条视线在什么时候被观测到」这一信息，也不利于直接服务定位风险。",
+        "论文要回答：能否直接在 GNSS 视线上预测 ROTI 不规则体，并利用卫星轨迹可预测这一性质，对预测窗口内新出现的视线做推断。"
+      ],
+      "method": [
+        "作者把每条 GNSS 视线映射到电离层穿刺点，以穿刺点为节点构造动态图，边连接随卫星几何演化。由于未来卫星位置可由星历计算，预测窗口内的图拓扑可以提前构造，这就是「星历条件化」。",
+        "模型在图上做消息传递，输出每个节点未来是否出现 ROTI 不规则体的概率；任务设定为未来 2 小时的节点级二分类，并做了图结构/星历条件化消融和观测缺失模拟。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：把动态图神经网络与星历条件化结合，直接建模 GNSS 视线级电离层不规则体。" },
+        { "h": "有没有额外约束？", "p": "依赖星历与接收机/卫星几何；ROTI 标签由观测定义，阈值会影响正负样本比例。" },
+        { "h": "推理/后端做了什么？", "p": "在穿刺点动态图上做消息传递与节点二分类；没有做物理正向建模或数据同化。" },
+        { "h": "方法本质", "p": "把「预测未来电离层」转成「预测未来视线上的风险」：网格不再是必须的中间层，星历成为可用的先验结构。" }
+      ],
+      "results": [
+        "IonoDGNN 取得 BSS 0.55、PR-AUC 0.77；相对 persistence，BSS 提升 53%、PR-AUC 提升 58%，且提前量越长增益越大。",
+        "消融显示图结构与星历条件化都有实质贡献；在模拟观测缺失时，模型能通过邻居消息传递维持受影响节点的预测能力，恢复效果优于插值基线。"
+      ],
+      "limits": [
+        "验证集中在新加坡一对共址接收机，区域单一；2 小时提前量和二分类阈值是任务设定，换区域/换阈值需要重新校准。",
+        "星历条件化假设未来轨迹精确可知，实际星历误差、机动和接收机网络变化会影响图结构；论文没有给出概率校准的详细评估。"
+      ],
+      "relevance": [
+        "这是本期与你知识库最接近的一篇：ROTI 预测、图结构、链路级标签，正好对应「从指数到定位风险」的中间层。",
+        "可迁移的实验：把中国区域多站网络建成动态图，节点用穿刺点/弧段，标签用 PPP 误差超限或 ROTI 不规则体，比较「星历条件化」相对普通时序模型的增量。"
+      ],
+      "abstract_en": "Most data-driven ionospheric models operate on gridded products, which do not preserve the time-varying sampling structure of satellite-based sensing. We instead model the ionosphere as a dynamic graph over ionospheric pierce points, with connectivity that evolves as satellite positions change. Because satellite trajectories are predictable, the graph topology over the forecast horizon can be constructed in advance. We exploit this property to condition forecasts on the future graph structure, which we term ephemeris conditioning. This enables prediction on lines of sight (LoS) that appear only in the forecast horizon. We evaluate our framework on Global Navigation Satellite System data from a co-located receiver pair in Singapore spanning 2023 to 2025. The task is forecasting irregularities defined by the Rate of TEC Index (ROTI) up to 2 hours ahead as per-node binary classification. The resulting model, IonoDGNN, achieves a Brier Skill Score (BSS) of 0.55 and an area under the precision-recall curve (PR-AUC) of 0.77. These correspond to improvements over persistence of 53% in BSS and 58% in PR-AUC, with larger gains at longer lead times.",
+      "links": { "abs": "https://arxiv.org/abs/2604.18379", "pdf": "https://arxiv.org/pdf/2604.18379", "code": "https://github.com/Mert-chan/IonoDGNN" }
+    },
+    {
+      "id": "2606.29644",
+      "slug": "arxiv-2606.29644",
+      "domain": "ml",
+      "date": "2026-06-28",
+      "score": 93,
+      "tier": "核心推荐",
+      "title_zh": "t-STEP：30 秒 TEC 预测，顺便把 ROTI 也算出来",
+      "title_en": "t-STEP: An interpretable model for Total Electron Content predictions and irregularities estimations",
+      "authors": ["Stephen Tete", "Carl Shneider", "Maxime Cordy", "Claudio Cesaroni", "Andreas Hein", "Vasily Petrov"],
+      "cats": ["cs.LG", "physics.space-ph"],
+      "tags": ["TEC", "ROTI", "30 秒", "可解释", "SHAP", "IRI-2020"],
+      "one_liner": "把 TEC 预测做到 30 秒，再从中导出 ROT/ROTI：让预测模型直接对准闪烁监测的时间尺度。",
+      "one_liner_en": "t-STEP forecasts TEC at 30-second cadence and derives ROT/ROTI from the predicted signal, matching the time scale of scintillation monitoring.",
+      "lead_zh": "t-STEP 是一个可解释的 TEC 预测模型，输出 30 秒分辨率，并从预测信号中导出 ROT 与 ROTI。作者用太阳活动第 24 周一个低纬站的 GPS 数据训练，结合动态时间规整和 SHAP 评估，重点回答「小时级模型是否会抹掉小尺度不规则体」。",
+      "lead_en": "t-STEP is an interpretable TEC model that outputs 30-second resolution and derives ROT and ROTI from the predicted signal. Trained on GPS data from a low-latitude station during solar cycle 24, it uses dynamic time warping and SHAP to test whether hourly models smooth away small-scale irregularities.",
+      "metrics": [
+        { "value": "30 s", "label": "输出分辨率", "label_en": "output cadence" },
+        { "value": "4.38 TECU", "label": "MAE（2015）", "label_en": "MAE in 2015" },
+        { "value": "91%", "label": "预测精度", "label_en": "accuracy" },
+        { "value": "+35%", "label": "相对 IRI-2020", "label_en": "vs IRI-2020" }
+      ],
+      "problem": [
+        "现有机器学习 TEC 模型多按小时输出，适合描述日均/小时级变化，但可能把分钟级不规则体平滑掉；而闪烁监测与 ROTI 恰恰关心更短的时间尺度。",
+        "论文要回答：能否在 30 秒分辨率上预测 TEC，并从预测信号中稳定导出 ROT/ROTI，同时保持可解释性。"
+      ],
+      "method": [
+        "作者构建可解释的机器学习模型 t-STEP，用太阳活动第 24 周一个低纬站（5.49°S, 47.49°W）的 GPS 观测训练，输出 30 秒 TEC，并由此计算 ROT 与 ROTI。",
+        "评估采用多指标框架，包括动态时间规整；用 SHAP 分析特征贡献，并与 IRI-2020 及 attention-based LSTM 对比。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：把 TEC 预测从小时级推到 30 秒，并把 ROT/ROTI 作为派生诊断量。" },
+        { "h": "有没有额外约束？", "p": "依赖单站 GPS 观测与历史序列；ROTI 是由预测 TEC 推导的，不是直接观测。" },
+        { "h": "推理/后端做了什么？", "p": "30 秒 TEC 回归 + ROT/ROTI 派生 + SHAP 解释；没有做多站空间建模。" },
+        { "h": "方法本质", "p": "把「预测 TEC」与「监测不规则体」合并成一个高时间分辨率任务，让预测输出直接可用于 ROTI 诊断。" }
+      ],
+      "results": [
+        "30 秒 TEC 预测在高太阳活动年（2015）达到 91% 精度、MAE 4.38 TECU；相对 IRI-2020，小时模型精度提升 35%、绝对误差降低 57%、预测技巧提升 54%。",
+        "更重要的是，30 秒模型能捕捉不同强度磁暴期间的 TEC 不规则体形态，在相同实验条件下优于 attention-based LSTM。"
+      ],
+      "limits": [
+        "只用一个低纬站、一个太阳活动周的数据，区域与站点代表性有限；2015 是高太阳活动年，低活动年的表现需另测。",
+        "「91% 精度」的判定阈值需看正文；预测 ROTI 与观测 ROTI 的一致性没有在摘要中量化，不能直接当作闪烁监测替代品。"
+      ],
+      "relevance": [
+        "它把你的两条线接在一起：TEC 预测模型的输出时间分辨率，决定了它能否用于 ROTI/闪烁风险，而不是只能做日均背景。",
+        "对 CDSF-NET 一类 ROTI 预报的启发是：如果你的输入/输出是 30 分钟窗口，可以先评估「降采样是否抹掉了尾部事件」，再决定是否需要更高频输入。"
+      ],
+      "abstract_en": "Earth system infrastructures relying on satellite-based technologies, such as Global Positioning System (GPS) communications, are affected by ionospheric Total Electron Content (TEC) gradients. Modeling these gradients under physical constraints remains challenging due to their dynamic and transient nature. While existing machine learning (ML) models can predict hourly TEC variations, it remains unclear whether their temporal resolution is sufficient to preserve small-scale TEC irregularities within predicted signals. To address this gap, we introduce an interpretable ML-based model, t-STEP, designed to predict TEC at a 30-second resolution and estimate irregularity signatures from the modeled signals. This high cadence enables the derivation of Rate of TEC changes (ROT) and the ROT Index (ROTI) as diagnostic indicators of ionospheric variability. The model is developed using GPS observations from solar cycle 24 at a station located at 5.49°S, 47.49°W. A multi-metric evaluation framework, including dynamic time warping, is used for robustness assessment, while SHAP provides insight into feature contributions. The 30-second TEC predictions achieve 91% accuracy with a mean absolute error (MAE) of 4.38 TECU during high solar activity (2015). Compared with the International Reference Ionosphere (IRI-2020), the hourly model improves accuracy by 35%, reduces absolute errors by 57%, and increases prediction skill by 54%.",
+      "links": { "abs": "https://arxiv.org/abs/2606.29644", "pdf": "https://arxiv.org/pdf/2606.29644" }
+    },
+    {
+      "id": "2511.15004",
+      "slug": "arxiv-2511.15004",
+      "domain": "ml",
+      "date": "2025-11-19",
+      "score": 84,
+      "tier": "值得跟踪",
+      "title_zh": "IonCast：用图时空学习预报全球 TEC",
+      "title_en": "IonCast: A Deep Learning Framework for Forecasting Ionospheric Dynamics",
+      "authors": ["Halil S. Kelebek", "Linnea M. Wolniewicz", "Michael D. Vergalla", "Simone Mestici", "Giacomo Acciarini", "Bala Poduval", "Olga Verkhoglyadova", "Madhulika Guhathakurta"],
+      "cats": ["cs.LG", "astro-ph.EP"],
+      "tags": ["全球 TEC", "GraphCast", "图时空", "磁暴", "业务预报"],
+      "one_liner": "IonCast 把 GraphCast 式的图时空学习搬到全球 TEC 预报，重点验证磁暴与平静期两类留出条件。",
+      "one_liner_en": "IonCast brings GraphCast-style graph spatiotemporal learning to global TEC forecasting, with held-out validation for storm and quiet conditions.",
+      "lead_zh": "IonCast 是一组深度学习模型，其中包含受 GraphCast 启发的电离层版本。它融合多种物理驱动和观测数据，做全球 TEC 的时空预报，并在磁暴期与平静期的留出样本上对比 persistence。",
+      "lead_en": "IonCast is a suite of deep learning models including a GraphCast-inspired version for the ionosphere. It integrates physical drivers and observations for global TEC forecasting and validates on held-out storm-time and quiet conditions against persistence.",
+      "metrics": [
+        { "value": "全球", "label": "TEC 场", "label_en": "global TEC" },
+        { "value": "2 类", "label": "留出条件", "label_en": "held-out regimes" },
+        { "value": "图时空", "label": "学习架构", "label_en": "graph spatiotemporal" },
+        { "value": "优于", "label": "persistence", "label_en": "vs persistence" }
+      ],
+      "problem": [
+        "电离层 TEC 的业务预报需要同时覆盖平静期和磁暴期，而传统经验模型在强扰动下容易失效；纯时序模型又难以表达全球空间结构。",
+        "IonCast 的目标是把全球 TEC 作为一个时空场来学习，并把太阳/地磁驱动与观测数据统一进一个可扩展的图学习框架。"
+      ],
+      "method": [
+        "作者构建了一组深度学习模型，其中包含受 GraphCast 启发的图时空模型；输入包括多种物理驱动和观测数据，输出全球 TEC 预报。",
+        "验证采用磁暴期与平静期的留出样本，与 persistence 基线比较；摘要强调框架的可扩展性和对异构数据的统一能力。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是模型套件，核心是 GraphCast 式图时空学习在电离层 TEC 上的迁移。" },
+        { "h": "有没有额外约束？", "p": "需要全球 TEC 产品与物理驱动数据；图结构/分辨率选择会影响计算与预报。" },
+        { "h": "推理/后端做了什么？", "p": "全球 TEC 场预测；没有给出同化或业务延迟细节。" },
+        { "h": "方法本质", "p": "把数值天气预报的图时空建模范式搬到电离层，用数据驱动方式学习全球 TEC 演化。" }
+      ],
+      "results": [
+        "摘要报告 IonCast 在磁暴期与平静期留出样本上均优于 persistence，说明图时空学习能提供超过「昨天同时刻」的预报技巧。",
+        "摘要没有给出 RMSE、技能分数或提前量等具体数值，因此本站不补造数字；需要定量比较时应回到论文与代码。"
+      ],
+      "limits": [
+        "摘要未量化误差、提前量和极端事件表现；业务预报还需要延迟、不确定性和失效模式评估。",
+        "全球 TEC 产品本身受 GNSS 覆盖与建模误差影响，模型可能学习到产品伪影，而非纯物理信号。"
+      ],
+      "relevance": [
+        "可作为全球 TEC 预报的对照基线，与你的 CDSF-NET 区域 ROTI 预报形成「全球背景场 + 区域扰动」的分工。",
+        "如果你考虑图神经网络，IonCast 提供了「全球场」路线，IonoDGNN 提供了「链路级」路线，两者可以组合成背景—局地两级预报。"
+      ],
+      "abstract_en": "The ionosphere is a critical component of near-Earth space, shaping GNSS accuracy, high-frequency communications, and aviation operations. For these reasons, accurate forecasting and modeling of ionospheric variability has become increasingly relevant. To address this gap, we present IonCast, a suite of deep learning models that include a GraphCast-inspired model tailored for ionospheric dynamics. IonCast leverages spatiotemporal learning to forecast global Total Electron Content (TEC), integrating diverse physical drivers and observational datasets. Validating on held-out storm-time and quiet conditions highlights improved skill compared to persistence. By unifying heterogeneous data with scalable graph-based spatiotemporal learning, IonCast demonstrates how machine learning can augment physical understanding of ionospheric variability and advance operational space weather resilience.",
+      "links": { "abs": "https://arxiv.org/abs/2511.15004", "pdf": "https://arxiv.org/pdf/2511.15004" }
+    },
+    {
+      "id": "2509.00631",
+      "slug": "arxiv-2509.00631",
+      "domain": "ml",
+      "date": "2025-08-30",
+      "score": 83,
+      "tier": "值得跟踪",
+      "title_zh": "稀疏 GNSS 数据下的 TFT 电离层预报",
+      "title_en": "Forecasting the Ionosphere from Sparse GNSS Data with Temporal-Fusion Transformers",
+      "authors": ["Giacomo Acciarini", "Simone Mestici", "Halil Kelebek", "Linnea Wolniewicz", "Michael Vergalla", "Madhulika Guhathakurta", "Umaa Rebbapragada", "Bala Poduval"],
+      "cats": ["cs.LG", "cs.AI", "physics.ao-ph"],
+      "tags": ["TFT", "TEC", "稀疏观测", "24 小时", "EUV", "ionopy"],
+      "one_liner": "在稀疏 GNSS TEC 上，TFT 能提前 24 小时预报，最优 RMSE 3.33 TECU；太阳 EUV 是最强预测信号。",
+      "one_liner_en": "On sparse GNSS TEC, a Temporal Fusion Transformer forecasts up to 24 hours ahead with RMSE as low as 3.33 TECU; solar EUV is the strongest predictor.",
+      "lead_zh": "论文用 Temporal Fusion Transformer 做电离层 TEC 预报，输入包括太阳辐照、地磁指数和 GNSS VTEC，覆盖 2010–2025 年。模型支持 24 小时提前量，并通过注意力分析给出可解释性；作者同时开源了 ionopy 工具包。",
+      "lead_en": "This work uses a Temporal Fusion Transformer to forecast ionospheric TEC from solar irradiance, geomagnetic indices and GNSS VTEC over 2010-2025. It supports 24-hour lead times, offers attention-based interpretability, and releases the open-source ionopy toolkit.",
+      "metrics": [
+        { "value": "24 h", "label": "预报提前量", "label_en": "lead time" },
+        { "value": "3.33 TECU", "label": "最优 RMSE", "label_en": "best RMSE" },
+        { "value": "2010–2025", "label": "数据覆盖", "label_en": "data span" },
+        { "value": "EUV", "label": "最强预测信号", "label_en": "strongest signal" }
+      ],
+      "problem": [
+        "全球 GNSS TEC 观测在空间上稀疏，经验模型在强空间天气下精度有限；同时，太阳辐照、地磁指数与 TEC 之间存在非线性、滞后和异质采样。",
+        "论文要回答：TFT 能否在稀疏观测下做 24 小时 TEC 预报，并给出可解释的驱动因子重要性。"
+      ],
+      "method": [
+        "作者用 Temporal Fusion Transformer 融合太阳辐照、地磁指数和 GNSS VTEC，做时间对齐与预处理，覆盖 2010–2025 年。",
+        "模型支持多步预测，并用注意力分析解释输入变量的贡献；实现以 ionopy 工具包开源。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是把 TFT 系统应用于稀疏 GNSS TEC 预报，并配套开源工具；不是全新的网络结构。" },
+        { "h": "有没有额外约束？", "p": "依赖多源数据的时空对齐；稀疏观测意味着空间覆盖不均，模型需要在缺失条件下学习。" },
+        { "h": "推理/后端做了什么？", "p": "多变量时序预测 + 注意力解释；没有做同化或物理约束。" },
+        { "h": "方法本质", "p": "用注意力机制在异质驱动因子之间做动态加权，让模型在稀疏观测下仍能捕捉太阳/地磁控制。" }
+      ],
+      "results": [
+        "模型在 2010–2025 年数据上支持最长 24 小时提前量，报告的最优 RMSE 低至 3.33 TECU；太阳 EUV 辐照是最强预测信号。",
+        "注意力分析提供了可解释性，开源 ionopy 便于复现与社区扩展。"
+      ],
+      "limits": [
+        "3.33 TECU 是报告的最优值，不代表所有站点/所有风暴期都能达到；稀疏观测的空间偏差仍可能被低估。",
+        "论文聚焦 TEC，不涉及 ROTI/闪烁或定位误差；24 小时提前量对业务预警是否足够，取决于应用场景。"
+      ],
+      "relevance": [
+        "TFT 可以作为你 ROTI/TEC 预报的强时序基线；尤其适合比较「加入物理驱动后，尾部事件是否真的改善」。",
+        "EUV 是最强信号这一结论，对特征工程有直接参考：与其堆很多地磁指数，不如先把太阳辐照与滞后结构处理好。"
+      ],
+      "abstract_en": "The ionosphere critically influences Global Navigation Satellite Systems (GNSS), satellite communications, and Low Earth Orbit (LEO) operations, yet accurate prediction of its variability remains challenging due to nonlinear couplings between solar, geomagnetic, and thermospheric drivers. Total Electron Content (TEC), a key ionospheric parameter, is derived from GNSS observations, but its reliable forecasting is limited by the sparse nature of global measurements and the limited accuracy of empirical models, especially during strong space weather conditions. In this work, we present a machine learning framework for ionospheric TEC forecasting that leverages Temporal Fusion Transformers (TFT) to predict sparse ionosphere data. Our approach accommodates heterogeneous input sources, including solar irradiance, geomagnetic indices, and GNSS-derived vertical TEC, and applies preprocessing and temporal alignment strategies. Experiments spanning 2010-2025 demonstrate that the model achieves robust predictions up to 24 hours ahead, with root mean square errors as low as 3.33 TECU. Results highlight that solar EUV irradiance provides the strongest predictive signals. Beyond forecasting accuracy, the framework offers interpretability through attention-based analysis, supporting both operational applications and scientific discovery.",
+      "links": { "abs": "https://arxiv.org/abs/2509.00631", "pdf": "https://arxiv.org/pdf/2509.00631" }
+    },
+    {
+      "id": "2610.14822",
+      "slug": "arxiv-2610.14822",
+      "domain": "perception",
+      "date": "2026-10-10",
+      "score": 92,
+      "tier": "核心推荐",
+      "title_zh": "鱼眼图像 + 点监督：学习 GNSS 观测质量",
+      "title_en": "Point-Supervised Visual Learning for GNSS Measurement Quality Assessment",
+      "authors": ["Weiwei Zhai", "Penggao Yan", "Liang Wang", "Li-Ta Hsu"],
+      "cats": ["eess.SP"],
+      "tags": ["多路径", "NLOS", "鱼眼图像", "点监督", "WLS", "城市定位"],
+      "one_liner": "不用逐像素标注：用双差伪距残差自动生成「故障点」标签，让鱼眼图像学会预测 GNSS 观测质量。",
+      "one_liner_en": "No pixel-wise labels: double-difference pseudorange residuals automatically generate fault labels at satellite projections, teaching fisheye images to predict GNSS observation quality.",
+      "lead_zh": "论文提出点监督视觉框架：离线阶段用视觉辅助差分 GNSS 选参考星，并由双差伪距残差在卫星投影位置生成故障标签与样本权重；训练时只在有效标注点上计算残差加权损失，网络输出密集故障概率图，再在 WLS 中按投影位置加权。",
+      "lead_en": "This paper proposes a point-supervised visual framework. Offline, vision-assisted differential GNSS selects reference satellites and double-difference pseudorange residuals generate fault labels and sample weights at satellite projection points. A residual-weighted loss trains a dense fault-probability map, which then weights observations in WLS positioning.",
+      "metrics": [
+        { "value": "29.51–36.07%", "label": "水平 RMSE 降幅", "label_en": "horizontal RMSE reduction" },
+        { "value": "0.78 m", "label": "U-Net 最优 RMSE", "label_en": "best RMSE" },
+        { "value": "4 种", "label": "视觉模型对比", "label_en": "vision models" },
+        { "value": "跨天", "label": "泛化测试", "label_en": "cross-day test" }
+      ],
+      "problem": [
+        "城市多路径与非视距（NLOS）会显著降低 GNSS 定位精度。鱼眼天空分割能识别卫星方向上的遮挡，但「可见/不可见」是二值判断，无法区分同一可见区域内的观测质量差异。",
+        "逐像素人工标注故障区域成本高且不可扩展；论文希望用 GNSS 自身的残差信号，自动生成稀疏但可靠的监督。"
+      ],
+      "method": [
+        "离线标注阶段，作者用视觉辅助差分 GNSS 选择多颗参考卫星（基于天空可见性与高度角约束），由双差伪距残差在卫星投影位置生成故障标签与样本重要性权重。",
+        "训练阶段，网络输出密集故障概率图；只在有效标注点上计算残差加权损失，避免未标注区域主导训练。定位阶段，在卫星投影位置采样故障概率，作为 WLS 的观测权重。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：把 GNSS 残差变成视觉模型的点监督信号，再用预测的故障概率反哺定位权重。" },
+        { "h": "有没有额外约束？", "p": "需要鱼眼相机与 GNSS 的时间同步/标定；监督依赖差分 GNSS 参考星选择与残差质量。" },
+        { "h": "推理/后端做了什么？", "p": "视觉网络输出密集故障概率图，在卫星投影处采样后进入 WLS；没有改变 GNSS 观测模型本身。" },
+        { "h": "方法本质", "p": "用「定位残差」监督「视觉质量」，绕开人工像素标注，让图像提供比二值可见性更细的观测可信度。" }
+      ],
+      "results": [
+        "在与训练不同日期的城市车辆数据上，U-Net、DeepLabv3+、DINOv3、SAM3 四种模型相对 SAM 二值天空分割，将水平 RMSE 降低 29.51%–36.07%；U-Net 最低，为 0.78 m。",
+        "该框架还在部分分割基线失效的时段给出了定位解，说明学习到的质量图能提供超出二值可见性的信息。"
+      ],
+      "limits": [
+        "监督来自差分 GNSS 残差，参考星选择或残差异常会直接变成错误标签；相机—GNSS 外参与时同步误差也会污染投影。",
+        "验证集中在城市车辆数据，未覆盖电离层扰动、强干扰或不同相机/安装角度；WLS 权重的最优映射仍需标定。"
+      ],
+      "relevance": [
+        "这是「工程感知」的典型闭环：用定位残差自动标注，再用视觉预测反哺定位权重，避免人工标注瓶颈。",
+        "可以和你知识库里的观测质量/弧段特征结合：视觉质量图负责「局部遮挡」，ROTI/弧段负责「空间天气与连续性」，两者进入同一随机模型。"
+      ],
+      "abstract_en": "Multipath and non-line-of-sight (NLOS) propagation degrade global navigation satellite system (GNSS) positioning accuracy in urban environments. Although fisheye sky segmentation identifies obstructions along satellite directions, binary visibility does not fully characterize observation quality. This study proposes a point-supervised visual framework that predicts GNSS observation faults from fisheye images using supervision derived from GNSS observations. During offline labeling, a vision-assisted differential GNSS procedure selects multiple reference satellites based on sky visibility and elevation constraints. Double-difference pseudorange residuals automatically generate fault labels and sample importance weights at satellite projection locations. A residual-weighted loss is computed only at valid labeled points, enabling learning from sparse supervision without manual pixelwise fault annotations. The trained network generates dense fault probability maps, which are sampled at satellite projection locations to weight observations in weighted least squares positioning, reducing the influence of potentially faulty observations. The framework is evaluated using U-Net, DeepLabv3+, DINOv3, and SAM3 on urban vehicle data collected on a different day from the training data. All four models reduce horizontal root mean square error (RMSE) by 29.51% to 36.07% compared with SAM binary sky segmentation, with U-Net achieving the lowest RMSE of 0.78 m.",
+      "links": { "abs": "https://arxiv.org/abs/2610.14822", "pdf": "https://arxiv.org/pdf/2610.14822" }
+    },
+    {
+      "id": "2608.08831",
+      "slug": "arxiv-2608.08831",
+      "domain": "perception",
+      "date": "2026-08-09",
+      "score": 91,
+      "tier": "核心推荐",
+      "title_zh": "把全州 CORS 网当成一台分布式完好性传感器",
+      "title_en": "Treating Statewide CORS Networks as Spatially Distributed Sensors for GNSS Integrity Monitoring under Unintentional and Deliberate Threats",
+      "authors": ["Minhaj Uddin Ahmad", "Sagar Dasgupta", "Muhammad Sami Irfan", "Mizanur Rahman", "Mashrur Chowdhury", "Thejesh Bandi"],
+      "cats": ["cs.CR", "eess.SP", "physics.space-ph"],
+      "tags": ["CORS", "完好性", "图一致性", "ROTI", "ΔVTEC", "异常检测"],
+      "one_liner": "把全州 CORS 网当成分布式传感器：用图平滑度、空间梯度和邻域残差找出「和周围不一样」的站。",
+      "one_liner_en": "Treat a statewide CORS network as a distributed sensor: graph smoothness, spatial gradient and neighborhood residuals reveal stations that deviate from their surroundings.",
+      "lead_zh": "论文提出网络一致性框架 NCF，把每个 CORS 站与其空间邻域比较，计算邻域残差、空间梯度、残差和图平滑度，合成为网络一致性指数 NCI。用阿拉巴马州 50 个站连续两天、四系统的 ΔVTEC 与 ROTI 做演示，定位局部异常。",
+      "lead_en": "The paper proposes a Network Consistency Framework (NCF) that compares each CORS station with its spatial neighborhood using neighborhood residual, spatial gradient, residual and graph smoothness, combined into a Network Consistency Index (NCI). It demonstrates the approach on 50 Alabama DOT stations over two days with four constellations, using ΔVTEC and ROTI.",
+      "metrics": [
+        { "value": "50 站", "label": "阿拉巴马 CORS", "label_en": "CORS stations" },
+        { "value": "2 天", "label": "连续观测", "label_en": "consecutive days" },
+        { "value": "4 系统", "label": "多星座", "label_en": "constellations" },
+        { "value": "4 指标", "label": "合成 NCI", "label_en": "metrics into NCI" }
+      ],
+      "problem": [
+        "美国州级交通部门越来越依赖全州 CORS 网络提供高精度定位与授时，这些连续观测也可以用于区域完好性监测。但单站阈值很难区分「局地异常」与「大尺度电离层梯度」。",
+        "论文要回答：能否把 CORS 网络看成一个空间分布式传感器，用站间一致性识别局部故障、干扰或欺骗，而不是逐站独立报警。"
+      ],
+      "method": [
+        "作者构建基于图的 Network Consistency Framework：每个站与其空间邻域比较，计算邻域残差、空间梯度、残差和图平滑度四个指标，并合成为 Network Consistency Index。",
+        "演示使用阿拉巴马州 50 个 CORS 站连续两天、四星座观测，以 ΔVTEC 和 ROTI 作为空间相干观测量，识别偏离区域网络的局部异常。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：把图一致性指标组合成可解释的 NCI，用于 CORS 网络级完好性监测。" },
+        { "h": "有没有额外约束？", "p": "需要足够密的站网与稳定的邻域定义；ΔVTEC/ROTI 本身受电离层梯度影响。" },
+        { "h": "推理/后端做了什么？", "p": "逐站计算四类空间一致性指标并合成 NCI；没有做故障源的最终分类。" },
+        { "h": "方法本质", "p": "从「单站阈值」转向「网络空间一致性」：异常不是因为某个值大，而是因为它与邻居不一致。" }
+      ],
+      "results": [
+        "框架量化了网络整体的空间一致性，并识别出局部异常站；这些站的观测偏离周边区域网络，提示潜在的完好性问题。",
+        "论文明确指出，异常究竟来自接收机故障、局地干扰、欺骗还是其他原因，仍需进一步调查；NCF 的贡献是「发现不一致」，不是「自动归因」。"
+      ],
+      "limits": [
+        "演示只有两天、一个州、50 个站，事件样本有限；阈值与邻域尺度对结果敏感。",
+        "强电离层梯度本身会造成空间不一致，可能被误判为故障；论文没有给出完整的误报/漏报统计。"
+      ],
+      "relevance": [
+        "这篇把你的三条线接在一起：CORS、ROTI/ΔVTEC、完好性。NCI 可以作为 PPP 风险模型的网络级特征。",
+        "对「ROTI 低但定位仍退化」的问题，NCI 提供另一种视角：局地观测异常可能不体现在单站 ROTI 上，而体现在它与邻站的不一致上。"
+      ],
+      "abstract_en": "State departments of transportation (DOTs) in the United States increasingly rely on statewide continuously operating reference station (CORS) networks to support high-precision Global Navigation Satellite System (GNSS)-based positioning and timing for intelligent transportation systems. These networks also provide continuous observations that can support regional GNSS integrity monitoring. This study develops and demonstrates a framework that treats a statewide CORS network as a spatially distributed sensor system for identifying unintentional (environmental) and intentional (cyber) interference when GNSS measurements deviate from expected spatial patterns. We develop a graph-based Network Consistency Framework (NCF) that evaluates each station against its spatial neighborhood using four metrics: neighborhood residual, spatial gradient, residual, and graph smoothness. These metrics are combined into a Network Consistency Index (NCI). The framework is demonstrated using two consecutive days of four-constellation observations from 50 stations in the Alabama DOT-maintained CORS network, using changes in vertical total electron content (ΔVTEC) and the Rate of TEC Index (ROTI) as spatially coherent observables.",
+      "links": { "abs": "https://arxiv.org/abs/2608.08831", "pdf": "https://arxiv.org/pdf/2608.08831" }
+    },
+    {
+      "id": "2601.12791",
+      "slug": "arxiv-2601.12791",
+      "domain": "perception",
+      "date": "2026-01-19",
+      "score": 82,
+      "tier": "扩展阅读",
+      "title_zh": "SKANet：复合 GNSS 干扰的双流识别",
+      "title_en": "SKANet: A Cognitive Dual-Stream Framework with Adaptive Modality Fusion for Robust Compound GNSS Interference Classification",
+      "authors": ["Zhihan Zeng", "Yang Zhao", "Kaihe Wang", "Dusit Niyato", "Hongyuan Shu", "Junchu Zhao", "Yanjun Huang", "Yue Xiu"],
+      "cats": ["cs.CV"],
+      "tags": ["GNSS 干扰", "复合干扰", "时频图", "PSD", "选择性核", "低 JNR"],
+      "one_liner": "复合干扰不是单类干扰的简单叠加：SKANet 用 TFI + PSD 双流和动态感受野同时抓瞬态与连续成分。",
+      "one_liner_en": "Compound interference is not a simple sum of single-jammer classes: SKANet combines TFI and PSD streams with adaptive receptive fields to capture both transient and continuous components.",
+      "lead_zh": "SKANet 面向复合 GNSS 干扰分类，输入时频图像与功率谱密度两路特征；用多分支选择性核与不对称卷积块动态调整感受野，再用 SE 机制在融合阶段重标定两路贡献。在 40.5 万样本上报告 96.99% 总体准确率，低 JNR 下仍保持鲁棒。",
+      "lead_en": "SKANet targets compound GNSS interference classification using time-frequency images and power spectral density as two streams. Multi-branch selective kernels and asymmetric convolution blocks adapt the receptive field, while SE recalibrates modality contributions at fusion. It reports 96.99% overall accuracy on 405,000 samples and robustness at low JNR.",
+      "metrics": [
+        { "value": "405,000", "label": "样本量", "label_en": "samples" },
+        { "value": "96.99%", "label": "总体准确率", "label_en": "overall accuracy" },
+        { "value": "双流", "label": "TFI + PSD", "label_en": "dual stream" },
+        { "value": "低 JNR", "label": "鲁棒性重点", "label_en": "low-JNR regime" }
+      ],
+      "problem": [
+        "电磁环境复杂化使 GNSS 面临复合干扰：多个干扰源叠加后，单类识别器难以扩展，因为复合类别数量会组合爆炸。",
+        "单一域特征也有冲突：瞬态突发信号需要小感受野，连续全局信号需要大感受野；固定感受野的融合方法难以同时兼顾。"
+      ],
+      "method": [
+        "SKANet 采用双流架构，分别输入时频图像（TFI）与功率谱密度（PSD）。多分支选择性核模块与不对称卷积块让网络动态调整感受野，同时捕捉微尺度瞬态和宏观频谱趋势。",
+        "融合阶段加入 Squeeze-and-Excitation 机制，自适应重标定两路特征的贡献；训练/评估使用 40.5 万样本数据集。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：双流 TFI/PSD + 选择性核/不对称卷积 + SE 融合，针对复合干扰分类。" },
+        { "h": "有没有额外约束？", "p": "需要时频与 PSD 的同步计算；类别体系由数据集定义，扩展到新干扰类型需要新样本。" },
+        { "h": "推理/后端做了什么？", "p": "端到端分类，输出复合干扰类别；没有做参数估计或定位域联合优化。" },
+        { "h": "方法本质", "p": "用动态感受野解决「瞬态 vs 连续」的特征尺度冲突，用双流融合保留不同域的互补信息。" }
+      ],
+      "results": [
+        "在 40.5 万样本上报告 96.99% 总体准确率，并在低 JNR 条件下对复合干扰保持较好的鲁棒性。",
+        "摘要没有给出各类别混淆矩阵或跨数据集泛化结果，因此不能据此判断对未知干扰组合的开放集能力。"
+      ],
+      "limits": [
+        "结果依赖特定数据集的干扰类别与采集条件；实际电磁环境中的未知组合、信道失真和接收机差异会降低泛化。",
+        "没有报告实时推理延迟与嵌入式部署成本；对抗性干扰或欺骗信号也未覆盖。"
+      ],
+      "relevance": [
+        "对你做观测质量/干扰监测有参考价值：干扰识别可以作为 GNSS 观测加权的前置模块，避免把受扰观测误当作电离层梯度。",
+        "双流 + 动态感受野的思路，也可以迁移到「时频图 + ROTI 时序」的联合判别，但需要重新设计标签体系。"
+      ],
+      "abstract_en": "As the electromagnetic environment becomes increasingly complex, Global Navigation Satellite Systems (GNSS) face growing threats from sophisticated jamming interference. Although Deep Learning (DL) effectively identifies basic interference, classifying compound interference remains difficult due to the superposition of diverse jamming sources. Existing single-domain approaches often suffer from performance degradation because transient burst signals and continuous global signals require conflicting feature extraction scales. We propose the Selective Kernel and Asymmetric convolution Network (SKANet), a cognitive deep learning framework built upon a dual-stream architecture that integrates Time-Frequency Images (TFIs) and Power Spectral Density (PSD). Evaluations on a dataset of 405,000 samples demonstrate that SKANet achieves an overall accuracy of 96.99%, exhibiting superior robustness for compound jamming classification, particularly under low Jamming-to-Noise Ratio (JNR) regimes.",
+      "links": { "abs": "https://arxiv.org/abs/2601.12791", "pdf": "https://arxiv.org/pdf/2601.12791" }
+    },
+    {
+      "id": "2610.13443",
+      "slug": "arxiv-2610.13443",
+      "domain": "perception",
+      "date": "2026-10-09",
+      "score": 81,
+      "tier": "扩展阅读",
+      "title_zh": "LG-ANF：多 chirp 干扰下的局部梯度陷波",
+      "title_en": "Suppressing Multiple GNSS Interferers with Local-Gradient Adaptive Notch Filtering",
+      "authors": ["Burak Soner", "Felix Ott"],
+      "cats": ["eess.SP"],
+      "tags": ["自适应陷波", "chirp 干扰", "NLMS", "抗干扰", "接收机前端", "定位保持"],
+      "one_liner": "多 chirp 干扰下，级联 NLMS 陷波会互相「打架」；LG-ANF 用局部梯度先屏蔽对手再自适应。",
+      "one_liner_en": "With multiple chirp jammers, cascaded NLMS notch filters fight each other; LG-ANF uses a local gradient to attenuate competing interferers before adaptation.",
+      "lead_zh": "论文针对多 chirp 干扰场景改造级联 NLMS 自适应陷波：把输入搬移到当前频率估计附近、低通滤波再搬回，形成局部带限梯度，从而在自适应前衰减竞争干扰。仿真显示在病态幅度比附近最多恢复 4 dB 带内抑制，硬件实验中固定参数下定位保持时间延长 24 秒。",
+      "lead_en": "This paper modifies cascaded NLMS adaptive notch filtering for multiple chirp interferers. It translates the input to baseband around the current frequency estimate, low-pass filters, and translates back to form a locally band-limited gradient, attenuating competing interferers before adaptation. Simulations recover up to 4 dB in-band suppression near pathological amplitude ratios, and a hardware experiment extends position-lock survival by 24 seconds.",
+      "metrics": [
+        { "value": "4 dB", "label": "带内抑制恢复", "label_en": "in-band suppression" },
+        { "value": "13 dB", "label": "边缘参数增益", "label_en": "edge-case gain" },
+        { "value": "24 s", "label": "定位保持延长", "label_en": "position-lock extension" },
+        { "value": "+1", "label": "额外参数", "label_en": "extra parameter" }
+      ],
+      "problem": [
+        "基于 NLMS 的自适应陷波滤波器是 GNSS 接收机抑制窄带干扰的常用手段。多干扰源的传统做法是级联多个 ANF，但当多个 chirp 干扰功率相近时，各级会互相干扰，性能下降。",
+        "论文要解决的是「相似功率多 chirp」这一病态场景：能否在不显著增加复杂度的前提下，让各级独立跟踪各自的 chirp。"
+      ],
+      "method": [
+        "作者提出局部梯度（LG）更新规则：把输入搬移到当前频率估计附近，低通滤波，再搬回原频段，形成局部带限梯度信号，从而在自适应前衰减竞争干扰。",
+        "该修改只增加一个参数，可退化为标准 NLMS-ANF；作者给出梯度平均失效的分析与可视化，并用仿真扫描幅度比，最后在硬件上验证定位保持时间。"
+      ],
+      "essence": [
+        { "h": "是不是新算法？", "p": "是：对级联 NLMS-ANF 的更新规则做局部梯度改造，专门处理相似功率多 chirp。" },
+        { "h": "有没有额外约束？", "p": "需要额外的低通滤波与频率搬移；局部带宽参数需要在不同干扰条件下选择。" },
+        { "h": "推理/后端做了什么？", "p": "接收机前端陷波，输出净化后的信号；没有改变后续捕获/跟踪/定位算法。" },
+        { "h": "方法本质", "p": "在自适应之前先做「局部化」，让每个陷波器只看到自己频带附近的误差，避免多个 chirp 互相拉扯。" }
+      ],
+      "results": [
+        "仿真显示，在病态幅度比附近，LG-ANF 相对标准 NLMS-ANF 最多恢复 4 dB 带内抑制；在部分边缘参数组合下可达 13 dB，但作者明确这是逐条件优化后的上界。",
+        "硬件实验中固定低通参数 α=0.5，LG-ANF 相对标准 ANF 将定位保持时间延长 24 秒；在非病态多 chirp 场景下，性能退化为标准 NLMS-ANF。"
+      ],
+      "limits": [
+        "4 dB/13 dB 是优化后的上界，实际部署需要固定的局部带宽，增益会低于最优值；硬件只验证了一组参数。",
+        "论文聚焦 chirp 干扰，未覆盖宽带压制、脉冲干扰或欺骗；也没有评估对多星座/多频接收机的影响。"
+      ],
+      "relevance": [
+        "对工程感知很实际：干扰抑制是观测质量的第一道门，前端没处理好，后面的 ROTI/质量指标会被污染。",
+        "如果你在做电离层监测，强干扰可能伪装成 TEC 梯度或周跳；这类前端算法的价值是先把「非电离层」的异常排除掉。"
+      ],
+      "abstract_en": "Adaptive notch filters (ANFs) based on the normalized least mean squares (NLMS) algorithm are an established technique for suppressing narrowband interference in GNSS receivers. The traditional solution for multiple interferers is simply cascading the NLMS-ANF into multiple stages but this solution degrades performance when multiple chirp jammers of similar power are present. We propose a low-complexity modification to the cascaded NLMS-ANF update rule to resolve this: a local gradient (LG) formulation: LG-ANF. The LG-ANF forms a locally bandlimited gradient signal by translating the input to baseband around the current frequency estimate, low-pass filtering it, and translating it back, thereby attenuating competing interferers before adaptation. Simulations show that the LG-ANF reduces to the standard NLMS-ANF outside the pathological multi-chirp regime, while recovering up to 4dB of in-band suppression around pathological amplitude ratios under per-condition optimization of the local bandwidth, and up to 13dB for selected edge-case parameter combinations. In a hardware experiment using a fixed alpha_lp=0.5, the LG-ANF extends position-lock survival by 24s relative to the standard ANF.",
+      "links": { "abs": "https://arxiv.org/abs/2610.13443", "pdf": "https://arxiv.org/pdf/2610.13443" }
+    }
+  ]
+}

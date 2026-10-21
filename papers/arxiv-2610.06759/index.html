@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LEO 不是「更强的 GPS」：它让几何变化更快，也让 PPP 收敛评估不能再沿用静态 DOP 逻辑。">
+  <meta property="og:title" content="LEO 星座演化如何改变 PPP 收敛：以 Xona Pulsar 为例 · GNSS Paper Radar">
+  <meta property="og:description" content="LEO 不是「更强的 GPS」：它让几何变化更快，也让 PPP 收敛评估不能再沿用静态 DOP 逻辑。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>LEO 星座演化如何改变 PPP 收敛：以 Xona Pulsar 为例 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">GNSS 高精度定位 · 2026-10-05 · 核心推荐 · 匹配度 88</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">LEO 星座演化如何改变 PPP 收敛：以 Xona Pulsar 为例</span><span class="lang lang-en lang-inline" data-lang="en">Pulsar Constellation Evolution and PPP Convergence using LEO GNSS</span></h1>
+    <p class="poster-title-en">Pulsar Constellation Evolution and PPP Convergence using LEO GNSS</p>
+    <p class="poster-authors">Claire Mah, Thyagaraja Marathe, Ananya Vishwanath, Matteo Gala, Tyler G. R. Reid, Qamar Bader</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">这篇以 Xona Pulsar 为例，把 LEO 星座放在四个部署阶段上，比较 GPS、LEO 增强 GPS 与独立 LEO 的可见性、DOP 和 PPP 收敛。它的价值不在给出某个星座的最终性能，而在提醒：LEO 的高动态让「星座几何」和「收敛时间」必须一起评估。</span><span class="lang lang-en lang-block" data-lang="en">Using Xona's Pulsar constellation at four deployment stages, this case study compares GPS, LEO-augmented GPS and standalone LEO in visibility, DOP and PPP convergence. Its value is less a final performance number than a reminder that LEO dynamics force geometry and convergence to be evaluated together.</span></p>
+    <div class="poster-meta"><span>2026-10-05</span><span>2610.06759</span><span>eess.SP</span><span>GNSS 高精度定位</span><a href="https://arxiv.org/abs/2610.06759">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">LEO</span><span class="tag">PPP</span><span class="tag">星座几何</span><span class="tag">DOP</span><span class="tag">收敛</span><span class="tag">Xona Pulsar</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">4 个</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">星座部署阶段</span><span class="lang lang-en lang-inline" data-lang="en">deployment stages</span></span></div><div class="poster-metric"><strong class="poster-metric-value">3 种</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">定位配置</span><span class="lang lang-en lang-inline" data-lang="en">positioning configurations</span></span></div><div class="poster-metric"><strong class="poster-metric-value">2 组</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">PPP 收敛案例</span><span class="lang lang-en lang-inline" data-lang="en">PPP convergence cases</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>LEO 星座被广泛视为下一代 PNT 的增量：信号更强、几何变化更快、可用卫星更多。但现有 GNSS 评估方法大多是为 MEO 的准静态几何设计的，直接套用到 LEO 上，可能把「几何快速变化」误读成「性能不稳定」。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">LEO</span><span class="tag">PPP</span><span class="tag">星座几何</span><span class="tag">DOP</span><span class="tag">收敛</span><span class="tag">Xona Pulsar</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>摘要报告了四个部署阶段的可见性与 DOP 分析，以及两组 PPP 收敛案例；结论强调 LEO 增强与独立 LEO 的差异，并讨论常用 GNSS 评估方法在 LEO 场景下的适用边界。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>不是。它是一篇星座几何与 PPP 收敛的评估型案例研究，核心贡献是部署阶段对比和评估方法的讨论。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>把 LEO 动态显式纳入评估：可见性、DOP 与 PPP 收敛都放在同一时间窗内看，而不是只报一个全天平均。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>比较三种配置的卫星可见性与 DOP，并观察 PPP 收敛；没有提出新的模糊度固定或误差建模方法。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>把「星座部署阶段」当作自变量，看 LEO 几何演化如何改变 PPP 的可观测性与收敛，而不是把 LEO 当成一个静态的额外频点。</p></div></div>
+    <p class="poster-method-essence-note">LEO 不是「更强的 GPS」：它让几何变化更快，也让 PPP 收敛评估不能再沿用静态 DOP 逻辑。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>LEO 不是「更强的 GPS」：它让几何变化更快，也让 PPP 收敛评估不能再沿用静态 DOP 逻辑。</p><p>这篇以 Xona Pulsar 为例，把 LEO 星座放在四个部署阶段上，比较 GPS、LEO 增强 GPS 与独立 LEO 的可见性、DOP 和 PPP 收敛。它的价值不在给出某个星座的最终性能，而在提醒：LEO 的高动态让「星座几何」和「收敛时间」必须一起评估。</p><h3>研究问题</h3><p>LEO 星座被广泛视为下一代 PNT 的增量：信号更强、几何变化更快、可用卫星更多。但现有 GNSS 评估方法大多是为 MEO 的准静态几何设计的，直接套用到 LEO 上，可能把「几何快速变化」误读成「性能不稳定」。</p>
+<p>作者要回答两个具体问题：在不同部署阶段，Pulsar 的可见性和 DOP 如何演化；当 LEO 参与 PPP 时，卫星动态会怎样改变收敛过程。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>论文以 Xona 的 Pulsar 为案例，选取四个星座部署阶段，分别构造 GPS、LEO 增强 GPS、独立 LEO 三种配置，计算可见性与 DOP，并用两组 PPP 场景观察收敛行为。</p>
+<p>作者同时反思了常用评估口径：LEO 的轨道周期短、几何变化快，若仍用固定截止高度角与静态 DOP 统计，容易忽略「收敛窗口内几何已经换了几轮」这一事实。</p><h3>实现层面的关键变化</h3><p>比较三种配置的卫星可见性与 DOP，并观察 PPP 收敛；没有提出新的模糊度固定或误差建模方法。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>摘要报告了四个部署阶段的可见性与 DOP 分析，以及两组 PPP 收敛案例；结论强调 LEO 增强与独立 LEO 的差异，并讨论常用 GNSS 评估方法在 LEO 场景下的适用边界。</p>
+<p>由于摘要未给出具体数值，本站不转写未核实数字。对读者而言，更可操作的是它的评估框架：把部署阶段、几何变化率和收敛时间放在同一张表里。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>这是单一星座（Pulsar）的案例研究，结论受星座设计、部署进度和仿真假设约束，不能直接外推到所有 LEO 导航系统。</p>
+<p>PPP 部分只有两组收敛案例，适合提出假设，不足以给出统计意义上的性能结论；真实接收机、信号体制和钟差产品的影响仍需实测。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>如果你在做 PPP/PPP-AR 的收敛与可用性评估，这篇提醒你把「几何变化率」作为协变量：同样数量的卫星，LEO 的几何在收敛窗口内可能已经显著变化。</p>
+<p>对电离层风险研究也有间接意义：LEO 几何快速变化会改变穿刺点分布和观测弧段结构，进而影响 ROTI/弧段特征的采样方式。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>这篇以 Xona Pulsar 为例，把 LEO 星座放在四个部署阶段上，比较 GPS、LEO 增强 GPS 与独立 LEO 的可见性、DOP 和 PPP 收敛。它的价值不在给出某个星座的最终性能，而在提醒：LEO 的高动态让「星座几何」和「收敛时间」必须一起评估。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>The objective of this paper is to demonstrate the future impact of a dedicated low-earth-orbit (LEO) Global Navigation Satellite System (GNSS) on positioning, navigation, and timing (PNT), in addition to a reflective discussion on how common GNSS evaluation methods can best reflect LEO satellite dynamics. This paper will feature Xona's LEO constellation, Pulsar, at various stages of deployment in a case study comparing GPS, LEO-augmented GPS, and standalone LEO. Results include visibility and dilution of precision (DOP) analysis for Pulsar at four stages of constellation deployment, as well as two cases exploring how precise point positioning (PPP) convergence is affected by Pulsar's LEO satellite dynamics. Pulsar is highlighted in this paper for its purposeful design that allows for both GNSS augmentation through compatible signals and GNSS independence. As dedicated LEO satellite-based positioning becomes more prominent in the PNT industry, it is important to consider which methods are used to evaluate constellation geometry and positioning performance.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2610.06759">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2610.06759">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

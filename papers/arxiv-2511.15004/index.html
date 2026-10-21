@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="IonCast 把 GraphCast 式的图时空学习搬到全球 TEC 预报，重点验证磁暴与平静期两类留出条件。">
+  <meta property="og:title" content="IonCast：用图时空学习预报全球 TEC · GNSS Paper Radar">
+  <meta property="og:description" content="IonCast 把 GraphCast 式的图时空学习搬到全球 TEC 预报，重点验证磁暴与平静期两类留出条件。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>IonCast：用图时空学习预报全球 TEC · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">深度学习预测 · 2025-11-19 · 值得跟踪 · 匹配度 84</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">IonCast：用图时空学习预报全球 TEC</span><span class="lang lang-en lang-inline" data-lang="en">IonCast: A Deep Learning Framework for Forecasting Ionospheric Dynamics</span></h1>
+    <p class="poster-title-en">IonCast: A Deep Learning Framework for Forecasting Ionospheric Dynamics</p>
+    <p class="poster-authors">Halil S. Kelebek, Linnea M. Wolniewicz, Michael D. Vergalla, Simone Mestici, Giacomo Acciarini, Bala Poduval, Olga Verkhoglyadova, Madhulika Guhathakurta</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">IonCast 是一组深度学习模型，其中包含受 GraphCast 启发的电离层版本。它融合多种物理驱动和观测数据，做全球 TEC 的时空预报，并在磁暴期与平静期的留出样本上对比 persistence。</span><span class="lang lang-en lang-block" data-lang="en">IonCast is a suite of deep learning models including a GraphCast-inspired version for the ionosphere. It integrates physical drivers and observations for global TEC forecasting and validates on held-out storm-time and quiet conditions against persistence.</span></p>
+    <div class="poster-meta"><span>2025-11-19</span><span>2511.15004</span><span>cs.LG, astro-ph.EP</span><span>深度学习预测</span><a href="https://arxiv.org/abs/2511.15004">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">全球 TEC</span><span class="tag">GraphCast</span><span class="tag">图时空</span><span class="tag">磁暴</span><span class="tag">业务预报</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">全球</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">TEC 场</span><span class="lang lang-en lang-inline" data-lang="en">global TEC</span></span></div><div class="poster-metric"><strong class="poster-metric-value">2 类</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">留出条件</span><span class="lang lang-en lang-inline" data-lang="en">held-out regimes</span></span></div><div class="poster-metric"><strong class="poster-metric-value">图时空</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">学习架构</span><span class="lang lang-en lang-inline" data-lang="en">graph spatiotemporal</span></span></div><div class="poster-metric"><strong class="poster-metric-value">优于</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">persistence</span><span class="lang lang-en lang-inline" data-lang="en">vs persistence</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>电离层 TEC 的业务预报需要同时覆盖平静期和磁暴期，而传统经验模型在强扰动下容易失效；纯时序模型又难以表达全球空间结构。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">全球 TEC</span><span class="tag">GraphCast</span><span class="tag">图时空</span><span class="tag">磁暴</span><span class="tag">业务预报</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>摘要报告 IonCast 在磁暴期与平静期留出样本上均优于 persistence，说明图时空学习能提供超过「昨天同时刻」的预报技巧。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是模型套件，核心是 GraphCast 式图时空学习在电离层 TEC 上的迁移。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>需要全球 TEC 产品与物理驱动数据；图结构/分辨率选择会影响计算与预报。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>全球 TEC 场预测；没有给出同化或业务延迟细节。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>把数值天气预报的图时空建模范式搬到电离层，用数据驱动方式学习全球 TEC 演化。</p></div></div>
+    <p class="poster-method-essence-note">IonCast 把 GraphCast 式的图时空学习搬到全球 TEC 预报，重点验证磁暴与平静期两类留出条件。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>IonCast 把 GraphCast 式的图时空学习搬到全球 TEC 预报，重点验证磁暴与平静期两类留出条件。</p><p>IonCast 是一组深度学习模型，其中包含受 GraphCast 启发的电离层版本。它融合多种物理驱动和观测数据，做全球 TEC 的时空预报，并在磁暴期与平静期的留出样本上对比 persistence。</p><h3>研究问题</h3><p>电离层 TEC 的业务预报需要同时覆盖平静期和磁暴期，而传统经验模型在强扰动下容易失效；纯时序模型又难以表达全球空间结构。</p>
+<p>IonCast 的目标是把全球 TEC 作为一个时空场来学习，并把太阳/地磁驱动与观测数据统一进一个可扩展的图学习框架。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>作者构建了一组深度学习模型，其中包含受 GraphCast 启发的图时空模型；输入包括多种物理驱动和观测数据，输出全球 TEC 预报。</p>
+<p>验证采用磁暴期与平静期的留出样本，与 persistence 基线比较；摘要强调框架的可扩展性和对异构数据的统一能力。</p><h3>实现层面的关键变化</h3><p>全球 TEC 场预测；没有给出同化或业务延迟细节。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>摘要报告 IonCast 在磁暴期与平静期留出样本上均优于 persistence，说明图时空学习能提供超过「昨天同时刻」的预报技巧。</p>
+<p>摘要没有给出 RMSE、技能分数或提前量等具体数值，因此本站不补造数字；需要定量比较时应回到论文与代码。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>摘要未量化误差、提前量和极端事件表现；业务预报还需要延迟、不确定性和失效模式评估。</p>
+<p>全球 TEC 产品本身受 GNSS 覆盖与建模误差影响，模型可能学习到产品伪影，而非纯物理信号。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>可作为全球 TEC 预报的对照基线，与你的 CDSF-NET 区域 ROTI 预报形成「全球背景场 + 区域扰动」的分工。</p>
+<p>如果你考虑图神经网络，IonCast 提供了「全球场」路线，IonoDGNN 提供了「链路级」路线，两者可以组合成背景—局地两级预报。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>IonCast 是一组深度学习模型，其中包含受 GraphCast 启发的电离层版本。它融合多种物理驱动和观测数据，做全球 TEC 的时空预报，并在磁暴期与平静期的留出样本上对比 persistence。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>The ionosphere is a critical component of near-Earth space, shaping GNSS accuracy, high-frequency communications, and aviation operations. For these reasons, accurate forecasting and modeling of ionospheric variability has become increasingly relevant. To address this gap, we present IonCast, a suite of deep learning models that include a GraphCast-inspired model tailored for ionospheric dynamics. IonCast leverages spatiotemporal learning to forecast global Total Electron Content (TEC), integrating diverse physical drivers and observational datasets. Validating on held-out storm-time and quiet conditions highlights improved skill compared to persistence. By unifying heterogeneous data with scalable graph-based spatiotemporal learning, IonCast demonstrates how machine learning can augment physical understanding of ionospheric variability and advance operational space weather resilience.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2511.15004">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2511.15004">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

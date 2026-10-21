@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="城市峡谷里，RTK 的多路径和视觉的错关联会互相「传染」；SeA-RVINS 用语义前端和保相关鲁棒估计把两者分开处理。">
+  <meta property="og:title" content="SeA-RVINS：城市峡谷里把 RTK、视觉与惯性绑在一起 · GNSS Paper Radar">
+  <meta property="og:description" content="城市峡谷里，RTK 的多路径和视觉的错关联会互相「传染」；SeA-RVINS 用语义前端和保相关鲁棒估计把两者分开处理。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>SeA-RVINS：城市峡谷里把 RTK、视觉与惯性绑在一起 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">GNSS 高精度定位 · 2026-09-25 · 值得跟踪 · 匹配度 86</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">SeA-RVINS：城市峡谷里把 RTK、视觉与惯性绑在一起</span><span class="lang lang-en lang-inline" data-lang="en">SeA-RVINS: Semantic-Aware Tightly Coupled RTK-Visual-Inertial System with Correlation-Preserving Robust Estimation for Urban Navigation</span></h1>
+    <p class="poster-title-en">SeA-RVINS: Semantic-Aware Tightly Coupled RTK-Visual-Inertial System with Correlation-Preserving Robust Estimation for Urban Navigation</p>
+    <p class="poster-authors">Wang Hu, Bo Wu</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">SeA-RVINS 是一个固定滞后因子图的 RTK-视觉-惯性系统。它先用语义感知的学习型双目前端剔除不可靠跟踪，再对双差 GNSS 采用保持共享枢轴相关结构的动态协方差缩放，并用「短弧共享 + 随机游走软连接」的模糊度延续策略处理断弧。</span><span class="lang lang-en lang-block" data-lang="en">SeA-RVINS is a fixed-lag factor-graph RTK-visual-inertial system. A semantic-aware learned stereo frontend rejects unreliable tracks before they enter the graph; double-differenced GNSS uses dynamic covariance scaling that preserves shared-pivot correlation; and a hybrid ambiguity-continuation strategy links short arcs with random-walk factors.</span></p>
+    <div class="poster-meta"><span>2026-09-25</span><span>2609.30814</span><span>cs.RO, eess.SY</span><span>GNSS 高精度定位</span><a href="https://arxiv.org/abs/2609.30814">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">RTK</span><span class="tag">视觉惯性</span><span class="tag">因子图</span><span class="tag">多路径</span><span class="tag">鲁棒估计</span><span class="tag">模糊度延续</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">1.6 m</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">最大水平误差</span><span class="lang lang-en lang-inline" data-lang="en">max horizontal error</span></span></div><div class="poster-metric"><strong class="poster-metric-value">100%</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">可用率</span><span class="lang lang-en lang-inline" data-lang="en">availability</span></span></div><div class="poster-metric"><strong class="poster-metric-value">96.16%</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">误差 &lt; 1.0 m</span><span class="lang lang-en lang-inline" data-lang="en">epochs below 1.0 m</span></span></div><div class="poster-metric"><strong class="poster-metric-value">20 km</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">城市测试路线</span><span class="lang lang-en lang-inline" data-lang="en">urban route</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>城市环境中的可靠绝对位姿估计同时受两类污染：GNSS 多路径导致观测偏差，视觉错误关联导致长期地标误入因子图。在紧耦合估计器中，这两类错误会通过共享状态相互放大。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">RTK</span><span class="tag">视觉惯性</span><span class="tag">因子图</span><span class="tag">多路径</span><span class="tag">鲁棒估计</span><span class="tag">模糊度延续</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>在约 20 km 的 TEX-CUP 公开数据路线（约 50% 深度城市）上，latent-pivot 配置达到 100% 可用率、1.6 m 最大水平误差，96.16% 的历元低于 1.0 m，99.90% 低于 1.5 m。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是系统级新组合：语义前端、保相关鲁棒估计、模糊度延续三部分共同服务于城市 RTK-VI。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>需要双目图像与语义前端；模糊度延续只在「验证过连续性」的短弧内共享，并非无条件连接。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>固定滞后因子图优化，GNSS 双差残差用 DCS 类鲁棒核处理，视觉/惯性/RTK 共同约束位姿与模糊度。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>不是单纯换一个鲁棒核，而是把「哪些观测可信」「哪些弧段可共享模糊度」变成前端和图结构层面的决策。</p></div></div>
+    <p class="poster-method-essence-note">城市峡谷里，RTK 的多路径和视觉的错关联会互相「传染」；SeA-RVINS 用语义前端和保相关鲁棒估计把两者分开处理。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>城市峡谷里，RTK 的多路径和视觉的错关联会互相「传染」；SeA-RVINS 用语义前端和保相关鲁棒估计把两者分开处理。</p><p>SeA-RVINS 是一个固定滞后因子图的 RTK-视觉-惯性系统。它先用语义感知的学习型双目前端剔除不可靠跟踪，再对双差 GNSS 采用保持共享枢轴相关结构的动态协方差缩放，并用「短弧共享 + 随机游走软连接」的模糊度延续策略处理断弧。</p><h3>研究问题</h3><p>城市环境中的可靠绝对位姿估计同时受两类污染：GNSS 多路径导致观测偏差，视觉错误关联导致长期地标误入因子图。在紧耦合估计器中，这两类错误会通过共享状态相互放大。</p>
+<p>现有鲁棒核多把 GNSS 残差当作独立处理，忽略双差观测共享枢轴带来的相关性；模糊度在频繁断弧时也容易被重置，造成可用性下降。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>系统采用固定滞后因子图，前端用语义感知的学习型双目跟踪，先剔除不可靠轨迹，避免持久性地标进入图优化。</p>
+<p>对双差 GNSS，作者比较 batch、scalar 和 latent-pivot 三种动态协方差缩放形式，并保留共享枢轴的相关结构；模糊度采用混合延续策略：短弧内共享一个模糊度状态，弧段之间用随机游走因子软连接。</p><h3>实现层面的关键变化</h3><p>固定滞后因子图优化，GNSS 双差残差用 DCS 类鲁棒核处理，视觉/惯性/RTK 共同约束位姿与模糊度。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>在约 20 km 的 TEX-CUP 公开数据路线（约 50% 深度城市）上，latent-pivot 配置达到 100% 可用率、1.6 m 最大水平误差，96.16% 的历元低于 1.0 m，99.90% 低于 1.5 m。</p>
+<p>作者将实现开源。摘要没有分解各模块的单独贡献，因此不能把全部增益归因于某一个鲁棒核或语义前端。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>验证集中在一条公开城市路线，跨城市、跨季节和不同相机的泛化仍未证明；学习型前端的域偏移会直接影响图优化。</p>
+<p>模糊度延续依赖连续性验证，验证失败时的行为与恢复时间需要看正文；论文也没有专门分析电离层扰动对 RTK 模糊度的影响。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>对 PPP-AR/RTK 的工程实现很实用：报告「可用率 + 最大误差 + 分位数」比只报 RMS 更接近用户真正关心的风险。</p>
+<p>保相关鲁棒估计与弧段延续策略，可以和你知识库里的「短弧比例、连续弧龄、定位恢复」特征设计互相印证。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>SeA-RVINS 是一个固定滞后因子图的 RTK-视觉-惯性系统。它先用语义感知的学习型双目前端剔除不可靠跟踪，再对双差 GNSS 采用保持共享枢轴相关结构的动态协方差缩放，并用「短弧共享 + 随机游走软连接」的模糊度延续策略处理断弧。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>Reliable absolute pose estimation in urban environments is undermined by outlier measurements and incorrect temporal associations that can persist in tightly coupled estimators. Global Navigation Satellite System (GNSS) observations provide globally referenced measurements but are prone to multipath effects. Visual-inertial sensing supplies local motion constraints, but false visual associations can corrupt the estimator. We present SeA-RVINS, a fixed-lag factor-graph Real-Time Kinematic (RTK) visual-inertial system for robust urban pose estimation. A semantic-aware learned stereo frontend rejects unreliable tracks before persistent landmarks enter the graph. For double-differenced GNSS measurements, SeA-RVINS applies Dynamic Covariance Scaling through configurable batch, scalar, and latent-pivot robust formulations while retaining the shared-pivot correlation structure. We propose a hybrid ambiguity-continuation strategy that shares one ambiguity state over short arcs with verified continuity and softly links successive arcs through random-walk factors. On an approximately 20-km route from the public TEX-CUP dataset, including about 50% deep-urban driving, the latent-pivot configuration achieves 100% availability and a 1.6-m maximum horizontal error, with 96.16% and 99.90% of epochs below 1.0 and 1.5 m, respectively.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2609.30814">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2609.30814">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

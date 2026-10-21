@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="不把电离层切成网格，而是在 GNSS 穿刺点构成的动态图上预测 ROTI；卫星星历让未来图结构提前可见。">
+  <meta property="og:title" content="IonoDGNN：沿 GNSS 视线预测 ROTI 不规则体 · GNSS Paper Radar">
+  <meta property="og:description" content="不把电离层切成网格，而是在 GNSS 穿刺点构成的动态图上预测 ROTI；卫星星历让未来图结构提前可见。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>IonoDGNN：沿 GNSS 视线预测 ROTI 不规则体 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">深度学习预测 · 2026-04-20 · 核心推荐 · 匹配度 96</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">IonoDGNN：沿 GNSS 视线预测 ROTI 不规则体</span><span class="lang lang-en lang-inline" data-lang="en">Forecasting Ionospheric Irregularities on GNSS Lines of Sight Using Dynamic Graphs with Ephemeris Conditioning</span></h1>
+    <p class="poster-title-en">Forecasting Ionospheric Irregularities on GNSS Lines of Sight Using Dynamic Graphs with Ephemeris Conditioning</p>
+    <p class="poster-authors">Mert Can Turkmen, Eng Leong Tan, Yee Hui Lee</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">IonoDGNN 把电离层建模为穿刺点上的动态图，图连接随卫星位置演化。由于卫星轨迹可预测，作者用未来星历构造预测窗口内的图结构，提出「星历条件化」，从而能对只在预测期出现的视线做预测。任务是用新加坡共址接收机 2023–2025 数据做未来 2 小时 ROTI 不规则体的节点级二分类。</span><span class="lang lang-en lang-block" data-lang="en">IonoDGNN models the ionosphere as a dynamic graph over ionospheric pierce points whose connectivity evolves with satellite positions. Because satellite trajectories are predictable, future graph structure is constructed from ephemerides, enabling forecasts on lines of sight that appear only in the forecast horizon. It performs node-level binary classification of ROTI irregularities up to two hours ahead using a co-located receiver pair in Singapore from 2023 to 2025.</span></p>
+    <div class="poster-meta"><span>2026-04-20</span><span>2604.18379</span><span>cs.LG, eess.SP, physics.geo-ph, physics.space-ph</span><span>深度学习预测</span><a href="https://arxiv.org/abs/2604.18379">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">ROTI</span><span class="tag">动态图</span><span class="tag">GNN</span><span class="tag">星历条件化</span><span class="tag">链路级预测</span><span class="tag">新加坡</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">0.55</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">Brier Skill Score</span><span class="lang lang-en lang-inline" data-lang="en">Brier Skill Score</span></span></div><div class="poster-metric"><strong class="poster-metric-value">0.77</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">PR-AUC</span><span class="lang lang-en lang-inline" data-lang="en">PR-AUC</span></span></div><div class="poster-metric"><strong class="poster-metric-value">+53% / +58%</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">相对 persistence</span><span class="lang lang-en lang-inline" data-lang="en">vs persistence</span></span></div><div class="poster-metric"><strong class="poster-metric-value">2 h</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">预报提前量</span><span class="lang lang-en lang-inline" data-lang="en">lead time</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>多数数据驱动电离层模型工作在网格产品上，而 GNSS 观测是沿卫星—接收机视线的、采样结构随时间变化的。网格化会抹掉「哪条视线在什么时候被观测到」这一信息，也不利于直接服务定位风险。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">ROTI</span><span class="tag">动态图</span><span class="tag">GNN</span><span class="tag">星历条件化</span><span class="tag">链路级预测</span><span class="tag">新加坡</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>IonoDGNN 取得 BSS 0.55、PR-AUC 0.77；相对 persistence，BSS 提升 53%、PR-AUC 提升 58%，且提前量越长增益越大。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是：把动态图神经网络与星历条件化结合，直接建模 GNSS 视线级电离层不规则体。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>依赖星历与接收机/卫星几何；ROTI 标签由观测定义，阈值会影响正负样本比例。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>在穿刺点动态图上做消息传递与节点二分类；没有做物理正向建模或数据同化。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>把「预测未来电离层」转成「预测未来视线上的风险」：网格不再是必须的中间层，星历成为可用的先验结构。</p></div></div>
+    <p class="poster-method-essence-note">不把电离层切成网格，而是在 GNSS 穿刺点构成的动态图上预测 ROTI；卫星星历让未来图结构提前可见。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>不把电离层切成网格，而是在 GNSS 穿刺点构成的动态图上预测 ROTI；卫星星历让未来图结构提前可见。</p><p>IonoDGNN 把电离层建模为穿刺点上的动态图，图连接随卫星位置演化。由于卫星轨迹可预测，作者用未来星历构造预测窗口内的图结构，提出「星历条件化」，从而能对只在预测期出现的视线做预测。任务是用新加坡共址接收机 2023–2025 数据做未来 2 小时 ROTI 不规则体的节点级二分类。</p><h3>研究问题</h3><p>多数数据驱动电离层模型工作在网格产品上，而 GNSS 观测是沿卫星—接收机视线的、采样结构随时间变化的。网格化会抹掉「哪条视线在什么时候被观测到」这一信息，也不利于直接服务定位风险。</p>
+<p>论文要回答：能否直接在 GNSS 视线上预测 ROTI 不规则体，并利用卫星轨迹可预测这一性质，对预测窗口内新出现的视线做推断。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>作者把每条 GNSS 视线映射到电离层穿刺点，以穿刺点为节点构造动态图，边连接随卫星几何演化。由于未来卫星位置可由星历计算，预测窗口内的图拓扑可以提前构造，这就是「星历条件化」。</p>
+<p>模型在图上做消息传递，输出每个节点未来是否出现 ROTI 不规则体的概率；任务设定为未来 2 小时的节点级二分类，并做了图结构/星历条件化消融和观测缺失模拟。</p><h3>实现层面的关键变化</h3><p>在穿刺点动态图上做消息传递与节点二分类；没有做物理正向建模或数据同化。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>IonoDGNN 取得 BSS 0.55、PR-AUC 0.77；相对 persistence，BSS 提升 53%、PR-AUC 提升 58%，且提前量越长增益越大。</p>
+<p>消融显示图结构与星历条件化都有实质贡献；在模拟观测缺失时，模型能通过邻居消息传递维持受影响节点的预测能力，恢复效果优于插值基线。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>验证集中在新加坡一对共址接收机，区域单一；2 小时提前量和二分类阈值是任务设定，换区域/换阈值需要重新校准。</p>
+<p>星历条件化假设未来轨迹精确可知，实际星历误差、机动和接收机网络变化会影响图结构；论文没有给出概率校准的详细评估。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>这是本期与你知识库最接近的一篇：ROTI 预测、图结构、链路级标签，正好对应「从指数到定位风险」的中间层。</p>
+<p>可迁移的实验：把中国区域多站网络建成动态图，节点用穿刺点/弧段，标签用 PPP 误差超限或 ROTI 不规则体，比较「星历条件化」相对普通时序模型的增量。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>IonoDGNN 把电离层建模为穿刺点上的动态图，图连接随卫星位置演化。由于卫星轨迹可预测，作者用未来星历构造预测窗口内的图结构，提出「星历条件化」，从而能对只在预测期出现的视线做预测。任务是用新加坡共址接收机 2023–2025 数据做未来 2 小时 ROTI 不规则体的节点级二分类。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>Most data-driven ionospheric models operate on gridded products, which do not preserve the time-varying sampling structure of satellite-based sensing. We instead model the ionosphere as a dynamic graph over ionospheric pierce points, with connectivity that evolves as satellite positions change. Because satellite trajectories are predictable, the graph topology over the forecast horizon can be constructed in advance. We exploit this property to condition forecasts on the future graph structure, which we term ephemeris conditioning. This enables prediction on lines of sight (LoS) that appear only in the forecast horizon. We evaluate our framework on Global Navigation Satellite System data from a co-located receiver pair in Singapore spanning 2023 to 2025. The task is forecasting irregularities defined by the Rate of TEC Index (ROTI) up to 2 hours ahead as per-node binary classification. The resulting model, IonoDGNN, achieves a Brier Skill Score (BSS) of 0.55 and an area under the precision-recall curve (PR-AUC) of 0.77. These correspond to improvements over persistence of 53% in BSS and 58% in PR-AUC, with larger gains at longer lead times.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2604.18379">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2604.18379">arXiv PDF</a></li><li><a href="https://github.com/Mert-chan/IonoDGNN">官方代码 / Code</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

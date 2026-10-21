@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="把 TEC 预测做到 30 秒，再从中导出 ROT/ROTI：让预测模型直接对准闪烁监测的时间尺度。">
+  <meta property="og:title" content="t-STEP：30 秒 TEC 预测，顺便把 ROTI 也算出来 · GNSS Paper Radar">
+  <meta property="og:description" content="把 TEC 预测做到 30 秒，再从中导出 ROT/ROTI：让预测模型直接对准闪烁监测的时间尺度。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>t-STEP：30 秒 TEC 预测，顺便把 ROTI 也算出来 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">深度学习预测 · 2026-06-28 · 核心推荐 · 匹配度 93</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">t-STEP：30 秒 TEC 预测，顺便把 ROTI 也算出来</span><span class="lang lang-en lang-inline" data-lang="en">t-STEP: An interpretable model for Total Electron Content predictions and irregularities estimations</span></h1>
+    <p class="poster-title-en">t-STEP: An interpretable model for Total Electron Content predictions and irregularities estimations</p>
+    <p class="poster-authors">Stephen Tete, Carl Shneider, Maxime Cordy, Claudio Cesaroni, Andreas Hein, Vasily Petrov</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">t-STEP 是一个可解释的 TEC 预测模型，输出 30 秒分辨率，并从预测信号中导出 ROT 与 ROTI。作者用太阳活动第 24 周一个低纬站的 GPS 数据训练，结合动态时间规整和 SHAP 评估，重点回答「小时级模型是否会抹掉小尺度不规则体」。</span><span class="lang lang-en lang-block" data-lang="en">t-STEP is an interpretable TEC model that outputs 30-second resolution and derives ROT and ROTI from the predicted signal. Trained on GPS data from a low-latitude station during solar cycle 24, it uses dynamic time warping and SHAP to test whether hourly models smooth away small-scale irregularities.</span></p>
+    <div class="poster-meta"><span>2026-06-28</span><span>2606.29644</span><span>cs.LG, physics.space-ph</span><span>深度学习预测</span><a href="https://arxiv.org/abs/2606.29644">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">TEC</span><span class="tag">ROTI</span><span class="tag">30 秒</span><span class="tag">可解释</span><span class="tag">SHAP</span><span class="tag">IRI-2020</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">30 s</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">输出分辨率</span><span class="lang lang-en lang-inline" data-lang="en">output cadence</span></span></div><div class="poster-metric"><strong class="poster-metric-value">4.38 TECU</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">MAE（2015）</span><span class="lang lang-en lang-inline" data-lang="en">MAE in 2015</span></span></div><div class="poster-metric"><strong class="poster-metric-value">91%</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">预测精度</span><span class="lang lang-en lang-inline" data-lang="en">accuracy</span></span></div><div class="poster-metric"><strong class="poster-metric-value">+35%</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">相对 IRI-2020</span><span class="lang lang-en lang-inline" data-lang="en">vs IRI-2020</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>现有机器学习 TEC 模型多按小时输出，适合描述日均/小时级变化，但可能把分钟级不规则体平滑掉；而闪烁监测与 ROTI 恰恰关心更短的时间尺度。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">TEC</span><span class="tag">ROTI</span><span class="tag">30 秒</span><span class="tag">可解释</span><span class="tag">SHAP</span><span class="tag">IRI-2020</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>30 秒 TEC 预测在高太阳活动年（2015）达到 91% 精度、MAE 4.38 TECU；相对 IRI-2020，小时模型精度提升 35%、绝对误差降低 57%、预测技巧提升 54%。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是：把 TEC 预测从小时级推到 30 秒，并把 ROT/ROTI 作为派生诊断量。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>依赖单站 GPS 观测与历史序列；ROTI 是由预测 TEC 推导的，不是直接观测。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>30 秒 TEC 回归 + ROT/ROTI 派生 + SHAP 解释；没有做多站空间建模。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>把「预测 TEC」与「监测不规则体」合并成一个高时间分辨率任务，让预测输出直接可用于 ROTI 诊断。</p></div></div>
+    <p class="poster-method-essence-note">把 TEC 预测做到 30 秒，再从中导出 ROT/ROTI：让预测模型直接对准闪烁监测的时间尺度。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>把 TEC 预测做到 30 秒，再从中导出 ROT/ROTI：让预测模型直接对准闪烁监测的时间尺度。</p><p>t-STEP 是一个可解释的 TEC 预测模型，输出 30 秒分辨率，并从预测信号中导出 ROT 与 ROTI。作者用太阳活动第 24 周一个低纬站的 GPS 数据训练，结合动态时间规整和 SHAP 评估，重点回答「小时级模型是否会抹掉小尺度不规则体」。</p><h3>研究问题</h3><p>现有机器学习 TEC 模型多按小时输出，适合描述日均/小时级变化，但可能把分钟级不规则体平滑掉；而闪烁监测与 ROTI 恰恰关心更短的时间尺度。</p>
+<p>论文要回答：能否在 30 秒分辨率上预测 TEC，并从预测信号中稳定导出 ROT/ROTI，同时保持可解释性。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>作者构建可解释的机器学习模型 t-STEP，用太阳活动第 24 周一个低纬站（5.49°S, 47.49°W）的 GPS 观测训练，输出 30 秒 TEC，并由此计算 ROT 与 ROTI。</p>
+<p>评估采用多指标框架，包括动态时间规整；用 SHAP 分析特征贡献，并与 IRI-2020 及 attention-based LSTM 对比。</p><h3>实现层面的关键变化</h3><p>30 秒 TEC 回归 + ROT/ROTI 派生 + SHAP 解释；没有做多站空间建模。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>30 秒 TEC 预测在高太阳活动年（2015）达到 91% 精度、MAE 4.38 TECU；相对 IRI-2020，小时模型精度提升 35%、绝对误差降低 57%、预测技巧提升 54%。</p>
+<p>更重要的是，30 秒模型能捕捉不同强度磁暴期间的 TEC 不规则体形态，在相同实验条件下优于 attention-based LSTM。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>只用一个低纬站、一个太阳活动周的数据，区域与站点代表性有限；2015 是高太阳活动年，低活动年的表现需另测。</p>
+<p>「91% 精度」的判定阈值需看正文；预测 ROTI 与观测 ROTI 的一致性没有在摘要中量化，不能直接当作闪烁监测替代品。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>它把你的两条线接在一起：TEC 预测模型的输出时间分辨率，决定了它能否用于 ROTI/闪烁风险，而不是只能做日均背景。</p>
+<p>对 CDSF-NET 一类 ROTI 预报的启发是：如果你的输入/输出是 30 分钟窗口，可以先评估「降采样是否抹掉了尾部事件」，再决定是否需要更高频输入。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>t-STEP 是一个可解释的 TEC 预测模型，输出 30 秒分辨率，并从预测信号中导出 ROT 与 ROTI。作者用太阳活动第 24 周一个低纬站的 GPS 数据训练，结合动态时间规整和 SHAP 评估，重点回答「小时级模型是否会抹掉小尺度不规则体」。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>Earth system infrastructures relying on satellite-based technologies, such as Global Positioning System (GPS) communications, are affected by ionospheric Total Electron Content (TEC) gradients. Modeling these gradients under physical constraints remains challenging due to their dynamic and transient nature. While existing machine learning (ML) models can predict hourly TEC variations, it remains unclear whether their temporal resolution is sufficient to preserve small-scale TEC irregularities within predicted signals. To address this gap, we introduce an interpretable ML-based model, t-STEP, designed to predict TEC at a 30-second resolution and estimate irregularity signatures from the modeled signals. This high cadence enables the derivation of Rate of TEC changes (ROT) and the ROT Index (ROTI) as diagnostic indicators of ionospheric variability. The model is developed using GPS observations from solar cycle 24 at a station located at 5.49°S, 47.49°W. A multi-metric evaluation framework, including dynamic time warping, is used for robustness assessment, while SHAP provides insight into feature contributions. The 30-second TEC predictions achieve 91% accuracy with a mean absolute error (MAE) of 4.38 TECU during high solar activity (2015). Compared with the International Reference Ionosphere (IRI-2020), the hourly model improves accuracy by 35%, reduces absolute errors by 57%, and increases prediction skill by 54%.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2606.29644">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2606.29644">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

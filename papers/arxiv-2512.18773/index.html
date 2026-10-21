@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="把全球 GNSS 网看成一个时变图：每个站只和邻居交换短消息，也能收敛到厘米级并达成改正数共识。">
+  <meta property="og:title" content="全球尺度去中心化 GNSS：用图感知扩散学习做厘米级自定位 · GNSS Paper Radar">
+  <meta property="og:description" content="把全球 GNSS 网看成一个时变图：每个站只和邻居交换短消息，也能收敛到厘米级并达成改正数共识。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>全球尺度去中心化 GNSS：用图感知扩散学习做厘米级自定位 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">GNSS 高精度定位 · 2025-12-21 · 值得跟踪 · 匹配度 87</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">全球尺度去中心化 GNSS：用图感知扩散学习做厘米级自定位</span><span class="lang lang-en lang-inline" data-lang="en">Decentralized GNSS at Global Scale via Graph-Aware Diffusion Adaptation</span></h1>
+    <p class="poster-title-en">Decentralized GNSS at Global Scale via Graph-Aware Diffusion Adaptation</p>
+    <p class="poster-authors">Xue Xian Zheng, Xing Liu, Tareq Y. Al-Naffouri</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">论文提出全球尺度的去中心化 GNSS 架构：把数百个地面站建模为时变图，用深度线性网络学习拓扑感知的混合调度，再通过梯度跟踪扩散完成站间自定位与卫星改正数共识。目标是让 PPP/PPP-RTK 不再依赖单一大中心。</span><span class="lang lang-en lang-block" data-lang="en">This work proposes a global-scale decentralized GNSS architecture: hundreds of ground stations form a time-varying graph, a deep linear network learns topology-aware mixing schedules, and gradient-tracking diffusion achieves both station self-localization and consensus satellite corrections, reducing dependence on a central hub for PPP/PPP-RTK.</span></p>
+    <div class="poster-meta"><span>2025-12-21</span><span>2512.18773</span><span>eess.SP</span><span>GNSS 高精度定位</span><a href="https://arxiv.org/abs/2512.18773">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">去中心化</span><span class="tag">图神经网络</span><span class="tag">扩散优化</span><span class="tag">PPP-RTK</span><span class="tag">CORS</span><span class="tag">改正数共识</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">数百站</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">全球网络规模</span><span class="lang lang-en lang-inline" data-lang="en">global stations</span></span></div><div class="poster-metric"><strong class="poster-metric-value">厘米级</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">站间自定位</span><span class="lang lang-en lang-inline" data-lang="en">self-localization</span></span></div><div class="poster-metric"><strong class="poster-metric-value">PPP / PPP-RTK</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">改正数服务</span><span class="lang lang-en lang-inline" data-lang="en">correction service</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>网络化 GNSS 依赖集中式处理中心：中心负责收集观测、估计卫星改正数并分发。这种架构在规模、韧性和时延上都受限，一旦中心故障或链路拥塞，整个服务会退化。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">去中心化</span><span class="tag">图神经网络</span><span class="tag">扩散优化</span><span class="tag">PPP-RTK</span><span class="tag">CORS</span><span class="tag">改正数共识</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>数值结果显示，该方法在精度上匹配集中式基线，并在收敛速度和通信开销上显著优于现有去中心化方法；站点能够达到厘米级自定位，网络形成一致的改正数产品。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是：把图感知学习、梯度跟踪扩散和 GNSS 改正数估计组合成一个去中心化架构。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>依赖站间通信拓扑与邻居消息交换；混合调度需要训练，且要适应时变图。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>各站局部推断，邻居间交换 succinct messages，迭代到自定位与改正数共识；没有单一中心收集全部观测。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>把 GNSS 网络从「中心估计 + 广播」改成「分布式共识」：精度对齐集中式基线，但把扩展性和韧性换成了通信与拓扑设计问题。</p></div></div>
+    <p class="poster-method-essence-note">把全球 GNSS 网看成一个时变图：每个站只和邻居交换短消息，也能收敛到厘米级并达成改正数共识。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>把全球 GNSS 网看成一个时变图：每个站只和邻居交换短消息，也能收敛到厘米级并达成改正数共识。</p><p>论文提出全球尺度的去中心化 GNSS 架构：把数百个地面站建模为时变图，用深度线性网络学习拓扑感知的混合调度，再通过梯度跟踪扩散完成站间自定位与卫星改正数共识。目标是让 PPP/PPP-RTK 不再依赖单一大中心。</p><h3>研究问题</h3><p>网络化 GNSS 依赖集中式处理中心：中心负责收集观测、估计卫星改正数并分发。这种架构在规模、韧性和时延上都受限，一旦中心故障或链路拥塞，整个服务会退化。</p>
+<p>论文想把「网络解算」本身去中心化：每个站只做局部推断，与邻居交换少量信息，最终在全网形成一致的卫星改正数，并同时完成自身定位。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>作者把接收机网络建模为时变图，用深度线性神经网络学习拓扑感知的混合调度（mixing schedule），再采用梯度跟踪扩散策略，让各站局部推断并交换简短消息。</p>
+<p>系统同时优化两个目标：站点的厘米级自定位，以及全网对卫星改正数产品的共识。共识改正数随后广播给用户，支持 PPP 与 PPP-RTK。</p><h3>实现层面的关键变化</h3><p>各站局部推断，邻居间交换 succinct messages，迭代到自定位与改正数共识；没有单一中心收集全部观测。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>数值结果显示，该方法在精度上匹配集中式基线，并在收敛速度和通信开销上显著优于现有去中心化方法；站点能够达到厘米级自定位，网络形成一致的改正数产品。</p>
+<p>摘要没有给出具体站数、收敛轮数或通信量数值，适合把它当作架构可行性证据，而不是工程部署的最终性能报告。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>结果是数值验证，尚未覆盖真实全球网络的链路时延、丢包、时钟同步和恶意节点。</p>
+<p>图学习需要训练，拓扑变化和站点故障下的鲁棒性仍需专门评估；改正数共识的完好性没有被讨论。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>对 CORS/PPP-RTK 的架构设计很直接：如果你关心「中心挂了怎么办」，这是一条可落地的分布式替代路线。</p>
+<p>它也把图学习用在「网络调度」而不是「电离层预测」上，提醒你：图模型既可以建模物理场，也可以建模工程网络。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>论文提出全球尺度的去中心化 GNSS 架构：把数百个地面站建模为时变图，用深度线性网络学习拓扑感知的混合调度，再通过梯度跟踪扩散完成站间自定位与卫星改正数共识。目标是让 PPP/PPP-RTK 不再依赖单一大中心。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>Network-based Global Navigation Satellite Systems (GNSS) underpin critical infrastructure and autonomous systems, yet typically rely on centralized processing hubs that limit scalability, resilience, and latency. Here we report a global-scale, decentralized GNSS architecture spanning hundreds of ground stations. By modeling the receiver network as a time-varying graph, we employ a deep linear neural network approach to learn topology-aware mixing schedules that optimize information exchange. This enables a gradient tracking diffusion strategy wherein stations execute local inference and exchange succinct messages to achieve two concurrent objectives: centimeter-level self-localization and network-wide consensus on satellite correction products. The consensus products are broadcast to user receivers as corrections, supporting precise point positioning (PPP) and precise point positioning-real-time kinematic (PPP-RTK). Numerical results demonstrate that our method matches the accuracy of centralized baselines while significantly outperforming existing decentralized methods in convergence speed and communication overhead.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2512.18773">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2512.18773">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>

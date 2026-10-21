@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="复合干扰不是单类干扰的简单叠加：SKANet 用 TFI + PSD 双流和动态感受野同时抓瞬态与连续成分。">
+  <meta property="og:title" content="SKANet：复合 GNSS 干扰的双流识别 · GNSS Paper Radar">
+  <meta property="og:description" content="复合干扰不是单类干扰的简单叠加：SKANet 用 TFI + PSD 双流和动态感受野同时抓瞬态与连续成分。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>SKANet：复合 GNSS 干扰的双流识别 · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-20/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-20/index.html">← 本期论文合集</a><span class="meta">第 001 期 · 2026-10-20</span></div>
+    <div class="poster-kicker">工程感知算法 · 2026-01-19 · 扩展阅读 · 匹配度 82</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">SKANet：复合 GNSS 干扰的双流识别</span><span class="lang lang-en lang-inline" data-lang="en">SKANet: A Cognitive Dual-Stream Framework with Adaptive Modality Fusion for Robust Compound GNSS Interference Classification</span></h1>
+    <p class="poster-title-en">SKANet: A Cognitive Dual-Stream Framework with Adaptive Modality Fusion for Robust Compound GNSS Interference Classification</p>
+    <p class="poster-authors">Zhihan Zeng, Yang Zhao, Kaihe Wang, Dusit Niyato, Hongyuan Shu, Junchu Zhao, Yanjun Huang, Yue Xiu</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">SKANet 面向复合 GNSS 干扰分类，输入时频图像与功率谱密度两路特征；用多分支选择性核与不对称卷积块动态调整感受野，再用 SE 机制在融合阶段重标定两路贡献。在 40.5 万样本上报告 96.99% 总体准确率，低 JNR 下仍保持鲁棒。</span><span class="lang lang-en lang-block" data-lang="en">SKANet targets compound GNSS interference classification using time-frequency images and power spectral density as two streams. Multi-branch selective kernels and asymmetric convolution blocks adapt the receptive field, while SE recalibrates modality contributions at fusion. It reports 96.99% overall accuracy on 405,000 samples and robustness at low JNR.</span></p>
+    <div class="poster-meta"><span>2026-01-19</span><span>2601.12791</span><span>cs.CV</span><span>工程感知算法</span><a href="https://arxiv.org/abs/2601.12791">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">GNSS 干扰</span><span class="tag">复合干扰</span><span class="tag">时频图</span><span class="tag">PSD</span><span class="tag">选择性核</span><span class="tag">低 JNR</span></div>
+  </header>
+
+  <nav class="poster-nav" aria-label="海报章节导航"><a href="#poster-01"><span class="nav-no">01</span>结论与问题</a><a href="#poster-02"><span class="nav-no">02</span>方法</a><a href="#poster-03"><span class="nav-no">03</span>结果</a><a href="#poster-04"><span class="nav-no">04</span>边界与启发</a></nav>
+
+  <div class="poster-metrics" aria-label="关键指标"><div class="poster-metric"><strong class="poster-metric-value">405,000</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">样本量</span><span class="lang lang-en lang-inline" data-lang="en">samples</span></span></div><div class="poster-metric"><strong class="poster-metric-value">96.99%</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">总体准确率</span><span class="lang lang-en lang-inline" data-lang="en">overall accuracy</span></span></div><div class="poster-metric"><strong class="poster-metric-value">双流</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">TFI + PSD</span><span class="lang lang-en lang-inline" data-lang="en">dual stream</span></span></div><div class="poster-metric"><strong class="poster-metric-value">低 JNR</strong><span class="poster-metric-label"><span class="lang lang-zh lang-inline" data-lang="zh">鲁棒性重点</span><span class="lang lang-en lang-inline" data-lang="en">low-JNR regime</span></span></div></div>
+
+  <section class="poster-context">
+    <p class="poster-context-label">阅读定位 · Why read it</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>它解决什么</h3><p>电磁环境复杂化使 GNSS 面临复合干扰：多个干扰源叠加后，单类识别器难以扩展，因为复合类别数量会组合爆炸。</p></div>
+      <div class="poster-context-card"><h3>方法关键词</h3><div class="tags"><span class="tag">GNSS 干扰</span><span class="tag">复合干扰</span><span class="tag">时频图</span><span class="tag">PSD</span><span class="tag">选择性核</span><span class="tag">低 JNR</span></div></div>
+      <div class="poster-context-card"><h3>证据类型</h3><p>在 40.5 万样本上报告 96.99% 总体准确率，并在低 JNR 条件下对复合干扰保持较好的鲁棒性。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-method-essence">
+    <p class="poster-method-essence-label">方法本质拆解 · What actually changed</p>
+    <div class="poster-method-essence-grid"><div class="poster-method-essence-item"><h3>是不是新算法？</h3><p>是：双流 TFI/PSD + 选择性核/不对称卷积 + SE 融合，针对复合干扰分类。</p></div><div class="poster-method-essence-item"><h3>有没有额外约束？</h3><p>需要时频与 PSD 的同步计算；类别体系由数据集定义，扩展到新干扰类型需要新样本。</p></div><div class="poster-method-essence-item"><h3>推理/后端做了什么？</h3><p>端到端分类，输出复合干扰类别；没有做参数估计或定位域联合优化。</p></div><div class="poster-method-essence-item"><h3>方法本质</h3><p>用动态感受野解决「瞬态 vs 连续」的特征尺度冲突，用双流融合保留不同域的互补信息。</p></div></div>
+    <p class="poster-method-essence-note">复合干扰不是单类干扰的简单叠加：SKANet 用 TFI + PSD 双流和动态感受野同时抓瞬态与连续成分。</p>
+  </section>
+
+  <section class="poster-section" id="poster-01">
+    <div class="poster-section-head"><span class="poster-section-no">01</span><h2 class="poster-section-title">结论与问题<span class="poster-section-en">Conclusion &amp; Motivation</span></h2></div>
+    <div class="poster-section-body"><h3>核心结论</h3><p>复合干扰不是单类干扰的简单叠加：SKANet 用 TFI + PSD 双流和动态感受野同时抓瞬态与连续成分。</p><p>SKANet 面向复合 GNSS 干扰分类，输入时频图像与功率谱密度两路特征；用多分支选择性核与不对称卷积块动态调整感受野，再用 SE 机制在融合阶段重标定两路贡献。在 40.5 万样本上报告 96.99% 总体准确率，低 JNR 下仍保持鲁棒。</p><h3>研究问题</h3><p>电磁环境复杂化使 GNSS 面临复合干扰：多个干扰源叠加后，单类识别器难以扩展，因为复合类别数量会组合爆炸。</p>
+<p>单一域特征也有冲突：瞬态突发信号需要小感受野，连续全局信号需要大感受野；固定感受野的融合方法难以同时兼顾。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-02">
+    <div class="poster-section-head"><span class="poster-section-no">02</span><h2 class="poster-section-title">方法<span class="poster-section-en">Method</span></h2></div>
+    <div class="poster-section-body"><h3>方法总览</h3><p>SKANet 采用双流架构，分别输入时频图像（TFI）与功率谱密度（PSD）。多分支选择性核模块与不对称卷积块让网络动态调整感受野，同时捕捉微尺度瞬态和宏观频谱趋势。</p>
+<p>融合阶段加入 Squeeze-and-Excitation 机制，自适应重标定两路特征的贡献；训练/评估使用 40.5 万样本数据集。</p><h3>实现层面的关键变化</h3><p>端到端分类，输出复合干扰类别；没有做参数估计或定位域联合优化。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-03">
+    <div class="poster-section-head"><span class="poster-section-no">03</span><h2 class="poster-section-title">结果<span class="poster-section-en">Results</span></h2></div>
+    <div class="poster-section-body"><h3>主要结果</h3><p>在 40.5 万样本上报告 96.99% 总体准确率，并在低 JNR 条件下对复合干扰保持较好的鲁棒性。</p>
+<p>摘要没有给出各类别混淆矩阵或跨数据集泛化结果，因此不能据此判断对未知干扰组合的开放集能力。</p></div>
+  </section>
+
+  <section class="poster-section" id="poster-04">
+    <div class="poster-section-head"><span class="poster-section-no">04</span><h2 class="poster-section-title">边界与启发<span class="poster-section-en">Limits &amp; Transfer</span></h2></div>
+    <div class="poster-section-body"><h3>局限与待核验</h3><p>结果依赖特定数据集的干扰类别与采集条件；实际电磁环境中的未知组合、信道失真和接收机差异会降低泛化。</p>
+<p>没有报告实时推理延迟与嵌入式部署成本；对抗性干扰或欺骗信号也未覆盖。</p><div class="relevance-box"><h3>与你研究路线的关系</h3><p>对你做观测质量/干扰监测有参考价值：干扰识别可以作为 GNSS 观测加权的前置模块，避免把受扰观测误当作电离层梯度。</p>
+<p>双流 + 动态感受野的思路，也可以迁移到「时频图 + ROTI 时序」的联合判别，但需要重新设计标签体系。</p></div><p class="meta">以上中文解读基于 arXiv 摘要与论文公开信息；未在摘要中出现的数字不作补写。需要精确实验设置时请回到原文。</p></div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>中文摘要速读 · Summary</h2>
+    <p>SKANet 面向复合 GNSS 干扰分类，输入时频图像与功率谱密度两路特征；用多分支选择性核与不对称卷积块动态调整感受野，再用 SE 机制在融合阶段重标定两路贡献。在 40.5 万样本上报告 96.99% 总体准确率，低 JNR 下仍保持鲁棒。</p>
+    <h2 style="margin-top:20px">原文摘要 · Abstract</h2>
+    <p>As the electromagnetic environment becomes increasingly complex, Global Navigation Satellite Systems (GNSS) face growing threats from sophisticated jamming interference. Although Deep Learning (DL) effectively identifies basic interference, classifying compound interference remains difficult due to the superposition of diverse jamming sources. Existing single-domain approaches often suffer from performance degradation because transient burst signals and continuous global signals require conflicting feature extraction scales. We propose the Selective Kernel and Asymmetric convolution Network (SKANet), a cognitive deep learning framework built upon a dual-stream architecture that integrates Time-Frequency Images (TFIs) and Power Spectral Density (PSD). Evaluations on a dataset of 405,000 samples demonstrate that SKANet achieves an overall accuracy of 96.99%, exhibiting superior robustness for compound jamming classification, particularly under low Jamming-to-Noise Ratio (JNR) regimes.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2601.12791">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2601.12791">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>
