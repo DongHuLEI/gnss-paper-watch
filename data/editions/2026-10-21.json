@@ -1,0 +1,277 @@
+{
+ "edition": {
+  "date": "2026-10-21",
+  "number": 2,
+  "title": "10 月 21 日 · 每日论文雷达",
+  "subtitle": "脚本按四个领域抓取 arXiv 最新投稿并初筛，未做人工解读。",
+  "kicker": "AUTO · 每日自动更新",
+  "blurb": "点开任意一篇可以看到 arXiv 原文摘要、作者与分类；值得跟踪的条目，再补中文解读。",
+  "overview": [
+   "本期共 6 篇，覆盖 电离层监测、工程感知算法，全部由脚本按领域关键词抓取并打分排序。",
+   "分数只反映标题与摘要里的关键词命中（领域锚点 + 术语数 + 标题锚点），不评价方法质量、实验是否充分，也不判断是否和你的工作直接相关。",
+   "每天北京时间 06:00 自动更新；人工精读过的期号会替换掉对应的自动条目，并在归档里标注「人工精读」。"
+  ],
+  "threads": [
+   {
+    "domain": "iono",
+    "title": "电离层监测 · 2 篇",
+    "text": "最高匹配度 89：Understanding sub-arcsecond scale radio sources and space weather with the SKA-Low using interp…"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知算法 · 4 篇",
+    "text": "最高匹配度 80：GNSS Spoofing in Mobile Devices: A Survey on Impact and Countermeasures"
+   }
+  ],
+  "stats": [
+   {
+    "value": "6",
+    "label": "本期篇数"
+   },
+   {
+    "value": "2",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "89",
+    "label": "最高匹配度"
+   },
+   {
+    "value": "AUTO",
+    "label": "编选方式"
+   }
+  ],
+  "note": [
+   "本期由 scripts/daily_update.py 在 GitHub Actions 里自动生成，没有任何人工挑选或改写。",
+   "「匹配度」是关键词打分：领域锚点 24 分起，每命中一个领域词 +9，标题里出现 GNSS/TEC/ROTI 等锚点再 +12。它只用于排序。",
+   "同一天重复运行会跳过已存在的期号；想重跑请加 --force。",
+   "机器初筛不等于推荐。重要结论、数字和适用边界请回到 arXiv 原文核对。"
+  ]
+ },
+ "papers": [
+  {
+   "id": "2610.23220",
+   "slug": "arxiv-2610.23220",
+   "domain": "iono",
+   "date": "2026-10-16",
+   "score": 89,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "Understanding sub-arcsecond scale radio sources and space weather with the SKA-Low using interplanetary scintillation",
+   "title_en": "Understanding sub-arcsecond scale radio sources and space weather with the SKA-Low using interplanetary scintillation",
+   "authors": [
+    "Rajan Chhetri",
+    "John Morgan",
+    "Harsha Avinash Tanti",
+    "Hayley Bignall",
+    "Emily Kerrison",
+    "Abhirup Datta",
+    "Anshu Kumari"
+   ],
+   "cats": [
+    "astro-ph.IM",
+    "astro-ph.CO"
+   ],
+   "tags": [
+    "ionospheric",
+    "scintillation",
+    "sed",
+    "space weather"
+   ],
+   "one_liner": "Continuum surveys with SKA-Low will provide excellent spectral information for detected objects.",
+   "one_liner_en": "Continuum surveys with SKA-Low will provide excellent spectral information for detected objects.",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Continuum surveys with SKA-Low will provide excellent spectral information for detected objects. However, the angular resolution it provides cannot clearly distinguish between extended radio galaxies and their sub-arcsecond scale counterparts. We have previously used an interplanetary scintillation (IPS) technique with wide field-of-view instruments (the MWA and ASKAP) to detect and study $<$0.3\\arcsec\\ objects. The ability to identify hundreds of compact sources from large areas of the sky using $<$5 minutes of data, and associated low computational cost makes widefield IPS a very efficient approach to identify sub-arcsecond scale objects at low radio frequencies. We aim to utilise SKA-Low's flexibility in data capture, frequency coverage and high sensitivity to develop widefield IPS technique with SKA-Low, enabling the identification of compact radio sources at angular scales more than an order of magnitude smaller than that achieved by SKA-Low's longest baselines. This capability will facilitate studies of compact source populations (e.g., AGN cores), their relationship to extended radio galaxies, AGN contributions in star-forming galaxies, identify candidates for pulsars and HI absorption, and provide a network of calibrators for direction-dependent ionospheric calibration for SKA-Low. Additionally, ground-based IPS observations are one of the very few remote sensing techniques to probe the Heliosphere which will enable SKA-Low to provide unique insights into the solar wind. Here, we present recent developments in the field of compact sources at low frequencies, their synergies with other fields of astronomy and space weather, and outline the technical developments and approaches that are necessary with the SKA-Low to realise these studies.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.23220",
+    "pdf": "https://arxiv.org/pdf/2610.23220"
+   }
+  },
+  {
+   "id": "2610.01294",
+   "slug": "arxiv-2610.01294",
+   "domain": "perception",
+   "date": "2026-10-01",
+   "score": 80,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "GNSS Spoofing in Mobile Devices: A Survey on Impact and Countermeasures",
+   "title_en": "GNSS Spoofing in Mobile Devices: A Survey on Impact and Countermeasures",
+   "authors": [
+    "Robert Argo",
+    "Andrea Nardin",
+    "Alex Minetto",
+    "Pau Closas"
+   ],
+   "cats": [
+    "cs.CR",
+    "eess.SP",
+    "eess.SY"
+   ],
+   "tags": [
+    "interference",
+    "jamming",
+    "receiver",
+    "spoofing"
+   ],
+   "one_liner": "Smartphones rely on Global Navigation Satellite System (GNSS)-based positioning for many of the functions they execute everyday.",
+   "one_liner_en": "Smartphones rely on Global Navigation Satellite System (GNSS)-based positioning for many of the functions they execute everyday.",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Smartphones rely on Global Navigation Satellite System (GNSS)-based positioning for many of the functions they execute everyday. The GNSS receivers embedded in smartphones are susceptible to anthropogenic radio frequency interference attacks in the forms of jamming and spoofing due to the low-power and open-architecture signals they receive from the satellite constellations. While jamming is a practice that denies a GNSS receiver the ability to form a position, velocity, and time (PVT) solution, spoofing represents a more insidious threat by using forged satellite signals that aim at causing the victim receiver to compute a false PVT solution. The ubiquity of smartphones and the sensitive geolocation data they hold make them a primary target for malicious spoofing. However, their hardware constraints and the lack of deep visibility into the GNSS receiver processing chain create significant hurdles for effective countermeasures. Existing surveys comprehensively explore general spoofing countermeasures but fail to address these mobile-specific limitations. This article fills that gap with a novel survey focused on techniques viable within the unique constraints of smartphone architectures. Specifically, we establish a taxonomy for defining GNSS spoofing attack effects and countermeasures, provide a historical review of smartphone vulnerability characterization, and provide an overview of techniques proposed to detect and counteract smartphone spoofing threats, offering a comparative framework to weigh their respective pros and cons on mobile platforms.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.01294",
+    "pdf": "https://arxiv.org/pdf/2610.01294"
+   }
+  },
+  {
+   "id": "2610.02482",
+   "slug": "arxiv-2610.02482",
+   "domain": "iono",
+   "date": "2026-10-01",
+   "score": 63,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "A Student Sounding Rocket Experiment to Probe Electron Density in the Lower Ionosphere",
+   "title_en": "A Student Sounding Rocket Experiment to Probe Electron Density in the Lower Ionosphere",
+   "authors": [
+    "Joshua Goodwill",
+    "Timothy Tomaszewski",
+    "Jarrod Bieber",
+    "Carson P. Brown",
+    "Ashton Southwick",
+    "Samuel Auerbach",
+    "Sreenidhi Banda",
+    "Alex Bruce",
+    "et al."
+   ],
+   "cats": [
+    "physics.space-ph",
+    "physics.ed-ph",
+    "physics.ins-det"
+   ],
+   "tags": [
+    "ionosphere",
+    "ionospheric",
+    "tec"
+   ],
+   "one_liner": "Earth's ionosphere is primarily generated by the Sun's ionization of atoms in the upper atmosphere.",
+   "one_liner_en": "Earth's ionosphere is primarily generated by the Sun's ionization of atoms in the upper atmosphere.",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Earth's ionosphere is primarily generated by the Sun's ionization of atoms in the upper atmosphere. This plasma environment is highly dynamic, exhibits strong spatial and temporal, variations and significantly impacts power systems, navigation, and satellite and ground communications. The University of Delaware Ionospheric Probe (UDIP) was developed as a hands-on learning experience for University of Delaware students on the ionosphere itself and on the development of space technology. Students (mostly undergraduates) have led all aspects of the experiment including mission planning, electronics development, mechanical development, software development, and scientific data analysis. The present study is intended as a guide to readers on how the development of space and near-space flight missions can be successfully incorporated into an undergraduate physics curriculum. The fourth version of the experiment (UDIP-4) flew along with student experiments from across the USA on the 2024 RockSat-C sounding rocket, which was launched from NASA Wallops Flight Facility. During the flight, UDIP-4's Langmuir probe successfully measured the ionosphere's density profile -- electron density as a function of altitude -- up to an apogee of 114 km. Though the measured density profile agrees well overall with the predictions of theoretical models, UDIP-4 identified a thin layer of enhanced electron density at an altitude of approximately 110 km that is consistent with a sporadic E layer.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.02482",
+    "pdf": "https://arxiv.org/pdf/2610.02482"
+   }
+  },
+  {
+   "id": "2610.20831",
+   "slug": "arxiv-2610.20831",
+   "domain": "perception",
+   "date": "2026-10-14",
+   "score": 63,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "GhostLock: Learning-Assisted Blind GPS Signal Nullification Without Victim-Side Information",
+   "title_en": "GhostLock: Learning-Assisted Blind GPS Signal Nullification Without Victim-Side Information",
+   "authors": [
+    "Khalil Ahmad",
+    "Omar Ansari",
+    "Mohsin Kamal",
+    "Asif Iqbal",
+    "Muhammad Naveed Aman"
+   ],
+   "cats": [
+    "cs.CR"
+   ],
+   "tags": [
+    "interference",
+    "jamming",
+    "spoofing"
+   ],
+   "one_liner": "The Global Positioning System (GPS) provides critical positioning, navigation, and timing (PNT) services for numerous safety- and mission-critical applications, making i…",
+   "one_liner_en": "The Global Positioning System (GPS) provides critical positioning, navigation, and timing (PNT) services for numerous safety- and mission-critical applications, making i…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "The Global Positioning System (GPS) provides critical positioning, navigation, and timing (PNT) services for numerous safety- and mission-critical applications, making it an attractive target for physical-layer attacks. While GPS spoofing and jamming have been extensively studied, GPS Signal Nullification (GSN)-a physical-layer attack that suppresses authentic satellite signals through destructive interference prior to acquisition-remains largely unexplored. Existing wireless signal nullification techniques target conventional communication systems and typically require victim-side information, such as channel estimates or synchronization parameters, making them impractical for GPS. Furthermore, many GPS spoofing defenses assume authentic satellite signals remain available as trusted references, an assumption invalidated by GSN. To address this gap, we present GhostLock, a learning-assisted blind GSN framework requiring only an approximate target location estimate. GhostLock integrates a Blind Adaptive Filter (BAF) with a deep learning-based synchronization module to generate and align an anti-signal using only the attacker's locally received GPS signal, eliminating the need for victim-side observations. We implement GhostLock on a real-time software-defined radio (SDR) platform using GPS-SDR-SIM and GNU Radio. Experimental results demonstrate successful suppression of GPS signal acquisition, establishing the feasibility of blind GSN and motivating new detection and mitigation techniques for this emerging GPS threat model.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.20831",
+    "pdf": "https://arxiv.org/pdf/2610.20831"
+   }
+  },
+  {
+   "id": "2610.10360",
+   "slug": "arxiv-2610.10360",
+   "domain": "perception",
+   "date": "2026-10-07",
+   "score": 63,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "Receiver-Domain Behavioral Probing for Backdoor-Resilient Federated GPS Spoofing Detection in UAV Networks",
+   "title_en": "Receiver-Domain Behavioral Probing for Backdoor-Resilient Federated GPS Spoofing Detection in UAV Networks",
+   "authors": [
+    "Will Jedrzejczak",
+    "Cole Walther",
+    "Dilpreet Gill",
+    "Moh Khalid Hasan"
+   ],
+   "cats": [
+    "cs.CR",
+    "eess.SP"
+   ],
+   "tags": [
+    "receiver",
+    "robust",
+    "spoofing"
+   ],
+   "one_liner": "Federated learning lets a UAV fleet train a shared GPS spoofing detector without raw receiver data leaving any aircraft, and several recent UAV-FL designs weight each cl…",
+   "one_liner_en": "Federated learning lets a UAV fleet train a shared GPS spoofing detector without raw receiver data leaving any aircraft, and several recent UAV-FL designs weight each cl…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Federated learning lets a UAV fleet train a shared GPS spoofing detector without raw receiver data leaving any aircraft, and several recent UAV-FL designs weight each client by the validation accuracy it reports about itself. We show this self-report is an exploitable attack lever: two compromised clients of ten that poison part of their data, scale their updates, and inflate their reported accuracy raise backdoor lift to +0.3036, higher than the same attack achieves without lying. We propose receiver-domain behavioral probing, in which the coordinator evaluates every submitted model on counterfactual spoofed samples built by driving each discriminative GPS feature to a benign value, weighting clients by what their models do rather than what they claim. Under independent and identically distributed clients this reduces attacker-induced lift to -0.0265, statistically indistinguishable from an honest fleet, while flagging the compromised aircraft. Unlike Byzantine-robust aggregation it needs no exact attacker count, only an honest majority: when the true count exceeds the configured value, Multi-Krum degrades from +0.0061 to +0.2837 while ours stays near baseline. Evaluation uses one public single-receiver dataset partitioned into simulated clients; we also report where the mechanism fails, under strong client heterogeneity.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.10360",
+    "pdf": "https://arxiv.org/pdf/2610.10360"
+   }
+  },
+  {
+   "id": "2610.12411",
+   "slug": "arxiv-2610.12411",
+   "domain": "perception",
+   "date": "2026-10-08",
+   "score": 54,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "GLIO2: A GPU-Parallelized Tightly-Coupled LiDAR-Inertial-GNSS System for Robust and Real-Time Global Localization and Mapping",
+   "title_en": "GLIO2: A GPU-Parallelized Tightly-Coupled LiDAR-Inertial-GNSS System for Robust and Real-Time Global Localization and Mapping",
+   "authors": [
+    "Qi Zhang",
+    "Xikun Liu",
+    "Qijun Qin",
+    "Xiangru Wang",
+    "Junzhe Wang",
+    "Naigui Xiao",
+    "Jianhao Jiao",
+    "Weisong Wen"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "factor graph",
+    "robust"
+   ],
+   "one_liner": "Globally consistent, real-time state estimation in large-scale, perceptually degraded environments is essential for autonomous vehicles and aerial robots, and requires f…",
+   "one_liner_en": "Globally consistent, real-time state estimation in large-scale, perceptually degraded environments is essential for autonomous vehicles and aerial robots, and requires f…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Globally consistent, real-time state estimation in large-scale, perceptually degraded environments is essential for autonomous vehicles and aerial robots, and requires fusing LiDAR, inertial, and GNSS measurements. Existing fusion methods, however, share a scan-to-map front-end with two failure modes. First, each scan is aligned to an incrementally built map that drifts under degeneracy, and once the estimate diverges the error is irrecoverable. Second, even without divergence, a registration biased by dynamic objects or wrong correspondences is propagated as a single pose constraint with an over-confident covariance, leaving its correspondences unavailable for GNSS to re-weight or relinearize. We propose GLIO2, a tightly-coupled LiDAR-Inertial-GNSS system whose GPU-parallel front-end jointly optimizes scan-to-multiscan LiDAR, IMU pre-integration, and raw GNSS measurements in a single sliding-window factor graph, sustaining real-time operation on edge hardware. A complementary offline back-end reuses the same cached factors to refine the entire trajectory in batch, completing the 30-min, 4.51-km UrbanNav Whampoa sequence in about 24 s. Across three public benchmarks (UrbanNav, MARS-LVIG, M3DGR) and self-collected UAV and vehicle data, GLIO2 attains the best overall accuracy among evaluated systems. On a 5.66-km bridge traversed at up to 96 km/h, where every competing baseline diverges under LiDAR degeneracy, it maintains 1.6 m horizontal accuracy. On an NVIDIA Jetson Orin NX, the full pipeline runs at about 25 Hz (39.60 ms per scan). The source code and datasets will be released.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.12411",
+    "pdf": "https://arxiv.org/pdf/2610.12411"
+   }
+  }
+ ]
+}

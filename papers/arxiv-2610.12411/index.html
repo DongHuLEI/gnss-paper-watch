@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Globally consistent, real-time state estimation in large-scale, perceptually degraded environments is essential for autonomous vehicles and aerial robots, and requires f…">
+  <meta property="og:title" content="GLIO2: A GPU-Parallelized Tightly-Coupled LiDAR-Inertial-GNSS System for Robust and Real-Time Global Localization and Mapping · GNSS Paper Radar">
+  <meta property="og:description" content="Globally consistent, real-time state estimation in large-scale, perceptually degraded environments is essential for autonomous vehicles and aerial robots, and requires f…">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>GLIO2: A GPU-Parallelized Tightly-Coupled LiDAR-Inertial-GNSS System for Robust and Real-Time Global Localization and Mapping · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-21/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-21/index.html">← 本期论文合集</a><span class="meta">第 2 期 · 2026-10-21</span></div>
+    <div class="poster-kicker">工程感知算法 · 2026-10-08 · 机器初筛 · 匹配度 54</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">GLIO2: A GPU-Parallelized Tightly-Coupled LiDAR-Inertial-GNSS System for Robust and Real-Time Global Localization and Mapping</span><span class="lang lang-en lang-inline" data-lang="en">GLIO2: A GPU-Parallelized Tightly-Coupled LiDAR-Inertial-GNSS System for Robust and Real-Time Global Localization and Mapping</span></h1>
+    <p class="poster-authors">Qi Zhang, Xikun Liu, Qijun Qin, Xiangru Wang, Junzhe Wang, Naigui Xiao, Jianhao Jiao, Weisong Wen</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。</span><span class="lang lang-en lang-block" data-lang="en">Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.</span></p>
+    <div class="poster-meta"><span>2026-10-08</span><span>2610.12411</span><span>cs.RO</span><span>工程感知算法</span><a href="https://arxiv.org/abs/2610.12411">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">factor graph</span><span class="tag">robust</span></div>
+  </header>
+
+  <section class="poster-context">
+    <p class="poster-context-label">自动收录 · Machine-selected</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>这条是怎么来的</h3><p>每天北京时间 06:00 由脚本抓取 arXiv 最新投稿，命中四个领域关键词的候选按分数排序取前列，没有经过人工精读。</p></div>
+      <div class="poster-context-card"><h3>可信度边界</h3><p>标题、作者、分类和下面的摘要是 arXiv 原文；匹配度只是关键词打分，不代表论文质量，也不代表与你的研究路线相关。</p></div>
+      <div class="poster-context-card"><h3>下一步</h3><p>值得读就按下面的链接进原文；值得长期跟踪的，再补写中文解读，替换这一期里的自动条目。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>原文摘要 · Abstract</h2>
+    <p>Globally consistent, real-time state estimation in large-scale, perceptually degraded environments is essential for autonomous vehicles and aerial robots, and requires fusing LiDAR, inertial, and GNSS measurements. Existing fusion methods, however, share a scan-to-map front-end with two failure modes. First, each scan is aligned to an incrementally built map that drifts under degeneracy, and once the estimate diverges the error is irrecoverable. Second, even without divergence, a registration biased by dynamic objects or wrong correspondences is propagated as a single pose constraint with an over-confident covariance, leaving its correspondences unavailable for GNSS to re-weight or relinearize. We propose GLIO2, a tightly-coupled LiDAR-Inertial-GNSS system whose GPU-parallel front-end jointly optimizes scan-to-multiscan LiDAR, IMU pre-integration, and raw GNSS measurements in a single sliding-window factor graph, sustaining real-time operation on edge hardware. A complementary offline back-end reuses the same cached factors to refine the entire trajectory in batch, completing the 30-min, 4.51-km UrbanNav Whampoa sequence in about 24 s. Across three public benchmarks (UrbanNav, MARS-LVIG, M3DGR) and self-collected UAV and vehicle data, GLIO2 attains the best overall accuracy among evaluated systems. On a 5.66-km bridge traversed at up to 96 km/h, where every competing baseline diverges under LiDAR degeneracy, it maintains 1.6 m horizontal accuracy. On an NVIDIA Jetson Orin NX, the full pipeline runs at about 25 Hz (39.60 ms per scan). The source code and datasets will be released.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2610.12411">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2610.12411">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>
