@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .DS_Store
 data/candidates-*.json
+
+# surge 发布时自动写入的域名标记（不要把 .surge.sh 提交成 Pages 自定义域名）
+CNAME

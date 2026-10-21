@@ -120,21 +120,31 @@ python3 scripts/fetch_arxiv.py --days 21 --max 60 --min-score 45
 
 建议流程：先看候选 JSON，再人工读摘要，决定是否写入 `papers.json`。这样不会把自动摘要或错误归类直接发布。
 
-## 部署到 GitHub Pages
+## 发布
 
-站点已发布为公开静态站：
+站点是纯静态目录，任何静态托管都能直接用。目前两个出口：
 
-- 仓库：`https://github.com/DongHuLEI/gnss-paper-watch`
-- 站点：`https://donghulei.github.io/gnss-paper-watch/`
+**1. Surge（已上线）**
 
-Pages 从 `main` 分支根目录直接取文件，`.nojekyll` 让 GitHub 跳过 Jekyll。所以更新内容走一遍：
+- 地址：<https://gnss-paper-watch.surge.sh>
+- 更新：`npx surge . gnss-paper-watch.surge.sh`
+- 账号是发布时用 `643845296@qq.com` 注册的；注册后 90 天内需要在邮箱里点一次验证链接，站点才会长期保留。
+
+**2. GitHub Pages（等仓库建好后启用）**
+
+- 目标地址：`https://donghulei.github.io/gnss-paper-watch/`
+- 本地目录已经 `git init` 并在 `main` 上有提交，仓库建好后 `git push` 即可。
+- Pages 从 `main` 分支根目录取文件，`.nojekyll` 让 GitHub 跳过 Jekyll。push 后一两分钟自动发布。
+
+更新内容一律先重生成再发布：
 
 ```bash
 python3 scripts/build_site.py          # 重新生成静态页
 git add -A && git commit -m "第 002 期" && git push
+npx surge . gnss-paper-watch.surge.sh  # 如果也用 surge
 ```
 
-push 后一两分钟自动重新发布，无需其他操作。所有内部链接都是相对路径，项目页和自定义域名都能用；`404.html` 同理。
+所有内部链接都是相对路径，`/<repo>/` 这种子路径和自定义域名都能用；`404.html` 同理。
 
 ## 编选口径
 
