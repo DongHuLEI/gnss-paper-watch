@@ -309,7 +309,7 @@
     </div>
     <div class="about-grid" style="margin-top:16px">
       <div class="brief"><h2>与你知识库的对应</h2><p>站点里的「与你工作的连接」不是泛泛的启发，而是尽量指向你已有的数据与问题：ROTI 与 PPP 恢复时序、短弧/连续弧龄、CDSF-NET 的条件物理融合、DORIS-ROTI 的互补观测、ISMR 高频闪烁、CORS 网络一致性。</p></div>
-      <div class="brief"><h2>更新方式</h2><p>当前页面由 <code>scripts/build_site.py</code> 从 <code>data/papers.json</code> 生成；<code>scripts/fetch_arxiv.py</code> 可抓取每日候选并按关键词打分。中文解读需要人工确认后再写入数据文件，避免把自动摘要当成事实。</p></div>
+      <div class="brief"><h2>更新方式</h2><p>页面由 <code>scripts/build_site.py</code> 从 <code>data/editions/*.json</code> 生成，一天一期。每天北京时间 06:00 由 GitHub Actions 跑 <code>scripts/daily_update.py</code>，抓取 arXiv 新论文、按关键词初筛成当期并自动发布；这类条目标注「机器初筛」，中文解读需要人工确认后再改写对应期号的数据文件。</p></div>
     </div>
   </section>
 </main>

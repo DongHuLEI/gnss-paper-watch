@@ -7,7 +7,8 @@ Usage:
 
 This script only fetches metadata and produces a candidate list. Chinese
 summaries are intentionally left to manual review before they enter
-data/papers.json.
+data/editions/<date>.json. scripts/daily_update.py builds an automatic
+edition from these candidates.
 """
 
 import argparse
@@ -21,7 +22,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data" / "papers.json"
+EDITIONS = ROOT / "data" / "editions"
 NS = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
 
 QUERIES = {
@@ -40,11 +41,12 @@ DOMAIN_TERMS = {
 
 
 def existing_ids():
-    if not DATA.exists():
-        return set()
-    with DATA.open(encoding="utf-8") as handle:
-        data = json.load(handle)
-    return {paper["id"].split("v")[0] for paper in data.get("papers", [])}
+    ids = set()
+    for path in sorted(EDITIONS.glob("*.json")):
+        with path.open(encoding="utf-8") as handle:
+            data = json.load(handle)
+        ids.update(paper["id"].split("v")[0] for paper in data.get("papers", []))
+    return ids
 
 
 def fetch(query, max_results=60):

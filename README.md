@@ -11,17 +11,21 @@
 ```text
 gnss-paper-watch/
 ├── index.html                     # 最新一期（首页）
-├── daily/2026-10-20/index.html    # 当期固定页
-├── archive/index.html             # 归档
+├── daily/<date>/index.html        # 每一期的固定页
+├── archive/index.html             # 归档（所有期号，倒序）
 ├── topics/<domain>/index.html     # 4 个领域页（gnss/iono/ml/perception）
-├── papers/<slug>/index.html       # 16 个单篇海报页
+├── papers/<slug>/index.html       # 单篇海报页（所有期号的并集）
 ├── assets/
 │   ├── app.css                    # 版式 + 深色主题
 │   └── app.js                     # 语言切换、领域筛选、搜索
-├── data/papers.json               # 唯一的论文内容源
-└── scripts/
-    ├── build_site.py              # 从 JSON 生成整站
-    └── fetch_arxiv.py             # 抓取并粗排每日 arXiv 候选
+├── data/
+│   ├── domains.json               # 四个领域的名称、颜色、说明
+│   └── editions/<date>.json       # 一天一期：edition 元信息 + papers 数组
+├── scripts/
+│   ├── build_site.py              # 从 editions/ 生成整站
+│   ├── daily_update.py            # 自动生成当天一期并发布
+│   └── fetch_arxiv.py             # 抓取并粗排 arXiv 候选
+└── .github/workflows/daily.yml    # 每天 06:00（北京时间）自动更新
 ```
 
 ## 本地预览
@@ -56,7 +60,9 @@ python3 -m http.server 8000
 
 ## 内容怎么维护
 
-所有论文内容在 `data/papers.json`。每篇论文的字段：
+一期一个文件：`data/editions/<date>.json`，结构是 `{"edition": {…}, "papers": [ … ]}`。领域定义在 `data/domains.json`，所有期号共用。
+
+人工精读的论文按下面的字段写（`essence` 必须正好 4 项）：
 
 ```json
 {
@@ -93,15 +99,25 @@ python3 -m http.server 8000
 python3 scripts/build_site.py
 ```
 
-生成器会重建 `index.html`、`daily/<date>/index.html`、`archive/index.html`、`topics/`、`papers/` 和 `404.html`。
+生成器会读取 `data/editions/` 下所有期号，重建 `index.html`（最新一期）、`daily/<date>/`（每期一页）、`archive/index.html`（全部期号）、`papers/`（所有期号的并集，同 slug 取最新一期）、`topics/`（按最新一期）和 `404.html`。
 
-### 新增一期
+### 每天自动一期
 
-1. 复制 `data/papers.json` 为备份（例如 `data/papers-2026-10-21.json`）。
-2. 修改 `edition.date`、`edition.number`、`edition.title`、`edition.overview`。
-3. 替换/追加 `papers` 数组。
-4. 运行 `python3 scripts/build_site.py`。
-5. 归档页目前只列出 `edition` 当前期；如果要保留多期，建议让 `build_site.py` 扫描 `daily/*/index.html` 并生成归档列表（当前版本刻意保持简单）。
+`scripts/daily_update.py` 负责"抓 arXiv → 初筛 → 写当期 JSON → 构建 → 提交推送"：
+
+```bash
+python3 scripts/daily_update.py --no-push          # 只在本地生成，看效果
+python3 scripts/daily_update.py                    # 生成并推送（会触发 Pages 重建）
+python3 scripts/daily_update.py --date 2026-10-22 --per-domain 3 --min-score 50
+```
+
+同一天重复运行会跳过（已存在 `<date>.json`），要重跑加 `--force`。没有新候选时直接退出，不会产生空期号。
+
+自动条目带 `"auto": true`，页面上会显示「机器初筛」徽标，单篇页只给原文摘要与来源，不编造中文解读。要把它变成人工精读，就把同一篇改写成上面的人工字段并去掉 `auto`。
+
+### 人工改某一期
+
+直接编辑对应的 `data/editions/<date>.json`，然后 `python3 scripts/build_site.py && git push`。归档、领域页和单篇页都会跟着更新。
 
 ## 每日候选抓取
 
@@ -120,9 +136,9 @@ python3 scripts/fetch_arxiv.py --days 21 --max 60 --min-score 45
 - 去掉已在 `data/papers.json` 中的论文；
 - 输出标题、作者、摘要、分类、匹配词和 abs/PDF 链接。
 
-建议流程：先看候选 JSON，再人工读摘要，决定是否写入 `papers.json`。这样不会把自动摘要或错误归类直接发布。
+建议流程：平时不用管，`daily_update.py` 会自动跑。想人工接管时，先看 `data/candidates-<date>.json`，读摘要后把值得的论文改写成人工条目。
 
-## 发布
+## 发布与自动更新
 
 站点是纯静态目录，任何静态托管都能直接用。目前两个出口：
 
@@ -131,31 +147,37 @@ python3 scripts/fetch_arxiv.py --days 21 --max 60 --min-score 45
 - 地址：<https://donghulei.github.io/gnss-paper-watch/>
 - 仓库：<https://github.com/DongHuLEI/gnss-paper-watch>（public）
 - Pages 从 `main` 分支根目录直接取文件，`.nojekyll` 让 GitHub 跳过 Jekyll。push 后一两分钟自动重新发布。
-- 2026-10-21 实测：首页、16 篇单篇页、4 个领域页、归档、当期页、CSS/JS 共 26 个地址全部 200。
 
 **2. Surge（备用镜像）**
 
 - 地址：<https://gnss-paper-watch.surge.sh>
 - 更新：`npx surge . gnss-paper-watch.surge.sh`
-- 账号是发布时用 `643845296@qq.com` 注册的；注册后需要在邮箱里点一次验证链接，站点才会长期保留，否则会被回收。GitHub Pages 不受影响。
+- 账号是发布时用 `643845296@qq.com` 注册的；注册后需要在邮箱里点一次验证链接，站点才会长期保留，否则会被回收。GitHub Pages 不受影响。Surge 不会自动更新，只是镜像。
 
-更新内容一律先重生成再发布：
+**自动更新怎么跑**
+
+`.github/workflows/daily.yml` 每天 `22:00 UTC`（北京时间 06:00）在 GitHub Actions 里执行 `daily_update.py`：抓 arXiv → 初筛 → 写 `data/editions/<当天>.json` → 构建 → 提交并推送 → Pages 重建。GitHub 的定时任务可能延迟几分钟，一般 06:00–06:30 之间完成，早于 08:00。
+
+手动发布：
 
 ```bash
 python3 scripts/build_site.py          # 重新生成静态页
-git add -A && git commit -m "第 002 期" && git push
-npx surge . gnss-paper-watch.surge.sh  # 如果也用 surge
+git add -A && git commit -m "第 00N 期" && git push
 ```
 
 所有内部链接都是相对路径，`/<repo>/` 这种子路径和自定义域名都能用；`404.html` 同理。
 
 ## 编选口径
 
+人工精读的期号按下面五项打分（页面上简化为四段说明）：
+
 - 领域相关性 40%
 - 方法增量 25%
 - 证据强度 20%
 - 可复现性 10%
 - 与知识库主线的连接度 5%
+
+机器初筛的条目不打这套分：卡片上的「匹配度」只是关键词命中数，只用于排序，页面上也明确标注了「机器初筛」。
 
 站点不把「指标更高」等同于「更值得用」。每篇都标了证据边界：单站/单事件、仿真/实测、区域/全球，以及论文没有回答的问题。摘要中没有出现的数字不补写。
 

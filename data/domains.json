@@ -1,0 +1,28 @@
+{
+ "domains": {
+  "gnss": {
+   "label": "GNSS 高精度定位",
+   "en": "GNSS Positioning",
+   "desc": "PPP / PPP-AR / PPP-RTK、RTK、多频多系统、模糊度固定、收敛与可用性。",
+   "long": "关注从观测到解算的完整链路：函数模型、随机模型、模糊度、改正数与网络架构。优先选择能改变「收敛、可用性、连续性」判断的工作。"
+  },
+  "iono": {
+   "label": "电离层监测",
+   "en": "Ionosphere Monitoring",
+   "desc": "TEC / ROTI / GIX、闪烁、磁暴响应、SED 与等离子体层、DORIS/ISMR 观测。",
+   "long": "关注「测到什么」与「为什么」：多仪器联合、事件归因、平静期异常、频段外推，以及这些观测如何转成 GNSS 风险特征。"
+  },
+  "ml": {
+   "label": "深度学习预测",
+   "en": "Deep Learning Forecasting",
+   "desc": "TEC/ROTI 时序预报、图神经网络、Transformer、可解释性与不确定性。",
+   "long": "关注模型是否保留了对定位真正重要的小尺度结构，而不只是把日均曲线拟合得更好。"
+  },
+  "perception": {
+   "label": "工程感知算法",
+   "en": "Engineering Perception",
+   "desc": "观测质量、多路径/NLOS、干扰与欺骗、完好性、鲁棒估计、传感器融合。",
+   "long": "关注算法能否在真实工程约束下落地：标注成本、实时性、故障可解释性，以及误报/漏报的代价。"
+  }
+ }
+}

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Build the GNSS / ionosphere paper radar static site.
 
-Reads data/papers.json and writes:
-  index.html
-  daily/<date>/index.html
-  archive/index.html
-  papers/<slug>/index.html
+Reads data/domains.json plus every data/editions/*.json and writes:
+  index.html                 (newest edition)
+  daily/<date>/index.html    (one page per edition)
+  archive/index.html         (all editions)
+  papers/<slug>/index.html   (union of all editions)
+  topics/<domain>/index.html (newest edition)
 """
 
 import html
@@ -16,7 +17,9 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data" / "papers.json"
+DATA_DIR = ROOT / "data"
+EDITIONS_DIR = DATA_DIR / "editions"
+DOMAINS_FILE = DATA_DIR / "domains.json"
 
 DOMAIN_ORDER = ["gnss", "iono", "ml", "perception"]
 DOMAIN_COLORS = {
@@ -41,9 +44,19 @@ def text(value: str) -> str:
     return html.escape(value, quote=False)
 
 
-def read_data():
-    with DATA.open(encoding="utf-8") as handle:
-        return json.load(handle)
+def load_site():
+    """Return (domains, editions sorted newest first). Each edition is a view dict."""
+    with DOMAINS_FILE.open(encoding="utf-8") as handle:
+        domains = json.load(handle)["domains"]
+    editions = []
+    for path in sorted(EDITIONS_DIR.glob("*.json")):
+        with path.open(encoding="utf-8") as handle:
+            raw = json.load(handle)
+        editions.append({"edition": raw["edition"], "papers": raw["papers"], "domains": domains, "path": path})
+    editions.sort(key=lambda item: item["edition"]["date"], reverse=True)
+    if not editions:
+        raise SystemExit("no editions found in %s" % EDITIONS_DIR)
+    return domains, editions
 
 
 def join_paragraphs(paragraphs, tag="p"):
@@ -170,10 +183,8 @@ def cover_svg(domain: str, index: int) -> str:
     return "".join(parts)
 
 
-def header(root: str, active: str = "") -> str:
-    today_href = f"{root}daily/2026-10-20/index.html"
-    if active == "today":
-        today_href = "index.html" if root == "" else f"{root}daily/2026-10-20/index.html"
+def header(root: str, active: str = "", today: str = "") -> str:
+    today_href = "index.html" if (active == "today" and root == "") else f"{root}daily/{today}/index.html"
     return f"""<a class="skip-link" href="#content">跳到内容</a>
 <header class="top"><div class="wrap nav"><strong><a href="{root}index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="{today_href}">今日</a><a href="{root}index.html#domains">领域</a><a href="{root}index.html#papers">论文</a><a href="{root}archive/index.html">归档</a><a href="{root}index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>"""
 
@@ -228,6 +239,7 @@ def paper_card(paper, index: int, domains, root: str) -> str:
         ]
     )
     tags = "".join(f'<span class="tag">{text(tag)}</span>' for tag in paper["tags"])
+    auto_badge = '<span class="badge-auto">机器初筛</span>' if paper.get("auto") else ""
     return f"""<article class="card" data-domain="{domain}" data-paper-card data-search="{esc(search_blob)}">
   <a class="paper-cover cover-{domain}" href="{root}papers/{paper["slug"]}/index.html" aria-label="{esc(paper["title_zh"])}">
     {cover_svg(domain, index)}
@@ -237,14 +249,14 @@ def paper_card(paper, index: int, domains, root: str) -> str:
   </a>
   <h3><a href="{root}papers/{paper["slug"]}/index.html"><span class="lang lang-zh lang-inline" data-lang="zh">{text(paper["title_zh"])}</span><span class="lang lang-en lang-inline" data-lang="en">{text(paper["title_en"])}</span></a></h3>
   <div class="meta">{esc(paper["date"])} · 匹配度 {paper["score"]} · {text(paper["tier"])} · {text(domains[domain]["label"])} · {esc(", ".join(paper["cats"]))}</div>
-  {domain_pill(domain, domains)}
+  {domain_pill(domain, domains)}{auto_badge}
   <p class="insight"><span class="lang lang-zh lang-inline" data-lang="zh"><strong>一句话：</strong>{text(paper["one_liner"])}</span><span class="lang lang-en lang-inline" data-lang="en">{text(paper["one_liner_en"])}</span></p>
   <div class="tags">{tags}</div>
   <div class="links"><a href="https://arxiv.org/abs/{paper["id"]}">abs</a><a href="https://arxiv.org/pdf/{paper["id"]}">PDF</a><a href="{root}papers/{paper["slug"]}/index.html">方法拆解</a></div>
 </article>"""
 
 
-def build_home(data, root: str, active: str) -> str:
+def build_home(data, root: str, active: str, today: str) -> str:
     edition = data["edition"]
     domains = data["domains"]
     papers = data["papers"]
@@ -279,7 +291,7 @@ def build_home(data, root: str, active: str) -> str:
     notes = "".join(f"<li>{text(n)}</li>" for n in edition["note"])
 
     today_link = f"{root}daily/{edition['date']}/index.html"
-    body = f"""{header(root, active)}
+    body = f"""{header(root, active, today)}
 <main class="wrap" id="content">
   <section class="hero">
     <div class="hero-copy">
@@ -328,7 +340,7 @@ def build_home(data, root: str, active: str) -> str:
     </div>
     <div class="about-grid" style="margin-top:16px">
       <div class="brief"><h2>与你知识库的对应</h2><p>站点里的「与你工作的连接」不是泛泛的启发，而是尽量指向你已有的数据与问题：ROTI 与 PPP 恢复时序、短弧/连续弧龄、CDSF-NET 的条件物理融合、DORIS-ROTI 的互补观测、ISMR 高频闪烁、CORS 网络一致性。</p></div>
-      <div class="brief"><h2>更新方式</h2><p>当前页面由 <code>scripts/build_site.py</code> 从 <code>data/papers.json</code> 生成；<code>scripts/fetch_arxiv.py</code> 可抓取每日候选并按关键词打分。中文解读需要人工确认后再写入数据文件，避免把自动摘要当成事实。</p></div>
+      <div class="brief"><h2>更新方式</h2><p>页面由 <code>scripts/build_site.py</code> 从 <code>data/editions/*.json</code> 生成，一天一期。每天北京时间 06:00 由 GitHub Actions 跑 <code>scripts/daily_update.py</code>，抓取 arXiv 新论文、按关键词初筛成当期并自动发布；这类条目标注「机器初筛」，中文解读需要人工确认后再改写对应期号的数据文件。</p></div>
     </div>
   </section>
 </main>
@@ -341,16 +353,27 @@ def build_home(data, root: str, active: str) -> str:
     )
 
 
-def build_archive(data) -> str:
-    edition = data["edition"]
-    domains = data["domains"]
-    counts = " · ".join(f"{domains[d]['label']} {sum(1 for p in data['papers'] if p['domain'] == d)}" for d in DOMAIN_ORDER)
-    body = f"""{header("../")}
+def build_archive(editions, domains, today: str) -> str:
+    items = []
+    for view in editions:
+        edition = view["edition"]
+        papers = view["papers"]
+        counts = " · ".join(
+            f"{domains[d]['label']} {sum(1 for p in papers if p['domain'] == d)}" for d in DOMAIN_ORDER
+        )
+        auto = sum(1 for p in papers if p.get("auto"))
+        auto_note = f" · 机器初筛 {auto} 篇" if auto else " · 人工精读"
+        items.append(
+            f'<li><a href="../daily/{edition["date"]}/index.html"><strong>{edition["date"]} · 第 {edition["number"]} 期</strong></a>'
+            f'<div class="meta">{len(papers)} 篇论文 · {counts}{auto_note}</div>'
+            f'<p class="muted">{text(edition["title"])}</p></li>'
+        )
+    body = f"""{header("../", "", today)}
 <main class="wrap" id="content">
-  <section class="hero"><div><div class="eyebrow"><span class="seal">ARCHIVE</span></div><h1>归档</h1><p class="muted">按日期查看已生成的期号。当前只有创刊号；后续可用同一生成器追加。</p></div></section>
+  <section class="hero"><div><div class="eyebrow"><span class="seal">ARCHIVE</span><span>{len(editions)} 期</span></div><h1>归档</h1><p class="muted">按日期倒序排列。每天北京时间 06:00 自动生成新一期；机器初筛的期号会在摘要里标注，中文解读随后人工补写。</p></div></section>
   <section class="section">
     <ul class="archive">
-      <li><a href="../daily/{edition['date']}/index.html"><strong>{edition['date']} · 第 {edition['number']} 期</strong></a><div class="meta">{len(data['papers'])} 篇论文 · {counts}</div><p class="muted">{text(edition['title'])}</p></li>
+      {"".join(items)}
     </ul>
   </section>
 </main>
@@ -358,11 +381,11 @@ def build_archive(data) -> str:
     return html_document("归档 · GNSS Paper Radar", "GNSS 定位与电离层论文雷达归档", "../", body)
 
 
-def build_topic(key, data) -> str:
+def build_topic(key, data, today: str) -> str:
     domain = data["domains"][key]
     indexed = [(i, paper) for i, paper in enumerate(data["papers"]) if paper["domain"] == key]
     cards = "\n".join(paper_card(paper, index, data["domains"], "../../") for index, paper in indexed)
-    body = f"""{header("../../")}
+    body = f"""{header("../../", "", today)}
 <main class="wrap" id="content">
   <section class="hero">
     <div>
@@ -380,7 +403,7 @@ def build_topic(key, data) -> str:
     </div>
   </section>
   <section class="section">
-    <div class="section-head"><h2>{text(domain['label'])} · 本期论文</h2><p class="muted">返回首页可按关键词搜索全部 16 篇。</p></div>
+    <div class="section-head"><h2>{text(domain['label'])} · 本期论文</h2><p class="muted">返回首页可按关键词搜索本期全部 {len(data['papers'])} 篇。</p></div>
     <div class="grid">{cards}</div>
   </section>
 </main>
@@ -388,7 +411,48 @@ def build_topic(key, data) -> str:
     return html_document(f"{domain['label']} · GNSS Paper Radar", domain["desc"], "../../", body)
 
 
-def build_paper(paper, data, index: int) -> str:
+def build_paper_auto(paper, data, today: str) -> str:
+    domains = data["domains"]
+    domain = paper["domain"]
+    tags = "".join(f'<span class="tag">{text(tag)}</span>' for tag in paper["tags"])
+    authors = ", ".join(paper["authors"])
+    body = f"""{header("../../", "", today)}
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/{data['edition']['date']}/index.html">← 本期论文合集</a><span class="meta">第 {data['edition']['number']} 期 · {esc(data['edition']['date'])}</span></div>
+    <div class="poster-kicker">{text(domains[domain]['label'])} · {text(paper['date'])} · 机器初筛 · 匹配度 {paper['score']}</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">{text(paper['title_zh'])}</span><span class="lang lang-en lang-inline" data-lang="en">{text(paper['title_en'])}</span></h1>
+    <p class="poster-authors">{text(authors)}</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">{text(paper['lead_zh'])}</span><span class="lang lang-en lang-block" data-lang="en">{text(paper['lead_en'])}</span></p>
+    <div class="poster-meta"><span>{esc(paper['date'])}</span><span>{esc(paper['id'])}</span><span>{esc(', '.join(paper['cats']))}</span><span>{text(domains[domain]['label'])}</span><a href="{esc(paper['links']['abs'])}">原文 / Paper</a></div>
+    <div class="tags">{tags}</div>
+  </header>
+
+  <section class="poster-context">
+    <p class="poster-context-label">自动收录 · Machine-selected</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>这条是怎么来的</h3><p>每天北京时间 06:00 由脚本抓取 arXiv 最新投稿，命中四个领域关键词的候选按分数排序取前列，没有经过人工精读。</p></div>
+      <div class="poster-context-card"><h3>可信度边界</h3><p>标题、作者、分类和下面的摘要是 arXiv 原文；匹配度只是关键词打分，不代表论文质量，也不代表与你的研究路线相关。</p></div>
+      <div class="poster-context-card"><h3>下一步</h3><p>值得读就按下面的链接进原文；值得长期跟踪的，再补写中文解读，替换这一期里的自动条目。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>原文摘要 · Abstract</h2>
+    <p>{text(paper['abstract_en'])}</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="{esc(paper['links']['abs'])}">arXiv 摘要页</a></li><li><a href="{esc(paper['links']['pdf'])}">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+{footer()}"""
+    return html_document(f"{paper['title_en']} · GNSS Paper Radar", paper["one_liner_en"], "../../", body)
+
+
+def build_paper(paper, data, index: int, today: str) -> str:
+    if paper.get("auto"):
+        return build_paper_auto(paper, data, today)
     domains = data["domains"]
     domain = paper["domain"]
     tags = "".join(f'<span class="tag">{text(tag)}</span>' for tag in paper["tags"])
@@ -418,7 +482,7 @@ def build_paper(paper, data, index: int) -> str:
     ]
     sources_html = "".join(s for s in sources if s)
 
-    body = f"""{header("../../")}
+    body = f"""{header("../../", "", today)}
 <main class="wrap" id="content">
 <article class="poster-shell">
   <header class="poster-cover">
@@ -490,62 +554,84 @@ def build_paper(paper, data, index: int) -> str:
     )
 
 
-def validate(data):
-    required = [
+def validate(editions, domains):
+    shared = [
         "id", "slug", "domain", "date", "score", "tier", "title_zh", "title_en",
         "authors", "cats", "tags", "one_liner", "one_liner_en", "lead_zh", "lead_en",
-        "metrics", "problem", "method", "essence", "results", "limits", "relevance",
         "abstract_en", "links",
     ]
+    human_only = ["metrics", "problem", "method", "essence", "results", "limits", "relevance"]
     errors = []
-    seen_ids = set()
-    seen_slugs = set()
-    for paper in data.get("papers", []):
-        for key in required:
-            if key not in paper or paper[key] in ("", [], None):
-                errors.append("%s: missing %s" % (paper.get("id", "?"), key))
-        if paper.get("domain") not in data.get("domains", {}):
-            errors.append("%s: unknown domain %s" % (paper.get("id", "?"), paper.get("domain")))
-        if len(paper.get("essence", [])) != 4:
-            errors.append("%s: essence needs exactly 4 items" % paper.get("id", "?"))
-        if paper.get("id") in seen_ids:
-            errors.append("%s: duplicate id" % paper.get("id"))
-        if paper.get("slug") in seen_slugs:
-            errors.append("%s: duplicate slug" % paper.get("slug"))
-        seen_ids.add(paper.get("id"))
-        seen_slugs.add(paper.get("slug"))
+    for view in editions:
+        meta = view["edition"]
+        for key in ("date", "number", "title", "subtitle", "kicker", "blurb"):
+            if not meta.get(key):
+                errors.append("%s: edition missing %s" % (meta.get("date", "?"), key))
+        for key in ("overview", "threads", "stats", "note"):
+            if not meta.get(key):
+                errors.append("%s: edition missing %s" % (meta.get("date", "?"), key))
+        seen_ids = set()
+        seen_slugs = set()
+        for paper in view.get("papers", []):
+            auto = bool(paper.get("auto"))
+            for key in shared + ([] if auto else human_only):
+                if key not in paper or paper[key] in ("", [], None):
+                    errors.append("%s: missing %s" % (paper.get("id", "?"), key))
+            if paper.get("domain") not in domains:
+                errors.append("%s: unknown domain %s" % (paper.get("id", "?"), paper.get("domain")))
+            if not auto and len(paper.get("essence", [])) != 4:
+                errors.append("%s: essence needs exactly 4 items" % paper.get("id", "?"))
+            if paper.get("id") in seen_ids:
+                errors.append("%s: duplicate id in %s" % (paper.get("id"), meta.get("date")))
+            if paper.get("slug") in seen_slugs:
+                errors.append("%s: duplicate slug in %s" % (paper.get("slug"), meta.get("date")))
+            seen_ids.add(paper.get("id"))
+            seen_slugs.add(paper.get("slug"))
     if errors:
         raise SystemExit("data validation failed:\n  " + "\n  ".join(errors))
 
 
 def main() -> None:
-    data = read_data()
-    validate(data)
-    edition = data["edition"]
-    date = edition["date"]
+    domains, editions = load_site()
+    validate(editions, domains)
+    newest = editions[0]
+    today = newest["edition"]["date"]
 
-    # home (latest) and dated copy
-    (ROOT / "index.html").write_text(build_home(data, "", "today"), encoding="utf-8")
-    daily_dir = ROOT / "daily" / date
-    daily_dir.mkdir(parents=True, exist_ok=True)
-    (daily_dir / "index.html").write_text(build_home(data, "../../", "today"), encoding="utf-8")
+    # home = newest edition
+    (ROOT / "index.html").write_text(build_home(newest, "", "today", today), encoding="utf-8")
+
+    # one dated page per edition
+    daily_root = ROOT / "daily"
+    if daily_root.exists():
+        shutil.rmtree(daily_root)
+    for view in editions:
+        daily_dir = daily_root / view["edition"]["date"]
+        daily_dir.mkdir(parents=True, exist_ok=True)
+        (daily_dir / "index.html").write_text(build_home(view, "../../", "today", today), encoding="utf-8")
 
     # archive
     archive_dir = ROOT / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
-    (archive_dir / "index.html").write_text(build_archive(data), encoding="utf-8")
+    (archive_dir / "index.html").write_text(build_archive(editions, domains, today), encoding="utf-8")
 
-    # paper pages
+    # paper pages: union of all editions, newest occurrence wins
     papers_dir = ROOT / "papers"
     if papers_dir.exists():
         shutil.rmtree(papers_dir)
     papers_dir.mkdir(parents=True)
-    for index, paper in enumerate(data["papers"]):
-        target = papers_dir / paper["slug"]
-        target.mkdir(parents=True, exist_ok=True)
-        (target / "index.html").write_text(build_paper(paper, data, index), encoding="utf-8")
+    written = set()
+    total = 0
+    for view in editions:
+        for index, paper in enumerate(view["papers"]):
+            total += 1
+            if paper["slug"] in written:
+                continue
+            written.add(paper["slug"])
+            target = papers_dir / paper["slug"]
+            target.mkdir(parents=True, exist_ok=True)
+            (target / "index.html").write_text(build_paper(paper, view, index, today), encoding="utf-8")
 
-    # domain landing pages
+    # domain landing pages for the newest edition
     topics_dir = ROOT / "topics"
     if topics_dir.exists():
         shutil.rmtree(topics_dir)
@@ -553,18 +639,18 @@ def main() -> None:
     for key in DOMAIN_ORDER:
         target = topics_dir / key
         target.mkdir(parents=True, exist_ok=True)
-        (target / "index.html").write_text(build_topic(key, data), encoding="utf-8")
+        (target / "index.html").write_text(build_topic(key, newest, today), encoding="utf-8")
 
     # tiny 404
     not_found = html_document(
         "页面不存在 · GNSS Paper Radar",
         "页面不存在",
         "",
-        f"""{header("")}<main class="wrap" id="content"><section class="hero"><div><div class="eyebrow"><span class="seal">404</span></div><h1>页面不存在</h1><p class="muted">链接可能已经移动。回到首页或归档继续浏览。</p><div class="links"><a class="btn" href="index.html">回到首页</a><a class="btn" href="archive/index.html">归档</a></div></div></section></main>{footer()}""",
+        f"""{header("", "", today)}<main class="wrap" id="content"><section class="hero"><div><div class="eyebrow"><span class="seal">404</span></div><h1>页面不存在</h1><p class="muted">链接可能已经移动。回到首页或归档继续浏览。</p><div class="links"><a class="btn" href="index.html">回到首页</a><a class="btn" href="archive/index.html">归档</a></div></div></section></main>{footer()}""",
     )
     (ROOT / "404.html").write_text(not_found, encoding="utf-8")
 
-    print(f"built {len(data['papers'])} papers for {date}")
+    print("built %d editions, %d paper slots, %d paper pages, newest %s" % (len(editions), total, len(written), today))
 
 
 if __name__ == "__main__":

@@ -350,4 +350,6 @@ html[data-lang="en"] .poster-title-en{display:none}
 a.domain-card{color:inherit;text-decoration:none;transition:border-color .16s ease,background .16s ease}
 a.domain-card:hover{text-decoration:none;border-color:color-mix(in srgb,var(--dc,var(--accent)) 42%,var(--line));background:color-mix(in srgb,var(--dc,var(--accent)) 5%,var(--panel))}
 a.domain-card strong{color:var(--fg)}
+.badge-auto{display:inline-block;justify-self:start;width:max-content;margin-left:6px;border:1px solid color-mix(in srgb,var(--warn-fg) 34%,var(--line));border-radius:6px;padding:4px 8px;background:var(--warn-bg);color:var(--warn-fg);font-size:12px;font-weight:650;letter-spacing:.01em}
+.poster-kicker .badge-auto{margin-left:0}
 
