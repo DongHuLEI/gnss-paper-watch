@@ -4,6 +4,8 @@
 
 当前为 **第 001 期（2026-10-20）**，16 篇论文，四个领域各 4 篇。
 
+在线地址：<https://donghulei.github.io/gnss-paper-watch/>
+
 ## 目录
 
 ```text
@@ -124,17 +126,18 @@ python3 scripts/fetch_arxiv.py --days 21 --max 60 --min-score 45
 
 站点是纯静态目录，任何静态托管都能直接用。目前两个出口：
 
-**1. Surge（已上线）**
+**1. GitHub Pages（主站，已上线）**
+
+- 地址：<https://donghulei.github.io/gnss-paper-watch/>
+- 仓库：<https://github.com/DongHuLEI/gnss-paper-watch>（public）
+- Pages 从 `main` 分支根目录直接取文件，`.nojekyll` 让 GitHub 跳过 Jekyll。push 后一两分钟自动重新发布。
+- 2026-10-21 实测：首页、16 篇单篇页、4 个领域页、归档、当期页、CSS/JS 共 26 个地址全部 200。
+
+**2. Surge（备用镜像）**
 
 - 地址：<https://gnss-paper-watch.surge.sh>
 - 更新：`npx surge . gnss-paper-watch.surge.sh`
-- 账号是发布时用 `643845296@qq.com` 注册的；注册后 90 天内需要在邮箱里点一次验证链接，站点才会长期保留。
-
-**2. GitHub Pages（等仓库建好后启用）**
-
-- 目标地址：`https://donghulei.github.io/gnss-paper-watch/`
-- 本地目录已经 `git init` 并在 `main` 上有提交，仓库建好后 `git push` 即可。
-- Pages 从 `main` 分支根目录取文件，`.nojekyll` 让 GitHub 跳过 Jekyll。push 后一两分钟自动发布。
+- 账号是发布时用 `643845296@qq.com` 注册的；注册后需要在邮箱里点一次验证链接，站点才会长期保留，否则会被回收。GitHub Pages 不受影响。
 
 更新内容一律先重生成再发布：
 
