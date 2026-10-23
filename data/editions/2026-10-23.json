@@ -1,0 +1,165 @@
+{
+ "edition": {
+  "date": "2026-10-23",
+  "number": 3,
+  "title": "10 月 23 日 · 每日论文雷达",
+  "subtitle": "脚本按四个领域抓取 arXiv 最新投稿并初筛，未做人工解读。",
+  "kicker": "AUTO · 每日自动更新",
+  "blurb": "点开任意一篇可以看到 arXiv 原文摘要、作者与分类；值得跟踪的条目，再补中文解读。",
+  "overview": [
+   "本期共 3 篇，覆盖 电离层监测、工程感知算法，全部由脚本按领域关键词抓取并打分排序。",
+   "分数只反映标题与摘要里的关键词命中（领域锚点 + 术语数 + 标题锚点），不评价方法质量、实验是否充分，也不判断是否和你的工作直接相关。",
+   "每天北京时间 06:00 自动更新；人工精读过的期号会替换掉对应的自动条目，并在归档里标注「人工精读」。"
+  ],
+  "threads": [
+   {
+    "domain": "iono",
+    "title": "电离层监测 · 2 篇",
+    "text": "最高匹配度 89：A Catalog of Dispersive Ionospheric and Plasmaspheric Arcs from Cislunar and Lunar-surface GNSS…"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知算法 · 1 篇",
+    "text": "最高匹配度 54：Broadband LEO Satellite Constellations for Next-Generation Navigation: Potentials, Enabling Tec…"
+   }
+  ],
+  "stats": [
+   {
+    "value": "3",
+    "label": "本期篇数"
+   },
+   {
+    "value": "2",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "89",
+    "label": "最高匹配度"
+   },
+   {
+    "value": "AUTO",
+    "label": "编选方式"
+   }
+  ],
+  "note": [
+   "本期由 scripts/daily_update.py 在 GitHub Actions 里自动生成，没有任何人工挑选或改写。",
+   "「匹配度」是关键词打分：领域锚点 24 分起，每命中一个领域词 +9，标题里出现 GNSS/TEC/ROTI 等锚点再 +12。它只用于排序。",
+   "同一天重复运行会跳过已存在的期号；想重跑请加 --force。",
+   "机器初筛不等于推荐。重要结论、数字和适用边界请回到 arXiv 原文核对。"
+  ]
+ },
+ "papers": [
+  {
+   "id": "2610.28695",
+   "slug": "arxiv-2610.28695",
+   "domain": "iono",
+   "date": "2026-10-20",
+   "score": 89,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "A Catalog of Dispersive Ionospheric and Plasmaspheric Arcs from Cislunar and Lunar-surface GNSS Radio Occultations",
+   "title_en": "A Catalog of Dispersive Ionospheric and Plasmaspheric Arcs from Cislunar and Lunar-surface GNSS Radio Occultations",
+   "authors": [
+    "Francesco Fiorina",
+    "Alex Minetto",
+    "Rebecca Ghidoni",
+    "Marco Guerra",
+    "Claudio Cesaroni",
+    "Luca Spogli",
+    "Andrea Nardin",
+    "Fabio Dovis"
+   ],
+   "cats": [
+    "physics.space-ph",
+    "astro-ph.SR",
+    "eess.SP"
+   ],
+   "tags": [
+    "ionospheric",
+    "roti",
+    "sed",
+    "tec"
+   ],
+   "one_liner": "This dataset is a catalog of 263 dispersive arcs induced by ionospheric and plasmaspheric occultation observed in GNSS signals recorded by the Lunar GNSS Receiver Experi…",
+   "one_liner_en": "This dataset is a catalog of 263 dispersive arcs induced by ionospheric and plasmaspheric occultation observed in GNSS signals recorded by the Lunar GNSS Receiver Experi…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "This dataset is a catalog of 263 dispersive arcs induced by ionospheric and plasmaspheric occultation observed in GNSS signals recorded by the Lunar GNSS Receiver Experiment (LuGRE) payload during Blue Ghost Mission 1 (BGM1), in cislunar space and on the lunar surface. Occultation arcs are identified and classified as ingress, egress or tangent by combining independently GPS and Galileo dual-frequency observables and computing the rate of the total electron content (ROT) and ROT index (ROTI), and are validated through a geometric criterion based on the grazing altitude of the tangent point. No distinction is made between the ionospheric and plasmaspheric contributions to each arc, which is treated as a single dispersive signature. For each arc, the catalog provides timing, grazing altitude, summary ROT/ROTI/$Δ$STEC attributes, the geomagnetic activity level, and time series of leveled slant total electron content (STEC), not corrected for instrumental biases, ROT, ROTI, tangent-point position and local time. The HDF5 (Hierarchical Data Format version 5) file contains a header with dataset-wide metadata and per-class statistics, and one entry per arc. It enables rapid selection of occultation arcs for statistical studies and targeted analyses, and complements ground-based and low Earth orbit radio-occultation data during the declining phase of solar cycle 25.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.28695",
+    "pdf": "https://arxiv.org/pdf/2610.28695"
+   }
+  },
+  {
+   "id": "2610.29630",
+   "slug": "arxiv-2610.29630",
+   "domain": "iono",
+   "date": "2026-10-21",
+   "score": 80,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "Space weather dependence of decameter-scale ionospheric irregularities spatial distribution",
+   "title_en": "Space weather dependence of decameter-scale ionospheric irregularities spatial distribution",
+   "authors": [
+    "Oleg I. Berngardt",
+    "Ivan A. Lavygin"
+   ],
+   "cats": [
+    "physics.ao-ph",
+    "cs.LG",
+    "physics.geo-ph"
+   ],
+   "tags": [
+    "ionospheric",
+    "sed",
+    "space weather",
+    "tec"
+   ],
+   "one_liner": "This paper describes an approach to constructing nowcast and forecast predictive models for the occurrence of high-latitude decameter ionospheric irregularities based on…",
+   "one_liner_en": "This paper describes an approach to constructing nowcast and forecast predictive models for the occurrence of high-latitude decameter ionospheric irregularities based on…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "This paper describes an approach to constructing nowcast and forecast predictive models for the occurrence of high-latitude decameter ionospheric irregularities based on SuperDARN and SECIRA radar data and space weather parameters. The method relies on self-learning pattern recognition in the dynamics of space weather parameters, that influence the irregularities formation. The proposed approach is a data-driven, multiscale method in which the spatial distribution of irregularities is approximated using a neural network of an original architecture, inspired by graph neural networks. The model was trained and tested using data from 11 radars during the period 2010-2025 (SuperDARN: CVW, ICE, ICW, INV, PGR, PYK, RKN, SAS, STO; SECIRA: EKB, MAGW). It is shown that the model achieves optimal performance when using geomagnetic coordinates MLT,MLAT. The optimal set of parameters for the best nowcast and forecast over studied set of parameters is a combination of geomagnetic and solar disturbance indices ($a_{p}$, $K_{p}$, $AE$, F10.7) from ground-based observations, and satellite-measured solar wind and interplanetary magnetic field parameters ($P_{sw}$, $E_{sw}$, $\\widetilde{B_{z}}$, $T_{sw}$). Hourly mean values for all the parameters were used in the analysis. The results indicate that acceptable forecast quality is achieved with a lead time of up to 7-9 hours, with the highest quality reached for nowcast (zero lead time). It is shown that the parameters $\\widetilde{B_{z}}$ and F10.7 are significant for nowcasting only and can be neglected for other lead times. It is shown that $AE$ and $T_{sw}$ are significant for mid-term forecast (\\textgreater 2hours ahead) and can be neglected for short-term predictions. Statistical relationships between the maximum latitude of the equatorial boundary of the irregularities and space weather parameters are also discussed.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.29630",
+    "pdf": "https://arxiv.org/pdf/2610.29630"
+   }
+  },
+  {
+   "id": "2610.02640",
+   "slug": "arxiv-2610.02640",
+   "domain": "perception",
+   "date": "2026-10-02",
+   "score": 54,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "Broadband LEO Satellite Constellations for Next-Generation Navigation: Potentials, Enabling Technologies, and Challenges",
+   "title_en": "Broadband LEO Satellite Constellations for Next-Generation Navigation: Potentials, Enabling Technologies, and Challenges",
+   "authors": [
+    "Zhendong Li",
+    "Mingze Zhu",
+    "Jiahao Liu",
+    "Zhou Su",
+    "Dong Fu",
+    "Ruikang Zhong",
+    "Wen Chen"
+   ],
+   "cats": [
+    "eess.SP"
+   ],
+   "tags": [
+    "multipath",
+    "signal processing"
+   ],
+   "one_liner": "The rapid deployment of broadband low Earth orbit (LEO) constellations provides new opportunities for next-generation navigation.",
+   "one_liner_en": "The rapid deployment of broadband low Earth orbit (LEO) constellations provides new opportunities for next-generation navigation.",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "The rapid deployment of broadband low Earth orbit (LEO) constellations provides new opportunities for next-generation navigation. Compared with conventional global navigation satellite systems (GNSS), broadband LEO systems provide stronger received signals, wider bandwidths, rapidly varying satellite geometry, and larger constellation scales, offering new capabilities for positioning, navigation, and timing (PNT). Meanwhile, their communication-oriented waveforms, high dynamics, and resource-constrained architectures introduce new challenges that are fundamentally different from those in GNSS. This article provides a comprehensive overview of broadband LEO constellations for next-generation navigation, covering their fundamental characteristics, representative use cases, key enabling technologies, and open challenges. We first compare broadband LEO systems with conventional GNSS and summarize the main technical routes for LEO-based PNT. We then discussed the emerging use cases in GNSS-challenged, multipath-dominant, and integrated communication and navigation (ICAN) scenarios. Key enabling technologies including waveform design, high-dynamic signal processing, and constellation resource scheduling are further reviewed. As a representative case study, the navigation-oriented optimization of the Starlink primary synchronization sequence demonstrates that subcarrier power allocation can improve multipath resistance while maintaining ranging accuracy. Finally, several challenges and future directions of broadband LEO-based navigation are discussed, aiming to provide reference for future researches.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.02640",
+    "pdf": "https://arxiv.org/pdf/2610.02640"
+   }
+  }
+ ]
+}
