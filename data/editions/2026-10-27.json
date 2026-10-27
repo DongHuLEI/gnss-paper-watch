@@ -1,0 +1,82 @@
+{
+ "edition": {
+  "date": "2026-10-27",
+  "number": 4,
+  "title": "10 月 27 日 · 每日论文雷达",
+  "subtitle": "脚本按四个领域抓取 arXiv 最新投稿并初筛，未做人工解读。",
+  "kicker": "AUTO · 每日自动更新",
+  "blurb": "点开任意一篇可以看到 arXiv 原文摘要、作者与分类；值得跟踪的条目，再补中文解读。",
+  "overview": [
+   "本期共 1 篇，覆盖 工程感知算法，全部由脚本按领域关键词抓取并打分排序。",
+   "分数只反映标题与摘要里的关键词命中（领域锚点 + 术语数 + 标题锚点），不评价方法质量、实验是否充分，也不判断是否和你的工作直接相关。",
+   "每天北京时间 06:00 自动更新；人工精读过的期号会替换掉对应的自动条目，并在归档里标注「人工精读」。"
+  ],
+  "threads": [
+   {
+    "domain": "perception",
+    "title": "工程感知算法 · 1 篇",
+    "text": "最高匹配度 54：Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in…"
+   }
+  ],
+  "stats": [
+   {
+    "value": "1",
+    "label": "本期篇数"
+   },
+   {
+    "value": "1",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "54",
+    "label": "最高匹配度"
+   },
+   {
+    "value": "AUTO",
+    "label": "编选方式"
+   }
+  ],
+  "note": [
+   "本期由 scripts/daily_update.py 在 GitHub Actions 里自动生成，没有任何人工挑选或改写。",
+   "「匹配度」是关键词打分：领域锚点 24 分起，每命中一个领域词 +9，标题里出现 GNSS/TEC/ROTI 等锚点再 +12。它只用于排序。",
+   "同一天重复运行会跳过已存在的期号；想重跑请加 --force。",
+   "机器初筛不等于推荐。重要结论、数字和适用边界请回到 arXiv 原文核对。"
+  ]
+ },
+ "papers": [
+  {
+   "id": "2610.32259",
+   "slug": "arxiv-2610.32259",
+   "domain": "perception",
+   "date": "2026-10-23",
+   "score": 54,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in Urban Canyons",
+   "title_en": "Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in Urban Canyons",
+   "authors": [
+    "Jiahao Hu",
+    "Xiangru Wang",
+    "Weisong Wen",
+    "Meng Qian"
+   ],
+   "cats": [
+    "cs.RO",
+    "eess.SP"
+   ],
+   "tags": [
+    "factor graph",
+    "integrity"
+   ],
+   "one_liner": "Protection levels (PLs) bound position errors under specified fault hypotheses and risk budgets, but advanced re-ceiver autonomous integrity monitoring (ARAIM) is formul…",
+   "one_liner_en": "Protection levels (PLs) bound position errors under specified fault hypotheses and risk budgets, but advanced re-ceiver autonomous integrity monitoring (ARAIM) is formul…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Protection levels (PLs) bound position errors under specified fault hypotheses and risk budgets, but advanced re-ceiver autonomous integrity monitoring (ARAIM) is formulated for snapshot GNSS estimation rather than the correlated poste-rior of tightly coupled GNSS/IMU factor graph optimization (FGO). This paper formulates ARAIM solution separation and PL computation on the FGO posterior. Because current-epoch pseudorange factors enter only the current-state block of the fixed-lag information matrix, the fault-excluded position covari-ance, solution separation, and nominal-bias propagation follow exactly from the linearized current-state marginal, which re-tains correlations with velocity, IMU-bias, and clock states and with historical information. Woodbury updates with selected-output evaluation compute these quantities for fault-free, single-satellite, constellation-wide, and second-order hypotheses with-out repeated full-state inversion or graph re-optimization. Sur-rounding monitoring layers screen measurements, handle post-fit outliers, and determine PL validity and availability. In two road experiments, both nominal sequences achieve 100% hori-zontal and vertical empirical bounding over PL-valid epochs, with a maximum error-to-PL ratio of 0.96. Normalized errors show that the posterior covariance alone does not capture slowly varying ranging biases: a covariance-only bound computed from the same posteriors retains no resolvable margin, and strong temporal correlation limits the empirical evidence to consisten-cy checks rather than validation of the integrity budget. On identical Experiment A posteriors, the proposed method reduces fault-hypothesis evaluation and PL solving time by 65.2% rela-tive to direct full-state inversion with matching integrity deci-sions, and controlled fault injections demonstrate fail-safe PL invalidation while navigation continues.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.32259",
+    "pdf": "https://arxiv.org/pdf/2610.32259"
+   }
+  }
+ ]
+}

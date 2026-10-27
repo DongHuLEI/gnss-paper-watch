@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Protection levels (PLs) bound position errors under specified fault hypotheses and risk budgets, but advanced re-ceiver autonomous integrity monitoring (ARAIM) is formul…">
+  <meta property="og:title" content="Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in Urban Canyons · GNSS Paper Radar">
+  <meta property="og:description" content="Protection levels (PLs) bound position errors under specified fault hypotheses and risk budgets, but advanced re-ceiver autonomous integrity monitoring (ARAIM) is formul…">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in Urban Canyons · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-10-27/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-10-27/index.html">← 本期论文合集</a><span class="meta">第 4 期 · 2026-10-27</span></div>
+    <div class="poster-kicker">工程感知算法 · 2026-10-23 · 机器初筛 · 匹配度 54</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in Urban Canyons</span><span class="lang lang-en lang-inline" data-lang="en">Incremental-Smoothing-Based ARAIM Protection Levels for Tightly Coupled GNSS/IMU Integration in Urban Canyons</span></h1>
+    <p class="poster-authors">Jiahao Hu, Xiangru Wang, Weisong Wen, Meng Qian</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。</span><span class="lang lang-en lang-block" data-lang="en">Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.</span></p>
+    <div class="poster-meta"><span>2026-10-23</span><span>2610.32259</span><span>cs.RO, eess.SP</span><span>工程感知算法</span><a href="https://arxiv.org/abs/2610.32259">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">factor graph</span><span class="tag">integrity</span></div>
+  </header>
+
+  <section class="poster-context">
+    <p class="poster-context-label">自动收录 · Machine-selected</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>这条是怎么来的</h3><p>每天北京时间 06:00 由脚本抓取 arXiv 最新投稿，命中四个领域关键词的候选按分数排序取前列，没有经过人工精读。</p></div>
+      <div class="poster-context-card"><h3>可信度边界</h3><p>标题、作者、分类和下面的摘要是 arXiv 原文；匹配度只是关键词打分，不代表论文质量，也不代表与你的研究路线相关。</p></div>
+      <div class="poster-context-card"><h3>下一步</h3><p>值得读就按下面的链接进原文；值得长期跟踪的，再补写中文解读，替换这一期里的自动条目。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>原文摘要 · Abstract</h2>
+    <p>Protection levels (PLs) bound position errors under specified fault hypotheses and risk budgets, but advanced re-ceiver autonomous integrity monitoring (ARAIM) is formulated for snapshot GNSS estimation rather than the correlated poste-rior of tightly coupled GNSS/IMU factor graph optimization (FGO). This paper formulates ARAIM solution separation and PL computation on the FGO posterior. Because current-epoch pseudorange factors enter only the current-state block of the fixed-lag information matrix, the fault-excluded position covari-ance, solution separation, and nominal-bias propagation follow exactly from the linearized current-state marginal, which re-tains correlations with velocity, IMU-bias, and clock states and with historical information. Woodbury updates with selected-output evaluation compute these quantities for fault-free, single-satellite, constellation-wide, and second-order hypotheses with-out repeated full-state inversion or graph re-optimization. Sur-rounding monitoring layers screen measurements, handle post-fit outliers, and determine PL validity and availability. In two road experiments, both nominal sequences achieve 100% hori-zontal and vertical empirical bounding over PL-valid epochs, with a maximum error-to-PL ratio of 0.96. Normalized errors show that the posterior covariance alone does not capture slowly varying ranging biases: a covariance-only bound computed from the same posteriors retains no resolvable margin, and strong temporal correlation limits the empirical evidence to consisten-cy checks rather than validation of the integrity budget. On identical Experiment A posteriors, the proposed method reduces fault-hypothesis evaluation and PL solving time by 65.2% rela-tive to direct full-state inversion with matching integrity deci-sions, and controlled fault injections demonstrate fail-safe PL invalidation while navigation continues.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2610.32259">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2610.32259">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>
