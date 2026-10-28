@@ -1,0 +1,83 @@
+{
+ "edition": {
+  "date": "2026-10-28",
+  "number": 5,
+  "title": "10 月 28 日 · 每日论文雷达",
+  "subtitle": "脚本按四个领域抓取 arXiv 最新投稿并初筛，未做人工解读。",
+  "kicker": "AUTO · 每日自动更新",
+  "blurb": "点开任意一篇可以看到 arXiv 原文摘要、作者与分类；值得跟踪的条目，再补中文解读。",
+  "overview": [
+   "本期共 1 篇，覆盖 工程感知算法，全部由脚本按领域关键词抓取并打分排序。",
+   "分数只反映标题与摘要里的关键词命中（领域锚点 + 术语数 + 标题锚点），不评价方法质量、实验是否充分，也不判断是否和你的工作直接相关。",
+   "每天北京时间 06:00 自动更新；人工精读过的期号会替换掉对应的自动条目，并在归档里标注「人工精读」。"
+  ],
+  "threads": [
+   {
+    "domain": "perception",
+    "title": "工程感知算法 · 1 篇",
+    "text": "最高匹配度 98：GNSS Anomaly Detection in Urban Canyons: A Comprehensive Survey of Multimodal Visibility Infere…"
+   }
+  ],
+  "stats": [
+   {
+    "value": "1",
+    "label": "本期篇数"
+   },
+   {
+    "value": "1",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "98",
+    "label": "最高匹配度"
+   },
+   {
+    "value": "AUTO",
+    "label": "编选方式"
+   }
+  ],
+  "note": [
+   "本期由 scripts/daily_update.py 在 GitHub Actions 里自动生成，没有任何人工挑选或改写。",
+   "「匹配度」是关键词打分：领域锚点 24 分起，每命中一个领域词 +9，标题里出现 GNSS/TEC/ROTI 等锚点再 +12。它只用于排序。",
+   "同一天重复运行会跳过已存在的期号；想重跑请加 --force。",
+   "机器初筛不等于推荐。重要结论、数字和适用边界请回到 arXiv 原文核对。"
+  ]
+ },
+ "papers": [
+  {
+   "id": "2610.34468",
+   "slug": "arxiv-2610.34468",
+   "domain": "perception",
+   "date": "2026-10-25",
+   "score": 98,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "GNSS Anomaly Detection in Urban Canyons: A Comprehensive Survey of Multimodal Visibility Inference",
+   "title_en": "GNSS Anomaly Detection in Urban Canyons: A Comprehensive Survey of Multimodal Visibility Inference",
+   "authors": [
+    "Abdelgabar Ahmed",
+    "Tarig Ballal",
+    "Nour Kouzayha",
+    "Tareq Y. Al-Naffouri"
+   ],
+   "cats": [
+    "eess.SP"
+   ],
+   "tags": [
+    "multipath",
+    "nlos",
+    "quality",
+    "receiver"
+   ],
+   "one_liner": "Reliable GNSS positioning in dense urban environments depends on assessing satellite visibility and identifying measurements degraded by non-line-of-sight (NLOS) recepti…",
+   "one_liner_en": "Reliable GNSS positioning in dense urban environments depends on assessing satellite visibility and identifying measurements degraded by non-line-of-sight (NLOS) recepti…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Reliable GNSS positioning in dense urban environments depends on assessing satellite visibility and identifying measurements degraded by non-line-of-sight (NLOS) reception and multipath. This survey organizes reception-state inference into three complementary evidence families: receiver-side signals, 3D maps and environmental models, and auxiliary sensors. Receiver-side approaches span antenna/electromagnetic, tracking/baseband, and observable-domain evidence, interpreted through rule-based, statistical, machine-learning, and deep-learning methods. Map-based approaches are examined by reviewing environmental representations and methods such as geometric screening, shadow matching, 3D ray tracing, and neural implicit visibility prediction. IMU, camera, and LiDAR measurements provide complementary kinematic, visual, and geometric evidence for online screening. Across these families, we compare accuracy, interpretability, hardware and calibration requirements, map dependence, computational cost, and suitability for real-time deployment. We identify open challenges in dataset quality and labeling, domain generalization, map freshness, and resource-efficient implementation. The resulting synthesis connects signal processing, environmental modeling, and sensor fusion to guide the design of robust urban GNSS measurement-screening systems.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2610.34468",
+    "pdf": "https://arxiv.org/pdf/2610.34468"
+   }
+  }
+ ]
+}
