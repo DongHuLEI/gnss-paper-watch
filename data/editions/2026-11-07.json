@@ -1,0 +1,127 @@
+{
+ "edition": {
+  "date": "2026-11-07",
+  "number": 8,
+  "title": "11 月 7 日 · 每日论文雷达",
+  "subtitle": "脚本按四个领域抓取 arXiv 最新投稿并初筛，未做人工解读。",
+  "kicker": "AUTO · 每日自动更新",
+  "blurb": "点开任意一篇可以看到 arXiv 原文摘要、作者与分类；值得跟踪的条目，再补中文解读。",
+  "overview": [
+   "本期共 2 篇，覆盖 电离层监测、工程感知算法，全部由脚本按领域关键词抓取并打分排序。",
+   "分数只反映标题与摘要里的关键词命中（领域锚点 + 术语数 + 标题锚点），不评价方法质量、实验是否充分，也不判断是否和你的工作直接相关。",
+   "每天北京时间 06:00 自动更新；人工精读过的期号会替换掉对应的自动条目，并在归档里标注「人工精读」。"
+  ],
+  "threads": [
+   {
+    "domain": "iono",
+    "title": "电离层监测 · 1 篇",
+    "text": "最高匹配度 80：MP-DualNet: A Dual-Branch Deep Learning Approach for Magnetopause Boundary Detection Using Simu…"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知算法 · 1 篇",
+    "text": "最高匹配度 63：Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links"
+   }
+  ],
+  "stats": [
+   {
+    "value": "2",
+    "label": "本期篇数"
+   },
+   {
+    "value": "2",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "80",
+    "label": "最高匹配度"
+   },
+   {
+    "value": "AUTO",
+    "label": "编选方式"
+   }
+  ],
+  "note": [
+   "本期由 scripts/daily_update.py 在 GitHub Actions 里自动生成，没有任何人工挑选或改写。",
+   "「匹配度」是关键词打分：领域锚点 24 分起，每命中一个领域词 +9，标题里出现 GNSS/TEC/ROTI 等锚点再 +12。它只用于排序。",
+   "同一天重复运行会跳过已存在的期号；想重跑请加 --force。",
+   "机器初筛不等于推荐。重要结论、数字和适用边界请回到 arXiv 原文核对。"
+  ]
+ },
+ "papers": [
+  {
+   "id": "2611.07433",
+   "slug": "arxiv-2611.07433",
+   "domain": "iono",
+   "date": "2026-11-05",
+   "score": 80,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "MP-DualNet: A Dual-Branch Deep Learning Approach for Magnetopause Boundary Detection Using Simulated SXI Images",
+   "title_en": "MP-DualNet: A Dual-Branch Deep Learning Approach for Magnetopause Boundary Detection Using Simulated SXI Images",
+   "authors": [
+    "Cheng Zhong",
+    "Zhongwei Yang",
+    "Tianran Sun",
+    "Chengyan Huang",
+    "Jiajia Liu",
+    "Jingnan Guo",
+    "Yuming Wang",
+    "Chi Wang"
+   ],
+   "cats": [
+    "astro-ph.SR",
+    "astro-ph.IM"
+   ],
+   "tags": [
+    "ionosphere",
+    "space weather",
+    "storm",
+    "tec"
+   ],
+   "one_liner": "The Earth's magnetopause is a key boundary governing solar wind-magnetosphere coupling.",
+   "one_liner_en": "The Earth's magnetopause is a key boundary governing solar wind-magnetosphere coupling.",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "The Earth's magnetopause is a key boundary governing solar wind-magnetosphere coupling. The Solar wind Magnetosphere Ionosphere Link Explorer (SMILE) mission will provide global soft X-ray imaging of the magnetosphere through solar wind charge exchange (SWCX) emission, offering a new opportunity for remote sensing of magnetopause dynamics. However, the limited field of view (FOV) and variable observation geometry of the Soft X-ray Imager (SXI) pose challenges for reliable magnetopause detection. In this study, we develop MP-DualNet, an end-to-end dual-branch deep learning framework for automated magnetopause detection from simulated SXI observations. The framework jointly performs coarse localization to determine magnetopause visibility and relative position within the FOV, and fine-scale boundary localization through pixel-level segmentation. The model is trained and evaluated using line-of-sight magnetopause envelope maps derived from global hybrid simulations under different solar wind and interplanetary magnetic field conditions. The results demonstrate stable and consistent performance, with a classification accuracy exceeding 0.94 and a segmentation IoU above 0.97. For the test set, the mean absolute angular displacement from the reference boundary was 0.488 degrees. The model maintains robust performance across a wide range of noise levels and generalizes well, as demonstrated by its application to an independent storm event. These results indicate that MP-DualNet provides a reliable and generalizable approach for magnetopause detection in SXI observations, supporting future 3D reconstruction and space weather studies in the context of the SMILE mission.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.07433",
+    "pdf": "https://arxiv.org/pdf/2611.07433"
+   }
+  },
+  {
+   "id": "2611.08118",
+   "slug": "arxiv-2611.08118",
+   "domain": "perception",
+   "date": "2026-11-05",
+   "score": 63,
+   "tier": "机器初筛",
+   "auto": true,
+   "title_zh": "Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links",
+   "title_en": "Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links",
+   "authors": [
+    "Ingrid Huso",
+    "Giulia Fliescher",
+    "Savio Sciancalepore",
+    "Gabriele Oligeri"
+   ],
+   "cats": [
+    "cs.CR"
+   ],
+   "tags": [
+    "jamming",
+    "quality",
+    "receiver"
+   ],
+   "one_liner": "Low Earth Orbit (LEO) satellite-IoT systems increasingly provide connectivity to mobile assets in remote areas, which makes their resilience to radio-frequency jamming a…",
+   "one_liner_en": "Low Earth Orbit (LEO) satellite-IoT systems increasingly provide connectivity to mobile assets in remote areas, which makes their resilience to radio-frequency jamming a…",
+   "lead_zh": "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。",
+   "lead_en": "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.",
+   "abstract_en": "Low Earth Orbit (LEO) satellite-IoT systems increasingly provide connectivity to mobile assets in remote areas, which makes their resilience to radio-frequency jamming a growing concern. Timely jamming detection, i.e., before complete link failure, has been studied for terrestrial networks and Global Navigation Satellite Systems (GNSS), but it remains unclear whether these approaches are effective on LEO links, where propagation varies rapidly, the received signal is weak, and jamming should be detected from the messages that are still correctly received. This paper investigates the extent to which jamming of Iridium LEO satellite-IoT links can be detected from the physical layer of correctly decoded messages. To this aim, we collect and publicly release a real-world dataset of Iridium messages under 47 jamming conditions, spanning two propagation environments, static and mobile receivers, and different jammer distances, powers, and signal types. We use this dataset to analyze three one-class autoencoder-based anomaly detectors operating on physical-layer information and compare them against two signal-quality estimators commonly used as jamming indicators in GNSS-based applications. Our results show that detectability is governed by the rise of the receiver noise floor, through which jammer power, distance, and receiver mobility act. With 1000-sample chunks, i.e., 40 ms of received signal at 25,000 samples per second (about four correctly decoded messages), the autoencoders reach an AUC of at least 0.84 whenever a noise jammer raises the noise floor by at least 9 dB, whereas the $C/N_0$ and SNR estimators fail, since received messages, although correctly decoded, retain a high SNR under jamming. Therefore, timely jamming detection for LEO satellite-IoT links like Iridium should rely on physical-layer information beyond the signal-quality metrics adopted in the GNSS domain.",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.08118",
+    "pdf": "https://arxiv.org/pdf/2611.08118"
+   }
+  }
+ ]
+}

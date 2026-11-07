@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Low Earth Orbit (LEO) satellite-IoT systems increasingly provide connectivity to mobile assets in remote areas, which makes their resilience to radio-frequency jamming a…">
+  <meta property="og:title" content="Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links · GNSS Paper Radar">
+  <meta property="og:description" content="Low Earth Orbit (LEO) satellite-IoT systems increasingly provide connectivity to mobile assets in remote areas, which makes their resilience to radio-frequency jamming a…">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b10'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%2337e2c0' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2337e2c0'/%3E%3C/svg%3E">
+  <title>Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links · GNSS Paper Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="../../assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="top"><div class="wrap nav"><strong><a href="../../index.html">GNSS Paper Radar</a></strong><nav class="nav-links"><a href="../../daily/2026-11-07/index.html">今日</a><a href="../../index.html#domains">领域</a><a href="../../index.html#papers">论文</a><a href="../../archive/index.html">归档</a><a href="../../index.html#about">关于</a><span class="lang-toggle" role="group" aria-label="语言切换"><button type="button" data-set-lang="zh" aria-pressed="true">中文</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></span></nav></div></header>
+<main class="wrap" id="content">
+<article class="poster-shell">
+  <header class="poster-cover">
+    <div class="poster-back"><a href="../../daily/2026-11-07/index.html">← 本期论文合集</a><span class="meta">第 8 期 · 2026-11-07</span></div>
+    <div class="poster-kicker">工程感知算法 · 2026-11-05 · 机器初筛 · 匹配度 63</div>
+    <h1><span class="lang lang-zh lang-inline" data-lang="zh">Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links</span><span class="lang lang-en lang-inline" data-lang="en">Cloudy Skies: Early Detection of Jamming Against Iridium LEO Satellite-IoT Links</span></h1>
+    <p class="poster-authors">Ingrid Huso, Giulia Fliescher, Savio Sciancalepore, Gabriele Oligeri</p>
+    <p class="poster-lead"><span class="lang lang-zh lang-block" data-lang="zh">本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。</span><span class="lang lang-en lang-block" data-lang="en">Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata.</span></p>
+    <div class="poster-meta"><span>2026-11-05</span><span>2611.08118</span><span>cs.CR</span><span>工程感知算法</span><a href="https://arxiv.org/abs/2611.08118">原文 / Paper</a></div>
+    <div class="tags"><span class="tag">jamming</span><span class="tag">quality</span><span class="tag">receiver</span></div>
+  </header>
+
+  <section class="poster-context">
+    <p class="poster-context-label">自动收录 · Machine-selected</p>
+    <div class="poster-context-grid">
+      <div class="poster-context-card"><h3>这条是怎么来的</h3><p>每天北京时间 06:00 由脚本抓取 arXiv 最新投稿，命中四个领域关键词的候选按分数排序取前列，没有经过人工精读。</p></div>
+      <div class="poster-context-card"><h3>可信度边界</h3><p>标题、作者、分类和下面的摘要是 arXiv 原文；匹配度只是关键词打分，不代表论文质量，也不代表与你的研究路线相关。</p></div>
+      <div class="poster-context-card"><h3>下一步</h3><p>值得读就按下面的链接进原文；值得长期跟踪的，再补写中文解读，替换这一期里的自动条目。</p></div>
+    </div>
+  </section>
+
+  <section class="poster-abstract">
+    <h2>原文摘要 · Abstract</h2>
+    <p>Low Earth Orbit (LEO) satellite-IoT systems increasingly provide connectivity to mobile assets in remote areas, which makes their resilience to radio-frequency jamming a growing concern. Timely jamming detection, i.e., before complete link failure, has been studied for terrestrial networks and Global Navigation Satellite Systems (GNSS), but it remains unclear whether these approaches are effective on LEO links, where propagation varies rapidly, the received signal is weak, and jamming should be detected from the messages that are still correctly received. This paper investigates the extent to which jamming of Iridium LEO satellite-IoT links can be detected from the physical layer of correctly decoded messages. To this aim, we collect and publicly release a real-world dataset of Iridium messages under 47 jamming conditions, spanning two propagation environments, static and mobile receivers, and different jammer distances, powers, and signal types. We use this dataset to analyze three one-class autoencoder-based anomaly detectors operating on physical-layer information and compare them against two signal-quality estimators commonly used as jamming indicators in GNSS-based applications. Our results show that detectability is governed by the rise of the receiver noise floor, through which jammer power, distance, and receiver mobility act. With 1000-sample chunks, i.e., 40 ms of received signal at 25,000 samples per second (about four correctly decoded messages), the autoencoders reach an AUC of at least 0.84 whenever a noise jammer raises the noise floor by at least 9 dB, whereas the $C/N_0$ and SNR estimators fail, since received messages, although correctly decoded, retain a high SNR under jamming. Therefore, timely jamming detection for LEO satellite-IoT links like Iridium should rely on physical-layer information beyond the signal-quality metrics adopted in the GNSS domain.</p>
+  </section>
+
+  <div class="poster-sources">证据来源：<ul><li><a href="https://arxiv.org/abs/2611.08118">arXiv 摘要页</a></li><li><a href="https://arxiv.org/pdf/2611.08118">arXiv PDF</a></li></ul></div>
+</article>
+</main>
+<footer>GNSS Paper Radar · 静态站点 · 人工精选 / 可脚本更新 · 数据来自 arXiv 摘要与公开论文页</footer>
+<script src="../../assets/app.js"></script>
+</body>
+</html>
