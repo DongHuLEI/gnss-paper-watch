@@ -3,6 +3,7 @@
 
 import argparse
 import datetime as dt
+from email.utils import parsedate_to_datetime
 import re
 import sys
 import time
@@ -43,23 +44,58 @@ def fetch_by_ids(ids):
     return parse(api_request({"id_list": ",".join(ids), "max_results": len(ids)})) if ids else []
 
 
+def retry_delay(error, attempt):
+    config = SETTINGS["retrieval"]
+    delay = max(config["arxiv_interval_seconds"], config.get("retry_backoff_seconds", 30) * (2 ** attempt))
+    requested = error.headers.get("Retry-After", "") if error.headers else ""
+    if requested:
+        try:
+            if re.match(r"^\d+(?:\.\d+)?$", requested.strip()):
+                minimum = float(requested)
+            else:
+                moment = parsedate_to_datetime(requested)
+                if moment.tzinfo is None:
+                    moment = moment.replace(tzinfo=dt.timezone.utc)
+                minimum = (moment - dt.datetime.now(dt.timezone.utc)).total_seconds()
+            delay = max(delay, minimum)
+        except (TypeError, ValueError, OverflowError):
+            pass
+    return delay
+
+
+_ARXIV_RESUME_AT = 0.0
+
+
 def api_request(params):
+    global _ARXIV_RESUME_AT
     url = "https://export.arxiv.org/api/query?" + urllib.parse.urlencode(params)
     request = urllib.request.Request(url, headers={"User-Agent": "gnss-ai-research-radar/2.0"})
     config = SETTINGS["retrieval"]
     for attempt in range(config["retries"] + 1):
+        remaining = _ARXIV_RESUME_AT - time.monotonic()
+        if remaining > config.get("max_retry_wait_seconds", 180):
+            raise RuntimeError("arXiv requested a longer cooldown; deferred to the next scheduled run")
+        if remaining > 0:
+            print("  arXiv cooldown; wait %.0fs" % remaining, flush=True)
+            time.sleep(remaining)
+        _ARXIV_RESUME_AT = time.monotonic() + config["arxiv_interval_seconds"]
         try:
             with urllib.request.urlopen(request, timeout=config["request_timeout"]) as response:
                 return response.read()
         except urllib.error.HTTPError as exc:
             if exc.code != 429 and exc.code < 500:
                 raise
-            if attempt == config["retries"]:
+            delay = retry_delay(exc, attempt)
+            _ARXIV_RESUME_AT = time.monotonic() + delay
+            if attempt == config["retries"] or delay > config.get("max_retry_wait_seconds", 180):
                 raise
+            print("  arXiv HTTP %d; retry in %.0fs" % (exc.code, delay), flush=True)
         except (urllib.error.URLError, TimeoutError, OSError):
             if attempt == config["retries"]:
                 raise
-        time.sleep(max(config["arxiv_interval_seconds"], 4 * (attempt + 1)))
+            delay = max(config["arxiv_interval_seconds"], 5 * (2 ** attempt))
+            print("  arXiv connection interrupted; retry in %.0fs" % delay, flush=True)
+        time.sleep(delay)
 
 
 def field(entry, name):

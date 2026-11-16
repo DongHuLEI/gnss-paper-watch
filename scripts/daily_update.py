@@ -207,8 +207,13 @@ def main():
                              ("Retrieval", status.get("retrieval_status", "unknown")),
                              ("Result", status.get("result", "unknown")),
                              ("AI", ai.get("state", "unknown")),
+                             ("AI summaries", status.get("ai_summaries", 0)),
                              ("Reported tokens", ai.get("input_tokens", 0) + ai.get("output_tokens", 0))):
             print("- %s: %s" % (label, value))
+        failed = [domains[item["domain"]]["label"] for item in status.get("queries", [])
+                  if item.get("status") != "ok" and item.get("domain") in domains]
+        if failed:
+            print("- Incomplete sources: " + "、".join(failed))
         return 0
     if args.per_domain < 1 or args.days < 1 or not 1 <= args.max <= 200 or not 0 <= args.min_score <= 100:
         parser.error("invalid retrieval limits")
@@ -281,6 +286,9 @@ def main():
             issue["edition"]["blurb"] = "本期 %d 篇，%d 篇 AI 中文解读；所有条目保留原始来源。" % (len(papers), status["ai_summaries"])
         else:
             issue = make_edition(date_str, papers, domains, number, retrieval, client, pages)
+            if current:
+                discovery = list(current.get("discovery", []))
+                issue["discovery"] = discovery + [page for page in issue["discovery"] if page not in discovery]
         write_json(DATA / "editions" / (date_str + ".json"), issue)
     write_json(DATA / "status.json", status)
     write_json(client.ledger_path, client.ledger)

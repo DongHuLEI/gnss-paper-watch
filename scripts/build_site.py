@@ -227,6 +227,15 @@ class Site:
 <nav class="pagination" aria-label="结果分页" data-pagination hidden><button type="button" data-prev>上一页</button><span data-page-label></span><button type="button" data-next>下一页</button></nav>
 </section>''' % (default_domain, esc(scope), esc(scope), domain_options, lens_options, month_options, len(papers), cards)
 
+    def retrieval_label(self):
+        records = self.status.get("queries", [])
+        state = self.status.get("retrieval_status", "unknown")
+        label = {"ok": "检索完成", "partial": "部分检索失败", "failed": "检索失败",
+                 "already_checked": "今日已检查"}.get(state, "等待检查")
+        if records:
+            label += "（%d/%d 路成功）" % (sum(item.get("status") == "ok" for item in records), len(records))
+        return label
+
     def status_panel(self):
         status = self.status
         state = status.get("ai", {}).get("state", "unknown")
@@ -234,8 +243,10 @@ class Site:
                     "invalid_key": "DeepSeek 密钥无效", "insufficient_balance": "DeepSeek 余额不足"}.get(state, "AI 状态待检查")
         result = {"updated": "本期已更新", "already_checked": "今日已检查", "no_new_papers": "已检查，暂无新增",
                   "retrieval_failed": "检索失败，保留上期"}.get(status.get("result"), "等待更新检查")
-        return '<aside class="update-panel"><p class="eyebrow">UPDATE STATUS</p><h2>%s</h2><p><span class="status-dot" aria-hidden="true"></span>%s</p><dl><div><dt>最近检查</dt><dd>%s</dd></div><div><dt>最新日报</dt><dd>%s</dd></div><div><dt>更新计划</dt><dd>00:17 / 03:17 / 06:17</dd></div></dl><small>北京时间。提前触发并补跑；平台可能延迟，以实际检查记录为准。</small></aside>' % (
-            result, ai_label, esc(timestamp(status.get("checked_at"))), self.latest["edition"]["date"],
+        if status.get("retrieval_status") == "partial":
+            result = "部分更新 · 检索待补齐"
+        return '<aside class="update-panel"><p class="eyebrow">UPDATE STATUS</p><h2>%s</h2><p><span class="status-dot" aria-hidden="true"></span>%s</p><dl><div><dt>最近检查</dt><dd>%s</dd></div><div><dt>最新日报</dt><dd>%s</dd></div><div><dt>检索完整性</dt><dd>%s</dd></div><div><dt>更新计划</dt><dd>00:17 / 03:17 / 06:17</dd></div></dl><small>北京时间。提前触发并补跑；平台可能延迟，以实际检查记录为准。检索失败不代表没有新论文。</small></aside>' % (
+            result, ai_label, esc(timestamp(status.get("checked_at"))), self.latest["edition"]["date"], esc(self.retrieval_label()),
         )
 
     def home(self):
@@ -286,6 +297,8 @@ class Site:
         papers = self.issues[date]
         counts = Counter(paper["status"] for paper in papers)
         overview = '<div class="issue-summary"><strong>%d 篇论文</strong><span>AI 解读 %d</span><span>整理摘要 %d</span><span>检索初筛 %d</span></div>' % (len(papers), counts["ai"], counts["curated"], counts["metadata"])
+        if view["edition"].get("retrieval_status") in ("partial", "failed"):
+            overview += '<p class="notice">本期检索不完整：部分来源限流、超时或失败，不代表其他方向没有论文。后续补跑会继续检查，并保留已收录内容。</p>'
         return self.shell(date + " 日报", "跨学科研究日报", "../../", navigation + heading + overview + self.browser(papers, "../../", scope="本期论文"), "archive")
 
     def archive(self):
@@ -397,7 +410,11 @@ class Site:
     def about(self):
         ai = self.status.get("ai", {})
         content = self.heading("SOURCES & OPERATIONS", "知道内容怎么来，也知道它的边界。", "这不是论文质量排行榜。我们把检索、AI 解读和原有整理分开标记，并保留来源与实际运行状态。")
-        content += '<div class="about-grid"><section class="panel"><h2>内容分三层</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li></ul></section><section class="panel"><h2>更新与时区</h2><p>北京时间 00:17 首次触发，03:17、06:17 补跑。同日去重，保留历史。GitHub Actions 可能延迟，不提供严格的 08:00 服务保证。</p><p>最近检查：%s</p><p>检索状态：%s</p></section></div>' % (esc(timestamp(self.status.get("checked_at"))), esc(self.status.get("retrieval_status", "unknown")))
+        content += '<div class="about-grid"><section class="panel"><h2>内容分三层</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li></ul></section><section class="panel"><h2>更新与时区</h2><p>北京时间 00:17 首次触发，03:17、06:17 补跑。同日去重，保留历史。GitHub Actions 可能延迟，不提供严格的 08:00 服务保证。</p><p>最近检查：%s</p><p>检索状态：%s</p></section></div>' % (esc(timestamp(self.status.get("checked_at"))), esc(self.retrieval_label()))
+        failed = [self.domains[item["domain"]]["label"] for item in self.status.get("queries", [])
+                  if item.get("status") != "ok" and item.get("domain") in self.domains]
+        if failed:
+            content += '<p class="notice">尚未成功检查的来源：%s。限流或超时不表示该方向没有新论文；下一次任务会重试。</p>' % esc("、".join(failed))
         limits = self.settings["deepseek"]
         content += '<section class="panel section"><h2>DeepSeek 配置与用量</h2><p>密钥只通过 GitHub Actions Secret <code>DEEPSEEK_API_KEY</code> 传入，不在前端、不在公开 JSON，也不发送飞书原文。模型为 <code>%s</code>。</p><p>状态：<strong>%s</strong>。当日已报告输入 %s token、输出 %s token；不确定的请求预留量 %s token。</p><p>配置上限：每天解读 %s 篇、搜索 %s 次、网页读取 %s 次。token 用保守预留限制在 %s 内；具体账单以 DeepSeek 后台为准。</p><p><a href="https://api-docs.deepseek.com/guides/search">官方搜索与读取说明 ↗</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing">官方实时价格 ↗</a></p></section>' % (esc(limits["model"]), esc(ai.get("state", "unknown")), ai.get("input_tokens", 0), ai.get("output_tokens", 0), ai.get("uncertain_reserved_tokens", 0), limits["daily_paper_limit"], limits["daily_search_limit"], limits["daily_fetch_limit"], limits["daily_token_limit"])
         content += '<section class="panel"><h2>阅读数据与隐私</h2><p>收藏与已读存储在浏览器 localStorage，不需要登录，不会自动发往服务器。不同设备请通过论文库里的 JSON 导入／导出合并；清理浏览器会丢失未导出的记录。</p><h2>来源与版权</h2><p>论文标题、作者与摘要来自 arXiv，版权归原作者。学习资料链接指向官方文档。页面已重写为本项目的研究工作台；最初参考了 <a href="https://github.com/haoshendong/slam3d-paper-watch">slam3d-paper-watch</a> 的日报组织形式。</p><p>关键词匹配不等于质量评分；自动引文检查也不能确认语义一定正确。重要结论请回原文。</p></section>'

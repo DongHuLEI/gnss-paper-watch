@@ -13,7 +13,9 @@
   "min_score": 42,
   "request_timeout": 35,
   "retries": 2,
-  "arxiv_interval_seconds": 3.1
+  "retry_backoff_seconds": 30,
+  "max_retry_wait_seconds": 180,
+  "arxiv_interval_seconds": 8
  },
  "deepseek": {
   "enabled": true,
