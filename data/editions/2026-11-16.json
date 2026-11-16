@@ -5,30 +5,45 @@
   "title": "2026-11-16 · 研究日报",
   "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
   "kicker": "DAILY RESEARCH",
-  "blurb": "本期 1 篇，1 篇 AI 中文解读；所有条目保留原始来源。",
+  "blurb": "本期 8 篇，8 篇 AI 中文解读；所有条目保留原始来源。",
   "overview": [
-   "本期收录 1 篇，覆盖 工程感知与多源融合。",
+   "本期收录 8 篇，覆盖 时空预测与科学 AI、工程感知与多源融合、具身智能与机器人、模型训练与高效适配。",
    "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
    "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
   ],
   "threads": [
    {
+    "domain": "ml",
+    "title": "时空预测与科学 AI · 2 篇",
+    "text": "SteelAgent：LLM 编排、物理信息驱动的钢材性能预测，含泛化审计与不确定性校准"
+   },
+   {
     "domain": "perception",
-    "title": "工程感知与多源融合 · 1 篇",
+    "title": "工程感知与多源融合 · 2 篇",
     "text": "面向GNSS拒止大区域的分布式麦克风网络实时枪声检测与定位"
+   },
+   {
+    "domain": "embodied",
+    "title": "具身智能与机器人 · 2 篇",
+    "text": "PAIR：面向视角鲁棒操作的 proprioception 对齐图像-射线表示"
+   },
+   {
+    "domain": "training",
+    "title": "模型训练与高效适配 · 2 篇",
+    "text": "奖励范围之外：多语言后训练中的能力漂移"
    }
   ],
   "stats": [
    {
-    "value": "1",
+    "value": "8",
     "label": "本期论文"
    },
    {
-    "value": "1",
+    "value": "8",
     "label": "AI 解读"
    },
    {
-    "value": "1",
+    "value": "4",
     "label": "覆盖领域"
    },
    {
@@ -41,8 +56,8 @@
    "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
    "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
   ],
-  "generated_at": "2026-11-16T01:49:36Z",
-  "retrieval_status": "partial",
+  "generated_at": "2026-11-16T02:01:45Z",
+  "retrieval_status": "ok",
   "ai_status": "ready"
  },
  "papers": [
@@ -160,6 +175,891 @@
     "usage": {
      "prompt_tokens": 4970,
      "completion_tokens": 838
+    }
+   }
+  },
+  {
+   "id": "2611.06953",
+   "slug": "arxiv-2611.06953",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "uncertainty",
+    "physics"
+   ],
+   "date": "2026-11-03",
+   "updated": "2026-11-03",
+   "score": 69,
+   "domain_scores": {
+    "ml": 69
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "SteelAgent：LLM 编排、物理信息驱动的钢材性能预测，含泛化审计与不确定性校准",
+   "title_en": "SteelAgent: LLM-Orchestrated, Physics-Informed Steel Property Prediction with Audited Generalization and Calibrated Uncertainty",
+   "authors": [
+    "Aleksandr Volkov",
+    "Roman Sultimov",
+    "Mikhail Kuzin",
+    "Yury Maximov"
+   ],
+   "cats": [
+    "cs.LG",
+    "cond-mat.mtrl-sci"
+   ],
+   "tags": [
+    "材料性能预测",
+    "分布偏移评估",
+    "共形预测",
+    "LLM 编排",
+    "不确定性校准"
+   ],
+   "one_liner": "该工作提出 SteelAgent，将冶金物理描述符、机器学习模型与语言模型接口结合，用于钢材性能预测、不确定性报告与逆向设计。作者基于 SteelBench 拉伸强度表格做二次分析，比较随机划分、按牌号/钢族/来源留出等协议，发现梯度提升模型池化 R² 从随机划分的 0.859 降到按钢族留出的 0.113，名义 90% 区间覆盖率从 91.0% 降到按来…",
+   "one_liner_en": "Steel property models can perform well on random test splits even when they extrapolate poorly to unfamiliar alloys. SteelAgent couples metallurgical descriptors and machine-learn…",
+   "lead_zh": "该工作提出 SteelAgent，将冶金物理描述符、机器学习模型与语言模型接口结合，用于钢材性能预测、不确定性报告与逆向设计。作者基于 SteelBench 拉伸强度表格做二次分析，比较随机划分、按牌号/钢族/来源留出等协议，发现梯度提升模型池化 R² 从随机划分的 0.859 降到按钢族留出的 0.113，名义 90% 区间覆盖率从 91.0% 降到按来源留出的 37.6%，物理特征的作用随评估口径改变。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Steel property models can perform well on random test splits even when they extrapolate poorly to unfamiliar alloys. SteelAgent couples metallurgical descriptors and machine-learning models with a language-model interface for property prediction, uncertainty reporting and inverse design. We examine how the choice of held-out unit changes the conclusions drawn from SteelBench tensile-strength evaluations. For gradient boosting, pooled out-of-fold $R^2$ fell from 0.859 on a random split to 0.113 when steel families were held out. Empirical coverage of nominal 90% prediction intervals ranged from 91.0% under random splitting to 37.6% on held-out sources. The effect of physics-derived features depended on the evaluation. They increased gradient-boosting $R^2$ by 0.2534 in a 17-family holdout analysis and decreased it by 0.358 in a separate four-grade laboratory analysis. We report group-level errors and a synthetic regression experiment illustrating how calibration can deteriorate on held-out groups. These results motivate reporting the evaluation population alongside a property estimate or compliance score.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.06953",
+    "pdf": "https://arxiv.org/pdf/2611.06953"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "SteelAgent：LLM 编排、物理信息驱动的钢材性能预测，含泛化审计与不确定性校准",
+    "summary": "该工作提出 SteelAgent，将冶金物理描述符、机器学习模型与语言模型接口结合，用于钢材性能预测、不确定性报告与逆向设计。作者基于 SteelBench 拉伸强度表格做二次分析，比较随机划分、按牌号/钢族/来源留出等协议，发现梯度提升模型池化 R² 从随机划分的 0.859 降到按钢族留出的 0.113，名义 90% 区间覆盖率从 91.0% 降到按来源留出的 37.6%，物理特征的作用随评估口径改变。",
+    "question": "在随机划分上表现良好的钢材性能模型，对外部未见的合金或来源是否仍可靠；选择不同的留出单元会如何改变评估结论，以及在分布偏移下预测区间是否仍有校准意义。",
+    "method": "系统由三层构成：物理层从成分与热处理推导冶金描述符，预测层给出模型估计、模型比较和不确定性区间，语言模型负责选择工具并解释输出。评估在 SteelBench 数据上采用随机折、按牌号组留出、留一钢族和留一来源四种协议，比较 GBR 与 CatBoost；区间采用基于分位数损失梯度提升的 CQR，并另做已知数据生成过程的合成岭回归群组留出实验。",
+    "transfer": "推断：该文的“留出单元决定结论”和“按来源留出时区间失校准”两条经验，可直接类比到 GNSS 电离层 TEC/ROTI 预测——按测站、按地磁扰动时段或按数据来源留出，比随机时间划分更能暴露泛化缺口；CQR 区间与滚动覆盖率监控思路可迁移到完好性监测中的风险指标报告。但钢铁材料的群组结构与电离层时空非平稳性并不相同，迁移需重新验证。",
+    "limitations": [
+     "提供的来源未说明钢铁结果对应的逐热处理预测值，作者指出需要这些值才能重算钢材指标的不确定性或在相同留出单元上比较模型",
+     "合规分数未在候选合金资格认定中前瞻验证，其高斯近似的适用性仅被作者标为需验证",
+     "语言模型接口部分未做定量验证（来源正文在此处截断）",
+     "覆盖率阈值（如 85% 触发）的误报率与偏移类型识别能力，提供的来源未说明",
+     "各协议在样本量、群组大小和部分比较中的特征集不同，性能差异不能归因于唯一物理原因"
+    ],
+    "practical_steps": [
+     "先确认目标任务的“留出单元”应是什么（钢族/来源，或测站/时段/来源），并与随机划分结果并列报告",
+     "复现时核对各协议的样本量与群组划分，避免在样本量不同的协议间直接比较绝对值",
+     "复现 CQR 区间前核对校准集与测试集是否满足可交换性假设，并按来源留出单独报告覆盖率与区间宽度",
+     "物理特征增益需在至少两种不同留出口径下分别消融，不合并为单一结论",
+     "合规分数若要使用，先用实测通过/不通过结果做验证，不直接采用高斯近似",
+     "语言模型编排部分的具体提示、工具选择逻辑与训练配置，提供的来源未说明，需查阅原文或代码后再复现"
+    ],
+    "tags": [
+     "材料性能预测",
+     "分布偏移评估",
+     "共形预测",
+     "LLM 编排",
+     "不确定性校准"
+    ],
+    "findings": [
+     {
+      "statement": "梯度提升模型池化 out-of-fold R² 从随机划分的 0.859 降至按钢族留出的 0.113，显示随机划分可能高估对未见钢族的精度。",
+      "quote": "pooled out-of-fold $R^2$ fell from 0.859 on a random split to 0.113 when steel families were held out",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.06953"
+     },
+     {
+      "statement": "名义 90% 预测区间的经验覆盖率在随机划分下为 91.0%，在按来源留出时降至 37.6%。",
+      "quote": "Empirical coverage of nominal 90% prediction intervals ranged from 91.0% under random splitting to 37.6% on held-out sources",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.06953"
+     },
+     {
+      "statement": "物理描述符的作用依赖评估口径：17 族留出分析中使梯度提升 R² 提高 0.2534，而另一个四牌号实验室分析中使其下降 0.358。",
+      "quote": "They increased gradient-boosting $R^2$ by 0.2534 in a 17-family holdout analysis and decreased it by 0.358 in a separate four-grade laboratory analysis",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.06953"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:00:54Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.06953",
+      "title": "SteelAgent: LLM-Orchestrated, Physics-Informed Steel Property Prediction with Audited Generalization and Calibrated Uncertainty",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.06953v1",
+      "title": "SteelAgent: LLM-Orchestrated, Physics-Informed Steel Property Prediction with Audited Generalization and Calibrated Uncertainty Note: A shorter version of this work, SteelAgent: An LLM-Orchestrated System for Physics-Informed Steel Property Prediction and Generalization Auditing, was published in the Proceedings of the Thirty-Fifth International Joint Conference on Artificial Intelligence (IJCAI-2",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4801,
+     "completion_tokens": 993
+    }
+   }
+  },
+  {
+   "id": "2611.11798",
+   "slug": "arxiv-2611.11798",
+   "domain": "embodied",
+   "domains": [
+    "embodied"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-09",
+   "updated": "2026-11-09",
+   "score": 82,
+   "domain_scores": {
+    "embodied": 82
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "PAIR：面向视角鲁棒操作的 proprioception 对齐图像-射线表示",
+   "title_en": "PAIR: Proprioception-Aligned Image-Ray Representations for Viewpoint-Robust Manipulation",
+   "authors": [
+    "Sung-Wook Lee",
+    "Xuhui Kang",
+    "Dylan Losey",
+    "Yen-Ling Kuo"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "视角鲁棒操作",
+    "射线位置编码",
+    "对比学习",
+    "模仿学习",
+    "本体感知对齐"
+   ],
+   "one_liner": "论文针对视觉运动策略在相机视角变化下泛化差的问题，指出图像只记录状态在特定相机下的投影，视角相关外观与任务状态纠缠会降低学习效率。作者提出 PAIR，用机器人本体感知监督对齐联合图像-射线表示，使同一本体状态在不同视角下的观测在表示空间靠近，可作为扩散策略训练或 VLA 后训练的辅助目标。摘要报告在含相机变化的仿真与真实操作基准上，相对无射线条件的行为克隆…",
+   "one_liner_en": "While imitation learning has made substantial progress toward generalizable robot manipulation through scaling, viewpoint robustness remains a major bottleneck. Visuomotor policie…",
+   "lead_zh": "论文针对视觉运动策略在相机视角变化下泛化差的问题，指出图像只记录状态在特定相机下的投影，视角相关外观与任务状态纠缠会降低学习效率。作者提出 PAIR，用机器人本体感知监督对齐联合图像-射线表示，使同一本体状态在不同视角下的观测在表示空间靠近，可作为扩散策略训练或 VLA 后训练的辅助目标。摘要报告在含相机变化的仿真与真实操作基准上，相对无射线条件的行为克隆基线分别提升 12.7 与 26.7 个百分点。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "While imitation learning has made substantial progress toward generalizable robot manipulation through scaling, viewpoint robustness remains a major bottleneck. Visuomotor policies rely heavily on visual inputs, yet images provide an inherently ambiguous signal under viewpoint change: similar scenes may appear markedly different across viewpoints, while distinct states may share certain visual overlaps. A policy must therefore infer not only the task-relevant state, but also how it is visually projected under a particular camera configuration. This entanglement of viewpoint-dependent appearance and task-relevant state can make learning inefficient and limit generalization to unseen viewpoints. Recent work has begun to address this challenge through camera-ray conditioning and representation learning using geometric cues to induce invariance. However, providing camera information as additional context does not by itself ground visual representations in how the task scene is visually projected, while geometric alignment without camera context can introduce spurious correspondences by ignoring viewpoint-dependent projection. We propose PAIR, a contrastive learning framework that aligns joint image-ray representations using robot proprioception. PAIR encourages observations with similar robot states to remain close in representation space across viewpoints, providing a structured grounding signal for learning viewpoint-robust features. PAIR is a highly adaptable framework: it can be used to train Diffusion Policy (DP) or post-train vision-language-action (VLA) models. In simulated and real-world manipulation benchmarks with camera variation, PAIR consistently outperforms the behavior cloning baseline without ray conditioning by 12.7% and 26.7% points, respectively, demonstrating stronger generalization to unseen viewpoints. Project website: PAIRrobot.github.io.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.11798",
+    "pdf": "https://arxiv.org/pdf/2611.11798"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "PAIR：面向视角鲁棒操作的 proprioception 对齐图像-射线表示",
+    "summary": "论文针对视觉运动策略在相机视角变化下泛化差的问题，指出图像只记录状态在特定相机下的投影，视角相关外观与任务状态纠缠会降低学习效率。作者提出 PAIR，用机器人本体感知监督对齐联合图像-射线表示，使同一本体状态在不同视角下的观测在表示空间靠近，可作为扩散策略训练或 VLA 后训练的辅助目标。摘要报告在含相机变化的仿真与真实操作基准上，相对无射线条件的行为克隆基线分别提升 12.7 与 26.7 个百分点。",
+    "question": "视觉运动模仿学习策略在相机视角变化时鲁棒性不足：同一物理状态在不同视角下外观差异大，不同状态又可能视觉相似，而动作空间通常与相机无关；仅把相机信息作为额外上下文或仅用几何信号做对齐，都不能把视觉表示锚定到任务场景的实际投影上。",
+    "method": "以 Plücker 射线作为视觉 token 的几何位置编码，同时构造相对末端执行器与相对机器人基座的两种射线嵌入，经恒等初始化线性层注入预训练 SigLIP 系编码器；再以末端位置、姿态和夹爪宽度构成的本体状态几何相似度做监督对比学习，将图像-射线表示对齐，并把该目标作为辅助损失与行为克隆目标联合优化，用于训练扩散策略或后训练 VLA。",
+    "transfer": "推断：把\"以物理参考量监督对齐跨视角表示\"的思路迁移到多传感器定位，可将同一载体状态在不同基站几何或不同接收机视角下的观测量在特征空间对齐，用于缓解 GNSS 多路径与电离层梯度造成的视角相关偏差；该连接为方法学类比，未在论文中验证。",
+    "limitations": [
+     "提供的来源为摘要与部分网页正文，方法细节之外的数据规模、训练超参、算力与完整实验表格未说明",
+     "真实机器人实验的相机配置、任务数量与统计显著性未说明",
+     "代码与模型权重的可获取性仅见项目网站链接，未说明是否开源",
+     "对非平行夹爪、多臂或动态相机的适用边界未说明"
+    ],
+    "practical_steps": [
+     "核对射线嵌入的相对坐标系定义与恒等初始化投影层实现",
+     "确认本体状态相似度阈值、对比损失温度与批大小等训练配置，来源未说明者需查原文或代码",
+     "核实仿真与真实基准的相机变化幅度、任务清单与基线设置",
+     "若复现，先在小规模数据上验证辅助损失权重对行为克隆主目标的影响",
+     "确认项目网站提供的代码与权重许可后再投入复现"
+    ],
+    "tags": [
+     "视角鲁棒操作",
+     "射线位置编码",
+     "对比学习",
+     "模仿学习",
+     "本体感知对齐"
+    ],
+    "findings": [
+     {
+      "statement": "作者报告 PAIR 在含相机变化的仿真与真实操作基准上，分别比无射线条件的行为克隆基线高 12.7 和 26.7 个百分点。",
+      "quote": "PAIR consistently outperforms the behavior cloning baseline without ray conditioning by 12.7% and 26.7% points, respectively, demonstrating stronger generalization to unseen viewpoints.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.11798"
+     },
+     {
+      "statement": "作者称 PAIR 可同时提升扩散策略与 VLA 模型在同一演示数据上的表现。",
+      "quote": "Second, we show that PAIR consistently improves the performance of both diffusion policies and VLA models when trained on the same demonstration data.",
+      "source": "S2",
+      "url": "https://arxiv.org/html/2611.11798v1"
+     },
+     {
+      "statement": "作者在多种仿真与真实基准上对系统视角变化做了定量与定性评估。",
+      "quote": "Third, we conduct extensive evaluations across multiple simulated and real-world benchmarks under systematic viewpoint variations",
+      "source": "S2",
+      "url": "https://arxiv.org/html/2611.11798v1"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:01:01Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.11798",
+      "title": "PAIR: Proprioception-Aligned Image-Ray Representations for Viewpoint-Robust Manipulation",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.11798v1",
+      "title": "PAIR: Proprioception-Aligned Image-Ray Representations for Viewpoint-Robust Manipulation - License: CC BY 4.0",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4366,
+     "completion_tokens": 785
+    }
+   }
+  },
+  {
+   "id": "2611.15717",
+   "slug": "arxiv-2611.15717",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [],
+   "date": "2026-11-11",
+   "updated": "2026-11-11",
+   "score": 69,
+   "domain_scores": {
+    "training": 69
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "奖励范围之外：多语言后训练中的能力漂移",
+   "title_en": "Outside the Purview of the Reward: Capability Drift in Multilingual Post-Training",
+   "authors": [
+    "Sutanshu Saksena Raj",
+    "Purusharth Malik",
+    "Pasunuti Prasanjith",
+    "Daksh Maan",
+    "Parijat Chatterjee",
+    "Avinash Benki"
+   ],
+   "cats": [
+    "cs.CL",
+    "cs.AI"
+   ],
+   "tags": [
+    "多语言后训练",
+    "GRPO",
+    "能力漂移",
+    "奖励设计",
+    "基准分解"
+   ],
+   "one_liner": "论文研究多语言专家混合模型后训练中奖励行为提升与既有能力退化并存的问题。从同一监督检查点分出两条GRPO分支：发布分支在MATH提升36.07分，但XQuAD-Indic下降19.32 F1，而XQuAD-English在同评分规则下提升。另训兄弟分支加入Indic指令跟随与语言塑形，恢复Indic任务分数并保持MATH，却未恢复文字系统合规，并在竞赛数学…",
+   "one_liner_en": "Post-training can improve rewarded behavior while weakening capabilities users still need. We study two GRPO branches from a shared supervised checkpoint in a multilingual mixture…",
+   "lead_zh": "论文研究多语言专家混合模型后训练中奖励行为提升与既有能力退化并存的问题。从同一监督检查点分出两条GRPO分支：发布分支在MATH提升36.07分，但XQuAD-Indic下降19.32 F1，而XQuAD-English在同评分规则下提升。另训兄弟分支加入Indic指令跟随与语言塑形，恢复Indic任务分数并保持MATH，却未恢复文字系统合规，并在竞赛数学与代码上取舍。后续轮次中裁判训练后Indic分支抽取能力骤降，先前检查点的无奖励蒸馏恢复大部分F1。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Post-training can improve rewarded behavior while weakening capabilities users still need. We study two GRPO branches from a shared supervised checkpoint in a multilingual mixture-of-experts model. The released branch gains 36.07 points on MATH but loses 19.32 F1 points on XQuAD-Indic, while XQuAD-English improves under the same scoring rule. An independently trained sibling adds Indic instruction following and language-aware shaping. It recovers the regressing Indic task scores and preserves MATH, but does not restore script compliance and trades off competition mathematics and code. In a later round, judge training is followed by a sharp extraction decline from the Indic branch; reward-free distillation from its earlier checkpoint restores most of the lost F1. A MATH score decomposition associates most of the measured gain with increased boxed-answer emission; accuracy among boxed answers changes little. These results show why benchmark scores should be read alongside the response forms they reward.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.15717",
+    "pdf": "https://arxiv.org/pdf/2611.15717"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "奖励范围之外：多语言后训练中的能力漂移",
+    "summary": "论文研究多语言专家混合模型后训练中奖励行为提升与既有能力退化并存的问题。从同一监督检查点分出两条GRPO分支：发布分支在MATH提升36.07分，但XQuAD-Indic下降19.32 F1，而XQuAD-English在同评分规则下提升。另训兄弟分支加入Indic指令跟随与语言塑形，恢复Indic任务分数并保持MATH，却未恢复文字系统合规，并在竞赛数学与代码上取舍。后续轮次中裁判训练后Indic分支抽取能力骤降，先前检查点的无奖励蒸馏恢复大部分F1。",
+    "question": "后训练在提升被奖励行为的同时，是否会削弱用户仍需的能力（如用其语言作答、遵循输出约定），而聚合基准分数掩盖这种取舍。",
+    "method": "以30B总参数、3B激活量的多语言专家混合模型为对象，从同一SFT检查点分两条GRPO分支：一条按数学、结构化输出、工具调用、选择题训练；另一条增加Indic指令跟随与仅作用于最终答案的语言奖励及重复惩罚。随后分别进入学习裁判的第二轮，并从早期检查点做无任务奖励的蒸馏。",
+    "transfer": "推断：论文“分数提升可能来自被奖励的回答形式而非真实能力”的分解思路，可迁移到定位与电离层预测的指标审计，例如检查固定解比例或预报误差下降是否源于输出格式或异常剔除策略而非精度本身；但这是方法学类比，论文未涉及时空任务。",
+    "limitations": [
+     "仅获得摘要与部分HTML正文，未精读全文；训练细节、系数表和附录未完整核对。",
+     "作者称各检查点在相隔数周的独立评测活动中打分，评测框架版本与被评样本标识未恢复，跨轮次可比性存在假设。",
+     "动态采样丢弃无奖励差异的分组，但保留日志未标识被丢弃分组，因此实际训练分布无法重建。",
+     "IndicIFEval-ground 的构建方式及 XorQA-Indic 是否含上下文段落均未验证。",
+     "奖励覆盖不对称只是待检验的解释，作者未将其确立为机制；提供的来源未说明是否在其他模型或语言上验证。"
+    ],
+    "practical_steps": [
+     "先核对评测协议：解码配置、BF16权重、推理模式与评分脚本是否一致，跨轮次比较需固定 harness 版本与样本集。",
+     "复现时先确认GRPO采样数（发布分支16、Indic分支8）、优势归一化与除数下限设置，未知配置不可补造。",
+     "评估时除聚合分数外单列输出形式指标（答案格式、目标文字占比、重复率），避免把格式变化读成能力变化。",
+     "蒸馏实验需注明教师/学生检查点来源、分词器一致性与损失项权重，论文摘要未给出这些细节时需查附录。",
+     "迁移到定位或预测任务前，先定义与任务对齐的退化探针，并在独立数据与固定版本下复核。"
+    ],
+    "tags": [
+     "多语言后训练",
+     "GRPO",
+     "能力漂移",
+     "奖励设计",
+     "基准分解"
+    ],
+    "findings": [
+     {
+      "statement": "发布分支在MATH上提升36.07分，同时XQuAD-Indic下降19.32 F1，而XQuAD-English在同一评分规则下提升。",
+      "quote": "The released branch gains 36.07 points on MATH but loses 19.32 F1 points on XQuAD-Indic, while XQuAD-English improves under the same scoring rule.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.15717"
+     },
+     {
+      "statement": "加入Indic指令跟随与语言塑形的兄弟分支恢复了退化的Indic任务分数并保持MATH，但未恢复文字系统合规，且在竞赛数学与代码上取舍。",
+      "quote": "It recovers the regressing Indic task scores and preserves MATH, but does not restore script compliance and trades off competition mathematics and code.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.15717"
+     },
+     {
+      "statement": "MATH得分分解显示大部分增益与更频繁输出框式答案相关，框式答案内部正确率变化很小。",
+      "quote": "A MATH score decomposition associates most of the measured gain with increased boxed-answer emission; accuracy among boxed answers changes little.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.15717"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:01:11Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.15717",
+      "title": "Outside the Purview of the Reward: Capability Drift in Multilingual Post-Training",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.15717v1",
+      "title": "Outside the Purview of the Reward: Capability Drift in Multilingual Post-Training",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4654,
+     "completion_tokens": 895
+    }
+   }
+  },
+  {
+   "id": "2611.10666",
+   "slug": "arxiv-2611.10666",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "physics",
+    "edge"
+   ],
+   "date": "2026-11-07",
+   "updated": "2026-11-07",
+   "score": 68,
+   "domain_scores": {
+    "ml": 68
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "面向嵌入式微流控芯片冷却高效仿真的参数化物理信息神经网络",
+   "title_en": "Parameterized Physics-Informed Neural Networks for Efficient Simulation of Embedded Microfluidic Chip Cooling",
+   "authors": [
+    "Weiheng Li",
+    "Zhiyao Jiang",
+    "Bai Song"
+   ],
+   "cats": [
+    "physics.app-ph",
+    "physics.flu-dyn"
+   ],
+   "tags": [
+    "PINN",
+    "微流控冷却",
+    "代理模型",
+    "课程学习",
+    "JAX"
+   ],
+   "one_liner": "该论文提出一种参数化物理信息神经网络，用于快速预测嵌入式歧管微通道的流动与传热性能。网络输入为四个几何参数与三个空间坐标，从而在连续设计空间内进行多物理场预测。摘要称其速度场与温度场相对有限元模拟的误差分别为8.1%和5.6%，计算时间和成本降低超过四个数量级；并称在单块消费级GPU上不到四小时即可收敛。",
+   "one_liner_en": "Embedded microfluidic cooling is a promising technology for dissipating the intense heat generated by high-performance electronic chips. However, the design and optimization of su…",
+   "lead_zh": "该论文提出一种参数化物理信息神经网络，用于快速预测嵌入式歧管微通道的流动与传热性能。网络输入为四个几何参数与三个空间坐标，从而在连续设计空间内进行多物理场预测。摘要称其速度场与温度场相对有限元模拟的误差分别为8.1%和5.6%，计算时间和成本降低超过四个数量级；并称在单块消费级GPU上不到四小时即可收敛。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Embedded microfluidic cooling is a promising technology for dissipating the intense heat generated by high-performance electronic chips. However, the design and optimization of such coolers impose prohibitive computational costs when using conventional numerical solvers. Here, we present a parameterized physics-informed neural network (PINN) as a deep learning framework for rapidly and accurately predicting the thermohydraulic performance of embedded manifold microchannels. By incorporating four geometric dimensions along with three spatial coordinates as the network inputs, the proposed model enables multiphysics prediction across a continuous design space. Remarkably, our predicted velocity and temperature fields differ from finite-element simulations by relative errors of only 8.1% and 5.6%, respectively, while reducing the computational time and cost by over four orders of magnitude. Key to this framework is a composite strategy combining geometric ansatz embedding, the SOAP optimizer, and a thermal-conductivity-based curriculum learning scheme, which helps overcome the convergence challenges inherent in training PINNs for complex three-dimensional flows. Notably, by leveraging a highly optimized JAX backend, the network achieves convergence on a single consumer-grade GPU in less than four hours. Our approach offers a physics-consistent, real-time surrogate model that can substantially accelerate innovations in advanced microfluidic cooling of future electronics.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.10666",
+    "pdf": "https://arxiv.org/pdf/2611.10666"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "面向嵌入式微流控芯片冷却高效仿真的参数化物理信息神经网络",
+    "summary": "该论文提出一种参数化物理信息神经网络，用于快速预测嵌入式歧管微通道的流动与传热性能。网络输入为四个几何参数与三个空间坐标，从而在连续设计空间内进行多物理场预测。摘要称其速度场与温度场相对有限元模拟的误差分别为8.1%和5.6%，计算时间和成本降低超过四个数量级；并称在单块消费级GPU上不到四小时即可收敛。",
+    "question": "嵌入式微流控冷却器的设计与优化依赖大量三维共轭传热高保真仿真，传统数值求解器成本过高，论文试图用参数化PINN作为快速替代模型。",
+    "method": "以微通道高度、宽度及射流进出口宽度等几何参数连同空间坐标为输入，用PirateNet骨干加傅里叶特征嵌入与几何拟设嵌入编码局部位置；损失包含控制方程残差与边界条件；采用SOAP优化器、梯度归一化与基于热导率的课程学习，并用JAX前向自动微分在单GPU上训练。",
+    "transfer": "推断：其参数化输入与几何拟设嵌入思路，可能为电离层TEC/ROTI预测中随空间位置变化的场建模、或工程感知中多传感器配置参数化代理模型提供参考；课程学习与优化器组合或可缓解物理约束训练不稳定。以上仅为迁移设想，未经该论文验证。",
+    "limitations": [
+     "提供的来源包含摘要与部分HTML正文，未覆盖完整实验章节，不能视为精读全文。",
+     "训练集规模、FEM网格与边界条件细节、误差统计方式等，提供的来源未完整说明。",
+     "跨几何外推能力与更广参数范围内的泛化性，提供的来源未说明。",
+     "代码与数据是否公开，提供的来源未说明。"
+    ],
+    "practical_steps": [
+     "先核对四个几何参数的取值范围与归一化方式，未知部分不可补造。",
+     "核对损失权重、边界采样策略与课程学习调度细节。",
+     "确认误差计算所用的FEM基准与对比口径。",
+     "确认硬件、JAX版本与训练时长统计方式。"
+    ],
+    "tags": [
+     "PINN",
+     "微流控冷却",
+     "代理模型",
+     "课程学习",
+     "JAX"
+    ],
+    "findings": [
+     {
+      "statement": "预测的速度场和温度场相对有限元模拟的误差分别为8.1%和5.6%。",
+      "quote": "our predicted velocity and temperature fields differ from finite-element simulations by relative errors of only 8.1% and 5.6%, respectively",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.10666"
+     },
+     {
+      "statement": "相比传统有限元仿真，计算时间和成本降低超过四个数量级。",
+      "quote": "reducing the computational time and cost by over four orders of magnitude",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.10666"
+     },
+     {
+      "statement": "借助优化的JAX后端，网络在单块消费级GPU上不到四小时收敛。",
+      "quote": "by leveraging a highly optimized JAX backend, the network achieves convergence on a single consumer-grade GPU in less than four hours",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.10666"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:01:17Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.10666",
+      "title": "Parameterized Physics-Informed Neural Networks for Efficient Simulation of Embedded Microfluidic Chip Cooling",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.10666v1",
+      "title": "Parameterized Physics-Informed Neural Networks for Efficient Simulation of Embedded Microfluidic Chip Cooling - License: CC BY-NC-ND 4.0",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4591,
+     "completion_tokens": 645
+    }
+   }
+  },
+  {
+   "id": "2611.07463",
+   "slug": "arxiv-2611.07463",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [],
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "score": 62,
+   "domain_scores": {
+    "perception": 62
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "FREE-LIVO：物理解耦但紧耦合的激光-惯性-视觉里程计",
+   "title_en": "FREE-LIVO: Physically Decoupled Yet Tightly Coupled LiDAR-Inertial-Visual Odometry",
+   "authors": [
+    "Reon Tabata",
+    "Kenji Koide",
+    "Shuji Oishi",
+    "Taku Okawara",
+    "Mizuho Aoki",
+    "Aoki Takanose",
+    "Masashi Yokozuka",
+    "Jun Miura"
+   ],
+   "cats": [
+    "cs.RO",
+    "cs.CV"
+   ],
+   "tags": [
+    "多传感器融合",
+    "激光-视觉里程计",
+    "因子图优化",
+    "跨模态匹配",
+    "时间同步"
+   ],
+   "one_liner": "仅基于摘要与部分网页正文：作者指出现有激光-惯性-视觉里程计多假设传感器刚性固定且时间同步，难以适应模块化、异构机器人系统。FREE-LIVO 用预训练图像特征匹配器，把单帧激光扫描经生成模型上采样得到的稠密强度图与相机图像匹配，由三维点-像素对应构造重投影因子，并与点云配准、视觉跟踪及各传感器 IMU 约束放入同一因子图联合优化。摘要报告在 M3DGR…",
+   "one_liner_en": "LiDAR-Inertial-Visual Odometry (LIVO) integrates complementary LiDAR, camera, and IMU measurements to achieve robust state estimation. However, most existing methods assume a fixe…",
+   "lead_zh": "仅基于摘要与部分网页正文：作者指出现有激光-惯性-视觉里程计多假设传感器刚性固定且时间同步，难以适应模块化、异构机器人系统。FREE-LIVO 用预训练图像特征匹配器，把单帧激光扫描经生成模型上采样得到的稠密强度图与相机图像匹配，由三维点-像素对应构造重投影因子，并与点云配准、视觉跟踪及各传感器 IMU 约束放入同一因子图联合优化。摘要报告在 M3DGR 六个序列上无外参时平均 ATE RMSE 为 0.45 m，时间同步误差至 0.5 s 时精度下降很小，并可联合估计分装于不同机器人的传感器轨迹。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "LiDAR-Inertial-Visual Odometry (LIVO) integrates complementary LiDAR, camera, and IMU measurements to achieve robust state estimation. However, most existing methods assume a fixed relative pose and accurate time synchronization between sensors. Toward modular and heterogeneous robotic systems, this paper presents FREE-LIVO, a tightly coupled odometry method that requires neither a rigid LiDAR-camera rig nor LiDAR-camera time synchronization. The proposed method uses a pretrained image feature matcher to establish correspondences between a camera image and a dense LiDAR intensity image generated from a single LiDAR scan using a generative model. From the resulting 3D point-to-pixel correspondences, we construct reprojection factors that directly constrain LiDAR and camera poses at different acquisition times. These factors are jointly optimized in a single factor graph together with constraints from point cloud registration, visual feature tracking, and the IMU measurements associated with each sensor. On six sequences from the public M3DGR dataset, FREE-LIVO achieves an average absolute trajectory error (ATE) RMSE of 0.45 m without provided LiDAR-camera extrinsic parameters and exhibits minimal accuracy degradation under time synchronization errors of up to 0.5 s. Furthermore, experiments with the LiDAR and camera mounted on separate robots demonstrate that the method can jointly estimate the trajectories of independently moving sensors.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.07463",
+    "pdf": "https://arxiv.org/pdf/2611.07463"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "FREE-LIVO：物理解耦但紧耦合的激光-惯性-视觉里程计",
+    "summary": "仅基于摘要与部分网页正文：作者指出现有激光-惯性-视觉里程计多假设传感器刚性固定且时间同步，难以适应模块化、异构机器人系统。FREE-LIVO 用预训练图像特征匹配器，把单帧激光扫描经生成模型上采样得到的稠密强度图与相机图像匹配，由三维点-像素对应构造重投影因子，并与点云配准、视觉跟踪及各传感器 IMU 约束放入同一因子图联合优化。摘要报告在 M3DGR 六个序列上无外参时平均 ATE RMSE 为 0.45 m，时间同步误差至 0.5 s 时精度下降很小，并可联合估计分装于不同机器人的传感器轨迹。",
+    "question": "在激光雷达与相机既非刚性固定、又无精确时间同步的模块化或异构机器人场景下，如何仍以紧耦合方式融合激光、相机与 IMU 观测并连续估计各自轨迹。",
+    "method": "方法含激光-IMU 预处理（降采样与去畸变）、相机-IMU 预处理（光流跟踪视觉特征）、图像-点云匹配与因子图优化四部分。匹配环节将单帧激光投影为稀疏强度图，用条件整流流生成模型上采样为稠密强度图，再由预训练特征匹配器与相机图像匹配得到二维-三维对应；据此建立跨时刻约束激光与相机位姿的重投影因子，与点到点配准、视觉跟踪和各自 IMU 因子共同优化。",
+    "transfer": "推断：其“跨模态对应 + 单因子图联合约束”的思路可迁移到工程感知多传感器融合，例如在 GNSS 拒止或几何退化环境中把视觉/激光跨模态约束作为补充因子；跨时刻重投影因子与时间偏移容忍机制，或可为定位中时间不同步、外参不定的多源融合提供建模参考。与电离层 TEC/ROTI 监测的关联较弱，属方法层面而非领域层面的迁移。",
+    "limitations": [
+     "仅获得摘要与部分网页正文，方法细节、实验设置与消融结果未完整呈现，不能视为精读全文。",
+     "提供的来源未说明训练配置、算力开销、实时性与生成模型推理成本。",
+     "提供的来源未说明 M3DGR 之外场景（如强光照变化、低纹理、几何退化环境）的表现，也未说明失败模式与退化边界。",
+     "提供的来源未说明代码或数据是否公开，以及外参初值、时间偏移取值范围等前提条件。"
+    ],
+    "practical_steps": [
+     "先核对摘要报告指标对应的数据集划分、评测协议与基线设置，网页正文未完整给出。",
+     "确认生成式强度上采样模型与特征匹配器的预训练权重来源与许可，未知则不可补造。",
+     "复核因子图中各约束的权重、优化窗口长度与 IMU 噪声参数，来源未说明。",
+     "在自有传感器配置上先做外参与时间偏移的敏感性测试，再与刚性标定方案对比。",
+     "记录失败场景（低纹理、几何退化、强光照变化）中的表现，作为部署前验证项。"
+    ],
+    "tags": [
+     "多传感器融合",
+     "激光-视觉里程计",
+     "因子图优化",
+     "跨模态匹配",
+     "时间同步"
+    ],
+    "findings": [
+     {
+      "statement": "在 M3DGR 六个公开序列上，未提供激光-相机外参时取得 0.45 m 的平均 ATE RMSE。",
+      "quote": "On six sequences from the public M3DGR dataset, FREE-LIVO achieves an average absolute trajectory error (ATE) RMSE of 0.45 m without provided LiDAR-camera extrinsic parameters",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.07463"
+     },
+     {
+      "statement": "在激光-相机时间同步误差达到 0.5 s 时，精度下降很小。",
+      "quote": "exhibits minimal accuracy degradation under time synchronization errors of up to 0.5 s",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.07463"
+     },
+     {
+      "statement": "激光与相机分装在不同机器人上时，方法可联合估计各自独立运动传感器的轨迹。",
+      "quote": "experiments with the LiDAR and camera mounted on separate robots demonstrate that the method can jointly estimate the trajectories of independently moving sensors",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.07463"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:01:24Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.07463",
+      "title": "FREE-LIVO: Physically Decoupled Yet Tightly Coupled LiDAR-Inertial-Visual Odometry",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.07463v1",
+      "title": "FREE-LIVO: Physically Decoupled Yet Tightly Coupled LiDAR-Inertial-Visual Odometry - License: arXiv",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4675,
+     "completion_tokens": 907
+    }
+   }
+  },
+  {
+   "id": "2611.12806",
+   "slug": "arxiv-2611.12806",
+   "domain": "embodied",
+   "domains": [
+    "embodied"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-09",
+   "updated": "2026-11-09",
+   "score": 75,
+   "domain_scores": {
+    "embodied": 75
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "学习面向通用灵巧操作的异构触觉表征",
+   "title_en": "Learning Heterogeneous Tactile Representation for General Dexterous Manipulation",
+   "authors": [
+    "Bing Han",
+    "Yichuan Peng",
+    "Haoyu Dong",
+    "Yuanmeng Hu",
+    "Yongyi Jia",
+    "Fangjing Wang",
+    "Kecheng Zheng",
+    "Yiming Zhang",
+    "Yanhong Zeng",
+    "Xiaoqing Zhang",
+    "Chen Song",
+    "Rundong Zou",
+    "Anqi Dong",
+    "Yuan Guan",
+    "Ka Leong Cheng",
+    "Xing Zhu",
+    "Yujun Shen",
+    "Nan Xue",
+    "Wei Ning"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "触觉表征",
+    "灵巧操作",
+    "基础模型",
+    "多传感器",
+    "具身智能"
+   ],
+   "one_liner": "该论文指出，商用触觉传感器仍处于较早期阶段，各类传感器各有优势与缺陷，核心挑战是让触觉理解摆脱特定传感器物理特性的限制，以便具身模型能有效利用异构触觉数据。为此提出 LingBot-Touch 触觉基础模型，在压阻、磁性和视触觉传感器上形成统一表征，并可扩展至新传感器类型；其触觉 token 可即插即用接入扩散策略及 VLA 等策略模型。摘要称跨仿真与多硬…",
+   "one_liner_en": "Tactile sensing is an indispensable modality for contact-rich dexterous manipulation, a capability that hints at the ultimate frontiers of embodied intelligence. However, commerci…",
+   "lead_zh": "该论文指出，商用触觉传感器仍处于较早期阶段，各类传感器各有优势与缺陷，核心挑战是让触觉理解摆脱特定传感器物理特性的限制，以便具身模型能有效利用异构触觉数据。为此提出 LingBot-Touch 触觉基础模型，在压阻、磁性和视触觉传感器上形成统一表征，并可扩展至新传感器类型；其触觉 token 可即插即用接入扩散策略及 VLA 等策略模型。摘要称跨仿真与多硬件真机实验显示该表征有利于复杂操作任务且计算效率较高。仅基于摘要。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Tactile sensing is an indispensable modality for contact-rich dexterous manipulation, a capability that hints at the ultimate frontiers of embodied intelligence. However, commercially available tactile sensors are still at a relatively early stage of development, with each type of sensor offering irreplaceable strengths alongside its own drawbacks. A key challenge is thus to free tactile understanding from sensor-specific physics, so that embodied models can effectively leverage heterogeneous tactile data. To this end, we develop LingBot-Touch, a tactile foundation model characterized by the following properties. (i) Our model yields a unified representation across different tactile sensors (i.e., piezoresistive, magnetic, and visuotactile sensors), and is easily extensible to new sensor types. (ii) The resulting tactile tokens are plug-and-play: they can be seamlessly integrated into policy models across paradigms, from diffusion policy to vision-language-action (VLA) models such as $π_{0.5}$ and LingBot-VLA, consistently enhancing manipulation dexterity. (iii) Extensive experiments, spanning simulation and real-robot deployments across multiple hardware platforms, demonstrate that our tactile representation substantially benefits complex manipulation tasks while maintaining strong computational efficiency. We believe the findings in this work demonstrate the potential of leveraging cross-sensor data to scale tactile learning, and offer encouraging insights for the design of future hardware and embodied models.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.12806",
+    "pdf": "https://arxiv.org/pdf/2611.12806"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "学习面向通用灵巧操作的异构触觉表征",
+    "summary": "该论文指出，商用触觉传感器仍处于较早期阶段，各类传感器各有优势与缺陷，核心挑战是让触觉理解摆脱特定传感器物理特性的限制，以便具身模型能有效利用异构触觉数据。为此提出 LingBot-Touch 触觉基础模型，在压阻、磁性和视触觉传感器上形成统一表征，并可扩展至新传感器类型；其触觉 token 可即插即用接入扩散策略及 VLA 等策略模型。摘要称跨仿真与多硬件真机实验显示该表征有利于复杂操作任务且计算效率较高。仅基于摘要。",
+    "question": "如何在传感器物理特性各异的条件下，让具身模型有效利用异构触觉数据并提升灵巧操作能力。",
+    "method": "构建名为 LingBot-Touch 的触觉基础模型：跨压阻、磁性和视触觉传感器学习统一触觉表征，并设计为易扩展至新传感器类型；输出触觉 token 以即插即用方式接入不同范式的策略模型，从扩散策略到 π0.5、LingBot-VLA 等 VLA 模型。",
+    "transfer": "推断：其“把传感器特定物理特性抽象为统一表征、再以即插即用 token 接入下游策略”的思路，可与多传感器融合的工程感知路线类比，例如将 GNSS、电离层 TEC/ROTI 与惯导等异构观测编码为统一表征后接入定位或预测模型；但触觉接触数据与定位时序数据在物理机制和噪声结构上差异很大，迁移需重新验证。",
+    "limitations": [
+     "提供的来源为摘要，未给出具体实验任务、成功率数值、对比基线与消融结果。",
+     "未说明模型结构、参数量、训练数据规模与来源、训练算力配置。",
+     "未说明仿真与真机所用硬件平台细节、传感器标定方式及跨传感器迁移的失败边界。",
+     "未提供代码或模型权重的公开地址信息。",
+     "统一表征对新传感器类型的实际扩展成本与所需数据量仍需验证。"
+    ],
+    "practical_steps": [
+     "先核对论文全文或代码库是否公开，确认摘要之外的实验设置与基线。",
+     "确认各触觉传感器的数据采集协议、标定与预处理流程，来源未说明则不可自行补造。",
+     "核对触觉 token 接入扩散策略与 VLA 模型时的接口维度、训练阶段是否冻结主干。",
+     "复现前查清训练算力、数据规模与仿真环境版本等配置，未知项标注为待确认。",
+     "若迁移至定位或电离层任务，先做小规模异构观测统一编码的可行性实验，不直接沿用触觉模型结论。"
+    ],
+    "tags": [
+     "触觉表征",
+     "灵巧操作",
+     "基础模型",
+     "多传感器",
+     "具身智能"
+    ],
+    "findings": [
+     {
+      "statement": "作者称模型在不同触觉传感器间产生统一表征，且易扩展至新传感器类型。",
+      "quote": "Our model yields a unified representation across different tactile sensors (i.e., piezoresistive, magnetic, and visuotactile sensors), and is easily extensible to new sensor types.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.12806"
+     },
+     {
+      "statement": "作者称触觉 token 可即插即用地接入从扩散策略到 VLA 的策略模型，并一致提升操作灵巧性。",
+      "quote": "The resulting tactile tokens are plug-and-play: they can be seamlessly integrated into policy models across paradigms, from diffusion policy to vision-language-action (VLA) models",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.12806"
+     },
+     {
+      "statement": "作者称跨仿真与多硬件真机实验表明该表征有利于复杂操作任务且保持较强计算效率。",
+      "quote": "Extensive experiments, spanning simulation and real-robot deployments across multiple hardware platforms, demonstrate that our tactile representation substantially benefits complex manipulation tasks while maintaining strong computational efficiency.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.12806"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:01:40Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.12806",
+      "title": "Learning Heterogeneous Tactile Representation for General Dexterous Manipulation",
+      "kind": "abstract"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 888,
+     "completion_tokens": 816
+    }
+   }
+  },
+  {
+   "id": "2611.14009",
+   "slug": "arxiv-2611.14009",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [],
+   "date": "2026-11-10",
+   "updated": "2026-11-12",
+   "score": 69,
+   "domain_scores": {
+    "training": 69
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "编码智能体记忆后训练 II：通过同策略蒸馏解锁预训练文件操作在长时任务中的记忆潜力",
+   "title_en": "Coding Agent Memory Post-Training II: Unlocking the Memory Potential of Pre-trained File Operations for Long-Horizon Tasks via On-Policy Distillation",
+   "authors": [
+    "Lirui Luo",
+    "Kelong Mao",
+    "Xinwei Yang",
+    "Rongqing Li",
+    "Luyu Chen",
+    "Kieran Wong",
+    "Yudong Guo",
+    "Xinrui Wang",
+    "Jiayin Zhu",
+    "Pu Yao",
+    "Gu Simiu",
+    "Sulong Xu",
+    "Cong Fang"
+   ],
+   "cats": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL"
+   ],
+   "tags": [
+    "同策略蒸馏",
+    "长时程智能体",
+    "文件记忆",
+    "强化学习环境",
+    "编码智能体"
+   ],
+   "one_liner": "该论文针对长时程智能体任务中交互历史超出模型活跃上下文的问题，提出让记忆控制成为策略的一部分。作者指出，已有同策略蒸馏依赖模型预训练中不存在的记忆工具与压缩协议，导致教师无法给出有效指导、学生采样到有意义的记忆动作过少。为此作者构建 CAMG-II 长时程智能体强化学习环境集，并在每个环境中提供普通 Bash 访问与跨上下文替换持久保留的工作区，使策略能够…",
+   "one_liner_en": "Language-model agents increasingly tackle long-horizon tasks whose interaction histories exceed the model's active context. They must therefore decide what to write down and what…",
+   "lead_zh": "该论文针对长时程智能体任务中交互历史超出模型活跃上下文的问题，提出让记忆控制成为策略的一部分。作者指出，已有同策略蒸馏依赖模型预训练中不存在的记忆工具与压缩协议，导致教师无法给出有效指导、学生采样到有意义的记忆动作过少。为此作者构建 CAMG-II 长时程智能体强化学习环境集，并在每个环境中提供普通 Bash 访问与跨上下文替换持久保留的工作区，使策略能够以文件形式创建、修改、搜索和复用记忆；同时提出 CAMP-II，用全异步同策略蒸馏从冻结教师联合训练单一策略。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Language-model agents increasingly tackle long-horizon tasks whose interaction histories exceed the model's active context. They must therefore decide what to write down and what to read back, and when to do either. Recent work has begun to use on-policy distillation (OPD) to make memory control part of the policy, relying on memory tools and compaction protocols that lie outside either model's pre-training. However, this weakens the distillation on both sides: the teacher cannot give useful guidance on an interface it has never used, and the student samples too few meaningful memory actions for that guidance to take effect. To study this problem, we introduce Coding Agent Memory Gym II (CAMG-II), a suite of long-horizon agentic-RL environments spanning Shop, Coding, AutoResearch, General, and Visual. Alongside each environment's native task interface, CAMG-II provides ordinary Bash access and an episode-persistent workspace, enabling the policy to create, revise, search, and reuse files as memory across context replacements. We also introduce Coding Agent Memory Post-Training II (CAMP-II), which trains a single policy jointly across all five environments with fully asynchronous OPD to learn this file-based memory behavior directly from a frozen teacher with a prior for file operations. On CAMG-II, CAMP-II obtains 2.97 times the gain of the strongest OPD baseline. The memory behavior CAMP-II learns generalizes to two external benchmarks, Terminal-Bench 2.1 and SWE-Bench Pro V2, with improved success rates.",
+   "version": "v2",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.14009",
+    "pdf": "https://arxiv.org/pdf/2611.14009"
+   },
+   "retrieved_at": "2026-11-16T02:00:43Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "编码智能体记忆后训练 II：通过同策略蒸馏解锁预训练文件操作在长时任务中的记忆潜力",
+    "summary": "该论文针对长时程智能体任务中交互历史超出模型活跃上下文的问题，提出让记忆控制成为策略的一部分。作者指出，已有同策略蒸馏依赖模型预训练中不存在的记忆工具与压缩协议，导致教师无法给出有效指导、学生采样到有意义的记忆动作过少。为此作者构建 CAMG-II 长时程智能体强化学习环境集，并在每个环境中提供普通 Bash 访问与跨上下文替换持久保留的工作区，使策略能够以文件形式创建、修改、搜索和复用记忆；同时提出 CAMP-II，用全异步同策略蒸馏从冻结教师联合训练单一策略。",
+    "question": "长时程任务中交互历史超出模型活跃上下文时，智能体需决定何时写入、何时读回记忆；已有同策略蒸馏依赖预训练中不存在的记忆工具与压缩协议，削弱了教师指导与学生有效采样，如何让基于文件的记忆行为成为策略的一部分。",
+    "method": "作者构建 CAMG-II，包含 Shop、Coding、AutoResearch、General、Visual 五类长时程智能体强化学习环境，在每个环境原生任务接口之外提供普通 Bash 访问和跨上下文替换持久保留的回合工作区，使策略可用文件创建、修订、搜索和复用记忆；再用 CAMP-II 以全异步同策略蒸馏，在五个环境中联合训练单一策略，教师为具备文件操作先验的冻结模型。",
+    "transfer": "推断：CAMG-II 的“持久工作区 + Bash 文件读写”思路可能启发 GNSS 或电离层长时序监测智能体，把跨时段观测摘要写入文件并在上下文替换后读回；CAMP-II 的蒸馏方式也可能迁移到工程感知多传感器融合的决策策略训练。但这些均属推断，论文未涉及定位、电离层或机器人任务。",
+    "limitations": [
+     "仅基于 arXiv 摘要，未提供全文，无法核对实验细节、数据规模与训练配置。",
+     "提供的来源未说明教师模型与学生模型的具体身份、规模及文件操作先验来源。",
+     "提供的来源未说明基线设置、增益的度量口径与统计显著性。",
+     "提供的来源未说明全异步同策略蒸馏的算力开销、训练时长与超参数。",
+     "提供的来源未说明两个外部基准上的具体成功率数值及环境迁移边界。"
+    ],
+    "practical_steps": [
+     "核对 CAMG-II 五个环境的接口定义、回合持久工作区实现方式与任务划分。",
+     "确认教师模型是否冻结、文件操作先验来自何处，以及学生模型的初始能力。",
+     "查明全异步同策略蒸馏的采样与训练调度、批量规模和并行配置。",
+     "确认“2.97 倍增益”的基线选择与计算方式，并复现前先复现最强 OPD 基线。",
+     "在两个外部基准上核对评测配置与成功判定标准后再对比结果。"
+    ],
+    "tags": [
+     "同策略蒸馏",
+     "长时程智能体",
+     "文件记忆",
+     "强化学习环境",
+     "编码智能体"
+    ],
+    "findings": [
+     {
+      "statement": "CAMP-II 在 CAMG-II 上获得的增益是最强 OPD 基线的 2.97 倍。",
+      "quote": "On CAMG-II, CAMP-II obtains 2.97 times the gain of the strongest OPD baseline.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.14009"
+     },
+     {
+      "statement": "CAMP-II 学到的记忆行为可迁移到 Terminal-Bench 2.1 和 SWE-Bench Pro V2 两个外部基准，成功率提升。",
+      "quote": "The memory behavior CAMP-II learns generalizes to two external benchmarks, Terminal-Bench 2.1 and SWE-Bench Pro V2, with improved success rates.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.14009"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T02:01:45Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.14009",
+      "title": "Coding Agent Memory Post-Training II: Unlocking the Memory Potential of Pre-trained File Operations for Long-Horizon Tasks via On-Policy Distillation",
+      "kind": "abstract"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 965,
+     "completion_tokens": 793
     }
    }
   }

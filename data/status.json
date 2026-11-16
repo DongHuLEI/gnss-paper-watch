@@ -1,14 +1,14 @@
 {
- "checked_at": "2026-11-16T01:49:36Z",
+ "checked_at": "2026-11-16T02:01:45Z",
  "checked_date": "2026-11-16",
- "retrieval_status": "partial",
- "retrieved_at": "2026-11-16T01:49:36Z",
+ "retrieval_status": "ok",
+ "retrieved_at": "2026-11-16T02:01:45Z",
  "queries": [
   {
    "domain": "gnss",
    "status": "ok",
    "returned": 5,
-   "accepted": 1
+   "accepted": 0
   },
   {
    "domain": "iono",
@@ -18,56 +18,58 @@
   },
   {
    "domain": "ml",
-   "status": "failed",
-   "returned": 0,
-   "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Unknown Error"
+   "status": "ok",
+   "returned": 60,
+   "accepted": 30
   },
   {
    "domain": "perception",
-   "status": "failed",
-   "returned": 0,
-   "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "status": "ok",
+   "returned": 26,
+   "accepted": 14
   },
   {
    "domain": "embodied",
-   "status": "failed",
-   "returned": 0,
-   "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Unknown Error"
+   "status": "ok",
+   "returned": 60,
+   "accepted": 40
   },
   {
    "domain": "training",
-   "status": "failed",
-   "returned": 0,
-   "accepted": 0,
-   "error": "TimeoutError: The read operation timed out"
+   "status": "ok",
+   "returned": 60,
+   "accepted": 32
   }
  ],
- "candidate_count": 1,
+ "candidate_count": 114,
  "issue_date": "2026-11-16",
- "issue_papers": 1,
- "ai_summaries": 1,
+ "issue_papers": 8,
+ "ai_summaries": 8,
  "ai": {
   "date": "2026-11-16",
   "model": "deepseek-flash",
   "requests": {
-   "chat": 1,
+   "chat": 9,
    "search": 6,
-   "fetch": 1
+   "fetch": 6
   },
   "successes": {
-   "chat": 1,
+   "chat": 9,
    "search": 6,
-   "fetch": 1
+   "fetch": 6
   },
-  "input_tokens": 4970,
-  "output_tokens": 838,
-  "accounted_tokens": 5808,
+  "input_tokens": 30798,
+  "output_tokens": 7501,
+  "accounted_tokens": 38299,
   "uncertain_reserved_tokens": 0,
-  "errors": [],
-  "updated": "2026-11-16T01:49:36Z",
+  "errors": [
+   {
+    "kind": "analysis",
+    "code": "invalid_or_ungrounded_output",
+    "at": "2026-11-16T02:01:30Z"
+   }
+  ],
+  "updated": "2026-11-16T02:01:45Z",
   "state": "ready",
   "limits": {
    "daily_paper_limit": 10,
@@ -76,6 +78,6 @@
    "daily_fetch_limit": 6
   }
  },
- "supplement_status": "metadata_verification_failed_HTTPError",
+ "supplement_status": "not_needed",
  "result": "updated"
 }

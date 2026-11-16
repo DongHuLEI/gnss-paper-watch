@@ -2,19 +2,25 @@
  "date": "2026-11-16",
  "model": "deepseek-flash",
  "requests": {
-  "chat": 1,
+  "chat": 9,
   "search": 6,
-  "fetch": 1
+  "fetch": 6
  },
  "successes": {
-  "chat": 1,
+  "chat": 9,
   "search": 6,
-  "fetch": 1
+  "fetch": 6
  },
- "input_tokens": 4970,
- "output_tokens": 838,
- "accounted_tokens": 5808,
+ "input_tokens": 30798,
+ "output_tokens": 7501,
+ "accounted_tokens": 38299,
  "uncertain_reserved_tokens": 0,
- "errors": [],
- "updated": "2026-11-16T01:49:36Z"
+ "errors": [
+  {
+   "kind": "analysis",
+   "code": "invalid_or_ungrounded_output",
+   "at": "2026-11-16T02:01:30Z"
+  }
+ ],
+ "updated": "2026-11-16T02:01:45Z"
 }
