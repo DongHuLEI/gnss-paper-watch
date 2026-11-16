@@ -88,12 +88,15 @@ jobs:
                       data=json.dumps({"build_type": "workflow"}).encode("utf-8"),
                   )
                   with urllib.request.urlopen(request, timeout=30) as response:
+                      response.read()
+                  with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30) as response:
                       site = json.load(response)
               if site.get("build_type") != "workflow":
                   raise SystemExit("Pages must use GitHub Actions as its publishing source.")
               print("Pages publishing source: GitHub Actions")
           except urllib.error.HTTPError as error:
-              raise SystemExit("Pages configuration returned HTTP %d. Set Settings > Pages > Source to GitHub Actions." % error.code)
+              print("::error::Pages configuration returned HTTP %d. Set Settings > Pages > Source to GitHub Actions." % error.code)
+              raise SystemExit(1)
           PY
 
       - name: Save daily data and usage
