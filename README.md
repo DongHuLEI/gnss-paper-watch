@@ -124,6 +124,7 @@ scripts/deepseek_client.py 密钥隔离、预算、搜索读取与证据校验
 scripts/daily_update.py    日更编排、去重、归档与状态
 scripts/build_site.py      静态页面与公开部署包构建
 scripts/validate_site.py   路由、锚点、历史完整性和发布文件校验
+scripts/verify_deployment.py 公网内容一致性与发布边界校验
 assets/app.css             无外部字体依赖的响应式主题
 assets/app.js              筛选、分页、URL 状态、阅读数据与菜单
 ```
@@ -134,6 +135,8 @@ assets/app.js              筛选、分页、URL 状态、阅读数据与菜单
 python3 scripts/build_site.py --output _site
 python3 scripts/validate_site.py --root _site --public
 ```
+
+部署完成后，工作流会实际请求公网入口、论文库、归档、学习页、最新日报、论文页和静态资源，确认内容与本次构建一致，并检查源码路径返回 404。可以用 `python3 scripts/verify_deployment.py` 手动执行同样的检查；检查不调用 DeepSeek。
 
 导出目录必须不存在且位于项目内，避免误删其他文件。源码仓库仍是公开的，因此不要在任何被跟踪的源文件里放入隐私或密钥。404 页使用站点配置中的绝对 base，子路径错误地址也能返回主站导航。
 

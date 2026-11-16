@@ -115,6 +115,9 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Verify the public deployment
+        run: python scripts/verify_deployment.py
+
       - name: Report update status
         if: always()
         run: |
