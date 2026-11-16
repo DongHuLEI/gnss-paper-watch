@@ -1,0 +1,39 @@
+{
+ "site": {
+  "name": "GNSS × AI 研究雷达",
+  "subtitle": "空间观测 · 可靠感知 · 具身智能 · 模型训练",
+  "url": "https://donghulei.github.io/gnss-paper-watch/",
+  "timezone": "Asia/Shanghai"
+ },
+ "retrieval": {
+  "days": 14,
+  "results_per_domain": 60,
+  "papers_per_domain": 2,
+  "max_daily_papers": 12,
+  "min_score": 42,
+  "request_timeout": 35,
+  "retries": 2,
+  "arxiv_interval_seconds": 3.1
+ },
+ "deepseek": {
+  "enabled": true,
+  "model": "deepseek-flash",
+  "thinking": false,
+  "daily_paper_limit": 10,
+  "max_completion_tokens": 2400,
+  "daily_token_limit": 60000,
+  "search_enabled": true,
+  "daily_search_limit": 6,
+  "fetch_enabled": true,
+  "daily_fetch_limit": 6,
+  "source_character_limit": 16000,
+  "request_timeout": 90,
+  "max_attempts": 2
+ },
+ "research_profile": {
+  "core": ["GNSS 高精度定位与完好性", "电离层 TEC / ROTI 监测与预测", "工程感知与多传感器融合"],
+  "extensions": ["具身智能与机器人学习", "模型训练、微调与高效适配", "科学 AI 与跨领域方法迁移"],
+  "reading_questions": ["解决什么实际问题？", "方法改变了哪个环节？", "证据来自摘要还是全文？", "数据、算力和复现条件是什么？", "能如何迁移到定位、预测或机器人任务？"],
+  "privacy": "仅使用公开研究方向，不向模型发送飞书原文、私有数据或本机配置。"
+ }
+}

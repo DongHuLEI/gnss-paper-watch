@@ -1,27 +1,36 @@
-name: Daily edition
+name: Research radar
 
 on:
   schedule:
-    # 22:00 UTC = 06:00 Asia/Shanghai; GitHub may delay a few minutes, still well before 08:00.
-    - cron: "0 22 * * *"
+    - cron: "17 16,19,22 * * *"
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - ".github/workflows/daily.yml"
       - "scripts/**"
+      - "assets/**"
+      - "data/domains.json"
+      - "data/settings.json"
+      - "data/learning.json"
+      - "data/editions/**"
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
-  group: daily-edition
+  group: research-radar
   cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 55
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,13 +40,57 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Restore source cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/deepseek
+          key: deepseek-v2-${{ github.run_id }}
+          restore-keys: deepseek-v2-
+
       - name: Configure git identity
         run: |
           git config user.name "gnss-radar-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Generate and publish edition
-        run: python scripts/daily_update.py --per-domain 4 --min-score 45 --days 21
+      - name: Retrieve and interpret
+        id: update
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python scripts/daily_update.py --no-push
 
-      - name: Show result
-        run: git log -1 --stat | head -30
+      - name: Validate generated site
+        run: python scripts/validate_site.py
+
+      - name: Save daily data and usage
+        run: |
+          git add -A -- index.html 404.html daily archive papers topics library learn about data/status.json data/editions data/usage
+          if ! git diff --cached --quiet; then
+            git commit -m "Research radar update $(TZ=Asia/Shanghai date +%F)"
+            git push origin HEAD
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare public site
+        run: |
+          python scripts/build_site.py --output _site
+          python scripts/validate_site.py --root _site --public
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Report update status
+        if: always()
+        run: |
+          python scripts/daily_update.py --show-status >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.update.outcome }}" = "failure" ]; then
+            exit 1
+          fi

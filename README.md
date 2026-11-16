@@ -1,189 +1,139 @@
-# GNSS Paper Radar
-
-一个面向 **GNSS 高精度定位、电离层监测、深度学习预测、工程感知算法** 的静态论文雷达。页面结构、卡片和单篇海报的交互参考了 [haoshendong/slam3d-paper-watch](https://github.com/haoshendong/slam3d-paper-watch)，内容、领域体系和论文数据全部按本项目重建。
-
-当前为 **第 001 期（2026-10-20）**，16 篇论文，四个领域各 4 篇。
+# GNSS × AI 研究雷达
 
 在线地址：<https://donghulei.github.io/gnss-paper-watch/>
 
-## 目录
+以 GNSS、电离层和可靠感知为主线，连接科学 AI、具身智能与模型训练。纯静态前端，Python 标准库构建，不需要数据库、运行时 Node 或浏览器内 API 密钥。
 
-```text
-gnss-paper-watch/
-├── index.html                     # 最新一期（首页）
-├── daily/<date>/index.html        # 每一期的固定页
-├── archive/index.html             # 归档（所有期号，倒序）
-├── topics/<domain>/index.html     # 4 个领域页（gnss/iono/ml/perception）
-├── papers/<slug>/index.html       # 单篇海报页（所有期号的并集）
-├── assets/
-│   ├── app.css                    # 版式 + 深色主题
-│   └── app.js                     # 语言切换、领域筛选、搜索
-├── data/
-│   ├── domains.json               # 四个领域的名称、颜色、说明
-│   └── editions/<date>.json       # 一天一期：edition 元信息 + papers 数组
-├── scripts/
-│   ├── build_site.py              # 从 editions/ 生成整站
-│   ├── daily_update.py            # 自动生成当天一期并发布
-│   └── fetch_arxiv.py             # 抓取并粗排 arXiv 候选
-└── .github/workflows/daily.yml    # 每天 06:00（北京时间）自动更新
-```
+## 怎么浏览
 
-## 本地预览
+- **研究概览**：最新一期、六领域入口、交叉视角和实际更新状态。
+- **全部论文**：检索所有历史的标题、作者、摘要、标签和 arXiv ID；组合领域、交叉视角、收录月份、内容状态与阅读状态；支持排序、分页和紧凑列表。
+- **领域页**：显示该领域的全部历史论文，一篇论文可以属于多个领域。
+- **历史日报**：月份日历、按领域筛选、相邻期号翻页。旧的 `daily/<date>/` 和 `papers/<slug>/` 地址保留。
+- **训练与学习**：训练闭环、数据与评测、SFT/LoRA、后训练、具身策略、科学 AI 六条学习路线，链接指向官方资料。
+- **我的阅读**：收藏和已读只存本浏览器，不自动跨设备同步。在论文库中导出 JSON，可在另一台设备导入合并。
 
-```bash
-cd gnss-paper-watch
-python3 -m http.server 8000
-# 打开 http://localhost:8000/
-```
+论文标题与速读支持中英文切换，导航和整理正文以中文为主；支持明暗主题、移动端菜单、键盘 `/` 搜索和打印阅读页。
 
-站点是纯静态的，不需要 Node、数据库或后端。字体从 Google Fonts 加载，离线时会退回系统字体。
+## 六领域与交叉视角
 
-## 领域是怎么定的
+`data/domains.json` 同时定义展示信息、arXiv 查询、领域锚点和关键词：
 
-不是先拍脑袋列关键词，而是从飞书「电离层工作」知识库的项目主线反推：
+1. GNSS 高精度定位：PPP/PPP-AR/RTK、北斗、模糊度、完好性与低轨增强。
+2. 电离层与空间天气：TEC/ROTI、闪烁、磁暴、多源观测与风险。
+3. 时空预测与科学 AI：时序基础模型、图网络、物理约束与不确定性。
+4. 工程感知与多源融合：SLAM、GNSS/LiDAR/IMU、NLOS、鲁棒估计与实时部署。
+5. 具身智能与机器人：VLA、世界模型、机器人学习、模仿学习与 Sim-to-Real。
+6. 模型训练与高效适配：预训练、SFT/LoRA、强化学习、蒸馏量化、数据与评测。
 
-| 知识库中的项目/资产 | 主要问题 | 归入领域 |
-|---|---|---|
-| 中国区域北斗/GNSS 电离层定位风险与完好性预警 | 视线级扰动 → 模式条件定位退化 → 处置复盘 | GNSS 高精度定位 + 工程感知 |
-| ROTI 与 PPP 定位恢复研究 | ROTI 回落与 PPP 恢复的时序失配、弧段状态增量 | GNSS 高精度定位 + 电离层监测 |
-| CDSF-NET 高纬 ROTI 短时预报 | 条件物理融合、扰动尾部、独立台站泛化 | 深度学习预测 |
-| DORIS-ROTI | 低轨双频 TEC/ROTI、tandem 重复性、DORIS–GNSS 互补 | 电离层监测 |
-| ISMR 闪烁监测接收机 | 50/100 Hz 闪烁、Septentrio M3、ARM64 采集链路 | 电离层监测 + 工程感知 |
-| C08 产品对比 / BDS SSR | 改正数产品、PPP-AR 可用性 | GNSS 高精度定位 |
+交叉视角包括不确定性、物理约束、小样本、仿真到真实、多模态和边缘部署。关键词采用单词边界，避免把 `TEC` 命中到 `detection` 等无关词。
 
-归纳成站点的四条主线：
+## 内容状态与证据边界
 
-1. **GNSS 高精度定位**：PPP / PPP-AR / PPP-RTK、RTK、多频多系统、模糊度、收敛、可用性、CORS/网络架构。
-2. **电离层监测**：TEC / ROTI / GIX、闪烁、磁暴响应、SED/等离子体层、DORIS/ISMR 观测。
-3. **深度学习预测**：TEC/ROTI 时序预报、图神经网络、Transformer、可解释性与不确定性。
-4. **工程感知算法**：观测质量、多路径/NLOS、干扰与欺骗、完好性、鲁棒估计、传感器融合。
+- **检索初筛**：原始元数据和摘要，未生成中文解读。
+- **AI 解读 · 待核验**：DeepSeek 基于摘要或已读取的网页摘录生成，明确显示模型、时间、阅读范围和来源；不称为全文精读。
+- **整理摘要**：保留原有中文笔记和指标。旧内容未逐篇复核全文，重要数字、作者列表和配置应回到原文检查。
 
-## 内容怎么维护
+“匹配度”用于检索排序，不代表论文质量。旧整理分数与新关键词分数的口径不同，不能据此横向评价论文。
 
-一期一个文件：`data/editions/<date>.json`，结构是 `{"edition": {…}, "papers": [ … ]}`。领域定义在 `data/domains.json`，所有期号共用。
+AI 的结果引文须在来源中逐字匹配，结果中的数字须出现在相应引文中。自动检查不能保证语义推理正确，也不能代替人工核验。研究迁移建议单独展示为推断。
 
-人工精读的论文按下面的字段写（`essence` 必须正好 4 项）：
+## 每日更新
 
-```json
-{
-  "id": "2604.18379",
-  "slug": "arxiv-2604.18379",
-  "domain": "ml",
-  "date": "2026-04-20",
-  "score": 96,
-  "tier": "核心推荐",
-  "title_zh": "……",
-  "title_en": "……",
-  "authors": ["……"],
-  "cats": ["cs.LG"],
-  "tags": ["ROTI", "动态图"],
-  "one_liner": "一句话结论",
-  "one_liner_en": "One-sentence takeaway",
-  "lead_zh": "两到三句中文导语",
-  "lead_en": "Two or three English sentences",
-  "metrics": [{"value": "0.55", "label": "Brier Skill Score", "label_en": "Brier Skill Score"}],
-  "problem": ["研究问题段落"],
-  "method": ["方法段落"],
-  "essence": [{"h": "是不是新算法？", "p": "……"}],
-  "results": ["结果段落"],
-  "limits": ["局限段落"],
-  "relevance": ["与你研究路线的关系"],
-  "abstract_en": "arXiv 英文摘要",
-  "links": {"abs": "https://arxiv.org/abs/2604.18379", "pdf": "https://arxiv.org/pdf/2604.18379"}
-}
-```
+`.github/workflows/daily.yml` 使用 UTC `17 16,19,22 * * *`，对应北京时间 **00:17、03:17、06:17**。提前触发并补跑，目标是在早上 8 点前更新；GitHub Actions 可能延迟，不能作严格时间保证。首页显示实际检查时间，而不是固定显示“已更新”。
 
-改完后重新生成：
+流程：日期限定的六路 arXiv 检索 → 去重与领域均衡挑选 → 可选 DeepSeek 补充检索 → arXiv 元数据复核 → 可选网页读取与中文解读 → 保存当期与用量 → 构建、验证 → 提交数据 → 显式部署 Pages。
+
+- 每天默认最多 12 篇，每领域最多 2 篇，不用无关稿件凑数。
+- 同日已存在时不重复收录；可以补齐未生成的 AI 解读。`--force` 重新检索并补充自动期号，不覆盖人工整理条目。
+- 没有新论文时不创建空期号，记录 `no_new_papers`。
+- 全部来源失败时返回非零状态，保留上一期并记录 `retrieval_failed`。
+- 部分失败标为 `partial`，补跑可重试。
+- 无密钥、无余额、输出不完整或证据校验失败时保留原始摘要，并显示具体状态。
+- Surge 旧镜像不会自动更新，不作为主站。
+
+## 安全启用 DeepSeek
+
+1. 在 DeepSeek 官方平台创建自己的 API 密钥并确认余额。
+2. 打开仓库 **Settings → Secrets and variables → Actions → New repository secret**。
+3. 名称填 `DEEPSEEK_API_KEY`，值填密钥。不要提交到代码、静态文件或聊天记录。
+4. 在 **Actions → Research radar → Run workflow** 手动运行一次。
+5. 查看运行摘要和站点“来源与更新说明”中的 AI 状态、解读数量及用量。
+
+本机只有在明确设置环境变量 `DEEPSEEK_API_KEY` 时才会调用。没有配置时不调用付费接口。不会从其他软件配置中搜集凭据，也不向模型发送飞书原文或私有数据。
+
+官方接口：
+
+- [搜索与网页读取](https://api-docs.deepseek.com/guides/search)
+- [Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion)
+- [实时价格](https://api-docs.deepseek.com/quick_start/pricing)
+
+`data/settings.json` 控制模型和限额，默认 `deepseek-flash`、关闭思考，每天最多解读 10 篇、搜索 6 次、网页读取 6 次、单次最多输出 2400 token。每日 60000 token 使用请求前的保守预留控制；网络中断等不确定调用保留预留量，实际账单以服务商为准。配置是安全默认值，不是费用承诺。
+
+同日用量持久化在 `data/usage/<date>.json`；生成结果缓存于被忽略的 `.cache/deepseek/`。认证失败或余额不足后停止后续付费请求。日志不保存 API 密钥、原始错误正文或模型思考内容。
+
+## 本地使用
+
+Python 3.6+，无第三方运行时依赖。构建和日更使用相同的标准库代码；Actions 使用 Python 3.11。
 
 ```bash
 python3 scripts/build_site.py
+python3 scripts/validate_site.py
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-生成器会读取 `data/editions/` 下所有期号，重建 `index.html`（最新一期）、`daily/<date>/`（每期一页）、`archive/index.html`（全部期号）、`papers/`（所有期号的并集，同 slug 取最新一期）、`topics/`（按最新一期）和 `404.html`。
-
-### 每天自动一期
-
-`scripts/daily_update.py` 负责"抓 arXiv → 初筛 → 写当期 JSON → 构建 → 提交推送"：
+本地服务仅供当前机器预览；跨设备请使用上面的公网地址。
 
 ```bash
-python3 scripts/daily_update.py --no-push          # 只在本地生成，看效果
-python3 scripts/daily_update.py                    # 生成并推送（会触发 Pages 重建）
-python3 scripts/daily_update.py --date 2026-10-22 --per-domain 3 --min-score 50
+# 检索而不发布
+python3 scripts/fetch_arxiv.py --days 14 --max 60
+
+# 生成并构建，但不提交或推送
+python3 scripts/daily_update.py --no-push
+
+# 仅准备数据
+python3 scripts/daily_update.py --no-push --no-build
+
+# 必须有可用 AI，否则明确失败
+python3 scripts/daily_update.py --no-push --require-ai
+
+# 显示状态，不执行更新
+python3 scripts/daily_update.py --show-status
+
+# 日更脚本也可以构建并提交推送，须在干净工作区明确执行
+python3 scripts/daily_update.py
 ```
 
-同一天重复运行会跳过（已存在 `<date>.json`），要重跑加 `--force`。没有新候选时直接退出，不会产生空期号。
+修改源数据后先构建、验证，再提交。机器人也会提交数据，所以本地编辑前先 `git pull --ff-only`。有未提交改动时不要使用破坏性重置。
 
-自动条目带 `"auto": true`，页面上会显示「机器初筛」徽标，单篇页只给原文摘要与来源，不编造中文解读。要把它变成人工精读，就把同一篇改写成上面的人工字段并去掉 `auto`。
+## 目录与发布边界
 
-### 人工改某一期
+```text
+data/domains.json          六领域查询、显示信息与交叉视角
+data/settings.json         公开设置、用量限额与非私有研究方向
+data/learning.json         学习路线及官方链接
+data/editions/<date>.json  每期数据与 AI 来源记录
+data/status.json           最近运行状态
+data/usage/<date>.json     脱敏用量记录
+scripts/radar_config.py    配置、日期与多领域分类
+scripts/fetch_arxiv.py     有重试与日期约束的元数据检索
+scripts/deepseek_client.py 密钥隔离、预算、搜索读取与证据校验
+scripts/daily_update.py    日更编排、去重、归档与状态
+scripts/build_site.py      静态页面与公开部署包构建
+scripts/validate_site.py   路由、锚点、历史完整性和发布文件校验
+assets/app.css             无外部字体依赖的响应式主题
+assets/app.js              筛选、分页、URL 状态、阅读数据与菜单
+```
 
-直接编辑对应的 `data/editions/<date>.json`，然后 `python3 scripts/build_site.py && git push`。归档、领域页和单篇页都会跟着更新。
-
-## 每日候选抓取
-
-`scripts/fetch_arxiv.py` 只做 **候选发现和粗排**，不自动写中文摘要：
+部署只上传构建器导出的 HTML、CSS、JS 和 `.nojekyll`，不复制整个项目，不上传 `data/`、脚本、缓存或 Git 元数据：
 
 ```bash
-python3 scripts/fetch_arxiv.py --days 21 --max 60 --min-score 45
-# 输出 data/candidates-YYYY-MM-DD.json
+python3 scripts/build_site.py --output _site
+python3 scripts/validate_site.py --root _site --public
 ```
 
-脚本会：
+导出目录必须不存在且位于项目内，避免误删其他文件。源码仓库仍是公开的，因此不要在任何被跟踪的源文件里放入隐私或密钥。404 页使用站点配置中的绝对 base，子路径错误地址也能返回主站导航。
 
-- 按四个领域分别查询 arXiv；
-- 用领域锚点做硬门槛（例如感知领域必须出现 GNSS/GPS/BDS 且出现多路径/干扰/完好性等词）；
-- 用标题锚点和命中词数量打分；
-- 去掉已在 `data/papers.json` 中的论文；
-- 输出标题、作者、摘要、分类、匹配词和 abs/PDF 链接。
+## 来源与版权
 
-建议流程：平时不用管，`daily_update.py` 会自动跑。想人工接管时，先看 `data/candidates-<date>.json`，读摘要后把值得的论文改写成人工条目。
-
-## 发布与自动更新
-
-站点是纯静态目录，任何静态托管都能直接用。目前两个出口：
-
-**1. GitHub Pages（主站，已上线）**
-
-- 地址：<https://donghulei.github.io/gnss-paper-watch/>
-- 仓库：<https://github.com/DongHuLEI/gnss-paper-watch>（public）
-- Pages 从 `main` 分支根目录直接取文件，`.nojekyll` 让 GitHub 跳过 Jekyll。push 后一两分钟自动重新发布。
-
-**2. Surge（备用镜像）**
-
-- 地址：<https://gnss-paper-watch.surge.sh>
-- 更新：`npx surge . gnss-paper-watch.surge.sh`
-- 账号是发布时用 `643845296@qq.com` 注册的；注册后需要在邮箱里点一次验证链接，站点才会长期保留，否则会被回收。GitHub Pages 不受影响。Surge 不会自动更新，只是镜像。
-
-**自动更新怎么跑**
-
-`.github/workflows/daily.yml` 每天 `22:00 UTC`（北京时间 06:00）在 GitHub Actions 里执行 `daily_update.py`：抓 arXiv → 初筛 → 写 `data/editions/<当天>.json` → 构建 → 提交并推送 → Pages 重建。GitHub 的定时任务可能延迟几分钟，一般 06:00–06:30 之间完成，早于 08:00。
-
-手动发布：
-
-```bash
-python3 scripts/build_site.py          # 重新生成静态页
-git add -A && git commit -m "第 00N 期" && git push
-```
-
-所有内部链接都是相对路径，`/<repo>/` 这种子路径和自定义域名都能用；`404.html` 同理。
-
-## 编选口径
-
-人工精读的期号按下面五项打分（页面上简化为四段说明）：
-
-- 领域相关性 40%
-- 方法增量 25%
-- 证据强度 20%
-- 可复现性 10%
-- 与知识库主线的连接度 5%
-
-机器初筛的条目不打这套分：卡片上的「匹配度」只是关键词命中数，只用于排序，页面上也明确标注了「机器初筛」。
-
-站点不把「指标更高」等同于「更值得用」。每篇都标了证据边界：单站/单事件、仿真/实测、区域/全球，以及论文没有回答的问题。摘要中没有出现的数字不补写。
-
-## 版权与来源
-
-- 页面版式与交互参考 `haoshendong/slam3d-paper-watch`，按其公开源码重写为本项目的深色主题。
-- 论文标题、作者、英文摘要来自 arXiv 公开元数据，版权归原作者。
-- 中文解读、领域分类、评分和「与你研究路线的关系」为本项目整理，不是原作者或期刊的官方表述。
-- 引用论文时请以 arXiv/期刊原文为准。
+论文元数据与摘要版权归原作者。中文整理和 AI 解读不是原作者或期刊的官方表述；引用以 arXiv 或期刊原文为准。最初参考 `haoshendong/slam3d-paper-watch` 的日报组织方式，本版页面、样式、交互和生成器已重写为研究工作台。

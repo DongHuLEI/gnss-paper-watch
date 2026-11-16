@@ -3,26 +3,82 @@
   "gnss": {
    "label": "GNSS 高精度定位",
    "en": "GNSS Positioning",
-   "desc": "PPP / PPP-AR / PPP-RTK、RTK、多频多系统、模糊度固定、收敛与可用性。",
-   "long": "关注从观测到解算的完整链路：函数模型、随机模型、模糊度、改正数与网络架构。优先选择能改变「收敛、可用性、连续性」判断的工作。"
+   "short": "GNSS",
+   "color": "#3678df",
+   "group": "研究主线",
+   "desc": "PPP / PPP-AR / RTK、北斗、模糊度、收敛、完好性与低轨增强。",
+   "long": "从观测质量、随机模型到改正数与网络架构，关注定位精度、收敛速度、连续性与可用性。与机器人全局定位和可靠状态估计交叉。",
+   "query": "(all:\"GNSS\" OR all:\"BeiDou\" OR all:\"precise point positioning\") AND (all:\"positioning\" OR all:\"ambiguity resolution\" OR all:\"RTK\" OR all:\"PPP\")",
+   "anchors": ["gnss", "gps", "beidou", "bds", "precise point positioning", "rtk"],
+   "terms": ["precise point positioning", "ppp", "ppp-rtk", "rtk", "ambiguity resolution", "beidou", "bds", "cors", "gnss positioning", "leo navigation", "convergence", "integrity"]
   },
   "iono": {
-   "label": "电离层监测",
-   "en": "Ionosphere Monitoring",
-   "desc": "TEC / ROTI / GIX、闪烁、磁暴响应、SED 与等离子体层、DORIS/ISMR 观测。",
-   "long": "关注「测到什么」与「为什么」：多仪器联合、事件归因、平静期异常、频段外推，以及这些观测如何转成 GNSS 风险特征。"
+   "label": "电离层与空间天气",
+   "en": "Ionosphere & Space Weather",
+   "short": "IONO",
+   "color": "#078c85",
+   "group": "研究主线",
+   "desc": "TEC / ROTI / GIX、闪烁、磁暴、多源观测及空间天气风险。",
+   "long": "关注电离层扰动的观测、归因与风险传递，保留 GNSS、DORIS、ISMR 等互补视角，区分物理解释、监测指标和定位影响。",
+   "query": "(all:\"ionospheric\" OR all:\"ionosphere\" OR all:\"ROTI\" OR all:\"total electron content\") AND (cat:physics.space-ph OR cat:physics.geo-ph OR cat:eess.SP OR cat:astro-ph.SR)",
+   "anchors": ["ionosphere", "ionospheric", "roti", "total electron content", "ionospheric scintillation", "doris"],
+   "terms": ["ionosphere", "ionospheric", "roti", "total electron content", "tec", "scintillation", "geomagnetic storm", "space weather", "plasmasphere", "doris", "gnss"]
   },
   "ml": {
-   "label": "深度学习预测",
-   "en": "Deep Learning Forecasting",
-   "desc": "TEC/ROTI 时序预报、图神经网络、Transformer、可解释性与不确定性。",
-   "long": "关注模型是否保留了对定位真正重要的小尺度结构，而不只是把日均曲线拟合得更好。"
+   "label": "时空预测与科学 AI",
+   "en": "Spatiotemporal & Scientific AI",
+   "short": "SCI-AI",
+   "color": "#7956c7",
+   "group": "研究主线",
+   "desc": "时序基础模型、图网络、物理约束、极端事件与不确定性。",
+   "long": "以 TEC / ROTI 预测为落点，吸收气象、遥感与科学机器学习中的方法。优先关注跨区域泛化、数据泄漏、长尾扰动与可信区间。",
+   "query": "(all:\"ionospheric\" OR all:\"spatiotemporal forecasting\" OR all:\"time series foundation model\" OR all:\"physics-informed\") AND (all:\"learning\" OR all:\"forecasting\" OR all:\"prediction\")",
+   "anchors": ["ionospheric", "ionosphere", "time series", "spatiotemporal", "physics-informed", "weather forecasting", "scientific machine learning", "neural operator"],
+   "terms": ["deep learning", "neural network", "transformer", "graph neural", "forecasting", "prediction", "foundation model", "uncertainty", "physics-informed", "neural operator", "spatiotemporal", "time series"]
   },
   "perception": {
-   "label": "工程感知算法",
-   "en": "Engineering Perception",
-   "desc": "观测质量、多路径/NLOS、干扰与欺骗、完好性、鲁棒估计、传感器融合。",
-   "long": "关注算法能否在真实工程约束下落地：标注成本、实时性、故障可解释性，以及误报/漏报的代价。"
+   "label": "工程感知与多源融合",
+   "en": "Perception & Sensor Fusion",
+   "short": "FUSION",
+   "color": "#c27222",
+   "group": "研究主线",
+   "desc": "SLAM、GNSS / LiDAR / IMU 融合、NLOS、鲁棒估计与边缘部署。",
+   "long": "把定位可靠性放回真实场景：多传感器时空对齐、退化检测、干扰欺骗、实时计算和可解释故障处置。",
+   "query": "(all:\"GNSS\" OR all:\"sensor fusion\" OR all:\"SLAM\" OR all:\"lidar inertial\") AND (all:\"robust\" OR all:\"localization\" OR all:\"jamming\" OR all:\"spoofing\" OR all:\"multipath\")",
+   "anchors": ["gnss", "gps", "slam", "sensor fusion", "lidar", "visual-inertial", "lidar-inertial", "inertial navigation"],
+   "terms": ["multipath", "nlos", "interference", "jamming", "spoofing", "integrity", "robust estimation", "factor graph", "sensor fusion", "slam", "lidar", "real-time", "localization"]
+  },
+  "embodied": {
+   "label": "具身智能与机器人",
+   "en": "Embodied AI & Robotics",
+   "short": "EMBODIED",
+   "color": "#cb5774",
+   "group": "交叉拓展",
+   "desc": "VLA、机器人学习、世界模型、动作策略、模仿学习与 Sim-to-Real。",
+   "long": "聚焦感知—决策—动作的闭环，优先关注能迁移到导航、移动机器人和真实传感器系统的工作，而不只追通用大模型热点。",
+   "query": "(cat:cs.RO OR cat:cs.AI OR cat:cs.CV) AND (all:\"vision-language-action\" OR all:\"robot learning\" OR all:\"embodied intelligence\" OR all:\"diffusion policy\" OR all:\"robot world model\")",
+   "anchors": ["robot", "robotic", "robotics", "embodied", "vision-language-action", "visuomotor", "diffusion policy", "manipulation"],
+   "terms": ["vision-language-action", "vla", "robot learning", "embodied", "world model", "diffusion policy", "imitation learning", "reinforcement learning", "sim-to-real", "visuomotor", "navigation", "manipulation"]
+  },
+  "training": {
+   "label": "模型训练与高效适配",
+   "en": "Model Training & Adaptation",
+   "short": "TRAINING",
+   "color": "#477c51",
+   "group": "交叉拓展",
+   "desc": "预训练、SFT / LoRA、强化学习、蒸馏量化、数据与评测。",
+   "long": "建立从数据清洗、训练方案到评测和部署的完整知识链。关心算力、复现、训练稳定性，以及模型如何适应科学数据与机器人任务。",
+   "query": "(cat:cs.LG OR cat:cs.CL OR cat:cs.RO) AND (all:\"parameter-efficient\" OR all:\"LoRA\" OR all:\"knowledge distillation\" OR all:\"post-training\" OR all:\"training efficiency\" OR all:\"data curation\")",
+   "anchors": ["training", "fine-tuning", "finetuning", "fine tuning", "lora", "distillation", "quantization", "post-training", "pretraining", "pre-training", "data curation"],
+   "terms": ["parameter-efficient", "lora", "fine-tuning", "sft", "post-training", "pre-training", "reinforcement learning", "distillation", "quantization", "data curation", "training efficiency", "distributed training", "evaluation", "benchmark"]
   }
+ },
+ "lenses": {
+  "uncertainty": {"label": "不确定性与可信评测", "terms": ["uncertainty", "calibration", "out-of-distribution", "conformal", "integrity"]},
+  "physics": {"label": "物理约束与科学机器学习", "terms": ["physics-informed", "physical constraint", "neural operator", "scientific machine learning"]},
+  "data-efficient": {"label": "小样本与低成本适配", "terms": ["few-shot", "self-supervised", "parameter-efficient", "lora", "data-efficient", "weakly supervised"]},
+  "sim2real": {"label": "仿真到真实与泛化", "terms": ["sim-to-real", "domain adaptation", "domain generalization", "transfer learning", "synthetic data"]},
+  "multimodal": {"label": "多模态与多传感器", "terms": ["multimodal", "multi-modal", "sensor fusion", "vision-language", "multi-sensor"]},
+  "edge": {"label": "实时与边缘部署", "terms": ["real-time", "edge device", "on-device", "quantization", "embedded", "low latency"]}
  }
 }

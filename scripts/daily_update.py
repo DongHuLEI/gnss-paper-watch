@@ -1,243 +1,298 @@
 #!/usr/bin/env python3
-"""Generate one automatic daily edition and publish it.
-
-Usage:
-    python3 scripts/daily_update.py                 # today (Beijing), build + push
-    python3 scripts/daily_update.py --no-push       # build locally only
-    python3 scripts/daily_update.py --date 2026-10-22 --per-domain 3
-    python3 scripts/daily_update.py --force         # rebuild an existing date
-
-Entries created here are marked "auto": they carry the arXiv title, abstract,
-authors and categories, and are labelled 机器初筛 on the site. Chinese
-interpretation is deliberately not invented by the script.
-"""
+"""Retrieve, optionally interpret, archive and publish the daily research radar."""
 
 import argparse
 import datetime as dt
-import json
+import re
 import subprocess
 import sys
-import tempfile
+import time
+import urllib.parse
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-EDITIONS = ROOT / "data" / "editions"
-DOMAINS_FILE = ROOT / "data" / "domains.json"
-FETCH = ROOT / "scripts" / "fetch_arxiv.py"
-BUILD = ROOT / "scripts" / "build_site.py"
+from deepseek_client import DeepSeekClient, normalize
+from fetch_arxiv import ARXIV_ID, collect_candidates, fetch_by_ids
+from radar_config import (
+    DATA, ROOT, beijing_now, classify, known_ids, load_config, load_editions,
+    load_json, utc_timestamp, write_json,
+)
 
-DOMAIN_ORDER = ["gnss", "iono", "ml", "perception"]
-
-NOTE_ZH = "本条由每日脚本自动收录，未经人工解读。标题、作者、分类和下面的摘要是 arXiv 原文，方便你判断是否值得精读。"
-NOTE_EN = "Machine-selected from arXiv, no human summary yet. Title, authors, categories and the abstract below are the original metadata."
-
-
-def beijing_today():
-    return (dt.datetime.utcnow() + dt.timedelta(hours=8)).date()
-
-
-def load_domains():
-    with DOMAINS_FILE.open(encoding="utf-8") as handle:
-        return json.load(handle)["domains"]
+SEARCH_TERMS = {
+    "gnss": "GNSS PPP RTK ambiguity resolution",
+    "iono": "ionosphere TEC ROTI scintillation",
+    "ml": '"time series" "foundation model" forecasting',
+    "perception": '"sensor fusion" SLAM GNSS localization',
+    "embodied": '"vision-language-action" robot learning',
+    "training": 'LoRA post-training distillation "data curation"',
+}
 
 
-def load_editions():
-    seen = {}
-    numbers = []
-    ids = set()
-    for path in sorted(EDITIONS.glob("*.json")):
-        with path.open(encoding="utf-8") as handle:
-            data = json.load(handle)
-        seen[data["edition"]["date"]] = path
-        try:
-            numbers.append(int(data["edition"]["number"]))
-        except (TypeError, ValueError):
-            pass
-        ids.update(paper["id"].split("v")[0] for paper in data.get("papers", []))
-    return seen, numbers, ids
+def short(value, limit=180):
+    value = normalize(value)
+    return value if len(value) <= limit else value[:limit - 1].rstrip() + "…"
 
 
-def short(value, limit):
-    value = " ".join(str(value).split())
-    return value if len(value) <= limit else value[: limit - 1].rstrip() + "…"
-
-
-def first_sentence(abstract, limit=170):
-    text = " ".join(abstract.split())
-    cut = text.find(". ")
-    if 40 < cut < limit:
-        return text[: cut + 1]
-    return short(text, limit)
-
-
-def authors_of(names):
-    if len(names) > 8:
-        return names[:8] + ["et al."]
-    return list(names)
-
-
-def fetch_candidates(date_str, days, max_results, min_score):
-    out = Path(tempfile.gettempdir()) / ("gnss-radar-candidates-%s.json" % date_str)
-    cmd = [
-        sys.executable,
-        str(FETCH),
-        "--days",
-        str(days),
-        "--max",
-        str(max_results),
-        "--min-score",
-        str(min_score),
-        "--output",
-        str(out),
-    ]
-    print("$ " + " ".join(cmd), flush=True)
-    proc = subprocess.run(cmd, cwd=str(ROOT))
-    if proc.returncode != 0 or not out.exists():
-        return []
-    with out.open(encoding="utf-8") as handle:
-        return json.load(handle).get("candidates", [])
-
-
-def pick(candidates, per_domain, already):
-    picked = []
-    for domain in DOMAIN_ORDER:
-        pool = [item for item in candidates if item["domain"] == domain and item["id"] not in already]
-        pool.sort(key=lambda item: item["date"], reverse=True)
-        pool.sort(key=lambda item: -item["score"])
-        picked.extend(pool[:per_domain])
-    picked.sort(key=lambda item: -item["score"])
-    return picked
+def pick(candidates, domains, per_domain, maximum, existing=None):
+    selected = list(existing or [])
+    selected_ids = {item["id"] for item in selected}
+    for turn in range(per_domain):
+        for domain in domains:
+            if len(selected) >= maximum:
+                return selected
+            count = sum(paper["domain"] == domain for paper in selected)
+            if count > turn:
+                continue
+            pool = [item for item in candidates if item["domain"] == domain and item["id"] not in selected_ids]
+            pool.sort(key=lambda item: item["date"], reverse=True)
+            pool.sort(key=lambda item: -item["score"])
+            if pool:
+                selected.append(pool[0])
+                selected_ids.add(pool[0]["id"])
+    return selected
 
 
 def make_paper(item):
     return {
-        "id": item["id"],
-        "slug": "arxiv-" + item["id"],
-        "domain": item["domain"],
-        "date": item["date"],
-        "score": item["score"],
-        "tier": "机器初筛",
-        "auto": True,
-        "title_zh": item["title"],
-        "title_en": item["title"],
-        "authors": authors_of(item.get("authors", [])),
-        "cats": item.get("cats", [])[:3],
-        "tags": item.get("matched_terms", [])[:4],
-        "one_liner": first_sentence(item["abstract"]),
-        "one_liner_en": first_sentence(item["abstract"]),
-        "lead_zh": NOTE_ZH,
-        "lead_en": NOTE_EN,
-        "abstract_en": item["abstract"],
-        "links": {
-            "abs": "https://arxiv.org/abs/" + item["id"],
-            "pdf": "https://arxiv.org/pdf/" + item["id"],
-        },
+        "id": item["id"], "slug": "arxiv-" + item["id"].replace("/", "-"),
+        "domain": item["domain"], "domains": item.get("domains", [item["domain"]]),
+        "lenses": item.get("lenses", []), "date": item["date"], "updated": item.get("updated", item["date"]),
+        "score": item["score"], "domain_scores": item.get("domain_scores", {}),
+        "tier": "检索初筛", "auto": True, "reading_status": "metadata",
+        "title_zh": item["title"], "title_en": item["title"],
+        "authors": item.get("authors", []), "cats": item.get("cats", []),
+        "tags": item.get("matched_terms", [])[:5],
+        "one_liner": short(item["abstract"]), "one_liner_en": short(item["abstract"]),
+        "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+        "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+        "abstract_en": item["abstract"], "version": item.get("version", ""),
+        "links": {"abs": item["abs_url"], "pdf": item["pdf_url"]},
+        "retrieved_at": utc_timestamp(),
     }
 
 
-def make_edition(date_str, papers, domains, number):
-    date = dt.datetime.strptime(date_str, "%Y-%m-%d")
-    counts = {key: sum(1 for p in papers if p["domain"] == key) for key in DOMAIN_ORDER}
-    covered = [key for key in DOMAIN_ORDER if counts[key]]
-    top = papers[0]
+def arxiv_id_from_url(url):
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.hostname not in ("arxiv.org", "www.arxiv.org", "export.arxiv.org"):
+        return None
+    path = urllib.parse.unquote(parsed.path)
+    match = re.match(r"^/(?:abs|html|pdf)/(.+?)(?:\.pdf)?/?$", path)
+    if not match or not ARXIV_ID.match(match.group(1)):
+        return None
+    return re.sub(r"v\d+$", "", match.group(1))
+
+
+def supplement(client, domains, lenses, known, as_of, days, min_score):
+    pages = []
+    for domain in domains:
+        query = SEARCH_TERMS.get(domain, domains[domain]["en"])
+        query += " site:arxiv.org after:" + (as_of - dt.timedelta(days=days)).isoformat()
+        pages.extend(client.search(query))
+    ids = sorted({value for page in pages for value in [arxiv_id_from_url(page["url"])] if value and value not in known})
+    candidates = []
+    status = "not_needed"
+    if ids:
+        try:
+            time.sleep(3.1)
+            for item in fetch_by_ids(ids):
+                published = dt.datetime.strptime(item["date"], "%Y-%m-%d").date()
+                if item["id"] in known or not as_of - dt.timedelta(days=days) <= published <= as_of:
+                    continue
+                result = classify(item["title"], item["abstract"], domains, lenses)
+                if result["score"] >= min_score:
+                    item.update(result)
+                    candidates.append(item)
+            status = "ok"
+        except Exception as exc:
+            status = "metadata_verification_failed_" + type(exc).__name__
+    return candidates, pages, status
+
+
+def enrich(papers, client, profile, pages):
+    for paper in papers:
+        if not paper.get("auto") or paper.get("analysis"):
+            continue
+        if not client.available:
+            paper["analysis_status"] = client.state
+            continue
+        extras = []
+        for page in pages:
+            if arxiv_id_from_url(page["url"]) == paper["id"] and page.get("text"):
+                extras.append(page)
+                break
+        if not extras and client.ledger["successes"]["chat"] < client.config["daily_paper_limit"]:
+            url = "https://arxiv.org/html/" + paper["id"] + paper.get("version", "")
+            page = client.fetch(url)
+            if page and normalize(paper["title_en"]).lower() in normalize(page["text"]).lower():
+                extras.append(page)
+        result, status = client.analyze(paper, profile, extras)
+        paper["analysis_status"] = status
+        if result:
+            paper["analysis"] = result["analysis"]
+            paper["ai"] = result["provenance"]
+            paper["reading_status"] = "ai"
+            paper["tier"] = "AI 解读 · 待核验"
+            paper["title_zh"] = result["analysis"]["title_zh"]
+            paper["lead_zh"] = result["analysis"]["summary"]
+            paper["one_liner"] = short(result["analysis"]["summary"])
+            paper["tags"] = result["analysis"]["tags"][:5]
+
+
+def make_edition(date_str, papers, domains, number, retrieval, client, pages):
+    ai_count = sum(bool(paper.get("analysis")) for paper in papers)
+    covered = [key for key in domains if any(paper["domain"] == key for paper in papers)]
     threads = []
-    for key in covered:
-        best = max((p for p in papers if p["domain"] == key), key=lambda p: p["score"])
-        threads.append(
-            {
-                "domain": key,
-                "title": domains[key]["label"] + " · " + str(counts[key]) + " 篇",
-                "text": "最高匹配度 " + str(best["score"]) + "：" + short(best["title_en"], 96),
-            }
-        )
-    stats = [
-        {"value": str(len(papers)), "label": "本期篇数"},
-        {"value": str(len(covered)), "label": "覆盖领域"},
-        {"value": str(top["score"]), "label": "最高匹配度"},
-        {"value": "AUTO", "label": "编选方式"},
-    ]
-    overview = [
-        "本期共 " + str(len(papers)) + " 篇，覆盖 " + "、".join(domains[k]["label"] for k in covered) + "，全部由脚本按领域关键词抓取并打分排序。",
-        "分数只反映标题与摘要里的关键词命中（领域锚点 + 术语数 + 标题锚点），不评价方法质量、实验是否充分，也不判断是否和你的工作直接相关。",
-        "每天北京时间 06:00 自动更新；人工精读过的期号会替换掉对应的自动条目，并在归档里标注「人工精读」。",
-    ]
+    for domain in covered:
+        pool = [paper for paper in papers if paper["domain"] == domain]
+        best = max(pool, key=lambda paper: paper["score"])
+        threads.append({
+            "domain": domain, "title": "%s · %d 篇" % (domains[domain]["label"], len(pool)),
+            "text": short(best["title_zh"], 100),
+        })
     return {
         "edition": {
-            "date": date_str,
-            "number": number,
-            "title": "%d 月 %d 日 · 每日论文雷达" % (date.month, date.day),
-            "subtitle": "脚本按四个领域抓取 arXiv 最新投稿并初筛，未做人工解读。",
-            "kicker": "AUTO · 每日自动更新",
-            "blurb": "点开任意一篇可以看到 arXiv 原文摘要、作者与分类；值得跟踪的条目，再补中文解读。",
-            "overview": overview,
-            "threads": threads,
-            "stats": stats,
-            "note": [
-                "本期由 scripts/daily_update.py 在 GitHub Actions 里自动生成，没有任何人工挑选或改写。",
-                "「匹配度」是关键词打分：领域锚点 24 分起，每命中一个领域词 +9，标题里出现 GNSS/TEC/ROTI 等锚点再 +12。它只用于排序。",
-                "同一天重复运行会跳过已存在的期号；想重跑请加 --force。",
-                "机器初筛不等于推荐。重要结论、数字和适用边界请回到 arXiv 原文核对。",
+            "date": date_str, "number": number, "title": date_str + " · 研究日报",
+            "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+            "kicker": "DAILY RESEARCH", "blurb": "本期 %d 篇，%d 篇 AI 中文解读；所有条目保留原始来源。" % (len(papers), ai_count),
+            "overview": [
+                "本期收录 %d 篇，覆盖 %s。" % (len(papers), "、".join(domains[key]["label"] for key in covered) or "暂无新增领域"),
+                "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+                "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。",
             ],
+            "threads": threads,
+            "stats": [{"value": str(len(papers)), "label": "本期论文"}, {"value": str(ai_count), "label": "AI 解读"},
+                      {"value": str(len(covered)), "label": "覆盖领域"}, {"value": "6", "label": "研究方向"}],
+            "note": ["来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+                     "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+                     "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"],
+            "generated_at": utc_timestamp(), "retrieval_status": retrieval["status"], "ai_status": client.state,
         },
         "papers": papers,
+        "discovery": [{key: page.get(key) for key in ("title", "url", "date", "snippet")} for page in pages],
     }
 
 
-def git(*args):
-    cmd = ["git", "-C", str(ROOT)] + list(args)
-    print("$ " + " ".join(cmd), flush=True)
-    return subprocess.run(cmd).returncode
+def publish(date_str):
+    paths = ["index.html", "404.html", "daily", "archive", "papers", "topics", "library", "learn", "about",
+             "data/editions", "data/status.json", "data/usage"]
+    paths = [path for path in paths if (ROOT / path).exists()]
+    subprocess.check_call(["git", "add", "-A", "--"] + paths, cwd=str(ROOT))
+    if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=str(ROOT)).returncode == 0:
+        return
+    subprocess.check_call(["git", "commit", "-m", "Research radar update " + date_str], cwd=str(ROOT))
+    subprocess.check_call(["git", "push", "origin", "HEAD"], cwd=str(ROOT))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Build one automatic edition for the paper radar.")
-    parser.add_argument("--date", default="", help="edition date, default today (Beijing)")
-    parser.add_argument("--per-domain", type=int, default=4, help="max papers per domain (default 4)")
-    parser.add_argument("--days", type=int, default=21, help="look back N days of arXiv submissions")
-    parser.add_argument("--max", type=int, default=100, help="max arXiv results per query")
-    parser.add_argument("--min-score", type=int, default=45, help="minimum keyword score")
-    parser.add_argument("--no-push", action="store_true", help="build locally, do not commit/push")
-    parser.add_argument("--force", action="store_true", help="overwrite an existing edition file")
+    domains, lenses, settings = load_config()
+    config = settings["retrieval"]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--date", default="")
+    parser.add_argument("--per-domain", type=int, default=config["papers_per_domain"])
+    parser.add_argument("--days", type=int, default=config["days"])
+    parser.add_argument("--max", type=int, default=config["results_per_domain"])
+    parser.add_argument("--min-score", type=int, default=config["min_score"])
+    parser.add_argument("--no-push", action="store_true")
+    parser.add_argument("--no-build", action="store_true", help="prepare data only")
+    parser.add_argument("--force", action="store_true", help="refresh an automatic issue; never replace reviewed entries")
+    parser.add_argument("--skip-ai", action="store_true")
+    parser.add_argument("--require-ai", action="store_true", help="fail instead of metadata fallback when no AI is available")
+    parser.add_argument("--candidates", default="", help="reuse a verified retrieval file from the same day")
+    parser.add_argument("--show-status", action="store_true", help="print public status without running an update")
     args = parser.parse_args()
-
-    date_str = args.date or beijing_today().isoformat()
-    existing, numbers, known_ids = load_editions()
-    if date_str in existing and not args.force:
-        print("edition %s already exists, nothing to do" % date_str)
+    if args.show_status:
+        status = load_json(DATA / "status.json") if (DATA / "status.json").exists() else {}
+        ai = status.get("ai", {})
+        print("## Research radar status\n")
+        for label, value in (("Checked", status.get("checked_at", "not checked")),
+                             ("Retrieval", status.get("retrieval_status", "unknown")),
+                             ("Result", status.get("result", "unknown")),
+                             ("AI", ai.get("state", "unknown")),
+                             ("Reported tokens", ai.get("input_tokens", 0) + ai.get("output_tokens", 0))):
+            print("- %s: %s" % (label, value))
         return 0
-
-    domains = load_domains()
-    candidates = fetch_candidates(date_str, args.days, args.max, args.min_score)
-    print("candidates:", len(candidates))
-    picked = pick(candidates, args.per_domain, known_ids)
-    if not picked:
-        print("no new candidates, skip publishing")
-        return 0
-
-    papers = [make_paper(item) for item in picked]
-    number = (max(numbers) if numbers else 0) + 1
-    edition = make_edition(date_str, papers, domains, number)
-
-    EDITIONS.mkdir(parents=True, exist_ok=True)
-    target = EDITIONS / (date_str + ".json")
-    with target.open("w", encoding="utf-8") as handle:
-        json.dump(edition, handle, ensure_ascii=False, indent=1)
-        handle.write("\n")
-    print("wrote", target, "with", len(papers), "papers")
-
-    if subprocess.run([sys.executable, str(BUILD)], cwd=str(ROOT)).returncode != 0:
-        print("build failed", file=sys.stderr)
-        return 1
-    if args.no_push:
-        print("skipped commit/push (--no-push)")
-        return 0
-
-    git("add", "-A")
-    if git("diff", "--cached", "--quiet") == 0:
-        print("nothing to commit")
-        return 0
-    git("commit", "-m", "Daily edition " + date_str + " (auto, " + str(len(papers)) + " papers)")
-    return git("push", "origin", "HEAD")
+    if args.per_domain < 1 or args.days < 1 or not 1 <= args.max <= 200 or not 0 <= args.min_score <= 100:
+        parser.error("invalid retrieval limits")
+    if args.no_build and not args.no_push:
+        parser.error("--no-build requires --no-push")
+    as_of = dt.datetime.strptime(args.date, "%Y-%m-%d").date() if args.date else beijing_now().date()
+    date_str = as_of.isoformat()
+    if as_of > beijing_now().date():
+        parser.error("cannot publish a future edition")
+    editions = load_editions()
+    current = next((view for view in editions if view["edition"]["date"] == date_str), None)
+    if current and any(not paper.get("auto") for paper in current["papers"]) and args.force:
+        parser.error("refusing to overwrite reviewed entries")
+    client_config = dict(settings["deepseek"])
+    if args.skip_ai:
+        client_config["enabled"] = False
+    client = DeepSeekClient(client_config, beijing_now().date().isoformat())
+    if args.require_ai and not client.available:
+        print("AI unavailable: " + client.state, file=sys.stderr)
+        return 2
+    known = known_ids(editions)
+    papers = list(current["papers"]) if current else []
+    should_retrieve = not current or args.force or current["edition"].get("retrieval_status") in ("partial", "failed")
+    retrieval = {"status": "already_checked", "queries": [], "candidates": []}
+    pages = []
+    supplement_status = "not_requested"
+    if should_retrieve:
+        if args.candidates:
+            retrieval = load_json(Path(args.candidates))
+            if retrieval.get("as_of") != date_str or retrieval.get("status") not in ("ok", "partial"):
+                parser.error("candidate file must be a successful retrieval for the requested day")
+        else:
+            retrieval = collect_candidates(args.days, args.max, args.min_score, as_of, known)
+        candidates = {item["id"]: item for item in retrieval["candidates"] if item["id"] not in known}
+        if client.available:
+            extra, pages, supplement_status = supplement(client, domains, lenses, known, as_of, args.days, args.min_score)
+            candidates.update((item["id"], item) for item in extra)
+        selected = pick(list(candidates.values()), domains, args.per_domain,
+                        config["max_daily_papers"], existing=papers)
+        papers = [item if "title_en" in item else make_paper(item) for item in selected]
+    enrich(papers, client, settings["research_profile"], pages)
+    previous = load_json(DATA / "status.json") if (DATA / "status.json").exists() else {}
+    if retrieval["status"] == "already_checked" and previous.get("checked_date") == date_str:
+        query_records = previous.get("queries", [])
+        candidate_count = previous.get("candidate_count", 0)
+        retrieved_at = previous.get("retrieved_at")
+        retrieval_state = previous.get("retrieval_status", "already_checked")
+    else:
+        query_records = retrieval["queries"]
+        candidate_count = len(retrieval["candidates"])
+        retrieved_at = utc_timestamp()
+        retrieval_state = retrieval["status"]
+    status = {
+        "checked_at": utc_timestamp(), "checked_date": date_str, "retrieval_status": retrieval_state,
+        "retrieved_at": retrieved_at, "queries": query_records, "candidate_count": candidate_count,
+        "issue_date": date_str if papers else (editions[0]["edition"]["date"] if editions else None),
+        "issue_papers": len(papers), "ai_summaries": sum(bool(paper.get("analysis")) for paper in papers),
+        "ai": client.public_status(), "supplement_status": supplement_status,
+        "result": "retrieval_failed" if retrieval["status"] == "failed" else (
+            ("already_checked" if not should_retrieve else "updated") if papers else "no_new_papers"
+        ),
+    }
+    if papers:
+        numbers = [int(view["edition"]["number"]) for view in editions]
+        number = current["edition"]["number"] if current else max(numbers or [0]) + 1
+        if not should_retrieve and current:
+            issue = {key: value for key, value in current.items() if key != "_path"}
+            issue["papers"] = papers
+            issue["edition"]["ai_status"] = client.state
+            issue["edition"]["blurb"] = "本期 %d 篇，%d 篇 AI 中文解读；所有条目保留原始来源。" % (len(papers), status["ai_summaries"])
+        else:
+            issue = make_edition(date_str, papers, domains, number, retrieval, client, pages)
+        write_json(DATA / "editions" / (date_str + ".json"), issue)
+    write_json(DATA / "status.json", status)
+    write_json(client.ledger_path, client.ledger)
+    if not args.no_build:
+        subprocess.check_call([sys.executable, str(ROOT / "scripts" / "build_site.py")], cwd=str(ROOT))
+    if not args.no_push:
+        publish(date_str)
+    print("%s: %d papers, %d AI summaries; AI=%s; retrieval=%s" % (
+        date_str, len(papers), status["ai_summaries"], client.state, retrieval["status"]), flush=True)
+    if args.require_ai and not status["ai_summaries"]:
+        return 2
+    return 1 if retrieval["status"] == "failed" else 0
 
 
 if __name__ == "__main__":

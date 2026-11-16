@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="来源、AI 证据边界、隐私与自动化运行说明"><meta name="theme-color" content="#f5f7fa">
+<meta property="og:title" content="来源与更新说明"><meta property="og:description" content="来源、AI 证据边界、隐私与自动化运行说明">
+<title>来源与更新说明 · GNSS × AI 研究雷达</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%23156c65'/%3E%3Ccircle cx='20' cy='20' r='11' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M20 8v12l8 4' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/app.css"><script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../">
+<a class="skip-link" href="#content">跳到内容</a>
+<aside class="sidebar" id="site-navigation" aria-label="主导航">
+<button class="sidebar-close icon-button" type="button" data-menu aria-controls="site-navigation" aria-expanded="false">关闭目录</button>
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">R</span><span>GNSS × AI<b>研究雷达 / RESEARCH RADAR</b></span></a>
+<nav class="primary-nav"><a href="../index.html" aria-current="page"><span>01</span><b>研究概览</b></a><a href="../library/index.html" ><span>02</span><b>全部论文</b></a><a href="../archive/index.html" ><span>03</span><b>历史日报</b></a><a href="../learn/index.html" ><span>04</span><b>训练与学习</b></a></nav><div class="nav-group"><p>研究主线</p><a class="topic-link" href="../topics/gnss/index.html" ><i class="dot" style="--domain:#3678df" aria-hidden="true"></i><span>GNSS 高精度定位</span><small>8</small></a><a class="topic-link" href="../topics/iono/index.html" ><i class="dot" style="--domain:#078c85" aria-hidden="true"></i><span>电离层与空间天气</span><small>16</small></a><a class="topic-link" href="../topics/ml/index.html" ><i class="dot" style="--domain:#7956c7" aria-hidden="true"></i><span>时空预测与科学 AI</span><small>9</small></a><a class="topic-link" href="../topics/perception/index.html" ><i class="dot" style="--domain:#c27222" aria-hidden="true"></i><span>工程感知与多源融合</span><small>19</small></a></div><div class="nav-group"><p>交叉拓展</p><a class="topic-link" href="../topics/embodied/index.html" ><i class="dot" style="--domain:#cb5774" aria-hidden="true"></i><span>具身智能与机器人</span><small>2</small></a><a class="topic-link" href="../topics/training/index.html" ><i class="dot" style="--domain:#477c51" aria-hidden="true"></i><span>模型训练与高效适配</span><small>4</small></a></div>
+<div class="nav-group"><p>我的阅读</p><a class="topic-link" href="../library/index.html?saved=1"><span>我的收藏</span><small data-saved-count>0</small></a><a class="topic-link" href="../library/index.html?reading=unread"><span>待阅读</span><span aria-hidden="true">→</span></a></div>
+<div class="sidebar-note">从空间观测到智能行动。<br>保留来源，建立自己的研究脉络。</div>
+</aside>
+<div class="workspace">
+<header class="topbar"><button class="menu-toggle icon-button" type="button" aria-controls="site-navigation" aria-expanded="false" data-menu>目录</button><span class="topbar-label">RESEARCH WORKSPACE</span>
+<form class="global-search" action="../library/index.html" method="get" role="search"><label class="sr-only" for="global-search">搜索全部历史论文</label><input id="global-search" name="q" type="search" placeholder="搜索全部历史：ROTI、LoRA、VLA…"><kbd>/</kbd></form>
+<div class="topbar-actions"><button type="button" class="icon-button" data-language aria-pressed="false" title="切换论文标题语言">中 / EN</button><button class="icon-button" data-theme-toggle type="button" aria-label="切换明暗主题">明 / 暗</button></div></header>
+<main id="content" class="content"><section class="page-heading"><div><p class="eyebrow">SOURCES &amp; OPERATIONS</p><h1>知道内容怎么来，也知道它的边界。</h1><p class="lede">这不是论文质量排行榜。我们把检索、AI 解读和原有整理分开标记，并保留来源与实际运行状态。</p></div></section><div class="about-grid"><section class="panel"><h2>内容分三层</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li></ul></section><section class="panel"><h2>更新与时区</h2><p>北京时间 00:17 首次触发，03:17、06:17 补跑。同日去重，保留历史。GitHub Actions 可能延迟，不提供严格的 08:00 服务保证。</p><p>最近检查：11-14 23:34 北京时间</p><p>检索状态：ok</p></section></div><section class="panel section"><h2>DeepSeek 配置与用量</h2><p>密钥只通过 GitHub Actions Secret <code>DEEPSEEK_API_KEY</code> 传入，不在前端、不在公开 JSON，也不发送飞书原文。模型为 <code>deepseek-flash</code>。</p><p>状态：<strong>missing_key</strong>。当日已报告输入 0 token、输出 0 token；不确定的请求预留量 0 token。</p><p>配置上限：每天解读 10 篇、搜索 6 次、网页读取 6 次。token 用保守预留限制在 60000 内；具体账单以 DeepSeek 后台为准。</p><p><a href="https://api-docs.deepseek.com/guides/search">官方搜索与读取说明 ↗</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing">官方实时价格 ↗</a></p></section><section class="panel"><h2>阅读数据与隐私</h2><p>收藏与已读存储在浏览器 localStorage，不需要登录，不会自动发往服务器。不同设备请通过论文库里的 JSON 导入／导出合并；清理浏览器会丢失未导出的记录。</p><h2>来源与版权</h2><p>论文标题、作者与摘要来自 arXiv，版权归原作者。学习资料链接指向官方文档。页面已重写为本项目的研究工作台；最初参考了 <a href="https://github.com/haoshendong/slam3d-paper-watch">slam3d-paper-watch</a> 的日报组织形式。</p><p>关键词匹配不等于质量评分；自动引文检查也不能确认语义一定正确。重要结论请回原文。</p></section></main>
+<footer class="footer"><span>GNSS × AI 研究雷达 · 公开研究资料导航</span><span>AI 解读需核验 · <a href="../about/index.html">来源与更新说明</a></span></footer>
+</div>
+<div class="toast" role="status" aria-live="polite" data-toast hidden></div>
+</body></html>

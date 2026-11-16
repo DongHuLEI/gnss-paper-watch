@@ -1,0 +1,76 @@
+{
+ "checked_at": "2026-11-14T15:34:20Z",
+ "checked_date": "2026-11-14",
+ "retrieval_status": "ok",
+ "retrieved_at": "2026-11-14T14:46:07Z",
+ "queries": [
+  {
+   "domain": "gnss",
+   "status": "ok",
+   "returned": 6,
+   "accepted": 1
+  },
+  {
+   "domain": "iono",
+   "status": "ok",
+   "returned": 3,
+   "accepted": 0
+  },
+  {
+   "domain": "ml",
+   "status": "ok",
+   "returned": 40,
+   "accepted": 23
+  },
+  {
+   "domain": "perception",
+   "status": "ok",
+   "returned": 31,
+   "accepted": 19
+  },
+  {
+   "domain": "embodied",
+   "status": "ok",
+   "returned": 40,
+   "accepted": 28
+  },
+  {
+   "domain": "training",
+   "status": "ok",
+   "returned": 40,
+   "accepted": 23
+  }
+ ],
+ "candidate_count": 92,
+ "issue_date": "2026-11-14",
+ "issue_papers": 8,
+ "ai_summaries": 0,
+ "ai": {
+  "date": "2026-11-14",
+  "model": "deepseek-flash",
+  "requests": {
+   "chat": 0,
+   "search": 0,
+   "fetch": 0
+  },
+  "successes": {
+   "chat": 0,
+   "search": 0,
+   "fetch": 0
+  },
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "accounted_tokens": 0,
+  "uncertain_reserved_tokens": 0,
+  "errors": [],
+  "state": "missing_key",
+  "limits": {
+   "daily_paper_limit": 10,
+   "daily_token_limit": 60000,
+   "daily_search_limit": 6,
+   "daily_fetch_limit": 6
+  }
+ },
+ "supplement_status": "not_requested",
+ "result": "already_checked"
+}

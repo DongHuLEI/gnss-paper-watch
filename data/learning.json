@@ -1,0 +1,72 @@
+{
+ "title": "模型训练与交叉研究学习路径",
+ "intro": "把基础概念、训练实践和新论文分开。先跑通可复现的小实验，再把方法迁移到时空预测、可靠定位或机器人任务。",
+ "modules": [
+  {
+   "id": "training-loop",
+   "title": "01 · 跑通一个训练闭环",
+   "level": "入门",
+   "goal": "能解释数据、前向计算、损失、梯度和验证各自负责什么。",
+   "steps": ["用小模型完成数据加载、训练、验证和保存权重。", "记录随机种子、数据版本、超参数和验证指标。", "比较训练集与验证集曲线，先定位过拟合和数据问题。"],
+   "transfer": "迁移到 TEC / ROTI 预测时，先建立持久性或简单时序基线，再讨论复杂网络。",
+   "pitfall": "不能把随机打乱的时序切分直接当成未来预测能力；验证窗口和台站留出要先设计。",
+   "query": "training",
+   "resources": [{"title": "PyTorch · Learn the Basics", "url": "https://docs.pytorch.org/tutorials/beginner/basics/intro.html"}]
+  },
+  {
+   "id": "data-evaluation",
+   "title": "02 · 数据治理与可信评测",
+   "level": "基础",
+   "goal": "明确样本如何产生、如何切分，以及什么结果才可以比较。",
+   "steps": ["检查时间泄漏、重复样本、缺测和事件标签。", "把台站、时间段或环境留出方案写清楚。", "分别看常态、强扰动、长尾场景和失败案例，而不只汇报平均指标。"],
+   "transfer": "电离层事件外推、机器人跨场景和 GNSS 遮挡退化，都依赖分布外评测。",
+   "pitfall": "更高的均值分数不代表更好的极端事件表现；指标与处置目标需要对应。",
+   "query": "uncertainty",
+   "resources": [{"title": "PyTorch · Reproducibility", "url": "https://docs.pytorch.org/docs/stable/notes/randomness.html"}]
+  },
+  {
+   "id": "efficient-adaptation",
+   "title": "03 · SFT、LoRA 与低成本适配",
+   "level": "进阶",
+   "goal": "区分从头训练、全参数微调与参数高效适配，按数据和资源选择。",
+   "steps": ["先确认模型许可证、输入输出格式和可用算力。", "固定数据与评价方式，对比冻结骨干、LoRA 和全参数微调。", "记录可训练参数、显存、耗时和任务效果，避免只比较最终分数。"],
+   "transfer": "适合探索时序基础模型的区域适配，以及视觉或语言模型对工程任务的迁移。",
+   "pitfall": "少量可训练参数不自动意味着少量总显存；序列长度、优化器和激活也影响资源。",
+   "query": "lora",
+   "resources": [{"title": "Hugging Face · PEFT", "url": "https://huggingface.co/docs/peft/index"}]
+  },
+  {
+   "id": "post-training",
+   "title": "04 · 后训练、强化学习与对齐",
+   "level": "进阶",
+   "goal": "理解监督示范、偏好数据与奖励反馈的区别。",
+   "steps": ["先明确任务和评价标准，再选择 SFT 或偏好／奖励优化。", "检查奖励是否与真正目标一致，保留独立测试。", "记录能力回退和失败行为，不能只看训练奖励。"],
+   "transfer": "机器人策略优化和工程决策可以借鉴反馈设计，但不能直接套用语言任务的奖励。",
+   "pitfall": "奖励上升可能来自指标投机；离线分数不能替代真实场景安全验证。",
+   "query": "post-training",
+   "resources": [{"title": "Hugging Face · TRL", "url": "https://huggingface.co/docs/trl/index"}]
+  },
+  {
+   "id": "embodied-policies",
+   "title": "05 · 从感知走向具身策略",
+   "level": "交叉",
+   "goal": "建立观测、状态、动作、策略和闭环评测的对应关系。",
+   "steps": ["从离线示范和小规模模仿学习入手，理解数据时间对齐。", "对比感知误差、动作延迟和环境变化如何影响闭环。", "先做仿真或低风险实验，再讨论 Sim-to-Real 与部署。"],
+   "transfer": "GNSS / IMU / LiDAR 融合提供可靠状态；策略学习需要另外评估动作和任务成功。",
+   "pitfall": "离线动作预测准确率不等于闭环成功率；真实设备还需要限幅、急停和安全边界。",
+   "query": "robot",
+   "resources": [{"title": "Hugging Face · LeRobot", "url": "https://huggingface.co/docs/lerobot/index"}, {"title": "Diffusion Policy · 官方实现", "url": "https://github.com/real-stanford/diffusion_policy"}]
+  },
+  {
+   "id": "scientific-transfer",
+   "title": "06 · 物理约束、不确定性与工程落地",
+   "level": "交叉",
+   "goal": "把模型效果转化成可解释、可检验的研究假设。",
+   "steps": ["比较纯数据模型、加入物理特征和显式约束的差异。", "评估不确定性是否校准，以及分布外输入如何处理。", "把延迟、算力、缺测、噪声和故障回退纳入实验。"],
+   "transfer": "连接科学 AI、空间天气风险、GNSS 完好性和机器人可靠导航。",
+   "pitfall": "物理一致性或漂亮可视化不是泛化证明；必须保留独立事件和退化场景。",
+   "query": "physics-informed",
+   "resources": [{"title": "PyTorch · 官方教程索引", "url": "https://docs.pytorch.org/tutorials/"}]
+  }
+ ]
+}
