@@ -1,13 +1,13 @@
 {
- "checked_at": "2026-11-14T15:34:20Z",
- "checked_date": "2026-11-14",
- "retrieval_status": "ok",
- "retrieved_at": "2026-11-14T14:46:07Z",
+ "checked_at": "2026-11-16T01:49:36Z",
+ "checked_date": "2026-11-16",
+ "retrieval_status": "partial",
+ "retrieved_at": "2026-11-16T01:49:36Z",
  "queries": [
   {
    "domain": "gnss",
    "status": "ok",
-   "returned": 6,
+   "returned": 5,
    "accepted": 1
   },
   {
@@ -18,52 +18,57 @@
   },
   {
    "domain": "ml",
-   "status": "ok",
-   "returned": 40,
-   "accepted": 23
+   "status": "failed",
+   "returned": 0,
+   "accepted": 0,
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "perception",
-   "status": "ok",
-   "returned": 31,
-   "accepted": 19
+   "status": "failed",
+   "returned": 0,
+   "accepted": 0,
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
   },
   {
    "domain": "embodied",
-   "status": "ok",
-   "returned": 40,
-   "accepted": 28
+   "status": "failed",
+   "returned": 0,
+   "accepted": 0,
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "training",
-   "status": "ok",
-   "returned": 40,
-   "accepted": 23
+   "status": "failed",
+   "returned": 0,
+   "accepted": 0,
+   "error": "TimeoutError: The read operation timed out"
   }
  ],
- "candidate_count": 92,
- "issue_date": "2026-11-14",
- "issue_papers": 8,
- "ai_summaries": 0,
+ "candidate_count": 1,
+ "issue_date": "2026-11-16",
+ "issue_papers": 1,
+ "ai_summaries": 1,
  "ai": {
-  "date": "2026-11-14",
+  "date": "2026-11-16",
   "model": "deepseek-flash",
   "requests": {
-   "chat": 0,
-   "search": 0,
-   "fetch": 0
+   "chat": 1,
+   "search": 6,
+   "fetch": 1
   },
   "successes": {
-   "chat": 0,
-   "search": 0,
-   "fetch": 0
+   "chat": 1,
+   "search": 6,
+   "fetch": 1
   },
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "accounted_tokens": 0,
+  "input_tokens": 4970,
+  "output_tokens": 838,
+  "accounted_tokens": 5808,
   "uncertain_reserved_tokens": 0,
   "errors": [],
-  "state": "missing_key",
+  "updated": "2026-11-16T01:49:36Z",
+  "state": "ready",
   "limits": {
    "daily_paper_limit": 10,
    "daily_token_limit": 60000,
@@ -71,6 +76,6 @@
    "daily_fetch_limit": 6
   }
  },
- "supplement_status": "not_requested",
- "result": "already_checked"
+ "supplement_status": "metadata_verification_failed_HTTPError",
+ "result": "updated"
 }

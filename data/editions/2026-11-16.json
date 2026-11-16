@@ -1,0 +1,277 @@
+{
+ "edition": {
+  "date": "2026-11-16",
+  "number": 12,
+  "title": "2026-11-16 · 研究日报",
+  "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+  "kicker": "DAILY RESEARCH",
+  "blurb": "本期 1 篇，1 篇 AI 中文解读；所有条目保留原始来源。",
+  "overview": [
+   "本期收录 1 篇，覆盖 工程感知与多源融合。",
+   "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+   "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
+  ],
+  "threads": [
+   {
+    "domain": "perception",
+    "title": "工程感知与多源融合 · 1 篇",
+    "text": "面向GNSS拒止大区域的分布式麦克风网络实时枪声检测与定位"
+   }
+  ],
+  "stats": [
+   {
+    "value": "1",
+    "label": "本期论文"
+   },
+   {
+    "value": "1",
+    "label": "AI 解读"
+   },
+   {
+    "value": "1",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "6",
+    "label": "研究方向"
+   }
+  ],
+  "note": [
+   "来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+   "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+   "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
+  ],
+  "generated_at": "2026-11-16T01:49:36Z",
+  "retrieval_status": "partial",
+  "ai_status": "ready"
+ },
+ "papers": [
+  {
+   "id": "2611.02591",
+   "slug": "arxiv-2611.02591",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [
+    "uncertainty",
+    "edge"
+   ],
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "score": 62,
+   "domain_scores": {
+    "perception": 62
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "面向GNSS拒止大区域的分布式麦克风网络实时枪声检测与定位",
+   "title_en": "A Distributed Microphone Network for Real-Time Gunshot Detection and Localization in GNSS-Challenged Large Areas",
+   "authors": [
+    "Dengke Wang",
+    "Bodhibrata Mukhopadhyay",
+    "Mohamed-Slim Alouini"
+   ],
+   "cats": [
+    "eess.SP"
+   ],
+   "tags": [
+    "分布式声学监测",
+    "枪声定位",
+    "TDoA/AoA融合",
+    "TinyML边缘计算",
+    "GNSS拒止"
+   ],
+   "one_liner": "摘要提出一种面向GNSS受限大范围环境的可扩展分布式声学监测系统：多个低成本MEMS麦克风阵列单元作为锚点，在边缘端用轻量SDES算法做声事件检测，再由TinyML分类器识别枪声；对检出的枪声用eGCC估计阵内TDoA，结合各单元AoA经改进SCO-EV框架融合得到全局坐标，并用MC算法补偿朝向误差。摘要报告在约4,985至49,063平方米范围内实验，枪…",
+   "one_liner_en": "This paper presents a scalable distributed acoustic surveillance system for real-time gunshot detection and localiza tion in large-area, GNSS-challenged environments. The system c…",
+   "lead_zh": "摘要提出一种面向GNSS受限大范围环境的可扩展分布式声学监测系统：多个低成本MEMS麦克风阵列单元作为锚点，在边缘端用轻量SDES算法做声事件检测，再由TinyML分类器识别枪声；对检出的枪声用eGCC估计阵内TDoA，结合各单元AoA经改进SCO-EV框架融合得到全局坐标，并用MC算法补偿朝向误差。摘要报告在约4,985至49,063平方米范围内实验，枪声识别MCC为0.70，25,000平方米上平均定位误差低于6.5米，更大范围误差低于15米。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "This paper presents a scalable distributed acoustic surveillance system for real-time gunshot detection and localiza tion in large-area, GNSS-challenged environments. The system consists of multiple low-cost MEMS microphone array units (MAUs) deployed as distributed anchors. Each MAU performs edge-level sound-event detection using a lightweight Sound De tection and Echo Suppression (SDES) algorithm, followed by a TinyML-based classifier for gunshot identification. For detected gunshots, an enhanced Generalized Cross-Correlation (eGCC) al gorithm estimates intra-array time differences of arrival (TDoAs) with improved robustness under low signal-to-noise ratio and re verberant conditions. Angle-of-arrival (AoA) estimates obtained from individual MAUs are fused through a modified SCO-EV localization framework to determine the gunshot position in a global coordinate system. A misplacement calibration (MC) algorithm compensates for platform orientation errors, improv ing angular consistency and localization accuracy in practical field conditions. Extensive experiments conducted over coverage areas ranging from 4,985 m2 to 49,063 m2 demonstrate reliable operation across varying spatial scales. The proposed framework achieves a Matthews Correlation Coefficient (MCC) of 0.70 for gunshot recognition and average localization errors below 6.5 m over 25,000 m2 , while maintaining errors under 15 m at larger scales. The results demonstrate the practical potential of the proposed system for distributed gunshot surveillance in GNSS challenged large areas.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.02591",
+    "pdf": "https://arxiv.org/pdf/2611.02591"
+   },
+   "retrieved_at": "2026-11-16T01:49:29Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "面向GNSS拒止大区域的分布式麦克风网络实时枪声检测与定位",
+    "summary": "摘要提出一种面向GNSS受限大范围环境的可扩展分布式声学监测系统：多个低成本MEMS麦克风阵列单元作为锚点，在边缘端用轻量SDES算法做声事件检测，再由TinyML分类器识别枪声；对检出的枪声用eGCC估计阵内TDoA，结合各单元AoA经改进SCO-EV框架融合得到全局坐标，并用MC算法补偿朝向误差。摘要报告在约4,985至49,063平方米范围内实验，枪声识别MCC为0.70，25,000平方米上平均定位误差低于6.5米，更大范围误差低于15米。",
+    "question": "如何在缺乏GNSS、面积大且存在混响与低信噪比的野外场景中，用低成本分布式麦克风实时检测枪声并确定其全局位置（摘要以野生动物盗猎监测为背景）。",
+    "method": "部署多个低成本MEMS麦克风阵列单元作为分布式锚点；每个单元边缘执行轻量SDES声事件检测与TinyML枪声分类；对检出的枪声用增强广义互相关eGCC估计阵内TDoA，据此得到AoA；各单元AoA经改进SCO-EV定位框架融合为全局坐标，并用misplacement calibration算法补偿平台朝向误差。",
+    "transfer": "推断：该系统以低成本边缘节点加多锚点AoA/TDoA融合在无GNSS条件下定位，思路可迁移到GNSS拒止区的声学或射频辅助定位与多传感器融合；其MC式朝向误差补偿对机器人多平台标定与传感器外参校准有参考价值；TinyML端侧分类对具身智能低功耗感知部署有借鉴意义。以上为推断，非论文结论。",
+    "limitations": [
+     "提供的来源为摘要和含标题、作者、引言与缩略语表的网页片段，未给出数据集构成、训练配置、算力与代码地址，这些信息未说明。",
+     "摘要未说明TinyML模型结构、分类阈值、误报率、实时延迟与功耗等指标，也未说明麦克风单元数量与部署几何。",
+     "eGCC在低信噪比与混响条件下的鲁棒性仅由摘要陈述，缺少消融与对比实验细节，需查全文验证。",
+     "MC算法补偿朝向误差的精度边界与标定流程未说明，野外长期漂移与风噪等影响仍需验证。"
+    ],
+    "practical_steps": [
+     "先核对全文中的麦克风阵列单元数量、部署布局与覆盖面积设定，摘要仅给出面积区间。",
+     "确认TinyML分类器的输入特征、模型规模与训练数据来源，摘要与片段未说明。",
+     "核对eGCC的改进细节与SCO-EV融合、MC标定的具体参数，摘要未提供。",
+     "复现时记录评价指标定义（MCC与定位误差统计方式）与测试场地条件，未知配置不可补造。"
+    ],
+    "tags": [
+     "分布式声学监测",
+     "枪声定位",
+     "TDoA/AoA融合",
+     "TinyML边缘计算",
+     "GNSS拒止"
+    ],
+    "findings": [
+     {
+      "statement": "所提框架枪声识别MCC为0.70，在25,000平方米上平均定位误差低于6.5米，更大尺度下误差低于15米。",
+      "quote": "The proposed framework achieves a Matthews Correlation Coefficient (MCC) of 0.70 for gunshot recognition and average localization errors below 6.5 m over 25,000 m2 , while maintaining errors under 15 m at larger scales.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.02591"
+     },
+     {
+      "statement": "实验覆盖面积从4,985平方米到49,063平方米，显示在多种空间尺度下可运行。",
+      "quote": "Extensive experiments conducted over coverage areas ranging from 4,985 m2 to 49,063 m2 demonstrate reliable operation across varying spatial scales.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.02591"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-16T01:49:36Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.02591",
+      "title": "A Distributed Microphone Network for Real-Time Gunshot Detection and Localization in GNSS-Challenged Large Areas",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.02591v1",
+      "title": "A Distributed Microphone Network for Real-Time Gunshot Detection and Localization in GNSS-Challenged Large Areas - License: arXiv",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4970,
+     "completion_tokens": 838
+    }
+   }
+  }
+ ],
+ "discovery": [
+  {
+   "title": "Time Flies When You Parallelise: Pareto-efficient Time Series Foundation Models with Linear Recurrences",
+   "url": "https://arxiv.org/abs/2611.16934",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "Time series foundation models have demonstrated strong zero-shot forecasting performance, but computational efficiency remains a central architectural challenge. ... The architecture alternates recurrent temporal processing with cross-variate attention, supporting multivariate probabilistic forecasting with past-only and future-known covariates. Across fev-bench's 100 forecasting tasks..."
+  },
+  {
+   "title": "Revisiting the Generic Transformer: Deconstructing a Strong Baseline for Time Series Foundation Models - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2602.06909v2",
+   "date": "2026-11-05T16:00:00+00:00",
+   "snippet": "We also provide extensive empirical evidence detailing how other key aspects affect the zero-shot performance of TSFM, including model scaling, contiguous patch masking, context length. ... Univariate Modeling and Zero-shot Forecasting: Our primary evaluation metric is zero-shot ... In this section, we present the formulation of our Time Series Foundation Model (TSFM) architecture, as illustrated in Figure 2. ... To perform probabilistic predictions..."
+  },
+  {
+   "title": "Time Flies When You Parallelise: Pareto-efficient Time Series Foundation Models with Linear Recurrences",
+   "url": "https://arxiv.org/html/2611.16934v1",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "3 Experiments ### 3.1 Standard forecasting benchmarks ... L, and XL) on the forecasting ... We introduced ci-proto, a family of multivariate time series foundation models combining Mamba-3 temporal processing with cross-variate attention. Its linear state recurrences enable chunk-wise parallel computation, while supporting probabilistic forecasting with past-only and future-known covariates."
+  },
+  {
+   "title": "From Forecasting to World Modeling: Can Temporal Foundation Models Recover Causal Response?",
+   "url": "https://arxiv.org/html/2611.15009v1",
+   "date": "2026-11-10T16:00:00+00:00",
+   "snippet": "Our results show that accurate forecasts do not imply an accurate counterfactual effect of price. Additional data ... did not respond to demand, and a foundation model pretrained for causal inference predicted the effect of price no more accurately than the forecasting models. ... evaluations of temporal foundation models as world models should measure the accuracy of predicted responses to interventions alongside forecast accuracy, because"
+  },
+  {
+   "title": "From Forecasting to World Modeling: Can Temporal Foundation Models Recover Causal Response?",
+   "url": "https://arxiv.org/abs/2611.15009v1",
+   "date": "2026-11-10T16:00:00+00:00",
+   "snippet": "A model that forecasts sales accurately can still mislead a retailer about how sales respond to a price change. We evaluate released tabular and time-series foundation models, as well as a foundation model pretrained specifically to estimate causal effects. We report three findings. ... Second, for the tabular foundation models, additional context improves forecasts but not the predicted effect of price. Third..."
+  },
+  {
+   "title": "QVS-LIVO RiskMap: Health- and Information-Aware View Selection for Multi-Camera LIVO and Off-Road Risk Mapping",
+   "url": "https://arxiv.org/html/2611.16205",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "RoadRunner learns elevation and traversability ... Combining geometric and semantic observations in unstructured field navigation ... we present Quality-aware View Selection Lidar-Vision Odometry Risk Mapping (QVS-LIVO RiskMap), a multi-camera localization and dual-scale risk-mapping framework. ... Sequences collected with the Multi-sensor AMR platform support internal mode comparisons and benchmarking against external SLAM baselines."
+  },
+  {
+   "title": "GOOSELoc: A Multimodal Benchmark for Ground-to-Aerial Localization in Unstructured Off-Road Terrain",
+   "url": "https://arxiv.org/html/2611.16162",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "GOOSELoc turns the ground-level imagery of the GOOSE dataset [19] into a benchmark for cross-view ... Releasing both modalities per scene lets GOOSELoc support image-only localization as well as the image-LiDAR fusion architecture we propose.360∘360^{\\circ}"
+  },
+  {
+   "title": "GOOSELoc: A Multimodal Benchmark for Ground-to-Aerial Localization in Unstructured Off-Road Terrain",
+   "url": "https://arxiv.org/abs/2611.16162",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "Cross-view pose estimation estimates a ground camera's geographic pose by matching onboard sensor data with geo-referenced overhead imagery. This is particularly relevant when GNSS is unreliable, for example under forest canopy or in urban canyons. ... We introduce GOOSELoc, a multimodal benchmark for ground-to-aerial"
+  },
+  {
+   "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation",
+   "url": "https://arxiv.org/html/2611.08577v3",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "we independently curate two complementary data resources ... The vision–language corpus provides supervision for general perception and embodied reasoning. Constructed through a separate pipeline, the robot corpus combines RoboDesk, licensed real-robot data, and open simulation data for action learning across heterogeneous hardware. ... 2.1 Vision-Language Data Visual reasoning for manipulation requires both broad perceptual knowledge and embodied understanding grounded in robot interaction."
+  },
+  {
+   "title": "VICTR: Value-Informed In-Context Learning for Vision-Language-Action Models",
+   "url": "https://arxiv.org/html/2611.08698v2",
+   "date": "2026-11-09T16:00:00+00:00",
+   "snippet": "and dedicated retrieval-augmented VLA ... We consider a multi-task vision-language-action setting. A task is specified by a language instruction, and an observationℓ∈ℒ\\ell\\in\\mathcal{L} consists of ot=[Xt1 ... A VLA policy predicts action chunks ... the instruction and observations.at..."
+  },
+  {
+   "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation",
+   "url": "https://arxiv.org/abs/2611.08577v3",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "We present Meituan-Robotics-0 (MR0), a vision-language-action foundation model and embodied-agent system for stationary-base desktop manipulation. ... A three-stage training recipe aligns multimodal representations with robot behavior through discrete action-token pre-training..."
+  },
+  {
+   "title": "VICTR: Value-Informed In-Context Learning for Vision-Language-Action Models",
+   "url": "https://arxiv.org/abs/2611.08698v2",
+   "date": "2026-11-09T16:00:00+00:00",
+   "snippet": "Previous work has used retrieval-based post-training to equip pretrained vision-language-action (VLA) models with the capability for ICL by teaching them to condition action predictions on retrieved visually-relevant demonstration chunks. However ... We introduce VICTR, a ... (IC-VFE)."
+  },
+  {
+   "title": "What Can a VLA Learn from the Agent That Calls It? Task-Level Experience Distillation for Embodied Navigation",
+   "url": "https://arxiv.org/html/2611.16246",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "Labelled steps | 179 ... 496 | 332,405 ... 3.3 From sessions to VLA training data H2E turns a session into training samples with three rules. Each sample holds the history ... Every motion of the session becomes a VLA action under the instruction that the VLA receives at test time. ... 3.4 Training objective The VLA learns from three sources. holds the labelled agent steps.𝒟ℋ\\mathcal{D}_{\\mathcal{H}}"
+  },
+  {
+   "title": "Not Yet in the Profile: Uncertainty-Aware Dynamic User Profiling by Learning from Future Interactions - Appendix B Ethical Considerations",
+   "url": "https://arxiv.org/html/2611.11204v1",
+   "date": "2026-11-07T16:00:00+00:00",
+   "snippet": "every baseline uses Qwen3.5-4B with reasoning disabled and outputs sampled at temperature 1, except the Stronger Model, and the trained baselines use the Dual Specialization and POPD subsets of UAPM, without the users of the downstream task model."
+  },
+  {
+   "title": "Demasking Fine-Tuning for Knowledge Injection in Autoregressive and Diffusion LLMs - Prompt distillation (Kujanpää et al., 2025).",
+   "url": "https://arxiv.org/html/2510.09885v7",
+   "date": "2026-11-04T16:00:00+00:00",
+   "snippet": "The student is the same model with a LoRA adapter (rank 1024 on all linear layers for the 3B/4B models and 512 for the 7B/8B models; the original paper used rank 1024 for 3B and 8B and 512 for 14B), trained with AdamW at to minimize the token-level KL divergence between the document-conditioned teacher distribution and the document-free student distribution over answer tokens, at distillation temperature 10−510^{-5}."
+  },
+  {
+   "title": "EvenVLM: A Text and Multimodal Dataset for the Even Language with Vision-Language Fine-Tuning",
+   "url": "https://arxiv.org/abs/2611.16500",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "Using LoRA fine-tuning of Qwen3-VL-4B, we adapt the model for text tasks (0.53% trainable parameters, rank 32) and separately for visual question answering (rank 64, frozen vision encoder)."
+  },
+  {
+   "title": "SD-LoRA: Training-Time Structural Distillation into LoRA for Few-Shot Vision-Language Adaptation - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.07063v1",
+   "date": "2026-11-03T16:00:00+00:00",
+   "snippet": "Its structural signal is distilled into a shared CLIP-LoRA backbone ... The core idea is implicit structural distillation. Instead of conventional logit-based distillation Hinton et al. ... SD-LoRA transfers structure via shared-backbone optimization ... (1) We propose SD-LoRA, a training-time structural distillation framework that injects token-level graph reasoning into a CLIP-LoRA backbone while keeping inference as lightweight LoRAcache adaptation."
+  },
+  {
+   "title": "SD-LoRA: Training-Time Structural Distillation into LoRA for Few-Shot Vision-Language Adaptation - Variant | Components | Aircraft | Caltech101 | EuroSAT",
+   "url": "https://arxiv.org/html/2611.07063v1",
+   "date": "2026-11-03T16:00:00+00:00",
+   "snippet": "SD-LoRA injects token-level relational bias during training while keeping the inference cost of the standard LoRA++cache. ... SD-LoRA demonstrates that structural reasoning can enhance parameter-efficient VLM adaptation without adding inference-time overhead.++ ... Cited by: §1, §2. ... Appendix B. ... Lora..."
+  }
+ ]
+}
