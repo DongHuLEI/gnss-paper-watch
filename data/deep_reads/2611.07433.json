@@ -1,0 +1,915 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.07433",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2611.07433v1",
+ "checked_on": "2026-11-17",
+ "title_zh": "MP-DualNet：先判断磁层顶是否可见，再分割投影边界——从模拟观测读懂双分支感知",
+ "dek": "MP-DualNet 用独立分类与分割分支处理软 X 射线图像，在有限视场内先判断边界相对位置，再给出二维投影区域。模拟测试表现较好，但均匀加性噪声不等于真实探测器噪声，图像分组留出也不是全新物理条件测试；它提供工程感知的可见性门控思路，而非完成磁层顶三维反演。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 Kimi Code 会话读取 arXiv v1 HTML 正文、图注、表格及可提取公式后整理，并实际查看所展示原图；不是 DeepSeek API 生成，不计入其用量。全文已包含模拟与噪声边界、角距离评价及开放研究声明；选取五条关键原式和三张原图，不把二维检测冒充三维反演或真实在轨验证。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S14": {
+   "label": "原文 · S1.p10.1",
+   "anchor": "S1.p10.1"
+  },
+  "S18": {
+   "label": "原文 · S2.p1.1",
+   "anchor": "S2.p1.1"
+  },
+  "S170": {
+   "label": "原文 · S6.SS6.p1.1",
+   "anchor": "S6.SS6.p1.1"
+  },
+  "S67": {
+   "label": "原文 · S3.SS4.p2.1",
+   "anchor": "S3.SS4.p2.1"
+  },
+  "S162": {
+   "label": "原文 · S6.SS4.p3.1",
+   "anchor": "S6.SS4.p3.1"
+  },
+  "S11": {
+   "label": "原文 · S1.p7.1",
+   "anchor": "S1.p7.1"
+  },
+  "S43": {
+   "label": "原文 · S3.SS1.p1.1",
+   "anchor": "S3.SS1.p1.1"
+  },
+  "S128": {
+   "label": "原文 · S5.SS3.p3.1",
+   "anchor": "S5.SS3.p3.1"
+  },
+  "S36": {
+   "label": "原文 · S2.SS3.p1.1",
+   "anchor": "S2.SS3.p1.1"
+  },
+  "S38": {
+   "label": "原文 · S2.SS3.p2.1",
+   "anchor": "S2.SS3.p2.1"
+  },
+  "S40": {
+   "label": "原文 · S2.SS3.p4.1",
+   "anchor": "S2.SS3.p4.1"
+  },
+  "S55": {
+   "label": "原文 · S3.SS2.p5.1",
+   "anchor": "S3.SS2.p5.1"
+  },
+  "S89": {
+   "label": "原文 · S4.SS1.p2.1",
+   "anchor": "S4.SS1.p2.1"
+  },
+  "S102": {
+   "label": "原文 · S4.SS3.p1.1",
+   "anchor": "S4.SS3.p1.1"
+  },
+  "S69": {
+   "label": "原文 · S3.SS5.p1.1",
+   "anchor": "S3.SS5.p1.1"
+  },
+  "S65": {
+   "label": "原文 · S3.SS4.p1.1",
+   "anchor": "S3.SS4.p1.1"
+  },
+  "S70": {
+   "label": "原文 · S3.SS5.p2.1",
+   "anchor": "S3.SS5.p2.1"
+  },
+  "S74": {
+   "label": "原文 · S3.SS6.p2.2",
+   "anchor": "S3.SS6.p2.2"
+  },
+  "S76": {
+   "label": "原文 · S3.SS6.p3.2",
+   "anchor": "S3.SS6.p3.2"
+  },
+  "S21": {
+   "label": "原文 · S2.SS1.p2.1",
+   "anchor": "S2.SS1.p2.1"
+  },
+  "S22": {
+   "label": "原文 · S2.SS1.p2.2",
+   "anchor": "S2.SS1.p2.2"
+  },
+  "S23": {
+   "label": "原文 · S2.SS1.p3.1",
+   "anchor": "S2.SS1.p3.1"
+  },
+  "S79": {
+   "label": "原文 · S3.SS7.p1.1",
+   "anchor": "S3.SS7.p1.1"
+  },
+  "S83": {
+   "label": "原文 · S3.SS7.p3.1",
+   "anchor": "S3.SS7.p3.1"
+  },
+  "S84": {
+   "label": "原文 · S3.SS7.p3.2",
+   "anchor": "S3.SS7.p3.2"
+  },
+  "S85": {
+   "label": "原文 · S3.SS7.p4.1",
+   "anchor": "S3.SS7.p4.1"
+  },
+  "S53": {
+   "label": "原文 · S3.T2.5",
+   "anchor": "S3.T2.5"
+  },
+  "S51": {
+   "label": "原文 · S3.SS2.p3.1",
+   "anchor": "S3.SS2.p3.1"
+  },
+  "S171": {
+   "label": "原文 · S6.SS6.p2.1",
+   "anchor": "S6.SS6.p2.1"
+  },
+  "S88": {
+   "label": "原文 · S4.SS1.p1.1",
+   "anchor": "S4.SS1.p1.1"
+  },
+  "S114": {
+   "label": "原文 · S5.SS1.p3.1",
+   "anchor": "S5.SS1.p3.1"
+  },
+  "S111": {
+   "label": "原文 · S5.F5",
+   "anchor": "S5.F5"
+  },
+  "S182": {
+   "label": "原文 · Sx2.p1.1",
+   "anchor": "Sx2.p1.1"
+  },
+  "S125": {
+   "label": "原文 · S5.T4",
+   "anchor": "S5.T4"
+  },
+  "S108": {
+   "label": "原文 · S4.SS3.p10.1",
+   "anchor": "S4.SS3.p10.1"
+  },
+  "S104": {
+   "label": "原文 · S4.SS3.p4.1",
+   "anchor": "S4.SS3.p4.1"
+  },
+  "S124": {
+   "label": "原文 · S5.SS3.p2.1",
+   "anchor": "S5.SS3.p2.1"
+  },
+  "S126": {
+   "label": "原文 · S5.T4.5",
+   "anchor": "S5.T4.5"
+  },
+  "S142": {
+   "label": "原文 · S5.SS6.p1.1",
+   "anchor": "S5.SS6.p1.1"
+  },
+  "S135": {
+   "label": "原文 · S5.SS5.p1.1",
+   "anchor": "S5.SS5.p1.1"
+  },
+  "S139": {
+   "label": "原文 · S5.SS5.p4.1",
+   "anchor": "S5.SS5.p4.1"
+  },
+  "S144": {
+   "label": "原文 · S5.SS6.p2.1",
+   "anchor": "S5.SS6.p2.1"
+  },
+  "S29": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S31": {
+   "label": "原文 · S2.SS2.p2.2",
+   "anchor": "S2.SS2.p2.2"
+  },
+  "S34": {
+   "label": "原文 · S2.SS2.p4.1",
+   "anchor": "S2.SS2.p4.1"
+  },
+  "S118": {
+   "label": "原文 · S5.SS2.p2.1",
+   "anchor": "S5.SS2.p2.1"
+  },
+  "S168": {
+   "label": "原文 · S6.SS5.p3.1",
+   "anchor": "S6.SS5.p3.1"
+  },
+  "S174": {
+   "label": "原文 · S6.SS6.p5.1",
+   "anchor": "S6.SS6.p5.1"
+  },
+  "M1": {
+   "label": "原公式 · S2.E1.m1",
+   "anchor": "S2.E1.m1"
+  },
+  "M5": {
+   "label": "原公式 · S3.E5.m1",
+   "anchor": "S3.E5.m1"
+  },
+  "M6": {
+   "label": "原公式 · S3.E6.m1",
+   "anchor": "S3.E6.m1"
+  },
+  "M10": {
+   "label": "原公式 · S3.E10.m1",
+   "anchor": "S3.E10.m1"
+  },
+  "M20": {
+   "label": "原公式 · S4.E20.m1",
+   "anchor": "S4.E20.m1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "S3.F2"
+  },
+  "F7": {
+   "label": "Fig.7 · 原文图",
+   "anchor": "S5.F7"
+  },
+  "F9": {
+   "label": "Fig.9 · 原文图",
+   "anchor": "S5.F9"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "从模拟软 X 射线图像提取磁层顶投影轮廓",
+     "kind": "reported",
+     "text": "本文针对软 X 射线观测中的磁层顶检测，先分类边界位于视场左侧、内部还是右侧，再用像素分割估计可见投影轮廓。训练和评价全部基于模拟图像，标签由混合模拟中的磁层顶沿视线投影得到。该研究属于空间环境遥感与图像感知，不是电离层 TEC 预测或 GNSS 定位算法，也没有直接测量磁层顶内部细尺度等离子体结构。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "In this study, we propose an end-to-end dual-branch deep learning framework, termed MP-DualNet, for automated detection and precise localization of the magnetopause from simulated SXI images under a range of different SNR conditions. The proposed framework is designed to determine whether the magnetopause enters the SXI FOV, to distinguish its relative orientation within the FOV, and to further extract the pixel-level location of the magnetopause boundary."
+      },
+      {
+       "source": "S18",
+       "quote": "The dataset used in this study was constructed before the launch of SMILE and consists entirely of simulated SXI observations ( Sembay et al., 2025 ) ."
+      },
+      {
+       "source": "S170",
+       "quote": "The outputs of MP-DualNet should therefore be interpreted as estimates of the large-scale projected envelope, rather than as reconstructions of the internal structure or detailed plasma physics of the boundary layer."
+      }
+     ]
+    },
+    {
+     "heading": "可见性置信度与边界精度必须分开评估",
+     "kind": "interpretation",
+     "text": "方法最值得借鉴的是先确认目标在视场中的状态，再决定像素输出能否被解释为可靠边界。分类为视场内部的高置信度，只说明模型认为目标可见，并不保证每个局部轮廓都准确。文中的外部风暴序列正好显示：整体几何状态可以识别正确，同时复杂边界处的重叠指标变差，因此不能用分类概率替代定位误差或局部结构验证。",
+     "evidence": [
+      {
+       "source": "S67",
+       "quote": "When p_{\\mathrm{I}} attains the maximum value, the magnetopause is considered to be observable within the SXI FOV, and the output of the segmentation branch is regarded as valid. Otherwise, the model reports only the relative orientation of the magnetopause."
+      },
+      {
+       "source": "S162",
+       "quote": "High values of p_{\\mathrm{I}} indicate that the large-scale geometric state is correctly identified, whereas local boundary complexity and reference uncertainty primarily affect pixel-level overlap measures."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "目标出视场时，强行追踪一条完整边界会失去意义",
+     "kind": "reported",
+     "text": "作者认为有限视场和变化的观测几何是检测难点：磁层顶在扰动中可能只出现一部分，甚至完全移出画面，传统依赖预设几何或多时刻近稳态条件的方案会受到限制。本文将相对视场位置和像素分割明确拆开，回应“什么时候应输出边界”的问题。这是对作者动机的归纳，不代表本站认定所有传统重建方法都无法处理不完整观测。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "During these dramatic events, the magnetopause undergoes rapid and large-scale displacement, frequently moving outside the SXI FOV. Traditional methods, which predominantly rely on the entire boundary being visible within the FOV, lack a systematic and robust solution for such incomplete signature scenarios."
+      },
+      {
+       "source": "S43",
+       "quote": "MP-DualNet is an end-to-end dual-branch deep learning framework designed for robust detection and precise localization of the magnetopause from simulated SXI images. The framework takes SXI images as input and jointly addresses two related but distinct tasks: magnetopause visibility identification and boundary localization. This formulation enables explicit task decoupling while maintaining consistency in feature representation."
+      }
+     ]
+    },
+    {
+     "heading": "亮度峰并不自动等于物理边界",
+     "kind": "interpretation",
+     "text": "软 X 射线图是沿视线累积的辐射强度，明亮结构同时受等离子体分布、观测几何和背景影响。仅找每行最大亮度未必能定位模拟定义的磁层顶，因此作者用投影包络标签指导分割，而不把亮峰当成唯一真值。但这种标签仍继承模拟和混合率判据的定义；学会复现标签，不等于直接恢复了真实边界层全部物理过程。",
+     "evidence": [
+      {
+       "source": "S128",
+       "quote": "As shown in panels (a1) and (a2) of Figure 7 , enhanced soft X-ray emission regions are present in the SXI images, while the local intensity maxima do not always coincide with the magnetopause envelope derived from the hybrid simulations. This discrepancy reflects the fact that the soft X-ray intensity distribution is not uniquely determined by boundary geometry and is influenced by LOS integration."
+      },
+      {
+       "source": "S36",
+       "quote": "Based on the result of the global hybrid simulations, the reference ground truth for the magnetopause is constructed in the form of a LOS magnetopause envelope, which represents the projected envelope of the magnetopause boundary along the viewing direction ( Yang et al., 2025b ) ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先生成辐射图与投影标签，而非从真实图像人工描边",
+     "kind": "reported",
+     "text": "全局混合模拟生成三维辐射率，沿指定视线积分后形成二维强度图；磁层顶参考则依据太阳风与磁层等离子体的混合程度识别，再沿相同几何投影成包络。包络两侧被标成磁层侧与太阳风侧，分类标签另外描述其相对视场位置。图像和标签因此共享模拟几何，注入噪声只改变图像，不改变同一源图像的参考边界。",
+     "evidence": [
+      {
+       "source": "S18",
+       "quote": "Then, the simulated emissivity distributions are used as inputs to an SXI forward modeling framework, in which LOS integration is performed to generate 2D SXI images corresponding to specific viewing directions ( Zhang et al., 2023 ) ."
+      },
+      {
+       "source": "S38",
+       "quote": "Within the SXI FOV, the LOS magnetopause envelope divides the observation region into two topologically connected domains, corresponding to the solar wind–magnetosheath side and the magnetospheric side. This partition is binarized to form pixel-level segmentation labels, in which pixels located on the magnetospheric side are assigned a value of 1, and those on the solar wind side are assigned a value of 0. Under this formulation, magnetopause boundary identification is cast as a semantic segmentation task, aiming to recover the pixel-wise mask of the magnetopause from SXI images."
+      },
+      {
+       "source": "S40",
+       "quote": "As a result, for a given noise-free soft X-ray image, all SXI realizations generated at different noise levels share an identical LOS magnetopause envelope segmentation label."
+      }
+     ]
+    },
+    {
+     "heading": "逐图归一化与网格变换，要区分概率图和标签",
+     "kind": "reported",
+     "text": "每幅图先取对数，用本图的第 1 与第 99 百分位裁剪，再缩放到单位范围，避免不同物理条件的整体亮度主导特征。原生 15×25 图像经双线性插值送到 32×32 网络输入；评价再返回原生角网格。连续概率图与离散参考标签的重采样规则不能混用，插值后的平滑外观也不代表传感器获得了更高的实际角分辨率。",
+     "evidence": [
+      {
+       "source": "S55",
+       "quote": "For each SXI image, the intensity is first transformed using logarithmic scaling. The 1 and 99 percentiles, denoted as P_{1} and P_{99} , are then computed from the image itself, and pixel values are clipped to the interval [P_{1},P_{99}] to suppress extreme outliers and saturated pixels."
+      },
+      {
+       "source": "S89",
+       "quote": "The original simulated SXI images have a spatial size of 15\\times 25 pix 2 , which is not fully compatible with the multiple downsampling operations in the U-Net architecture. Therefore, bilinear interpolation is applied at the network input stage to resample the images to 32\\times 32 pix 2 ."
+      },
+      {
+       "source": "S102",
+       "quote": "The fused 32\\times 32 probability map was bilinearly resampled to the native grid and binarized at \\tau=0.5 . The reference masks were restored to the native grid using nearest-neighbor interpolation."
+      }
+     ]
+    },
+    {
+     "heading": "两个独立 U-Net 分别处理全局位置和局部区域",
+     "kind": "reported",
+     "text": "分类和分割分支使用各自独立的 U-Net，而不是共享同一个编码器。分类端将空间特征池化后，通过全连接和 softmax 输出左、内、右的概率；分割端用卷积与 sigmoid 保留像素对应关系。这样把全局视场状态与局部边界任务分离，但两套骨干会增加运行代价，是否优于共享编码器仍需在相同训练预算和分布外条件下比较。",
+     "evidence": [
+      {
+       "source": "S69",
+       "quote": "Given the distinct objectives and optimization targets of the classification and segmentation tasks, two independent U-Net backbones are used to serve the respective branches, rather than sharing a common encoder."
+      },
+      {
+       "source": "S65",
+       "quote": "Specifically, global average pooling (GAP) is applied to the 32-channel feature maps at the U-Net output, producing a 32-dimensional feature vector. The pooled features are then passed through a fully connected hidden layer (MLP, Multi-Layer Perceptron) with 128 neurons."
+      },
+      {
+       "source": "S65",
+       "quote": "A softmax activation function is finally applied to output the probabilities \\left[p_{\\mathrm{L}},p_{\\mathrm{I}},p_{\\mathrm{R}}\\right] , corresponding to the cases in which the magnetopause is located on the left side of the FOV, inside the FOV, or on the right side of the FOV, respectively."
+      },
+      {
+       "source": "S70",
+       "quote": "A sigmoid activation function is applied at the output layer to generate a single-channel probability map representing the likelihood of each pixel belonging to the magnetopause envelope."
+      }
+     ]
+    },
+    {
+     "heading": "软融合控制分割贡献，而不是每张图都强制解释边界",
+     "kind": "reported",
+     "text": "分割头始终产生像素概率，但最终图由分类概率控制：视场内部概率较高时更依赖分割，左右类别占优时趋向相应的整幅区域状态，再用 0.5 阈值二值化。分类不确定时，分割输出的贡献被调节。得到全空或全满区域并不表示找到了画面中的一条边界，更不能直接等同于三维磁层顶距离；输出仍须结合可见性状态解释。",
+     "evidence": [
+      {
+       "source": "S74",
+       "quote": "The segmentation head always produces S(\\theta,\\phi) for every input image. However, its contribution to the fused probability map is controlled by the Inside probability p_{\\mathrm{I}} ."
+      },
+      {
+       "source": "S74",
+       "quote": "When the three class probabilities are comparable, the classification branch indicates uncertainty in the FOV state. In this case, the contribution of the segmentation map is naturally moderated by p_{\\mathrm{I}} , preventing the raw segmentation output from being over-interpreted as a reliable boundary when the model is uncertain whether the magnetopause is observable inside the FOV."
+      },
+      {
+       "source": "S76",
+       "quote": "where \\tau=0.5 is used in this study."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "视线积分是空间投影，不是探测器曝光平均",
+     "kind": "interpretation",
+     "text": "原文强度公式沿视线累加体辐射率并包含立体角因子，说明图像亮度不是局部边界位置的直接读数。作者明确每张图来自单个模拟快照，没有指定探测器积分时间；因此不应把它当作加入了真实曝光效应的光子计数图。复现该原式时还要按实际观测几何沿路径取三维场，不能仅因公式简写就对一个固定空间点反复积分。",
+     "evidence": [
+      {
+       "source": "S21",
+       "quote": "In this study, SWCX emission associated with solar wind-magnetosphere interaction is modeled based on global hybrid simulation results, yielding the 3D soft X-ray volumetric emissivity distribution P_{x} ( Connor et al., 2025 ) . For a given spacecraft orbital position and viewing geometry, the volumetric emissivity is integrated along the SXI instrument’s LOS to obtain the 2D LOS soft X-ray intensity distribution. The corresponding expression is given by Cucho-Padin et al. (2024) ."
+      },
+      {
+       "source": "S22",
+       "quote": "where I(\\mathbf{r},\\hat{\\mathbf{n}},t) denotes the time-dependent soft X-ray energy flux (in units of keV cm -2 s -1 sr -1 ) observed along the viewing direction \\hat{\\mathbf{n}} at geocentric position \\mathbf{r} and time \\mathrm{t} . Here, l denotes the distance along the LOS, L_{\\max} is the maximum integration length."
+      },
+      {
+       "source": "S23",
+       "quote": "Each synthetic SXI image was generated from a single simulation snapshot. The integration in Equation ( 1 ) is performed along the line of sight and does not represent temporal averaging over an instrumental exposure. Accordingly, no detector integration time was assigned to the images used in this study."
+      }
+     ]
+    },
+    {
+     "heading": "归一化与分类融合是两个不同的数值约束",
+     "kind": "interpretation",
+     "text": "归一化公式将本图裁剪后的强度压到有限范围，融合公式则按类别概率混合整幅区域状态与分割图。前者处理输入动态范围，后者表达目标相对视场的不确定性，两者都不保证物理概率已经校准。实现还需检查常量图的百分位分母、类别方向约定及阈值前后的处理顺序，不应把输出处于合法区间误解成边界必然可信。",
+     "evidence": [
+      {
+       "source": "S55",
+       "quote": "The clipped image is subsequently linearly rescaled to the range [0,1] , yielding the normalized intensity."
+      },
+      {
+       "source": "S74",
+       "quote": "Specifically, if p_{\\mathrm{I}}\\approx 1 , then M(\\theta,\\phi)\\approx S(\\theta,\\phi) ; if p_{\\mathrm{R}}\\approx 1 , then M(\\theta,\\phi)\\approx 1 ; and if p_{\\mathrm{L}}\\approx 1 , then M(\\theta,\\phi)\\approx 0 ."
+      }
+     ]
+    },
+    {
+     "heading": "分割损失也由预测的可见概率加权",
+     "kind": "reported",
+     "text": "总目标结合分类交叉熵和分割损失，后者用分类分支给出的内部概率调制像素监督，而非简单对所有图像施加同样强的边界约束。这让视场外样本的边界损失被抑制，但也使分类误差可能影响分割学习与最终输出。该耦合是需要验证的训练设计，不能仅凭损失写法就断言误分类时必然安全或两个任务互不干扰。",
+     "evidence": [
+      {
+       "source": "S79",
+       "quote": "During training, the network parameters are optimized by minimizing a loss function using the backpropagation algorithm ( Rumelhart et al., 1986 ; Goodfellow et al., 2016 ) . The total loss is defined as the weighted sum of a classification loss and a segmentation loss,"
+      },
+      {
+       "source": "S83",
+       "quote": "The segmentation loss \\mathcal{L}_{\\mathrm{seg}} is defined as a weighted binary cross-entropy loss and is applied only when the magnetopause is predicted to be located within the SXI FOV. It is expressed as"
+      },
+      {
+       "source": "S84",
+       "quote": "where p_{\\mathrm{j,I}} is the probability predicted by the classification head that the magnetopause lies inside the SXI FOV, y_{j} and \\hat{y}_{j} denote the ground truth label and predicted probability of pixel j , respectively, and M is the total number of pixels."
+      },
+      {
+       "source": "S85",
+       "quote": "By modulating the segmentation loss with the classification probability p_{\\mathrm{I}} , pixel-level supervision is emphasized primarily for samples in which the magnetopause is likely to be observable within the SXI FOV."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "分组防止噪声近亲泄漏，但仍来自固定上游工况",
+     "kind": "reported",
+     "text": "表中训练总数为 11211，验证和测试各为 1515，左、内、右三类等量。来自同一无噪声源图的不同噪声版本被放在同一子集，避免近乎相同的图像跨训练与测试。这个设计检验的是已设定模拟工况内未见源图的迁移，而不是全新太阳风条件的泛化；均衡类别也是开发选择，不能直接当作实际任务中的类别先验。",
+     "evidence": [
+      {
+       "source": "S53",
+       "quote": "Split Left Right Inside Total Training 3737 3737 3737 11211 Validation 505 505 505 1515 Test 505 505 505 1515"
+      },
+      {
+       "source": "S51",
+       "quote": "To prevent data leakage, the noisy and noise-free counterparts are strictly assigned to the same subset."
+      },
+      {
+       "source": "S51",
+       "quote": "This balanced distribution is a model-development choice and is not intended to represent the frequencies of the three classes during SMILE operations."
+      },
+      {
+       "source": "S171",
+       "quote": "The resulting test performance therefore measures transfer to unseen source-image groups within the three prescribed upstream regimes. It does not by itself demonstrate generalization to previously unseen solar-wind conditions or rapidly varying upstream forcing."
+      }
+     ]
+    },
+    {
+     "heading": "按验证损失选模型，公开归档不等于本站已复现",
+     "kind": "reported",
+     "text": "训练用 Adam、批量大小 800，最多 500 轮；验证损失连续 50 轮不再改善就停止。实际在第 135 轮结束，选取验证最优的第 85 轮检查点，而不是训练误差最低的模型。作者声明 Zenodo 归档提供处理后数据、预训练权重和推断评价示例；本次没有运行该归档，也没有测得训练耗时、显存和在线时延，因此不能称为独立复现。",
+     "evidence": [
+      {
+       "source": "S88",
+       "quote": "Model training is performed using the Adam optimizer ( Kingma and Ba, 2015 ) with a learning rate of 1\\times 10^{-4} . The maximum number of training epochs is set to 500, and the batch size is fixed at 800. To mitigate overfitting, an early stopping strategy is employed. Training is terminated if the validation loss does not decrease for 50 consecutive epochs."
+      },
+      {
+       "source": "S114",
+       "quote": "To mitigate overfitting, early stopping is applied, and training is terminated at epoch 135. The model corresponding to the minimum validation loss is selected for subsequent analysis. Although this model does not achieve the lowest training loss, it provides the best balance between accuracy and generalization capability."
+      },
+      {
+       "source": "S111",
+       "quote": "The gray dotted vertical line marks Epoch 85, at which the minimum validation loss of 0.1358 is obtained, and the orange marker indicates the corresponding checkpoint."
+      },
+      {
+       "source": "S182",
+       "quote": "The processed synthetic SXI datasets, pretrained models, and Python code for inference, evaluation, and visualization are archived at Zenodo ( Zhong et al., 2026 ) ."
+      }
+     ]
+    },
+    {
+     "heading": "全测试融合掩膜与可见边界距离采用不同样本口径",
+     "kind": "reported",
+     "text": "融合掩膜重叠指标在均衡测试集的原生网格上评价，边界距离则针对参考为视场内部的样本，并只使用预测与参考边界同时有定义的行。作者还进行 5,000 次图像级重采样来估计固定模型的采样区间；这不是多次重新训练的不确定性，也不能替代按源图组或独立事件分析。阅读总体 IoU 时必须同时查看可见样本覆盖和边界距离。",
+     "evidence": [
+      {
+       "source": "S125",
+       "quote": "Table 4 : Performance and image-level bootstrap uncertainty on the full balanced test set. Fused-mask metrics were evaluated on the native 15\\times 25 SXI grid. The intervals represent 95% percentile bootstrap confidence intervals from 5,000 resamples."
+      },
+      {
+       "source": "S108",
+       "quote": "Boundary-distance metrics were evaluated for reference-Inside samples."
+      },
+      {
+       "source": "S104",
+       "quote": "where \\Omega contains the rows in which both boundaries are defined."
+      },
+      {
+       "source": "S124",
+       "quote": "These intervals describe sampling uncertainty for one fixed trained model."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "分类、区域重叠与角距离要同时看",
+     "kind": "reported",
+     "text": "测试分类准确率为 0.948、宏平均 F1 为 0.947，融合掩膜 IoU 为 0.972；边界评价报告平均逐行角位移 0.488°，中心行平均误差 0.4112°。这些指标分别衡量视场状态、区域一致性和角位置，不能相互替代，更不能把角误差直接换算为某个固定三维距离。源图分组和边界可定义条件也限制了结果所能代表的总体。",
+     "evidence": [
+      {
+       "source": "S126",
+       "quote": "Metric Estimate 95% confidence interval Classification accuracy 0.948 0.936–0.959 Classification Macro-F1 0.947 0.935–0.958 Classification kappa 0.921 0.903–0.938 Fused-mask accuracy 0.988 0.985–0.991 Fused-mask precision 0.992 0.988–0.995 Fused-mask recall 0.981 0.974–0.986 Fused-mask F1 0.986 0.982–0.989 Fused-mask IoU 0.972 0.965–0.979"
+      },
+      {
+       "source": "S142",
+       "quote": "Among the test set samples, the mean absolute angular displacement was 0.488^{\\circ} , while the mean central-row absolute angular error was 0.4112^{\\circ} . These physical metrics quantify the boundary localization and complement the IoU and F1 scores."
+      },
+      {
+       "source": "S108",
+       "quote": "Boundary-distance metrics were evaluated for reference-Inside samples."
+      }
+     ]
+    },
+    {
+     "heading": "独立风暴序列支持宏观迁移，也暴露局部轮廓退化",
+     "kind": "reported",
+     "text": "额外验证采用 2024 年五月风暴的独立混合模拟序列，并非真实在轨图像。模型能跟踪边界相对视场的整体移动，但在轮廓复杂的若干时刻，分割重叠明显下降。原图可看到内部类别概率很高时，预测仍会遗漏局部起伏；这说明“看见了目标”和“局部边界精确”是不同问题，不能只挑整体轮廓相近的帧来证明稳健性。",
+     "evidence": [
+      {
+       "source": "S135",
+       "quote": "To assess the generalization capability of MP-DualNet under more complex space weather conditions, an independent storm event that was not included in the training/validation/test sets is selected for extra validation. Specifically, global hybrid simulation results for the May 2024 geomagnetic storm presented by Ng et al. (2025) are employed to generate a sequence of synthetic SXI LOS-integrated images. These data are used solely as external test inputs and were not used for model training or validation."
+      },
+      {
+       "source": "S139",
+       "quote": "It is noted that the segmentation performance, particularly the IoU metric, degrades noticeably at several time steps. Visual inspection indicates that, during these intervals, the reference magnetopause envelope displays increased small-scale complexity, such as stronger local fluctuation and non-smooth structures. Given the spatial resolution of the input SXI images, the presence of noise, and the fact that the model is primarily trained to capture large-scale envelope morphology, deviations in fine-scale boundary details are expected."
+      },
+      {
+       "source": "S162",
+       "quote": "High values of p_{\\mathrm{I}} indicate that the large-scale geometric state is correctly identified, whereas local boundary complexity and reference uncertainty primarily affect pixel-level overlap measures."
+      }
+     ]
+    },
+    {
+     "heading": "与传统方法的较小平均差仅来自一个公开合成个例",
+     "kind": "reported",
+     "text": "在共享的公开合成图像上，相对同一投影参考，MP-DualNet 的平均角差为 0.33°，重建的 TFA 曲线为 0.46°，逐行亮度峰位置为 0.75°。作者明确强调这只是单例一致性比较，而且较小平均值不代表每个局部偏差或尾部都更小。不能据此宣称它在整个数据集、所有几何或真实观测中都超过传统反演方法。",
+     "evidence": [
+      {
+       "source": "S144",
+       "quote": "Relative to the projected MHD-fit reference, the mean absolute angular difference was 0.33^{\\circ} for MP-DualNet, 0.46^{\\circ} for the TFA boundary reconstructed from the parameters reported by Sun et al. (2020) , and 0.75^{\\circ} for the native-grid \\max(I_{X}) locus."
+      },
+      {
+       "source": "S144",
+       "quote": "However, the 95th-percentile comparison shows that the smaller mean does not imply uniformly smaller local deviations along the entire boundary."
+      },
+      {
+       "source": "S144",
+       "quote": "Because this analysis concerns a single external case and uses a TFA curve reconstructed from published parameters, it is presented as a case-specific consistency test rather than evidence of dataset-wide superiority over TFA."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "均匀加性噪声稳健，不等于真实探测器已经验证",
+     "kind": "reported",
+     "text": "作者明确说明输入是视线积分强度而不是光子计数，附加的是受控均匀随机背景，没有包含泊松计数、仪器响应和完整宇宙背景模型。因此噪声实验支持的是所设计扰动下的稳健性，不是对所有真实低信噪比观测的保证。上线还需引入曝光、响应与实测背景，并以在轨数据重新检验；现有精度不能直接视为真实任务的交付指标。",
+     "evidence": [
+      {
+       "source": "S29",
+       "quote": "The noise-free images used in this study are LOS-integrated soft X-ray intensity maps rather than detector photon-count maps. Accordingly, the added noise was not generated using a Poisson process. Instead, a controlled additive random background was introduced to evaluate the sensitivity of MP-DualNet to different levels of image perturbation."
+      },
+      {
+       "source": "S31",
+       "quote": "The resulting additive term is uniformly distributed over [0,A_{k}] , with mean A_{k}/2 and variance A_{k}^{2}/12 ."
+      },
+      {
+       "source": "S34",
+       "quote": "In particular, it does not include Poisson photon-counting statistics, the instrument response, or a physical model of the spatial and spectral properties of the cosmic X-ray background."
+      },
+      {
+       "source": "S34",
+       "quote": "Detector-level evaluation will require the use of the SXI response and exposure settings to calculate expected photon counts, followed by Poisson sampling and validation against flight observations."
+      }
+     ]
+    },
+    {
+     "heading": "区域指标可能掩盖拒绝、不可定义行与类别分布变化",
+     "kind": "interpretation",
+     "text": "全空或全满的融合区域也能参与区域指标，而实际边界距离只在有定义的行计算；所以高总体 IoU 不自动意味着每张图都能提供可用边界。还应报告可见样本被误判为视场外的比例、边界有效行覆盖及真实类别频率下的表现。这些是本站提出的补充评测，并非已经证实作者存在数据泄漏或指标错误；均衡测试只回答了特定抽样问题。",
+     "evidence": [
+      {
+       "source": "S74",
+       "quote": "Specifically, if p_{\\mathrm{I}}\\approx 1 , then M(\\theta,\\phi)\\approx S(\\theta,\\phi) ; if p_{\\mathrm{R}}\\approx 1 , then M(\\theta,\\phi)\\approx 1 ; and if p_{\\mathrm{L}}\\approx 1 , then M(\\theta,\\phi)\\approx 0 ."
+      },
+      {
+       "source": "S104",
+       "quote": "where \\Omega contains the rows in which both boundaries are defined."
+      },
+      {
+       "source": "S118",
+       "quote": "Misclassifications are primarily associated with the Inside category, where some samples are incorrectly classified as Right."
+      }
+     ]
+    },
+    {
+     "heading": "二维大尺度包络并非三维反演，也没有显式时间一致性",
+     "kind": "reported",
+     "text": "作者将输出限定为大尺度二维投影包络，不直接估计日下点距离或边界层内部结构；当前模型逐帧工作，没有显式时间一致性约束。复杂扰动下细节退化因此不能只归因于随机噪声，还涉及标签不确定性、分辨率和视线混合。后续时序约束与不确定边界带是合理方向，但不能把这些尚待完成的扩展写成本文已经实现的能力。",
+     "evidence": [
+      {
+       "source": "S168",
+       "quote": "MP-DualNet does not perform this 3D inversion and does not directly estimate a subsolar standoff distance."
+      },
+      {
+       "source": "S170",
+       "quote": "The outputs of MP-DualNet should therefore be interpreted as estimates of the large-scale projected envelope, rather than as reconstructions of the internal structure or detailed plasma physics of the boundary layer."
+      },
+      {
+       "source": "S174",
+       "quote": "Third, temporal information exploitation represents a natural extension, as the current model operates on a single-frame SXI image and does not explicitly enforce temporal consistency ( Gu et al., 2025 ) ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "面向空间环境遥感：先补齐探测器与分布外验证",
+     "kind": "proposal",
+     "text": "可固定原模型，逐级加入响应、曝光、泊松计数和实测背景，再按未见上游工况、轨道几何与完整风暴留出；比较独立双骨干、共享骨干和传统拟合入口。交付角距离均值与尾部、可见性误判、有效行覆盖、类别概率校准和推断成本。这样能区分网络是否真的适应观测域变化，而不是只适应同一源图的随机噪声。",
+     "evidence": []
+    },
+    {
+     "heading": "连接工程感知与具身系统：学习何时不该输出精细结果",
+     "kind": "proposal",
+     "text": "在遮挡或视场有限的传感器任务中，可借鉴“可见性分类加细粒度定位”，但不沿用磁层顶左右类别的物理含义。按完整场景和设备留出，测试目标出画、弱纹理、反射与传感器失效，比较无门控、硬拒绝和软融合。交付误接受率、漏检、有效输出覆盖、位置误差尾部与处理时延；置信度未经校准前，不应把精细分割直接用于高风险动作控制。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S2.E1.m1",
+   "refs": [
+    "M1"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>I</mi><mo>⁡</mo><mrow><mo>(</mo><mi>𝐫</mi><mo>,</mo><mover><mi>𝐧</mi><mo>^</mo></mover><mo>,</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mfrac><mn>1</mn><mrow><mn>4</mn><mo>​</mo><mi>π</mi></mrow></mfrac><mo>​</mo><mrow><msubsup><mo>∫</mo><mn>0</mn><msub><mi>L</mi><mi>max</mi></msub></msubsup><mrow><msub><mi>P</mi><mi>x</mi></msub><mo>​</mo><mrow><mo>(</mo><mi>𝐫</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow><mo>​</mo><mrow><mo>𝑑</mo><mi>l</mi></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "I(\\mathbf{r},\\hat{\\mathbf{n}},t)=\\frac{1}{4\\pi}\\int_{0}^{L_{\\max}}P_{x}(\\mathbf{r},t)\\,\\mathrm{d}l,",
+   "title": "由三维体辐射率得到二维视线强度",
+   "meaning": "沿观测视线累加体辐射率，得到某个观测方向的软 X 射线能量强度。原文给出的强度单位为 keV·cm⁻²·s⁻¹·sr⁻¹；它是空间积分，不包含探测器曝光和光子抽样。",
+   "caution": "按来源原式呈现，未补改其简写的空间参数。不能把单个模拟快照的空间积分说成真实曝光平均，也不能把亮度峰直接等同于磁层顶位置。",
+   "symbols": [
+    {
+     "symbol": "I(r, n̂, t)",
+     "text": "在观测位置、视线方向与指定时刻的能量强度。"
+    },
+    {
+     "symbol": "Px",
+     "text": "来自全局混合模拟的三维体辐射率，沿实际视线采样。"
+    },
+    {
+     "symbol": "l / Lmax",
+     "text": "沿视线的长度变量与最大积分距离，单位须与辐射率及几何实现一致。"
+    },
+    {
+     "symbol": "1/(4π)",
+     "text": "原文保留的立体角因子，不代表图像归一化。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S3.E5.m1",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mrow><mrow><msub><mi>I</mi><mi>norm</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi>clip</mi><mo>⁡</mo><mrow><mo>(</mo><mi>I</mi><mo>,</mo><msub><mi>P</mi><mn>1</mn></msub><mo>,</mo><msub><mi>P</mi><mn>99</mn></msub><mo>)</mo></mrow></mrow><mo>−</mo><msub><mi>P</mi><mn>1</mn></msub></mrow><mrow><msub><mi>P</mi><mn>99</mn></msub><mo>−</mo><msub><mi>P</mi><mn>1</mn></msub></mrow></mfrac></mrow><mo>,</mo><mo>.</mo></mrow>",
+   "accessible": "I_{\\mathrm{norm}}=\\frac{\\mathrm{clip}(I,P_{1},P_{99})-P_{1}}{P_{99}-P_{1}},.",
+   "title": "逐图百分位裁剪后缩放，避免跨场景亮度范围主导学习",
+   "meaning": "原文在对数变换后按本图百分位裁剪并线性缩放，输出无量纲归一化强度。其目标是保留相对结构，不是恢复绝对辐射定标；不同图中相同归一化颜色不必对应相同物理强度。",
+   "caution": "需检查常量图或极弱信号图的分母退化与数值处理；该公式并不补偿仪器响应，也不使不同场景拥有相同信噪比。",
+   "symbols": [
+    {
+     "symbol": "I / Inorm",
+     "text": "预处理中的图像强度与归一化结果，须按正文确认对数步骤的顺序。"
+    },
+    {
+     "symbol": "P1 / P99",
+     "text": "本图强度的两个百分位阈值，不是跨测试集拟合的统一上下限。"
+    },
+    {
+     "symbol": "clip",
+     "text": "将低于或高于阈值的数值裁剪到相应边界。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S3.E6.m1",
+   "refs": [
+    "M6"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>M</mi><mo>⁡</mo><mrow><mo>(</mo><mi>θ</mi><mo>,</mo><mi>ϕ</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mrow><msub><mi>p</mi><mi>L</mi></msub><mo>⋅</mo><mn>0</mn></mrow><mo>+</mo><mrow><msub><mi>p</mi><mi>I</mi></msub><mo>​</mo><mi>S</mi><mo>​</mo><mrow><mo>(</mo><mi>θ</mi><mo>,</mo><mi>ϕ</mi><mo>)</mo></mrow></mrow><mo>+</mo><mrow><msub><mi>p</mi><mi>R</mi></msub><mo>⋅</mo><mn>1</mn></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "M(\\theta,\\phi)=p_{\\mathrm{L}}\\cdot 0+p_{\\mathrm{I}}S(\\theta,\\phi)+p_{\\mathrm{R}}\\cdot 1,",
+   "title": "用视场类别概率软融合分割图与整幅区域状态",
+   "meaning": "最终图混合左右视场状态的常量区域与内部状态下的像素概率图。输出仍是无量纲概率表示；左右常量的含义依赖作者规定的图像方向和掩膜标签，不能在坐标翻转后直接照用。",
+   "caution": "分类概率高不等于局部轮廓准确；后续阈值化可能产生全空或全满区域，必须连同可见性状态和有效边界覆盖解释。",
+   "symbols": [
+    {
+     "symbol": "pL / pI / pR",
+     "text": "分类分支对左侧、视场内部和右侧状态的概率。"
+    },
+    {
+     "symbol": "S(θ, φ)",
+     "text": "独立分割分支在角坐标网格上的原始像素输出。"
+    },
+    {
+     "symbol": "M(θ, φ)",
+     "text": "融合图，不是磁层顶的三维曲面或日下点距离。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S3.E10.m1",
+   "refs": [
+    "M10"
+   ],
+   "mathml": "<mrow><mrow><msub><mi>ℒ</mi><mi>seg</mi></msub><mo>=</mo><mrow><mfrac><mn>1</mn><mi>M</mi></mfrac><mo>​</mo><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><mrow><msub><mi>p</mi><mrow><mi>j</mi><mo>,</mo><mi>I</mi></mrow></msub><mo>​</mo><mrow><mo>[</mo><mrow><mrow><mo>−</mo><mrow><msub><mi>y</mi><mi>j</mi></msub><mo>​</mo><mrow><mi>log</mi><mo>⁡</mo><mrow><mo>(</mo><msub><mover><mi>y</mi><mo>^</mo></mover><mi>j</mi></msub><mo>)</mo></mrow></mrow></mrow></mrow><mo>−</mo><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mi>j</mi></msub></mrow><mo>)</mo></mrow><mo>​</mo><mrow><mi>log</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><msub><mover><mi>y</mi><mo>^</mo></mover><mi>j</mi></msub></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>]</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\mathcal{L}_{\\mathrm{seg}}=\\frac{1}{M}\\sum_{j=1}^{M}p_{\\mathrm{j,I}}\\left[-y_{j}\\log(\\hat{y}_{j})-(1-y_{j})\\log(1-\\hat{y}_{j})\\right],",
+   "title": "用内部概率调节像素分割损失",
+   "meaning": "二元交叉熵由分类分支预测的内部概率加权，使视场外样本的细粒度监督影响降低。它与分类交叉熵共同训练；优化目标发生耦合，而不是两个任务彼此完全独立。",
+   "caution": "应回代码核对权重广播、梯度是否贯通以及概率数值截断。若分类偏低，像素监督也可能减弱，公式本身不能证明误分类条件下的稳健性。",
+   "symbols": [
+    {
+     "symbol": "yj / ŷj",
+     "text": "像素参考二元标签与预测概率。"
+    },
+    {
+     "symbol": "pj,I",
+     "text": "对应样本的内部类别预测概率，在该式中按像素项使用。"
+    },
+    {
+     "symbol": "M",
+     "text": "本损失中的像素总数，不是上一条公式的融合概率图；原文复用了字母。"
+    },
+    {
+     "symbol": "Lseg",
+     "text": "加权分割损失，无量纲；总损失还包括分类任务。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文 · S4.E20.m1",
+   "refs": [
+    "M20"
+   ],
+   "mathml": "<mrow><mrow><msub><mi>E</mi><mi>row</mi></msub><mo>=</mo><mrow><mfrac><mn>1</mn><mrow><mo>|</mo><mi mathvariant=\"normal\">Ω</mi><mo>|</mo></mrow></mfrac><mo>​</mo><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi mathvariant=\"normal\">Ω</mi></mrow></munder><mrow><mo>|</mo><mrow><mrow><mover><mi>θ</mi><mo>^</mo></mover><mo>​</mo><mrow><mo>(</mo><msub><mi>ϕ</mi><mi>j</mi></msub><mo>)</mo></mrow></mrow><mo>−</mo><mrow><msup><mi>θ</mi><mo>∗</mo></msup><mo>​</mo><mrow><mo>(</mo><msub><mi>ϕ</mi><mi>j</mi></msub><mo>)</mo></mrow></mrow></mrow><mo>|</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "E_{\\mathrm{row}}=\\frac{1}{|\\Omega|}\\sum_{j\\in\\Omega}\\left|\\hat{\\theta}(\\phi_{j})-\\theta^{\\ast}(\\phi_{j})\\right|,",
+   "title": "用有定义行上的角距离补充区域 IoU",
+   "meaning": "在预测与参考边界都可确定的行，对横向边界位置的绝对差求平均。该误差以角度计，直接描述图像平面定位，不能不结合观测距离和几何就换成空间长度。",
+   "caution": "只报告条件均值可能隐藏边界不可用的比例，因此应同时记录有效行覆盖与参考内部样本的拒绝率。此式不提供边界层厚度或三维重建误差。",
+   "symbols": [
+    {
+     "symbol": "θ̂(φj) / θ*(φj)",
+     "text": "同一纵向角坐标行的预测与参考边界横向角位置。"
+    },
+    {
+     "symbol": "Ω / |Ω|",
+     "text": "两条边界同时有定义的行集合与其大小；缺失行不在该均值内。"
+    },
+    {
+     "symbol": "Erow",
+     "text": "单幅图有效行上的平均绝对角位移，和中心行误差是不同统计量。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 2,
+   "reference": "F2",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.07433v1/Network_Structure-MP-DualNet.png",
+   "width": 892,
+   "height": 232,
+   "caption": "Figure 2 : Network architecture of MP-DualNet. The framework consists of parallel classification and segmentation branches. U-Net (Cls) and U-Net (Seg) serve as the respective backbones for the classification and segmentation tasks. [p_{L},p_{I},p_{R}] denotes the probabilities for the magnetopause location being to the left, inside, or to the right of the SXI field of view. \\mathrm{S}(\\theta,\\phi) represents the segmentation map in angular coordinates.",
+   "title": "双分支是独立骨干，不是一个编码器后接两个头",
+   "alt": "原文图2将同一模拟 SXI 图像分别送入 U-Net 分类骨干和 U-Net 分割骨干，上方输出左内右类别概率，下方输出角坐标网格上的分割概率。",
+   "caution": "左侧彩色图是模拟强度输入的示意，不是对真实在轨数据验证的证据。图中输出也不是三维磁层顶或太阳风参数反演。",
+   "reading_steps": [
+    {
+     "title": "先沿两条输入箭头读独立特征提取",
+     "text": "上路与下路各有一个 U-Net，分别对应分类和分割。不要把图画成共享编码器多任务结构，也不要因两个分支输入相同就认为中间特征或参数必然共享。"
+    },
+    {
+     "title": "再分清图像级状态与像素级输出",
+     "text": "上方概率向量描述磁层顶相对视场的位置，下方概率图保留空间角坐标。两者回答不同问题，内部类别概率高不等于每个分割像素都准确。"
+    },
+    {
+     "title": "最后结合正文融合与损失解释",
+     "text": "这张结构图没有完整画出所有融合、阈值与损失计算，不能只看箭头就声称两个任务完全不耦合。最终解释边界还需按正文处理可见性状态。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 7,
+   "reference": "F7",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.07433v1/Clean_SXI_Examples_new.png",
+   "width": 1410,
+   "height": 712,
+   "caption": "Figure 7 : Representative examples of magnetopause boundary detection results for two test samples classified as Inside. Each row corresponds to one representative case. Panels (a1) and (a2) show the normalized LOS-integrated SXI images overlaid with the reference magnetopause envelope (red solid line) and the predicted boundary (cyan dashed line). Panels (b1) and (b2) present the pixel-wise segmentation probability maps. Panels (c1) and (c2) show the spatial distribution of segmentation errors, including false positives (FP) and false negatives (FN). Panels (d1) and (d2) display the probability outputs of the classification branch for the three categories: Left, Inside, and Right, corresponding to the relative position of the magnetopause with respect to the SXI FOV.",
+   "title": "分割个例：强度、概率、错分位置与可见性是不同量",
+   "alt": "原文图7有两行可见边界样本，每行从左到右为归一化强度加参考与预测轮廓、黑白分割概率、红蓝错分图以及左内右分类条形图；横纵为观测角坐标。",
+   "caution": "角坐标图的像素级重叠不是三维距离精度，归一化强度也不是原始光子计数。两行样例不能证明所有低信噪比或视场边缘场景都同样可靠。",
+   "reading_steps": [
+    {
+     "title": "先看左侧轮廓，不把亮峰当成参考线",
+     "text": "红色实线来自模拟参考包络，青色虚线是模型预测；背景颜色表示归一化强度。亮度增强与参考边界不完全重合，不能将最亮列自动当作预测应当追踪的位置。"
+    },
+    {
+     "title": "再看中间两种色标的意义",
+     "text": "黑白图的色标是像素概率，误差图则是红色假阳性、蓝色假阴性和浅色正确区域。红蓝小块表示标签层面的局部不一致，不是对应方向的磁场或电子密度扰动。"
+    },
+    {
+     "title": "最后看右侧分类的证据边界",
+     "text": "两例都被高置信度判为内部，但误差图仍有局部错分。它们仅展示选定样本，不能用两条重合轮廓替代全测试统计、有效行覆盖和独立风暴验证。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 9,
+   "reference": "F9",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.07433v1/Storm_event_newMin.png",
+   "width": 1837,
+   "height": 680,
+   "caption": "Figure 9 : External validation of MP-DualNet during a storm-time event. Top panels: temporal evolution of classification probabilities for the Left, Inside, and Right categories. Middle panels: variation of segmentation metrics, including IoU, Accuracy, and F1 over time. Bottom panels: selected SXI frames overlaid with the reference magnetopause envelope (red solid line) and the predicted boundary (cyan dashed line).",
+   "title": "外部模拟风暴：分类可见不代表局部边界没有退化",
+   "alt": "原文图9上排为左内右类别概率随分钟变化，中排为 IoU、准确率和 F1，下排是连续模拟帧及红色参考、青色预测轮廓；中段内部概率较高时局部轮廓仍有明显偏差。",
+   "caution": "这是一个外部模拟事件，不是全新真实观测域的验证。下排背景采用归一化强度，不能跨帧用颜色直接推断绝对辐射变化，也不能据边界像素估算未报告的空间速度。",
+   "reading_steps": [
+    {
+     "title": "先按时间列对齐三排信息",
+     "text": "上排展示边界从右侧进入视场、随后又转向左侧的分类变化；下排每帧对应相同时间列。不要把连续模拟时间当作真实在轨曝光记录，原图验证仍来自独立混合模拟。"
+    },
+    {
+     "title": "再看中段分类与分割是否一致",
+     "text": "内部类别占优的部分时刻，IoU 和局部轮廓拟合仍会变差。可见性置信度和精细位置可靠性并非同一个量；应同时查看红线局部起伏被平滑或遗漏的位置，而不是只看分类曲线。"
+    },
+    {
+     "title": "最后谨慎解释出视场时的重叠指标",
+     "text": "末段预测转为左侧，区域和边界指标的意义会随可见性状态变化；原图没有据此给出真实物理失效标签。需要结合掩膜定义、空集合约定和边界有效覆盖核对，不能把所有指标下降都称作磁层顶消失或系统失效。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Zhong, Cheng、Yang, Zhongwei、Sun, Tianran、Huang, Chengyan、Liu, Jiajia、Guo, Jingnan、Wang, Yuming、Wang, Chi",
+ "provenance": {
+  "provider": "Kimi Code",
+  "model": "Kimi Code 会话整理（精确模型标识未记录）",
+  "generated_at": "2026-11-17T10:08:39Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "2d2afd580e1f2675658eb020ae4dcfddc55ff81ff7d68ff3705aca22b0b15e9e",
+  "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。本篇原文标示 CC BY-NC-ND 4.0，含非商业及禁止演绎限制；本站对原图保持外部原样引用并单独评论，不对图像改色或镜像。其他使用须遵守原许可，不能把本站的图解当成作者授权。"
+}
