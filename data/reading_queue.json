@@ -181,10 +181,15 @@
   },
   "2610.13443": {
    "paper_id": "2610.13443",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-17T13:30:52Z",
+   "completed_at": "2026-11-17T13:30:52Z",
+   "source_sha256": "32203ee8e0d614cdb7708234267754afae56d1f49a5b9946404a7b3cdaa4645e",
+   "provider": "DeepSeek 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2610.14822": {
    "paper_id": "2610.14822",
@@ -476,6 +481,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-17T13:17:22Z",
+ "updated_at": "2026-11-17T13:30:52Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
