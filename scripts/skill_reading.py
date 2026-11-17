@@ -27,9 +27,7 @@ def render(data, abstract, issue_links):
             body = "".join(claim(data, item) for item in section["paragraphs"])
             if key == "equations":
                 body += "".join(equation_card(data, item, number) for number, item in enumerate(data["equations"], 1))
-            if key == "method":
-                body = "".join(original_figure(data, item["reference"]) for item in data["original_figures"][:1]) + body
-            if key == "results":
-                body += "".join(original_figure(data, item["reference"]) for item in data["original_figures"][1:])
+            images = "".join(original_figure(data, item["reference"]) for position, item in enumerate(data["original_figures"]) if item.get("section", "method" if position == 0 else "results") == key)
+            body = images + body if key == "method" else body + images
         sections.append('<section class="dr-section" id="%s" data-reading-section><div class="dr-section-title"><span>%02d</span><h2>%s</h2></div>%s</section>' % (key, index, esc(title), body))
     return layout(data, sections)

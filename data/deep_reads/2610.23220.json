@@ -1,0 +1,559 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2610.23220",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2610.23220v1",
+ "checked_on": "2026-11-17",
+ "title_zh": "SKA-Low 与行星际闪烁：把高时间分辨率射电观测连接到空间天气监测",
+ "dek": "这是一篇科学目标与观测方案综述：利用行星际闪烁识别紧致射电源，并用多视线、多频率、多站观测研究太阳风与 CME。文中灵敏度、源密度与巡天覆盖主要是规划估计，不是已经完成的 SKA 实测成绩；它与电离层校准有关，但不能当作 GNSS 闪烁预报模型。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 Kimi Code 会话读取 arXiv v1 HTML 正文、图表和可提取公式后整理，并实际查看所展示原图；不是 DeepSeek API 生成，不计入其用量。该版本未提取到展示公式，因此保留文字尺度关系和原图，不补造公式；性能数字区分前导设备结果与规划外推。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S3": {
+   "label": "原文 · abstract1.3",
+   "anchor": "abstract1.3"
+  },
+  "S7": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S6": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S80": {
+   "label": "原文 · S3.SS3.SSS1.p4.1",
+   "anchor": "S3.SS3.SSS1.p4.1"
+  },
+  "S1": {
+   "label": "原文 · abstract1.1",
+   "anchor": "abstract1.1"
+  },
+  "S5": {
+   "label": "原文 · S1.p1.1",
+   "anchor": "S1.p1.1"
+  },
+  "S57": {
+   "label": "原文 · S3.SS1.p1.1",
+   "anchor": "S3.SS1.p1.1"
+  },
+  "S58": {
+   "label": "原文 · S3.SS1.p2.1",
+   "anchor": "S3.SS1.p2.1"
+  },
+  "S60": {
+   "label": "原文 · S3.SS1.p3.1",
+   "anchor": "S3.SS1.p3.1"
+  },
+  "S74": {
+   "label": "原文 · S3.SS3.p3.1",
+   "anchor": "S3.SS3.p3.1"
+  },
+  "S47": {
+   "label": "原文 · S2.SS2.SSS2.p1.1",
+   "anchor": "S2.SS2.SSS2.p1.1"
+  },
+  "S88": {
+   "label": "原文 · S3.SS5.p2.1",
+   "anchor": "S3.SS5.p2.1"
+  },
+  "S90": {
+   "label": "原文 · S3.SS5.p4.1",
+   "anchor": "S3.SS5.p4.1"
+  },
+  "S51": {
+   "label": "原文 · S2.SS2.SSS3.p2.1",
+   "anchor": "S2.SS2.SSS3.p2.1"
+  },
+  "S62": {
+   "label": "原文 · S3.SS2.p1.1",
+   "anchor": "S3.SS2.p1.1"
+  },
+  "S66": {
+   "label": "原文 · S3.SS2.p3.1",
+   "anchor": "S3.SS2.p3.1"
+  },
+  "S50": {
+   "label": "原文 · S2.SS2.SSS3.p1.1",
+   "anchor": "S2.SS2.SSS3.p1.1"
+  },
+  "S30": {
+   "label": "原文 · S2.SS1.SSS6.p2.1",
+   "anchor": "S2.SS1.SSS6.p2.1"
+  },
+  "S70": {
+   "label": "原文 · S3.T2",
+   "anchor": "S3.T2"
+  },
+  "S69": {
+   "label": "原文 · S3.SS3.p1.1",
+   "anchor": "S3.SS3.p1.1"
+  },
+  "S72": {
+   "label": "原文 · S3.SS3.p2.1",
+   "anchor": "S3.SS3.p2.1"
+  },
+  "S64": {
+   "label": "原文 · S3.SS2.p2.1",
+   "anchor": "S3.SS2.p2.1"
+  },
+  "S98": {
+   "label": "原文 · S3.SS6.p3.1",
+   "anchor": "S3.SS6.p3.1"
+  },
+  "S102": {
+   "label": "原文 · S3.SS6.p7.1",
+   "anchor": "S3.SS6.p7.1"
+  },
+  "S94": {
+   "label": "原文 · S3.SS5.p8.1",
+   "anchor": "S3.SS5.p8.1"
+  },
+  "S85": {
+   "label": "原文 · S3.SS4.p3.1",
+   "anchor": "S3.SS4.p3.1"
+  },
+  "S92": {
+   "label": "原文 · S3.SS5.p6.1",
+   "anchor": "S3.SS5.p6.1"
+  },
+  "S93": {
+   "label": "原文 · S3.SS5.p7.1",
+   "anchor": "S3.SS5.p7.1"
+  },
+  "S97": {
+   "label": "原文 · S3.SS6.p2.1",
+   "anchor": "S3.SS6.p2.1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "S3.F2"
+  },
+  "F3": {
+   "label": "Fig.3 · 原文图",
+   "anchor": "S3.F3"
+  },
+  "F4": {
+   "label": "Fig.4 · 原文图",
+   "anchor": "S3.F4"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "核心不是新神经网络，而是可实施的观测方案",
+     "kind": "reported",
+     "text": "文章梳理行星际闪烁在紧致射电源识别和空间天气研究中的既有成果，再讨论 SKA-Low 需要怎样的数据采集、时间分辨率、频带与观测模式。作者明确把它写成研究进展和必要技术发展的综述章节，后续性能主要以估计和方案形式给出。阅读时应分清前导设备已有观测、面向 SKA 的设计和仍待检验的设想。",
+     "evidence": [
+      {
+       "source": "S3",
+       "quote": "Here, we present recent developments in the field of compact sources at low frequencies, their synergies with other fields of astronomy and space weather, and outline the technical developments and approaches that are necessary with the SKA-Low to realise these studies."
+      },
+      {
+       "source": "S7",
+       "quote": "This chapter is organised as follows: in Sect. 2 we summarise the wealth of science results which have sprung from the use of the IPS technique, with a strong emphasis on the work that utilized SKA precursors. In Sect. 3 we describe how IPS observations will be made with the SKAO telescopes, and in Sect. 4 we summarise our conclusions."
+      }
+     ]
+    },
+    {
+     "heading": "同叫闪烁，也要先定位散射介质",
+     "kind": "interpretation",
+     "text": "本文重点的 IPS 是行星际介质引起的射电源强度起伏，空间天气部分关注日球层和太阳风。另一方面，识别出的紧致射电源可成为低频成像的方向相关电离层校准源。两条用途彼此相关但并非同一测量任务：不能把太阳风遥感结果直接当成本地 TEC、ROTI 或 GNSS 接收机的闪烁指数，也不能由射电源紧致性直接推出定位误差。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "The key feature of IPS for space weather studies, which is shared to some extent with other ground-based radio techniques, is the ability to remotely sense the Heliosphere."
+      },
+      {
+       "source": "S80",
+       "quote": "We once again note that the high density of compact sources identified by IPS technique will provide the network of calibrators for the SKA-Low required to make direction-dependent ionospheric calibration."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "用闪烁补充常规干涉成像难分辨的结构",
+     "kind": "reported",
+     "text": "SKA-Low 连续谱巡天能够提供频谱信息，但常规角分辨率不足以清晰区分延展射电星系与其中很紧致的分量。作者希望利用只有足够紧致的源才表现出强 IPS 的特性，在不直接开展超长基线低频成像的情况下取得额外的角尺度信息。这是紧致性诊断与源筛选，不应将其简单等同于得到同分辨率的直接空间图像。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "Continuum surveys with SKA-Low will provide excellent spectral information for detected objects. However, the angular resolution it provides cannot clearly distinguish between extended radio galaxies and their sub-arcsecond scale counterparts."
+      },
+      {
+       "source": "S5",
+       "quote": "For astrophysics, the key feature is that only sources that are sufficiently small can show interplanetary scintillation (the effect is slightly frequency dependent, but the critical size is <1 ′′ )."
+      }
+     ]
+    },
+    {
+     "heading": "高灵敏度仍需匹配时间采样和瞬时成像条件",
+     "kind": "reported",
+     "text": "光有较大的集光面积不足以保证测到目标起伏。作者同时要求足够快的相关积分，以及适合短时间图像的瞬时 UV 覆盖；现有不同子阵输出的积分时间对 IPS 适用性也不同。这把问题从“能看见多弱的源”推进到“能否不平均掉闪烁、并在每个采样时刻可靠成像”，因此软硬件接口和观测模式本身是研究的一部分。",
+     "evidence": [
+      {
+       "source": "S57",
+       "quote": "The requirements for making survey the SKA-Low are simple: (i) correlation with \\sim 0.5 second time resolution in order to adequately sample the IPS signature (a shorter time constant would be desirable, and may even be necessary at high/frequencies or high solar wind speeds), (ii) our main approach is image based, therefore the sub-array selected should provide a good instantaneous UV coverage such that high quality images can be made at that time resolution."
+      },
+      {
+       "source": "S58",
+       "quote": "The current SKA-Low specifications provide visibilities at 0.85 s time resolution for sub-arrays and 0.28 second for sub-arrays using sub-stations based on outputs of xGPU correlator. While the former may just be viable, it is far from ideal, and will average over IPS timescales of interest. The latter is a more useful visibility integration period for IPS studies."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "成像模式：在宽视场内提取闪烁源",
+     "kind": "reported",
+     "text": "作者设想用靠近阵列核心的台站提供良好瞬时 UV 覆盖，形成高时间分辨率图像，再在方差图中识别发生强度起伏的紧致源。频带不能只求越宽越好，因为闪烁幅度与频率相关，过宽频段可能造成信号退相关。该流程属于射电数据处理与观测设计，文中并没有提供一个已经训练好的通用电离层预测网络。",
+     "evidence": [
+      {
+       "source": "S60",
+       "quote": "Clearly, the UV plane is extremely well filled, which can be expected to provide excellent high time resolution images for IPS."
+      },
+      {
+       "source": "S60",
+       "quote": "Since IPS amplitude variations is proportional to wavelength, intend to limit our frequency bandwidth to such a value such that avoid any decorrelation that may happen to IPS signal at the two ends of the bandwidth."
+      },
+      {
+       "source": "S74",
+       "quote": "However, our image-based approach of detecting scintillating sources in variance image means that only scintillating sources remain in the image."
+      }
+     ]
+    },
+    {
+     "heading": "多站模式：用相关时延约束太阳风运动",
+     "kind": "reported",
+     "text": "另一路径是在分散的地面位置同时采样闪烁图样，利用到达时延和基线相对太阳风速度方向的几何关系估计运动。作者讨论在不同站群形成独立波束的可能性，并提醒更长基线有利于区分视线中的多股流。这里的基线是地面采样位置之间的间隔，不是直接把两条 GNSS 穿刺点轨迹做差，也不能省略投影几何和多散射屏模型。",
+     "evidence": [
+      {
+       "source": "S47",
+       "quote": "By sampling the scintillation pattern at multiple points on the ground it is possible to determine the speed of the solar wind via the time delay between scintillation pattern observed at different locations, and the relative geometry of the solar wind velocity vector and the baseline."
+      },
+      {
+       "source": "S88",
+       "quote": "The wealth of information that can be gleaned from a large number of baselines has been demonstrated by International LOFAR ( Fallows et al., 2023 ) . However, the baselines of the SKA-Low are much shorter than those of international LOFAR. Therefore, before considering the technical feasibility of this approach with SKA-low, it is important to carefully assess whether the baselines of SKA-Low are of a suitable length."
+      },
+      {
+       "source": "S90",
+       "quote": "However, Coles (1996) stress the importance of longer baselines to separate multiple streams along the line of sight."
+      }
+     ]
+    },
+    {
+     "heading": "频率、离日角和巡天几何要共同选择",
+     "kind": "reported",
+     "text": "靠太阳过近会进入强散射，需要更复杂分析；离太阳过远则闪烁信号弱、信噪比低。作者因此提出随太阳位置安排弱散射区观测，并用多波束重复覆盖太阳周围天空。这个计划针对不同频率的可用观测几何作取舍，不是任何时候都能以相同阈值读取同一片天空，更不是已经形成连续全天候空间天气服务。",
+     "evidence": [
+      {
+       "source": "S51",
+       "quote": "As explained in Section 3.2 , the principle consequence is that different solar elongations are appropriate for different observing frequencies. Observing too close leads to observations in the strong regime, which can provide useful information, but require more detailed analysis. Observing too far away leads to a weaker scintillation signature and therefore a reduced signal-to-noise."
+      },
+      {
+       "source": "S62",
+       "quote": "The IPS survey would cover the sky in a similar manner to the strategy of following the Sun over the year, as done with the MWA and ASKAP. These observations would be made at solar elongations where IPS enters the weak regime as shown in Figure 3 . For simplicity, to illustrate our strategy, we outline an observing plan using the 162 MHz observations only."
+      },
+      {
+       "source": "S66",
+       "quote": "Since the Sun moves \\sim 1 degree across the sky in one day, this strategy would require observing the sky only once every 7 days to optimally cover the sky to conduct an IPS survey. Therefore, the observing time required is only 70 minutes per week at this frequency."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "当前版本未提取到展示公式，不为模板补造方程",
+     "kind": "unknown",
+     "text": "本站从该版本 HTML 正文中没有提取到独立展示的公式，因此不添加看似来自论文的公式卡。文章的重点是观测模式、图示和灵敏度估计，理解算法时应沿其文字描述追踪输入、采样、成像和跨站相关步骤。若要实现完整反演，需要进一步阅读作者引用的专门方法论文；本页没有据常识编写一个未经原文核对的太阳风反演方程。",
+     "evidence": []
+    },
+    {
+     "heading": "文字给出的尺度关系也有适用条件",
+     "kind": "interpretation",
+     "text": "原文指出弱散射条件下调制指数随观测波长变化，而源的散射展宽和产生闪烁所允许的临界角尺度具有不同的波长依赖。因此，多频率观测可能帮助区分源结构与传播效应，但不能只按一个频率比例把所有闪烁现象互相换算。这些是本文讨论的物理关系，不是本站新增的展示公式，也不能直接用于校正 GNSS 的闪烁指标。",
+     "evidence": [
+      {
+       "source": "S50",
+       "quote": "In common with other scintillation phenomena, the modulation index in the weak scatter regime is proportional to observing wavelength."
+      },
+      {
+       "source": "S30",
+       "quote": "Additionally, the scatter-broadened size of sources scales with \\lambda^{2.2} ( Taylor and Cordes, 1993 , e.g.) , while the critical size for scintillation scales only with \\sqrt{\\lambda} ( Narayan, 1992 , e.g.) ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "这里的“实验设置”主要是规划计算条件",
+     "kind": "reported",
+     "text": "作者在 AA4 阵列配置下讨论内侧约 6 km 台站，在 162 MHz 附近使用 32 MHz 带宽，并假定自然加权进行灵敏度估计。高时间分辨率输出约 0.28 s 更适合 IPS，0.85 s 输出可能平均掉关注的起伏。上述条件共同决定估计值的意义，不能把表中结果当成所有阵列、全部频段和任意积分时间都成立的通用性能。",
+     "evidence": [
+      {
+       "source": "S60",
+       "quote": "In Figure 2 we have plotted the instantaneous UV coverage of the SKA-Low at zenith using only the inner 6 km stations, with 32 MHz of bandwidth centred on 162 MHz (the frequency of our MWA surveys conducted with 16 MHz bandwidth)."
+      },
+      {
+       "source": "S58",
+       "quote": "The current SKA-Low specifications provide visibilities at 0.85 s time resolution for sub-arrays and 0.28 second for sub-arrays using sub-stations based on outputs of xGPU correlator. While the former may just be viable, it is far from ideal, and will average over IPS timescales of interest. The latter is a more useful visibility integration period for IPS studies."
+      },
+      {
+       "source": "S70",
+       "quote": "Table 2: Estimated 5-sigma sensitivity achieved to detect sub-arcsecond scale objects at 162 MHz using 32 MHz bandwidth in images made using only the inner 6-km stations of AA4. Natural weighting scheme has been assumed for imaging. 1- \\sigma continuum sensitivity was estimated using SKA sensitivity calculator."
+      }
+     ]
+    },
+    {
+     "heading": "灵敏度估计与源计数外推形成预测链",
+     "kind": "reported",
+     "text": "表中的连续谱图像灵敏度来自 SKA 计算器，再据既有 IPS 工作估算变率图像探测门限；源面密度则从 MWA 的实测源计数向更暗流量水平外推。它并不是在未来 SKA 数据上检出的源目录，也没有本文新训练模型的独立测试集。误差评估应分别检查仪器灵敏度假设、变率探测统计和源计数外推，而不是仅关注最终的一个源密度数字。",
+     "evidence": [
+      {
+       "source": "S69",
+       "quote": "The 1-sigma continuum image sensitivity was calculated using the SKA sensitivity calculator using Natural weighting scheme."
+      },
+      {
+       "source": "S72",
+       "quote": "Chhetri et al. (2018a) made source counts of point sources using single wide-field observation of IPS with the MWA. They define \"point sources\" as objects whose flux density arises entirely from sub-arcsecond scale compact regions (e.g. AGN cores). They compared the results of their detections of compact sources with that expected from the SKA Simulated Skies ( Wilman et al., 2008 , S 3 ,) . This comparison is reproduced here as Figure 5 . The counts of observed sources shows that the number density of sources is much higher than expected from simulations at fainter flux densities."
+      },
+      {
+       "source": "S74",
+       "quote": "By extrapolating this measured source count using a linear fit down to the sensitivity level we expect to reach (Table 2 ), we estimate that SKA-Low can expect to detect sources at the density of 409 sources per square degrees at 2 mJy/beam sensitivity level."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "源密度是保守条件下的外推，不是实测提升率",
+     "kind": "reported",
+     "text": "作者估计在 2 mJy/beam 灵敏度水平可得到每平方度 409 个源，并说明采用这一较保守灵敏度是为容纳缺站和太阳干扰等退化。表中按特定采样和积分设置给出的 IPS 门限，与这一保守规划水平不是同一个数。合理的结论是观测方案有望形成密集角采样，而不是已经证明空间天气预警准确率或 GNSS 定位精度提升了多少。",
+     "evidence": [
+      {
+       "source": "S74",
+       "quote": "By extrapolating this measured source count using a linear fit down to the sensitivity level we expect to reach (Table 2 ), we estimate that SKA-Low can expect to detect sources at the density of 409 sources per square degrees at 2 mJy/beam sensitivity level."
+      },
+      {
+       "source": "S74",
+       "quote": "We have used this conservative estimate of sensitivity to allow for drop in sensitivity possible due to different reasons such as unavailability of all stations, solar interference etc."
+      }
+     ]
+    },
+    {
+     "heading": "覆盖量、单次用时与重访周期不能混读",
+     "kind": "reported",
+     "text": "在所述 162 MHz 示例中，每个指向观测 5 分钟，14 个指向共需 70 分钟，覆盖约 770 平方度；为按太阳运动完成巡天，作者给出的重访示例约为每 7 天一次。不能将图注里一次覆盖的面积与持续每日监测混为一谈，也不能据这些时长推断 CME 到达预警的更新率或时效已被实测验证。",
+     "evidence": [
+      {
+       "source": "S64",
+       "quote": "With the inner edge of such a footprint pointed at 14.5 degrees, an observation of 5-minutes duration would be executed. We can follow the MWA strategy of observing around the Sun, which would require a total of 14 such pointings around the Sun at this frequency as shown in Figure 4 , thus covering a total of 770 sq degree of sky around the Sun in 70 minutes."
+      },
+      {
+       "source": "S66",
+       "quote": "Since the Sun moves \\sim 1 degree across the sky in one day, this strategy would require observing the sky only once every 7 days to optimally cover the sky to conduct an IPS survey. Therefore, the observing time required is only 70 minutes per week at this frequency."
+      },
+      {
+       "source": "S62",
+       "quote": "For simplicity, to illustrate our strategy, we outline an observing plan using the 162 MHz observations only."
+      }
+     ]
+    },
+    {
+     "heading": "空间天气价值在于互补约束，而非单仪器包办",
+     "kind": "interpretation",
+     "text": "宽视场 IPS 可提供密集方向上的扰动信息，多基线时延补充流速约束，日球层成像和航天器原位观测提供其他视角。文章据此提出联合层析和数据同化的研究路线，但没有在本文中给出统一系统的独立预警误差对比。将此价值概括为“有望改善重建与约束”比直接宣布预测精度已经提高更符合证据范围。",
+     "evidence": [
+      {
+       "source": "S98",
+       "quote": "This will allow development of a synergetic pipeline which is tomographic inversion constrained by heterogeneous IPS inputs: wide-field scintillation indices (initially from MWA, then SKA-Low) supply dense angular sampling of the scintillation field; multi-baseline time-delay data from LOFAR and ISEE-style arrays fix the local speed along particular lines of sight;"
+      },
+      {
+       "source": "S102",
+       "quote": "IPS provides the synoptic spatial context that places in-situ encounters into a global, time-evolving heliospheric picture."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "强散射、视线多流和短基线限制仍需处理",
+     "kind": "reported",
+     "text": "靠近太阳进入强散射后，简单的弱散射解释需要调整；多站数据中的相关函数也来自沿视线多个时空演化的散射屏，分析并不直接。作者进一步指出 SKA-Low 相比国际 LOFAR 的基线更短，区分不同流可能需要额外长基线。高灵敏度改善可测性，但不会自动消除反演多解性、投影偏差或复杂传播的模型误差。",
+     "evidence": [
+      {
+       "source": "S51",
+       "quote": "As explained in Section 3.2 , the principle consequence is that different solar elongations are appropriate for different observing frequencies. Observing too close leads to observations in the strong regime, which can provide useful information, but require more detailed analysis. Observing too far away leads to a weaker scintillation signature and therefore a reduced signal-to-noise."
+      },
+      {
+       "source": "S88",
+       "quote": "The wealth of information that can be gleaned from a large number of baselines has been demonstrated by International LOFAR ( Fallows et al., 2023 ) . However, the baselines of the SKA-Low are much shorter than those of international LOFAR. Therefore, before considering the technical feasibility of this approach with SKA-low, it is important to carefully assess whether the baselines of SKA-Low are of a suitable length."
+      },
+      {
+       "source": "S94",
+       "quote": "analyses even of a small number of cross-correlation functions is non-trivial, since we are dealing with a diffraction pattern arising from multiple phase screens along the line of sight, which is evolving spatially and temporally Little and Ekers (1971) ."
+      }
+     ]
+    },
+    {
+     "heading": "未验证技术与日常监测责任要明确标注",
+     "kind": "reported",
+     "text": "原文把部分高阶闪烁和完整可见度信息的利用列为仍需专门研究的方向，并将太阳零陷波束的相关结果称为尚未发表工作；这些都不能写成已交付的稳定能力。作者也提醒 SKA 是通用科学仪器，常规持续监测仍依赖专用 IPS 网络。本文不是提供在线 API、部署时延或可用率承诺的工程系统报告。",
+     "evidence": [
+      {
+       "source": "S85",
+       "quote": "Additionally, in unpublished work, it has been shown that with a beamformer which can set the complex gain for each antenna of an SKA-Low station, it is possible to null the Sun while maximising the sensitivity of a nearby field, or even a produce a primary beam shape forming an annulus around the Sun."
+      },
+      {
+       "source": "S92",
+       "quote": "Finally, there are two untested approaches that may provide additional information and/or allow for different data products to be used for IPS."
+      },
+      {
+       "source": "S93",
+       "quote": "How and whether the full information encoded in this dataset can be extracted will require future dedicated studies."
+      },
+      {
+       "source": "S97",
+       "quote": "These dedicated systems will remain essential for regular monitoring (Since the SKA is an all-purpose instrument, it is likely to be used only for observing “campaigns”, and to exploit targets of opportunity);"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "面向 GNSS 预报：将 IPS 作为候选外部驱动而非标签替身",
+     "kind": "proposal",
+     "text": "可在具备可靠时间戳与误差说明的历史 IPS 数据中构造太阳风扰动特征，与现有 TEC 或 ROTI 预测输入作增量比较。按事件留出验证，并只使用起报时刻已经实际可获得的产品，交付预测误差、事件检出率、提前量和缺测退化结果。需要检验上游扰动到地球响应的传播与时延，不能把 IPS 指数直接标成电离层不规则体强度或用事后重建造成未来信息泄漏。",
+     "evidence": []
+    },
+    {
+     "heading": "面向跨学科算法：先验证多源对齐与反演可辨识性",
+     "kind": "proposal",
+     "text": "可用可控合成散射屏和已知几何测试跨站相关时延，再在公开事件上比较仅用强度、加入多基线和加入多频率的结果。交付速度偏差、置信区间覆盖率、多流可分辨性、数据延迟与计算成本。若引入深度学习，应按事件与台站分组划分，保留观测几何和质量标记，并与物理基线比较；这属于本站建议，不是本文已训练或验证的方案。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 2,
+   "reference": "F2",
+   "section": "experiments",
+   "src": "https://arxiv.org/html/2610.23220v1/Gfx/inst_UVcoverage_162MHz_SKAinner6.png",
+   "width": 513,
+   "height": 503,
+   "caption": "Figure 2: Instantaneous UV coverage of the SKA-Low (AA4) using only the stations in the inner 6 km of the array, with observing frequency centred on 162 MHz.",
+   "title": "瞬时 UV 覆盖是短时成像条件，不是天空源分布",
+   "alt": "原文图2展示内侧台站在所述频率下的瞬时 UV 采样点；横轴 U、纵轴 V，单位为 kλ，中心采样更密，外围呈离散分布。",
+   "caution": "原图分辨率有限，本站不从点数估计台站数量，也不将 UV 点的密集程度转换为某个未经验证的精度提升比例。",
+   "reading_steps": [
+    {
+     "title": "先看坐标：这里是基线在波长单位下的投影",
+     "text": "U 与 V 的单位是 kλ，不是地理经纬度或天空角距离。图上的黑点代表空间频率采样，不能把它们当成台站位置、GNSS 穿刺点或检出的闪烁源。"
+    },
+    {
+     "title": "再看覆盖形态与采样条件",
+     "text": "中心较密和外围分散的采样说明作者希望使用内侧台站取得较好的瞬时成像条件；必须连同文中阵列配置、观测方向和频带一起理解，不能推广为所有指向都有同样覆盖。"
+    },
+    {
+     "title": "最后回到证据层级",
+     "text": "这是一幅规划几何下的采样图，不是图像质量、探测完备度或太阳风速度的实测检验；是否能轻量反卷积和达到估计灵敏度仍需实际数据验证。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 3,
+   "reference": "F3",
+   "section": "method",
+   "src": "https://arxiv.org/html/2610.23220v1/Gfx/freq-sol_el_mpt1.png",
+   "width": 1000,
+   "height": 600,
+   "caption": "Figure 3: Solar elongations boundaries for strong and weak IPS regimes as a function of frequency. Solar elongations below the blue line indicate strong regime. This blue line provides an indication of how far from the Sun we want to place our beams to make our observations (above the blue line). The pink ranges indicate the four frequency ranges we envisage conducting our surveys in.",
+   "title": "频率越低，弱散射观测通常要离太阳更远",
+   "alt": "原文图3横轴为 MHz 频率、纵轴为离日角度，蓝色曲线区分强弱散射区域，四个粉色竖带表示拟考虑的观测频段。",
+   "caution": "原文给的是强弱散射边界示意与规划依据；本站不依据像素拟合新边界公式，也不将这张图移植为 GNSS 电离层闪烁阈值图。",
+   "reading_steps": [
+    {
+     "title": "先认蓝线的上下区域",
+     "text": "图注将蓝线以下标为强散射；拟进行弱散射观测的波束应位于蓝线之上。不能把“曲线越低”读成信号越弱或把蓝线当成实测时间序列。"
+    },
+    {
+     "title": "再区分频带选择和角距选择",
+     "text": "粉色竖带是频率区间，不是误差范围或增强事件。沿同一频率纵向移动表示改变离日角，沿横轴移动则会改变波长与适合的散射几何。"
+    },
+    {
+     "title": "最后看强弱区取舍",
+     "text": "过近需要强散射分析，过远又降低闪烁信噪比。图是观测设计的指引，不表示太阳周期、源角尺寸和短时空间天气对测量都没有影响。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 4,
+   "reference": "F4",
+   "section": "results",
+   "src": "https://arxiv.org/html/2610.23220v1/Gfx/gridded_obs_example.png",
+   "width": 1198,
+   "height": 1163,
+   "caption": "Figure 4: An example strategy of observing around the Sun to cover wide area with the SKA-Low. Each coloured closed-packed hexagonal grid of SKA-Low beams would be observed in 5 minutes covering \\sim 55 sq. deg. With 70 minutes of observations, this strategy would survey 770 sq. degrees in a day. Such observations would be repeated at a regular cadence (e.g. very 7 days) over the year to cover a large area around the Ecliptic.",
+   "title": "环日多波束计划：覆盖面积不等于连续监测能力",
+   "alt": "原文图4以太阳为中心展示环形多组圆形波束脚印，横纵轴为相对角距离，内缘与太阳之间标出角距；不同组表示顺次观测指向。",
+   "caution": "这是计划覆盖图，没有标出某次真实 CME，也没有给出预警误差。源密度外推和覆盖设计需要分别核验，不能相乘后声称已经完成了相应数量的独立监测。",
+   "reading_steps": [
+    {
+     "title": "先看中心与坐标",
+     "text": "橙色太阳在中心，横纵轴是相对角距离，不是天文单位或地球经纬度；圆形轮廓表示波束脚印，不是 CME 波前。"
+    },
+    {
+     "title": "再看一组与多组的层次",
+     "text": "每组紧密排列的波束组成一个指向的覆盖，多组围绕太阳顺次安排。图中所有圆圈不能被解读为始终同时工作的独立台站或全部同时覆盖的视场。"
+    },
+    {
+     "title": "最后对照用时和重访设定",
+     "text": "规划中的单指向观测、完成一圈的时间和按太阳运动重复巡天的周期是不同概念。文中周级巡天示例不能直接当成分钟级空间天气预警更新频率。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Chhetri, Rajan、Morgan, John、Tanti, Harsha Avinash、Bignall, Hayley、Kerrison, Emily、Datta, Abhirup、Kumari, Anshu",
+ "provenance": {
+  "provider": "Kimi Code",
+  "model": "Kimi Code 会话整理（精确模型标识未记录）",
+  "generated_at": "2026-11-17T09:26:20Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "1e201b943a118ef2f0717a340678abce5912573dee849e8396533d5c4e79f76f",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。"
+}
