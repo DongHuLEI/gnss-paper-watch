@@ -168,10 +168,15 @@
   },
   "2610.14822": {
    "paper_id": "2610.14822",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "source_sha256": "227afc0efe2b20ba8f00882b835359e93e17a6c5d6e076ad145f94f40e9f0ab1",
+   "checked_at": "2026-11-17T11:00:08Z",
+   "completed_at": "2026-11-17T11:00:08Z",
+   "provider": "Kimi Code",
+   "generation_mode": "assistant_backfill"
   },
   "2610.20831": {
    "paper_id": "2610.20831",
@@ -300,10 +305,15 @@
   },
   "2611.09003": {
    "paper_id": "2611.09003",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "source_sha256": "53aca3fa24d54c64321e4f117821d9c33c0a7ffa42a5d4e41ba660ecd682311a",
+   "checked_at": "2026-11-17T11:00:08Z",
+   "completed_at": "2026-11-17T11:00:08Z",
+   "provider": "Kimi Code",
+   "generation_mode": "assistant_backfill"
   },
   "2611.09045": {
    "paper_id": "2611.09045",
@@ -446,6 +456,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-17T10:38:08Z",
+ "updated_at": "2026-11-17T11:00:08Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
