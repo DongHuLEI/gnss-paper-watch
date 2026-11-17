@@ -1,0 +1,589 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.00696",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2611.00696v1",
+ "checked_on": "2026-11-17",
+ "title_zh": "城市三维地图辅助 GNSS：保留次高概率类别，为什么非空候选集仍不等于定位正确",
+ "dek": "本文不改分类器或地图求交引擎，而把每颗卫星最可能的单类区域改成前两类区域的合并，以减少误分类导致的空集。真实城市路段上候选集合更易保持非空，但真位置包含率仍明显不足；必须把可用性、覆盖和集合大小分开评价。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 Kimi Code 会话读取 arXiv v1 HTML 正文、图注、表格及可提取公式后整理，并实际查看所展示原图；不是 DeepSeek API 生成，不计入其用量。本版未提取到独立显示公式，故仅解释原文集合更新规则，不编造数学；实际查看三张官方方法原图，结果依据原文表格并明确区分非空率、真值包含率和集合尺寸。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S6": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S22": {
+   "label": "原文 · S3.p1.1",
+   "anchor": "S3.p1.1"
+  },
+  "S25": {
+   "label": "原文 · S3.p3.1",
+   "anchor": "S3.p3.1"
+  },
+  "S38": {
+   "label": "原文 · S4.SS3.p1.1",
+   "anchor": "S4.SS3.p1.1"
+  },
+  "S49": {
+   "label": "原文 · S5.T1.1",
+   "anchor": "S5.T1.1"
+  },
+  "S7": {
+   "label": "原文 · S1.p5.1",
+   "anchor": "S1.p5.1"
+  },
+  "S19": {
+   "label": "原文 · S2.SS2.p3.1",
+   "anchor": "S2.SS2.p3.1"
+  },
+  "S20": {
+   "label": "原文 · S2.SS2.p4.1",
+   "anchor": "S2.SS2.p4.1"
+  },
+  "S11": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S13": {
+   "label": "原文 · S2.SS1.p2.1",
+   "anchor": "S2.SS1.p2.1"
+  },
+  "S14": {
+   "label": "原文 · S2.SS1.p3.1",
+   "anchor": "S2.SS1.p3.1"
+  },
+  "S36": {
+   "label": "原文 · S4.SS2.p1.1",
+   "anchor": "S4.SS2.p1.1"
+  },
+  "S32": {
+   "label": "原文 · S4.SS1.p4.1",
+   "anchor": "S4.SS1.p4.1"
+  },
+  "S46": {
+   "label": "原文 · S5.SS2.p2.1",
+   "anchor": "S5.SS2.p2.1"
+  },
+  "S29": {
+   "label": "原文 · S4.SS1.p1.1",
+   "anchor": "S4.SS1.p1.1"
+  },
+  "S30": {
+   "label": "原文 · S4.SS1.p2.1",
+   "anchor": "S4.SS1.p2.1"
+  },
+  "S31": {
+   "label": "原文 · S4.SS1.p3.1",
+   "anchor": "S4.SS1.p3.1"
+  },
+  "S27": {
+   "label": "原文 · S4.p1.1",
+   "anchor": "S4.p1.1"
+  },
+  "S42": {
+   "label": "原文 · S5.SS1.p1.1",
+   "anchor": "S5.SS1.p1.1"
+  },
+  "S43": {
+   "label": "原文 · S5.SS1.p2.1",
+   "anchor": "S5.SS1.p2.1"
+  },
+  "S47": {
+   "label": "原文 · S5.SS2.p3.1",
+   "anchor": "S5.SS2.p3.1"
+  },
+  "S45": {
+   "label": "原文 · S5.SS2.p1.1",
+   "anchor": "S5.SS2.p1.1"
+  },
+  "S53": {
+   "label": "原文 · S5.T2.1",
+   "anchor": "S5.T2.1"
+  },
+  "S51": {
+   "label": "原文 · S5.SS3.p1.1",
+   "anchor": "S5.SS3.p1.1"
+  },
+  "S39": {
+   "label": "原文 · S4.SS3.p2.1",
+   "anchor": "S4.SS3.p2.1"
+  },
+  "S55": {
+   "label": "原文 · S5.T3.1",
+   "anchor": "S5.T3.1"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S2.F1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "S2.F2"
+  },
+  "F3": {
+   "label": "Fig.3 · 原文图",
+   "anchor": "S3.F3"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "改变的是候选区域决策，不是发明新的信号分类网络",
+     "kind": "reported",
+     "text": "作者研究城市建筑遮挡与反射下的集合式 GNSS 定位。既有 ZSRM 根据每颗卫星被判为仅直达、直达加反射或仅非直达的类别，保留相应地图可行区域。本文将最高概率类别改为前两种类别的区域合并，再与当前候选集求交。核心是用更宽的空间可行域容纳分类不确定性，而非通过新网络把原始伪距直接回归成高精度坐标。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "Unlike ZSM, ZSRM classifies satellite signals into three reception conditions: LOS-only, LOS+NLOS, and NLOS-only."
+      },
+      {
+       "source": "S22",
+       "quote": "To improve the robustness of ZSRM under satellite signal misclassification, this paper proposes a conservative strategy for determining the candidate receiver position set. Instead of relying only on the most probable class in the output of an AI-based classifier, the proposed method considers the candidate regions associated with the two most probable classes. These regions are combined to form a conservative feasible region, which is then used to update the candidate receiver position set for each satellite."
+      },
+      {
+       "source": "S25",
+       "quote": "Other procedures, including AOI definition and zonotope-based computation of GNSS shadow and reflection regions, remain unchanged from the existing ZSRM algorithm."
+      }
+     ]
+    },
+    {
+     "heading": "最重要的边界：非空与包含真位置是两件事",
+     "kind": "reported",
+     "text": "在该城市测试段，三个分类器下新方法都在 146 个测试历元产生非空最终集合，但其中 GBDT 的真位置包含率也只有 45.2%。作者将前一项定义为定位成功率，将后一项另行统计。因此“成功率 100%”是集合解算可用性，不是坐标准确率、真值覆盖保证或安全完好性证明；保留下来但不包含真位置的集合依然可能给出错误位置。",
+     "evidence": [
+      {
+       "source": "S38",
+       "quote": "The positioning success rate was defined as the percentage of epochs in which a nonempty final candidate receiver position set was obtained after applying the constraints from all available satellites. The receiver containment rate was defined as the percentage of epochs in which the final candidate set contained the ground-truth receiver position."
+      },
+      {
+       "source": "S49",
+       "quote": "Proposed method w/ GBDT 100% (146/146) 45.2% (66/146)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "分类误差经过连续求交，会变成不可恢复的几何排除",
+     "kind": "reported",
+     "text": "旧方法每颗卫星只接受一个类别，其对应区域一旦把真位置剔除，后面的交集只会继续缩小，无法将真位置加回来。故障不是分类准确率这一项独立指标能充分反映的：多个卫星的错误约束会在集合后端累积。作者针对的是这种分类输出与几何更新之间的脆弱接口，而不是声称已解决所有城市非视距误差或地图误差。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "However, if a satellite signal is misclassified, an incorrect geometric constraint may be applied. As a result, the true receiver position can be excluded from the candidate set, leading to positioning failure."
+      },
+      {
+       "source": "S19",
+       "quote": "This exclusion is particularly problematic because the ZSRM algorithm refines the candidate receiver position set sequentially over multiple satellites. Once the true receiver position is excluded by an incorrect constraint, it cannot be recovered in the subsequent refinement process. Therefore, even a small number of misclassified satellite signals can lead to positioning failure."
+      }
+     ]
+    },
+    {
+     "heading": "一致投票少用卫星，本文选择保留更多类别而不是丢弃信号",
+     "kind": "reported",
+     "text": "既有缓解策略只使用多个分类器一致判断的卫星，可以降低误分类影响，却同时丢掉有信息的约束，导致可行域收缩不足。本文沿另一条路线：每个分类器分别运行，保留较可能的多个接收状态，仍让可用卫星参与。其研究动机是调整鲁棒性与约束强度的权衡，不是证明分类器集成或信号剔除在所有场景都劣于该规则。",
+     "evidence": [
+      {
+       "source": "S20",
+       "quote": "However, selecting only unanimously classified signals reduces the number of available satellites, which can limit the refinement of the candidate receiver position set [ 21 ] . Therefore, this study aims to reduce the risk of excluding the true receiver position under satellite signal misclassification while maintaining the use of available satellite signals."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先用城市模型把每颗卫星变成空间约束",
+     "kind": "reported",
+     "text": "从可能包含接收机的初始关注区域开始，结合卫星方向与城市建筑计算阴影及反射区域。仅直达对应两种区域之外，直达加反射对应反射区域，仅非直达对应阴影区域；不同类别不是简单的同一个误差权重。地图几何决定每类约束长什么样，分类器决定使用哪些约束，最后输出仍是空间集合，坐标可再由其质心等规则取得。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "In ZSRM, the area of interest (AOI) is first defined as an initial candidate region that contains the possible receiver position. For each satellite, GNSS shadow and reflection regions are computed using a 3D city model."
+      },
+      {
+       "source": "S13",
+       "quote": "For LOS-only signals, the receiver is assumed to be located outside both the GNSS shadow and reflection regions. For LOS+NLOS signals, the receiver is assumed to be located inside the GNSS reflection region. For NLOS-only signals, the receiver is assumed to be located inside the GNSS shadow region."
+      },
+      {
+       "source": "S14",
+       "quote": "After all available satellites are processed, the final receiver position set is obtained, and the receiver position can be estimated from this final set, for example, by using its centroid."
+      }
+     ]
+    },
+    {
+     "heading": "分类特征来自接收观测，真值只用于标注与评估",
+     "kind": "reported",
+     "text": "本文分别使用 RF、GBDT 和 SVM，输入是卫星高度角、载噪密度比和伪距残差。离线标签由参考轨迹与城市模型共同确定，区分阴影内、反射内及其他区域；参考轨迹不是运行时额外提供给分类器的已知位置。比较新旧后端时，同一分类器输出保持一致，因此观察到的差异主要来自候选区域决策规则，而非换了训练更好的分类器。",
+     "evidence": [
+      {
+       "source": "S36",
+       "quote": "The input features consisted of the satellite elevation angle, carrier-to-noise density ratio ( C/N_{0} ), and pseudorange residual, which have been effectively used for GNSS signal classification in previous studies [ 28 , 29 ] . For each classifier, the same classification output was used for both methods to ensure a fair comparison."
+      },
+      {
+       "source": "S32",
+       "quote": "Each satellite signal was labeled as LOS-only, LOS+NLOS, or NLOS-only using the ground truth receiver position and a 3D city model of the test area provided by ONEGEO [ 27 ] ."
+      }
+     ]
+    },
+    {
+     "heading": "每颗卫星先做类别区域合并，再跨卫星求交",
+     "kind": "reported",
+     "text": "对一颗卫星，取分类器概率排名靠前的两个接收状态，把对应的可行区域合并，避免仅因最高概率类别错误就立刻删除真位置。再把这一较宽区域与当前候选集相交，逐颗处理其他卫星。概率在此主要用于选类别，并没有成为空间位置后验或精确的覆盖概率；即使保留次选，真实类别若仍未被选中，错误排除仍可能发生。",
+     "evidence": [
+      {
+       "source": "S22",
+       "quote": "To improve the robustness of ZSRM under satellite signal misclassification, this paper proposes a conservative strategy for determining the candidate receiver position set. Instead of relying only on the most probable class in the output of an AI-based classifier, the proposed method considers the candidate regions associated with the two most probable classes. These regions are combined to form a conservative feasible region, which is then used to update the candidate receiver position set for each satellite."
+      },
+      {
+       "source": "S25",
+       "quote": "The proposed candidate set determination process is applied sequentially to all available satellites in the same manner as in the existing ZSRM algorithm."
+      },
+      {
+       "source": "S46",
+       "quote": "Therefore, even when the most probable class is incorrect, the true receiver position can remain in the candidate set if the correct signal reception type is included as the second most probable class."
+      }
+     ]
+    },
+    {
+     "heading": "改动位于决策接口，地图与集合计算误差并未自动消失",
+     "kind": "interpretation",
+     "text": "因为关注区域定义和基于 zonotope 的阴影、反射计算均沿用旧方法，这个改进可以理解为分类器与几何解算器之间的一层保守适配。它不要求从头训练坐标网络，但也没有为过时建筑、未建模反射或初始区域遗漏真位置提供独立修复机制。工程使用时应同时记录分类排名、各步交集变化与地图版本，不能把较宽集合本身当成已校准的误差界。",
+     "evidence": [
+      {
+       "source": "S25",
+       "quote": "Other procedures, including AOI definition and zonotope-based computation of GNSS shadow and reflection regions, remain unchanged from the existing ZSRM algorithm."
+      },
+      {
+       "source": "S14",
+       "quote": "For each satellite, the current candidate receiver position set is intersected with the region determined from the corresponding GNSS shadow or reflection constraint."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "本版没有可提取的独立显示公式，不补造“原文公式”",
+     "kind": "unknown",
+     "text": "本次固定版本全文提取未得到可安全展示的独立显示公式，因此此章不套用其他论文的损失函数、卡尔曼方程或本站自拟数学来填充。方法的可复现要点主要写在正文与几何示意图里：如何按类别构造区域、如何合并较可能类别，以及如何逐卫星收缩集合。若要实现，应继续核对作者所引的原有几何引擎，而不是把本文短文误读为完整代码规格。",
+     "evidence": []
+    },
+    {
+     "heading": "用集合操作的顺序理解算法，不把它读成概率融合",
+     "kind": "interpretation",
+     "text": "正文规则可以用自然语言准确复述：同一卫星的备选类别之间取区域合并，不同卫星提供的约束之间取交集。前一步扩大局部可行域，后一步继续收缩全局候选域；两者顺序与对象不能混淆。分类概率没有按大小加权生成地图密度，所以质心只是集合的代表位置，并不能从类别分数直接推导该坐标的可信度或覆盖水平。",
+     "evidence": [
+      {
+       "source": "S22",
+       "quote": "These regions are combined to form a conservative feasible region, which is then used to update the candidate receiver position set for each satellite."
+      },
+      {
+       "source": "S14",
+       "quote": "For each satellite, the current candidate receiver position set is intersected with the region determined from the corresponding GNSS shadow or reflection constraint."
+      },
+      {
+       "source": "S14",
+       "quote": "After all available satellites are processed, the final receiver position set is obtained, and the receiver position can be estimated from this final set, for example, by using its centroid."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "韩国松岛城市车载数据，训练道路与测试道路分开",
+     "kind": "reported",
+     "text": "数据来自韩国仁川松岛，训练使用多个城市道路片段，测试使用另一条高楼环绕道路；目标路段约长 415 m、宽 25 m。车辆采用双极化天线与 NovAtel 接收机，以 1 Hz 记录 GPS 和 Galileo。道路分离比随机打散相邻历元更有意义，但仍是同一城市及该套设备上的实测，不能外推为跨城市、跨接收机和各种建筑密度的充分验证。",
+     "evidence": [
+      {
+       "source": "S29",
+       "quote": "The training dataset was constructed from GNSS data collected along multiple urban road segments, whereas the test dataset was collected along a separate road segment surrounded by high-rise buildings. The target road segment was approximately 415 m long and 25 m wide."
+      },
+      {
+       "source": "S30",
+       "quote": "A vehicle-based experiment was conducted to collect raw GNSS measurements along these routes. The vehicle was equipped with an Antcom 3G1215RL-AA-XT-1 dual-polarized antenna and a NovAtel PwrPak7 GNSS receiver. Raw GPS and Galileo measurements were recorded at 1 Hz during the experiment."
+      }
+     ]
+    },
+    {
+     "heading": "标签依据后处理参考轨迹与地图，而非逐条人工确认传播路径",
+     "kind": "reported",
+     "text": "参考系统融合 GNSS 与惯性测量，使用商业软件紧耦合后处理，轨迹随后用于接收状态标注。标签判断依赖参考位置落在地图阴影还是反射区域，因此它本身具有几何建模假设，不是直接测得每条信号真实传播路径。对比框架保持分类输出一致，帮助隔离后端规则变化；但分类标签和地图模型误差仍值得在复现中单独审查。",
+     "evidence": [
+      {
+       "source": "S31",
+       "quote": "A reference trajectory was obtained using a NovAtel GPS-703-GGG antenna, a NovAtel SPAN-SE receiver, and a NovAtel UIMU-H58 inertial measurement unit. The GNSS/INS measurements were post-processed using NovAtel Inertial Explorer in tightly coupled mode. The resulting trajectory was used as the ground truth receiver position for signal labeling."
+      },
+      {
+       "source": "S32",
+       "quote": "For each satellite, GNSS shadow and reflection regions were computed based on the satellite geometry and surrounding buildings. If the ground truth receiver position was located inside the GNSS shadow region, the signal was labeled as NLOS-only."
+      },
+      {
+       "source": "S27",
+       "quote": "It was compared with the existing ZSRM algorithm using the same signal classification results to examine whether the proposed strategy reduces positioning failures caused by signal misclassification."
+      }
+     ]
+    },
+    {
+     "heading": "尚未验证分类器训练细节、运行成本和公开复现入口",
+     "kind": "unknown",
+     "text": "已读取来源列出了分类器种类、输入和数据路线，但本次没有取得并运行作者训练与几何代码，也未验证超参数、概率校准、运行耗时及城市模型授权。正文中的集合尺寸对比不能替代实际坐标误差测试。复现还应固定伪距残差的生成方式、参考轨迹精度和初始关注区域，并逐历元保存空集原因，避免不同后端比较时连前处理也发生变化。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "分类的次选常包含真类，但仍远非永远正确",
+     "kind": "reported",
+     "text": "RF、GBDT、SVM 的最高概率类别准确率分别为 63.8%、66.8%、58.9%，保留前两类后对应覆盖升到 87.9%、89.5%、84.2%。这解释了区域合并为何有机会挽救误分类，但它只是该测试集上的类别覆盖，不是每颗卫星的可靠概率或跨卫星联合覆盖率。只要仍有错误约束，最终交集就可能遗漏真位置，因此不能用单信号次选覆盖率替代定位包含率。",
+     "evidence": [
+      {
+       "source": "S42",
+       "quote": "The top-1 classification accuracies were 63.8% for RF, 66.8% for GBDT, and 58.9% for SVM."
+      },
+      {
+       "source": "S43",
+       "quote": "The top-2 accuracies were 87.9%, 89.5%, and 84.2% for RF, GBDT, and SVM, respectively."
+      },
+      {
+       "source": "S47",
+       "quote": "If even a single satellite constraint excludes the true receiver position, it cannot be recovered through subsequent intersections."
+      }
+     ]
+    },
+    {
+     "heading": "非空集合率大幅提高，真值包含率的提升却有限",
+     "kind": "reported",
+     "text": "旧 ZSRM 对 RF、GBDT、SVM 的非空集合率分别为 25.3%、30.1%、8.2%，新规则均为 100%；真位置包含率则从 2.1%、0.0%、0.0% 升至 15.1%、45.2%、13.0%。两组指标必须同时读：新方法显著减少空集，但大多数分类器下仍有大量非空集合不含真值。它支持的是后端鲁棒性改善，而不是已达到可靠自动驾驶定位的结论。",
+     "evidence": [
+      {
+       "source": "S45",
+       "quote": "For the existing ZSRM algorithm, the positioning success rates were 25.3%, 30.1%, and 8.2% for RF, GBDT, and SVM, respectively."
+      },
+      {
+       "source": "S45",
+       "quote": "However, the proposed method further improved the positioning success rate across all classifiers, achieving 100% for RF, GBDT, and SVM."
+      },
+      {
+       "source": "S47",
+       "quote": "In addition, the proposed method improved the receiver containment rates from 2.1% to 15.1% for RF, from 0.0% to 45.2% for GBDT, and from 0.0% to 13.0% for SVM."
+      }
+     ]
+    },
+    {
+     "heading": "集合更大是代价；这些米级数值并不是坐标 RMS 误差",
+     "kind": "reported",
+     "text": "在新旧 GBDT 都产生非空集合的共同成功历元上，横街与顺街集合边界的 RMS 从 8.9 m、7.8 m 变为 35.5 m、45.3 m。作者有意为保留更多可能位置付出集合变宽的代价。这里度量的是候选集合的空间约束大小，不是估计坐标到真值的误差；而且比较条件排除了旧方法空集的历元，不能拿它直接代表整个测试序列的平均定位性能。",
+     "evidence": [
+      {
+       "source": "S53",
+       "quote": "ZSRM w/ GBDT 8.9 m 7.8 m Proposed method w/ GBDT 35.5 m 45.3 m"
+      },
+      {
+       "source": "S51",
+       "quote": "To enable paired comparisons, the position bounds were evaluated over the epochs in which both compared methods successfully produced nonempty final receiver position sets."
+      },
+      {
+       "source": "S39",
+       "quote": "The cross-street and along-street position bounds were used to evaluate the size of the final receiver position set."
+      }
+     ]
+    },
+    {
+     "heading": "对一致投票的优势也必须带着条件读",
+     "kind": "reported",
+     "text": "与一致投票相比，GBDT 新规则在 141 个共同非空历元上的横街、顺街集合 RMS 为 29.9 m、31.3 m，投票方案为 45.8 m、39.6 m，说明保留更多信号可以使集合更紧。但真值包含率并非每个新分类器都优于投票：投票为 19.9%，新 RF 为 15.1%、新 SVM 为 13.0%。所以“比投票更好”只对具体指标和配置成立，不能概括成全面支配。",
+     "evidence": [
+      {
+       "source": "S51",
+       "quote": "whereas Table III was evaluated using 141 common successful epochs for the comparison with unanimous voting."
+      },
+      {
+       "source": "S55",
+       "quote": "Method Cross-street position bound Along-street position bound ZSRM w/ unanimous voting 45.8 m 39.6 m Proposed method w/ RF 30.7 m 30.7 m Proposed method w/ GBDT 29.9 m 31.3 m Proposed method w/ SVM 23.5 m 25.1 m"
+      },
+      {
+       "source": "S49",
+       "quote": "ZSRM w/ unanimous voting 96.6% (141/146) 19.9% (29/146) Proposed method w/ RF 100% (146/146) 15.1% (22/146)"
+      },
+      {
+       "source": "S49",
+       "quote": "Proposed method w/ SVM 100% (146/146) 13.0% (19/146)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "保留次选不能为整套卫星约束提供保证",
+     "kind": "interpretation",
+     "text": "作者明确指出，只要有一颗卫星约束排除了真位置，后续相交就无法恢复。保留次选只是提高单信号真类被纳入的机会，并没有建立联合置信集合、完好性风险上界或分类误差相关模型。需要进一步检查同一街区反射、遮挡与地图偏差是否造成多颗卫星同时误判；不能默认这些错误互相独立，再把分类准确率乘起来当成业务保障。",
+     "evidence": [
+      {
+       "source": "S47",
+       "quote": "However, these rates remained considerably lower than the positioning success rates because receiver containment requires the true receiver position to satisfy the geometric constraints of all processed satellites. If even a single satellite constraint excludes the true receiver position, it cannot be recovered through subsequent intersections."
+      }
+     ]
+    },
+    {
+     "heading": "较小候选域不必然更安全，非空也不必然可用",
+     "kind": "interpretation",
+     "text": "一个很小却偏离真位置的集合，可以同时拥有漂亮的尺寸指标和错误的位置结果。本文将集合非空、真值包含及沿街横街尺寸分别评价，正说明它们不能相互替代。面向车辆控制时还应检查集合多分支、错误质心、时间跳变与持续漏包，建立明确拒绝输出规则；这些是本站提出的工程核验方向，不是论文已经完成的安全认证。",
+     "evidence": [
+      {
+       "source": "S38",
+       "quote": "The receiver containment rate was defined as the percentage of epochs in which the final candidate set contained the ground-truth receiver position."
+      },
+      {
+       "source": "S39",
+       "quote": "The cross-street and along-street position bounds were used to evaluate the size of the final receiver position set. These metrics were included because the proposed conservative candidate set determination strategy may preserve additional candidate regions, thereby reducing the degree of candidate set refinement. Therefore, the evaluation focused on whether the proposed method can improve positioning robustness while maintaining reasonable position bounds."
+      },
+      {
+       "source": "S14",
+       "quote": "After all available satellites are processed, the final receiver position set is obtained, and the receiver position can be estimated from this final set, for example, by using its centroid."
+      }
+     ]
+    },
+    {
+     "heading": "跨城市泛化与长期失效模式还不能由此测试确定",
+     "kind": "unknown",
+     "text": "本次读取与核验未覆盖新的城市、独立季节、不同天线设备或故意制造的地图错误实验，也没有独立坐标误差与告警风险测量。不能将同一路段的分类器对比视为普遍可部署结论。后续需要明确初始区域是否一直覆盖真值、概率排序如何随环境变化，以及候选域失效时系统如何回退，再判断它在持续移动平台中的实际可用性。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "连接定位与具身感知：让不确定类别进入几何后端，而非过早硬判",
+     "kind": "proposal",
+     "text": "可在城市 GNSS 与视觉地图融合中比较单类约束、备选类别合并和只接受一致信号的后端，固定分类器与地图，按未见街区留出整条轨迹。交付非空率、真值包含率、集合面积、质心误差尾部、连续错误时长和运行延迟，并检查多分支集合。迁移的是延迟硬决策的思想；在碰撞规避或控制中仍需独立校准风险与拒绝条件。",
+     "evidence": []
+    },
+    {
+     "heading": "连接电离层风险：先区分环境不确定性和城市传播误判",
+     "kind": "proposal",
+     "text": "可在同步采集 ROTI、载噪密度比、失锁与城市地图的车辆数据上，按电离层活动和建筑遮挡分组，检验区域合并在不同误差来源下的包含率变化。保留完整扰动日和未见路段为测试，交付漏包事件率、定位误差分位数、恢复时长及模型校准曲线。不要把电离层引起的载波异常直接标签成非视距，也不预设扩大候选域必然改善 PPP 固定或重收敛。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.00696v1/figures/ZSRM_candidate_region.png",
+   "width": 1929,
+   "height": 820,
+   "caption": "Fig. 1: Candidate receiver position sets according to signal reception type in the ZSRM algorithm.",
+   "title": "先认识类别与区域：接收状态不是同一种误差权重",
+   "alt": "原文图1左侧为建筑、黑色 GNSS 阴影、红色反射带与黄色真位置，右侧用粉色分别表示仅直达、直达加非直达、仅非直达条件的候选区域。",
+   "caution": "原图没有坐标刻度和统计样本，不提供实际定位精度。本文保留官方透明原图，白色网页背景只是显示底色，不是对原图改色。",
+   "reading_steps": [
+    {
+     "title": "先区分物理区域与候选区域的颜色",
+     "text": "左图绿色是建筑示意，黑色和红色分别为阴影与反射，虚线框为初始关注区域；粉色是在给定接收状态后保留的位置集合，不是信号强度或分类置信度热图。"
+    },
+    {
+     "title": "再横向比较右侧三种状态",
+     "text": "仅直达排除阴影及反射，混合接收保留反射区域，仅非直达保留阴影区域。同一颗卫星换一个类别，保留的位置就可能完全不同，这解释了硬分类对几何求交的重要性。"
+    },
+    {
+     "title": "最后注意这是单卫星教学几何",
+     "text": "黄色点表示图例中的参考真位置，各区域形状用于展示规则。真实结果还需逐颗卫星求交，不应从这张图估算实际道路误差、覆盖概率或地图尺度。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 2,
+   "reference": "F2",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.00696v1/figures/Misclassification_problem.png",
+   "width": 2057,
+   "height": 936,
+   "caption": "Fig. 2: Effect of signal misclassification on the candidate position determination in ZSRM.",
+   "title": "错误类别如何把真位置从集合中删掉",
+   "alt": "原文图2左侧的黄色真位置在红色反射带内，中间正确预测混合接收时粉色区域包含它，右侧误判仅直达后黄色点落在粉色候选区域之外。",
+   "caution": "图中“误分类”示例展示可能的失败路径，不给出该事件的发生概率，也不能证明所有空集都只由分类器引起。",
+   "reading_steps": [
+    {
+     "title": "先定位黄色点和红色反射带",
+     "text": "场景中真接收状态是直达加反射。中间面板按正确类别保留反射带，因此黄色点仍位于候选区域。红色虚线用于说明卫星关联几何，不是接收机运动轨迹。"
+    },
+    {
+     "title": "再看右侧不是“区域很大就一定含真值”",
+     "text": "误判仅直达后，右侧保留了看似很大的粉色区域，却恰好排除了真位置。集合大小和真值包含是不同指标，不能只看可行域面积判断定位是否可靠。"
+    },
+    {
+     "title": "把单次排除放回连续求交过程",
+     "text": "后续卫星只继续取交集，不会把被排除的位置重新加入。这张图解释故障传播机制，但不是测试数据中某一历元的误差统计。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 3,
+   "reference": "F3",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.00696v1/figures/Proposed.png",
+   "width": 2734,
+   "height": 1551,
+   "caption": "Fig. 3: Illustration of candidate receiver position set determination in the proposed method.",
+   "title": "保留次选区域，挽救的是这个例子而不是所有真位置",
+   "alt": "原文图3上部将三种接收类别概率送入候选区域构造，下部对比旧 ZSRM 与新方法；新方法合并前两类区域，粉色集合扩大并包含黄色真位置。",
+   "caution": "这是方法机制图，不是实测精度曲线。新规则未把图中的概率校准为联合完好性保证，也没有消除城市模型误差。",
+   "reading_steps": [
+    {
+     "title": "先读上方分类排序，不把分数当作坐标概率",
+     "text": "该例最高分是错误的仅直达类别，次高分是真实的混合接收类别。算法使用的是类别排序；图中分数只为解释规则，不能据此宣称空间集合已经具有相应置信覆盖。"
+    },
+    {
+     "title": "再对比下方粉色区域与黄色点",
+     "text": "左侧旧方法仅接受最高分，右侧新方法加入次选的反射区域，使黄色真位置重新处于单卫星可行区域。新增的粉色面积同时直观说明了集合变宽的代价。"
+    },
+    {
+     "title": "最后问真实类别若排在末位会怎样",
+     "text": "示意成功依赖真类位于保留的备选之中，不能证明所有卫星都满足这一条件。最终还要跨卫星求交，应回到结果表同时看非空率与真值包含率。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Kim, Sanghyun、Seo, Jiwon",
+ "provenance": {
+  "provider": "Kimi Code",
+  "model": "Kimi Code 会话整理（精确模型标识未记录）",
+  "generated_at": "2026-11-17T10:37:37Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "4927f9d10ae779a4ff6de2c2525fce2d1126520786be26736fac06d2c97c0486",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。本篇为 arXiv 非独占分发许可，不是 CC BY；本站不镜像图片或全文，官方原图仅作外链逐图评述，另行转载仍须取得适当许可。"
+}

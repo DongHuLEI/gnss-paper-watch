@@ -29,12 +29,12 @@ class Node:
             if isinstance(child, Node):
                 yield from child.walk()
 
-    def text(self):
-        if self.tag in ("script", "style", "annotation", "annotation-xml"):
+    def text(self, exclude_classes=()):
+        if self.tag in ("script", "style", "annotation", "annotation-xml") or set(exclude_classes).intersection(self.attrs.get("class", "").split()):
             return ""
         if self.tag == "math" and self.attrs.get("alttext"):
             return " " + self.attrs["alttext"] + " "
-        return " ".join(child.text() if isinstance(child, Node) else child for child in self.children)
+        return " ".join(child.text(exclude_classes) if isinstance(child, Node) else child for child in self.children)
 
     def anchor(self):
         node = self
@@ -175,7 +175,7 @@ def parse_source(content, paper, max_characters):
     document = next((node for node in parser.root.walk() if "ltx_document" in node.attrs.get("class", "").split()), None)
     if document is None or "</article>" not in content.decode("utf-8").lower():
         raise SourceUnavailable("complete_html_unavailable")
-    title = next((normalize(node.text()) for node in document.walk() if node.tag == "h1"), "")
+    title = next((normalize(node.text(exclude_classes=("ltx_pubnotes", "ltx_role_note"))) for node in document.walk() if node.tag == "h1"), "")
     if re.sub(r"\W", "", title).lower() != re.sub(r"\W", "", paper["title_en"]).lower():
         raise SourceUnavailable("source_identity_mismatch")
     blocks, figures, equations = [], [], []
