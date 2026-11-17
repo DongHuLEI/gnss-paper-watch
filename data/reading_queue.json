@@ -80,10 +80,15 @@
   },
   "2609.30814": {
    "paper_id": "2609.30814",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-17T09:09:36Z",
+   "completed_at": "2026-11-17T09:09:36Z",
+   "source_sha256": "b90263d5c39d6843f69cdc5c6132c81b10c1e6b90b24099584886974544b91f7",
+   "provider": "Kimi Code",
+   "generation_mode": "assistant_backfill"
   },
   "2609.36110": {
    "paper_id": "2609.36110",
@@ -401,6 +406,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-17T08:47:59Z",
+ "updated_at": "2026-11-17T09:09:36Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }

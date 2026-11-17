@@ -82,6 +82,8 @@ def validate_saved(data):
             raise ValueError("reading_section_without_facts")
     for key in ("title_zh", "dek", "scope", "copyright_note"):
         text(data.get(key))
+    text(data["provenance"].get("provider"), 120)
+    text(data["provenance"].get("model"), 200)
     if not re.fullmatch(r"[a-f0-9]{64}", data["provenance"].get("skill_sha256", "")):
         raise ValueError("missing_skill_version")
     if not re.fullmatch(r"[a-f0-9]{64}", data["provenance"].get("source_sha256", "")):
@@ -91,7 +93,7 @@ def validate_saved(data):
         raise ValueError("unverified_source_license")
 
 
-def assemble(answer, paper, source, figures, digest, model):
+def assemble(answer, paper, source, figures, digest, model, provider="DeepSeek"):
     if not isinstance(answer, dict) or not isinstance(answer.get("sections"), list):
         raise ValueError("invalid_reading_response")
     source_map = {item["id"]: item for item in source["blocks"]}
@@ -151,7 +153,7 @@ def assemble(answer, paper, source, figures, digest, model):
         "reading_minutes": 30, "scope": "AI 全文导读 · 待核验。读取固定版本的 arXiv HTML 正文、可提取附录、原图与公式；自动引文和结构检查不等于人工审稿，未独立复现实验。原文预印本状态以来源为准。",
         "references": references, "sections": sections, "equations": equations,
         "original_figures": originals, "original_figure_credit": "、".join(paper["authors"]),
-        "provenance": {"provider": "DeepSeek", "model": model, "generated_at": now, "human_reviewed": False, "skill_sha256": digest, "source_sha256": source["sha256"], "license_url": source.get("license_url", ""), "format": FORMAT},
+        "provenance": {"provider": text(provider, 120), "model": text(model, 200), "generated_at": now, "human_reviewed": False, "skill_sha256": digest, "source_sha256": source["sha256"], "license_url": source.get("license_url", ""), "format": FORMAT},
         "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。",
     }
     all_numbers = numbers(" ".join(item["text"] for item in source["blocks"]))

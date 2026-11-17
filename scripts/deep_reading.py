@@ -9,7 +9,7 @@ import re
 import urllib.parse
 import xml.etree.ElementTree as ET
 
-MATH_TAGS = {"mrow", "mi", "mn", "mo", "mtext", "mfrac", "msub", "msup", "msubsup", "msqrt", "mover", "mspace"}
+MATH_TAGS = {"mrow", "mi", "mn", "mo", "mtext", "mfrac", "msub", "msup", "msubsup", "msqrt", "mover", "munder", "munderover", "mpadded", "mspace"}
 MATH_ATTRS = {"mathvariant", "width"}
 MATH_VARIANTS = {"normal", "bold", "italic", "bold-italic", "double-struck", "bold-fraktur", "script", "bold-script", "fraktur", "sans-serif", "bold-sans-serif", "sans-serif-italic", "sans-serif-bold-italic", "monospace"}
 SECTIONS = [("overview", "整体概括"), ("gap", "Research gap"), ("method", "算法主线"),
