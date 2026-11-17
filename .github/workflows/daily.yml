@@ -2,7 +2,7 @@ name: Research radar
 
 on:
   schedule:
-    - cron: "17 16,19,22 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -16,6 +16,7 @@ on:
       - "data/editions/**"
       - "data/deep_reads/**"
       - "data/reading_queue.json"
+      - "data/backfill.json"
       - ".agents/skills/paper-deep-reading/**"
 
 permissions:
@@ -43,14 +44,18 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Check daily automation gate
+        id: automation
+        run: python scripts/automation_gate.py --github-output "$GITHUB_OUTPUT" --event "$GITHUB_EVENT_NAME"
+
       - name: Set up formula renderer
-        if: github.event_name != 'push'
+        if: steps.automation.outputs.allowed == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Install formula renderer
-        if: github.event_name != 'push'
+        if: steps.automation.outputs.allowed == 'true'
         run: npm --prefix .cache/math-tools install --no-audit --no-fund --ignore-scripts --package-lock=false mathjax-full@3.2.2
 
       - name: Restore source cache
@@ -96,7 +101,7 @@ jobs:
           PY
 
       - name: Retrieve and interpret
-        if: github.event_name != 'push'
+        if: steps.automation.outputs.allowed == 'true'
         id: update
         continue-on-error: true
         env:
@@ -140,8 +145,9 @@ jobs:
       - name: Report update status
         if: always()
         run: |
+          python scripts/automation_gate.py >> "$GITHUB_STEP_SUMMARY"
           if [ "${{ steps.update.outcome }}" = "skipped" ]; then
-            printf '%s\n' 'Content-only publication: built saved data without retrieval or AI calls. Daily retrieval status on the site is unchanged.' >> "$GITHUB_STEP_SUMMARY"
+            printf '%s\n' 'Content-only publication or paused automation: built saved data without retrieval or AI calls. Daily retrieval status on the site is unchanged.' >> "$GITHUB_STEP_SUMMARY"
           else
             python scripts/daily_update.py --show-status >> "$GITHUB_STEP_SUMMARY"
           fi

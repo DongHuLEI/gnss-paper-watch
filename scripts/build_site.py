@@ -258,8 +258,14 @@ class Site:
                   "retrieval_failed": "检索失败，保留上期"}.get(status.get("result"), "等待更新检查")
         if status.get("retrieval_status") == "partial":
             result = "部分更新 · 检索待补齐"
-        return '<aside class="update-panel"><p class="eyebrow">UPDATE STATUS</p><h2>%s</h2><p><span class="status-dot" aria-hidden="true"></span>%s</p><dl><div><dt>最近检查</dt><dd>%s</dd></div><div><dt>最新日报</dt><dd>%s</dd></div><div><dt>检索完整性</dt><dd>%s</dd></div><div><dt>更新计划</dt><dd>00:17 / 03:17 / 06:17</dd></div></dl><small>北京时间。提前触发并补跑；平台可能延迟，以实际检查记录为准。检索失败不代表没有新论文。</small></aside>' % (
-            result, ai_label, esc(timestamp(status.get("checked_at"))), self.latest["edition"]["date"], esc(self.retrieval_label()),
+        from automation_gate import automation_status
+        automation = automation_status(self.settings, readings=self.deep_reads)
+        schedule = "每天 08:00" if automation["enabled"] else "已暂停 · 先补齐历史精读"
+        if not automation["enabled"]:
+            result = "历史论文精读补充中"
+        progress = "历史图文精读 %d/%d 篇。全部补齐并验收后才启用北京时间每天 08:00 日更；平台可能延迟，08:00 是触发时间而非完成保证。" % (automation["completed"], automation["total"])
+        return '<aside class="update-panel"><p class="eyebrow">UPDATE STATUS</p><h2>%s</h2><p><span class="status-dot" aria-hidden="true"></span>%s</p><dl><div><dt>最近检索</dt><dd>%s</dd></div><div><dt>最新日报</dt><dd>%s</dd></div><div><dt>检索完整性</dt><dd>%s</dd></div><div><dt>更新计划</dt><dd>%s</dd></div></dl><small>%s</small></aside>' % (
+            result, ai_label, esc(timestamp(status.get("checked_at"))), self.latest["edition"]["date"], esc(self.retrieval_label()), esc(schedule), esc(progress),
         )
 
     def home(self):
@@ -440,7 +446,10 @@ class Site:
     def about(self):
         ai = self.status.get("ai", {})
         content = self.heading("SOURCES & OPERATIONS", "知道内容怎么来，也知道它的边界。", "这不是论文质量排行榜。我们把检索、AI 解读和原有整理分开标记，并保留来源与实际运行状态。")
-        content += '<div class="about-grid"><section class="panel"><h2>把内容深度分开标记</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li><li>图文精读：独立保存的版本化全文导读，含图解、公式、实验口径与原文定位；仍不等于独立复现。已有人工辅助核读示范予以保留。新自动条目按内置 Skill 尝试同一九章结构，必须通过全文、原图、公式和证据检查，仍标注 AI 待核验；未完成的保留待处理原因。</li></ul></section><section class="panel"><h2>更新与时区</h2><p>北京时间 00:17 首次触发，03:17、06:17 补跑。同日去重，保留历史。GitHub Actions 可能延迟，不提供严格的 08:00 服务保证。</p><p>最近检查：%s</p><p>检索状态：%s</p></section></div>' % (esc(timestamp(self.status.get("checked_at"))), esc(self.retrieval_label()))
+        from automation_gate import automation_status
+        automation = automation_status(self.settings, readings=self.deep_reads)
+        automation_text = "已启用每日更新" if automation["enabled"] else "每日更新已暂停，先补齐历史论文精读"
+        content += '<div class="about-grid"><section class="panel"><h2>把内容深度分开标记</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li><li>图文精读：独立保存的版本化全文导读，含图解、公式、实验口径与原文定位；仍不等于独立复现。已有人工辅助核读示范予以保留。新自动条目按内置 Skill 尝试同一九章结构，必须通过全文、原图、公式和证据检查，仍标注 AI 待核验；未完成的保留待处理原因。</li></ul></section><section class="panel" id="historical-backfill"><h2>历史补读与日更开关</h2><p><strong>%s</strong>。本次历史清单共 %d 篇，已完成图文精读 %d 篇；未补齐不能启用自动检索或付费生成，手动运行日更也遵守此限制。</p><p>完成并验收后，计划每天北京时间 08:00 触发一次。同日去重，保留历史。GitHub Actions 可能延迟；触发后仍需检索与解读时间，不保证 08:00 已经完成。</p><p>最近检索：%s</p><p>检索状态：%s</p></section></div>' % (esc(automation_text), automation["total"], automation["completed"], esc(timestamp(self.status.get("checked_at"))), esc(self.retrieval_label()))
         failed = [self.domains[item["domain"]]["label"] for item in self.status.get("queries", [])
                   if item.get("status") != "ok" and item.get("domain") in self.domains]
         if failed:

@@ -5,6 +5,12 @@
   "url": "https://donghulei.github.io/gnss-paper-watch/",
   "timezone": "Asia/Shanghai"
  },
+ "automation": {
+  "enabled": false,
+  "time": "08:00",
+  "timezone": "Asia/Shanghai",
+  "require_historical_readings": true
+ },
  "retrieval": {
   "days": 14,
   "results_per_domain": 60,

@@ -65,7 +65,7 @@ def main():
             for equation in data["equations"]:
                 paths.extend(equation_asset(data, equation, field) for field in ("mathml", "mathml_second") if equation.get(field))
     files = {name: (ROOT / name).read_bytes() for name in dict.fromkeys(paths)}
-    excluded = ("scripts/daily_update.py", "scripts/deep_reading.py", "scripts/reading_pipeline.py", "data/status.json", "data/reading_queue.json", "README.md", ".agents/skills/paper-deep-reading/SKILL.md")
+    excluded = ("scripts/daily_update.py", "scripts/deep_reading.py", "scripts/reading_pipeline.py", "scripts/automation_gate.py", "data/status.json", "data/reading_queue.json", "data/backfill.json", "README.md", ".agents/skills/paper-deep-reading/SKILL.md")
     excluded += tuple("data/deep_reads/%s.json" % paper_id for paper_id in site.deep_reads)
     base_url = args.url.rstrip("/") + "/"
     errors = []

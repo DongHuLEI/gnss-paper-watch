@@ -218,6 +218,13 @@ def main():
         if failed:
             print("- Incomplete sources: " + "、".join(failed))
         return 0
+    from automation_gate import automation_status
+    automation = automation_status(settings)
+    if not automation["enabled"]:
+        print("Daily automation paused: %s; historical readings %d/%d. No retrieval or AI calls started." % (
+            automation["reason"], automation["completed"], automation["total"],
+        ), flush=True)
+        return 0
     if args.per_domain < 1 or args.days < 1 or not 1 <= args.max <= 200 or not 0 <= args.min_score <= 100:
         parser.error("invalid retrieval limits")
     if args.no_build and not args.no_push:
