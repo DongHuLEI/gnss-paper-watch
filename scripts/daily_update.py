@@ -173,7 +173,7 @@ def make_edition(date_str, papers, domains, number, retrieval, client, pages):
 
 def publish(date_str):
     paths = ["index.html", "404.html", "daily", "archive", "papers", "topics", "library", "learn", "about",
-             "data/editions", "data/status.json", "data/usage"]
+             "data/editions", "data/status.json", "data/usage", "data/deep_reads", "data/reading_queue.json", "assets/deep-reading"]
     paths = [path for path in paths if (ROOT / path).exists()]
     subprocess.check_call(["git", "add", "-A", "--"] + paths, cwd=str(ROOT))
     if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=str(ROOT)).returncode == 0:
@@ -210,6 +210,9 @@ def main():
                              ("AI summaries", status.get("ai_summaries", 0)),
                              ("Reported tokens", ai.get("input_tokens", 0) + ai.get("output_tokens", 0))):
             print("- %s: %s" % (label, value))
+        if settings["deepseek"].get("full_reading_enabled"):
+            print("- Reading skill: paper-deep-reading")
+            print("- Full readings pending: %s" % status.get("full_reading", {}).get("pending", "not run yet"))
         failed = [domains[item["domain"]]["label"] for item in status.get("queries", [])
                   if item.get("status") != "ok" and item.get("domain") in domains]
         if failed:
@@ -254,7 +257,12 @@ def main():
         selected = pick(list(candidates.values()), domains, args.per_domain,
                         config["max_daily_papers"], existing=papers)
         papers = [item if "title_en" in item else make_paper(item) for item in selected]
-    enrich(papers, client, settings["research_profile"], pages)
+    reading_status = {}
+    if client.config.get("full_reading_enabled"):
+        from reading_pipeline import enrich_full_readings
+        reading_status = enrich_full_readings(papers, client, settings["research_profile"], editions, deadline=time.monotonic() + 18 * 60)
+    else:
+        enrich(papers, client, settings["research_profile"], pages)
     previous = load_json(DATA / "status.json") if (DATA / "status.json").exists() else {}
     if retrieval["status"] == "already_checked" and previous.get("checked_date") == date_str:
         query_records = previous.get("queries", [])
@@ -271,7 +279,8 @@ def main():
         "retrieved_at": retrieved_at, "queries": query_records, "candidate_count": candidate_count,
         "issue_date": date_str if papers else (editions[0]["edition"]["date"] if editions else None),
         "issue_papers": len(papers), "ai_summaries": sum(bool(paper.get("analysis")) for paper in papers),
-        "ai": client.public_status(), "supplement_status": supplement_status,
+        "full_readings": sum((DATA / "deep_reads" / (paper["id"] + ".json")).exists() for paper in papers),
+        "ai": client.public_status(), "supplement_status": supplement_status, "full_reading": reading_status,
         "result": "retrieval_failed" if retrieval["status"] == "failed" else (
             ("already_checked" if not should_retrieve else "updated") if papers else "no_new_papers"
         ),
@@ -289,6 +298,10 @@ def main():
             if current:
                 discovery = list(current.get("discovery", []))
                 issue["discovery"] = discovery + [page for page in issue["discovery"] if page not in discovery]
+        if client.config.get("full_reading_enabled"):
+            issue["edition"]["blurb"] = "本期 %d 篇，%d 篇图文全文导读、%d 篇既有摘要级解读；自动导读仍待核验。" % (len(papers), status["full_readings"], status["ai_summaries"])
+            issue["edition"]["full_readings"] = status["full_readings"]
+            issue["edition"]["reading_skill"] = "paper-deep-reading"
         write_json(DATA / "editions" / (date_str + ".json"), issue)
     write_json(DATA / "status.json", status)
     write_json(client.ledger_path, client.ledger)
@@ -298,7 +311,7 @@ def main():
         publish(date_str)
     print("%s: %d papers, %d AI summaries; AI=%s; retrieval=%s" % (
         date_str, len(papers), status["ai_summaries"], client.state, retrieval["status"]), flush=True)
-    if args.require_ai and not status["ai_summaries"]:
+    if args.require_ai and not (status["ai_summaries"] or status["full_readings"]):
         return 2
     return 1 if retrieval["status"] == "failed" else 0
 

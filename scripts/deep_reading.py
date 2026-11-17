@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 
 MATH_TAGS = {"mrow", "mi", "mn", "mo", "mtext", "mfrac", "msub", "msup", "msubsup", "msqrt", "mover", "mspace"}
 MATH_ATTRS = {"mathvariant", "width"}
+MATH_VARIANTS = {"normal", "bold", "italic", "bold-italic", "double-struck", "bold-fraktur", "script", "bold-script", "fraktur", "sans-serif", "bold-sans-serif", "sans-serif-italic", "sans-serif-bold-italic", "monospace"}
 SECTIONS = [("overview", "整体概括"), ("gap", "Research gap"), ("method", "算法主线"),
             ("equations", "关键公式"), ("experiments", "实验怎么做"), ("results", "提升与证据"),
             ("limits", "局限与追问"), ("transfer", "连接你的研究"), ("sources", "来源与边界")]
@@ -30,7 +31,7 @@ def checked_math(value):
         for key, item in element.attrib.items():
             if key == "width" and not re.fullmatch(r"\d+(?:\.\d+)?em", item):
                 raise ValueError("invalid MathML spacing")
-            if key == "mathvariant" and item not in ("normal", "script", "double-struck"):
+            if key == "mathvariant" and item not in MATH_VARIANTS:
                 raise ValueError("invalid MathML variant")
     return value
 
@@ -62,11 +63,11 @@ def load_deep_reads(directory):
         if data["paper_id"] != path.stem or data["paper_id"] in result or not re.fullmatch(r"\d{4}\.\d{4,5}", data["paper_id"]):
             raise ValueError("invalid deep-reading identity: " + str(path))
         source = urllib.parse.urlsplit(data["source_url"])
-        if source.scheme != "https" or source.netloc != "arxiv.org" or source.path != "/html/" + data["paper_id"] + "v1" or source.query or source.fragment:
+        if source.scheme != "https" or source.netloc != "arxiv.org" or not re.fullmatch(r"/html/" + re.escape(data["paper_id"]) + r"v[1-9]\d*", source.path) or source.query or source.fragment:
             raise ValueError("invalid versioned deep-reading source")
         dt.datetime.strptime(data["checked_on"], "%Y-%m-%d")
         for reference in data["references"].values():
-            if not re.fullmatch(r"[A-Za-z0-9.]+", reference["anchor"]):
+            if not re.fullmatch(r"[A-Za-z0-9_.:-]{1,160}", reference["anchor"]):
                 raise ValueError("invalid source anchor")
         figure_ids, figure_refs = set(), set()
         for original in data.get("original_figures", []):
@@ -80,7 +81,8 @@ def load_deep_reads(directory):
             if not data["references"][reference]["anchor"].endswith(".F%d" % number):
                 raise ValueError("original figure number does not match source anchor")
             figure_refs.add(reference)
-            if not re.fullmatch(re.escape(data["source_url"] + "/") + r"[A-Za-z0-9_-]+\.png", original["src"]):
+            from paper_source import image_url
+            if image_url(data["source_url"], original["src"]) != original["src"]:
                 raise ValueError("original figure must link to the versioned arXiv image")
             if any(type(original[key]) is not int or not 1 <= original[key] <= 10000 for key in ("width", "height")):
                 raise ValueError("invalid original figure dimensions")
@@ -95,15 +97,19 @@ def load_deep_reads(directory):
                 if equation.get(field):
                     checked_math(equation[field])
                     validate_formula_asset(directory.parent.parent / equation_asset(data, equation, field))
-        results = data["result_data"]
-        if len(results["models"]) != 3 or results["models"][-1] != "PGFM":
-            raise ValueError("deep-reading chart requires three models, with PGFM last")
-        for metric in results["metrics"]:
-            values = metric["average"] + [number for row in metric["leads"] for number in row]
-            if len(metric["average"]) != 3 or len(metric["leads"]) != 3 or any(len(row) != len(results["lead_hours"]) for row in metric["leads"]):
-                raise ValueError("deep-reading result dimensions do not match")
-            if any(not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0 for value in values):
-                raise ValueError("invalid deep-reading result")
+        if data.get("format"):
+            from reading_contract import validate_saved
+            validate_saved(data)
+        else:
+            results = data["result_data"]
+            if len(results["models"]) != 3 or results["models"][-1] != "PGFM":
+                raise ValueError("deep-reading chart requires three models, with PGFM last")
+            for metric in results["metrics"]:
+                values = metric["average"] + [number for row in metric["leads"] for number in row]
+                if len(metric["average"]) != 3 or len(metric["leads"]) != 3 or any(len(row) != len(results["lead_hours"]) for row in metric["leads"]):
+                    raise ValueError("deep-reading result dimensions do not match")
+                if any(not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0 for value in values):
+                    raise ValueError("invalid deep-reading result")
         result[data["paper_id"]] = data
     return result
 
@@ -230,6 +236,9 @@ def result_table(data):
 
 
 def render(data, abstract, issue_links):
+    if data.get("format"):
+        from skill_reading import render as render_skill
+        return render_skill(data, abstract, issue_links)
     sections = []
 
     def section(key, body):
@@ -262,10 +271,15 @@ def render(data, abstract, issue_links):
     section("sources", '<dl class="dr-source-meta"><div><dt>所读版本</dt><dd>arXiv:%s · %s</dd></div><div><dt>整理日期</dt><dd>%s</dd></div><div><dt>核读范围</dt><dd>%s</dd></div></dl><p>%s</p><div class="dr-source-buttons"><a class="button" href="%s">打开所读版本全文 ↗</a><a class="button" href="https://arxiv.org/abs/%s">元数据与许可说明 ↗</a><a class="button" href="https://info.arxiv.org/help/license/reuse.html">原图重用说明 ↗</a></div><details class="dr-original-abstract"><summary>对照英文原始摘要</summary><div class="abstract" lang="en">%s</div></details><p class="dr-small">收录历史：%s</p><p class="dr-small">这篇导读独立保存，不替换其他论文的摘要级解读；日更重建会保留本示范。本站建议与作者结论已分开标记。</p>' % (
         esc(data["paper_id"]), esc(data["source_version"]), esc(data["checked_on"]), esc(data["scope"]), esc(data["copyright_note"]), esc(data["source_url"]), esc(data["paper_id"]), esc(abstract), issue_links,
     ))
+    return layout(data, sections)
+
+
+def layout(data, sections):
     toc_links = ''.join('<a href="#%s"><span>%02d</span>%s</a>' % (key, i, esc(label)) for i, (key, label) in enumerate(SECTIONS, 1))
     mobile_toc = '<details class="dr-mobile-toc"><summary>本篇目录 · 9 个章节</summary><nav aria-label="移动端本篇目录">%s</nav></details>' % toc_links
     originals = '<nav class="dr-original-index" aria-label="原文图快捷入口"><span>对照原文图</span>' + ''.join('<a href="#%s">Fig.%s · %s</a>' % (esc(item["id"]), item["number"], esc(data["references"][item["reference"]]["label"].split(" · ")[-1])) for item in data.get("original_figures", [])) + '</nav>' if data.get("original_figures") else ""
-    tools = '<div class="dr-toolbar"><span>全文导读示范 · 约 %s 分钟</span><a href="#results">先看实验结论 ↓</a><button type="button" class="icon-button" data-print-reading hidden>打印 / 存 PDF</button></div>' % data["reading_minutes"]
+    mode = "AI 全文导读 · 待核验" if data.get("format") else "全文导读示范"
+    tools = '<div class="dr-toolbar"><span>%s · 约 %s 分钟</span><a href="#results">先看实验结论 ↓</a><button type="button" class="icon-button" data-print-reading hidden>打印 / 存 PDF</button></div>' % (mode, data["reading_minutes"])
     progress = '<div class="dr-progress" data-reading-progress hidden><progress max="100" value="0" aria-label="全文导读阅读进度"></progress></div>'
     dialog = '<dialog class="dr-figure-dialog" aria-label="放大图示"><div class="dr-dialog-header"><strong>图示阅读</strong><button type="button" class="button" data-close-figure>关闭 · Esc</button><div class="dr-view-controls" data-original-controls role="group" aria-label="原图显示方式" hidden><button type="button" class="icon-button" data-original-size="fit" aria-pressed="true">适应窗口</button><button type="button" class="icon-button" data-original-size="native" aria-pressed="false">原始尺寸</button><span>原始尺寸下可在图内滑动查看；放大不会增加像素细节。</span></div></div><div class="dr-viewer-body"></div></dialog>'
     return '<div class="deep-reader" data-deep-reader>%s<div class="dr-scope"><strong>全文导读，不把摘要扩写当精读</strong><p>%s</p></div>%s%s%s<div class="dr-layout"><article class="dr-body">%s</article><aside class="dr-toc"><p class="eyebrow">READ THE PAPER</p><nav aria-label="全文导读目录">%s</nav><p data-reading-percent aria-live="off">阅读进度 0%%</p><a href="#content">回到文章顶部 ↑</a></aside></div>%s</div>' % (

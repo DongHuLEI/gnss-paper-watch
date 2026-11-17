@@ -115,7 +115,9 @@ def check(root, public=False):
             errors.append("missing paper page " + paper["id"])
         if paper["status"] == "deep":
             doc = documents.get(path)
-            required = {"overview", "gap", "method", "equations", "experiments", "results", "limits", "transfer", "sources", "figure-workflow", "figure-path", "figure-results"}
+            required = {"overview", "gap", "method", "equations", "experiments", "results", "limits", "transfer", "sources"}
+            if not paper["deep_read"].get("format"):
+                required.update(("figure-workflow", "figure-path", "figure-results"))
             required.update(item["id"] for item in paper["deep_read"]["equations"])
             originals = paper["deep_read"].get("original_figures", [])
             required.update(item["id"] for item in originals)

@@ -161,6 +161,11 @@ html[data-theme="dark"] .dr-formula-image { filter: invert(1) hue-rotate(180deg)
 .dr-read-figure li strong { display: block; font-size: 12px; }
 .dr-read-figure li p { font-size: 12px; color: var(--muted); margin: 4px 0 0; }
 .dr-image-credit { margin-top: 8px; font-size: 10px; }
+.dr-skill-claim { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.dr-skill-claim h3 { margin: 9px 0; }
+.dr-skill-evidence { margin-top: 12px; font-size: 12px; }
+.dr-skill-evidence summary { cursor: pointer; color: var(--accent); }
+.dr-skill-evidence blockquote { margin: 13px 0; padding: 10px 14px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.9; overflow-wrap: anywhere; }
 .dr-figure-dialog { width: min(1120px, 95vw); max-width: 95vw; max-height: 90vh; padding: 0; border: 1px solid var(--line); border-radius: 10px; color: var(--text); background: var(--surface); }
 .dr-figure-dialog::backdrop { background: rgba(8, 20, 28, .7); }
 .dr-dialog-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 13px 18px; border-bottom: 1px solid var(--line); font-size: 13px; position: sticky; top: 0; z-index: 1; background: var(--surface); }

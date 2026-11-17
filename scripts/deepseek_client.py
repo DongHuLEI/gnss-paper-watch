@@ -143,7 +143,9 @@ class DeepSeekClient:
             raise BudgetExceeded(kind + "_request_limit")
         reserve = 0
         if kind == "chat":
-            reserve = len(json.dumps(payload["messages"], ensure_ascii=False).encode("utf-8")) + payload["max_tokens"]
+            images = sum(1 for message in payload["messages"] if isinstance(message.get("content"), list)
+                         for part in message["content"] if part.get("type") == "image_url")
+            reserve = len(json.dumps(payload["messages"], ensure_ascii=False).encode("utf-8")) + payload["max_tokens"] + images * 1024
             if self.ledger["accounted_tokens"] + reserve > self.config["daily_token_limit"]:
                 raise BudgetExceeded("daily_token_limit")
             self.ledger["accounted_tokens"] += reserve
@@ -319,6 +321,61 @@ class DeepSeekClient:
             except (APIError, ValueError, KeyError, TypeError) as exc:
                 error = str(exc) if isinstance(exc, APIError) else "invalid_or_ungrounded_output"
                 self._error("analysis", error)
+                if not self.available:
+                    return None, self.state
+                if attempt + 1 < self.config["max_attempts"]:
+                    time.sleep(3)
+        return None, error
+
+    def analyze_full_reading(self, paper, profile, source, figures):
+        from reading_contract import SCHEMA, assemble, skill
+        body, digest = skill()
+        prompt_source = {
+            "url": source["url"], "blocks": source["blocks"],
+            "equations": [{key: item[key] for key in ("id", "anchor", "text")} for item in source["equations"]],
+        }
+        user_data = {"paper": {key: paper[key] for key in ("id", "version", "title_en")},
+                     "research_profile": profile, "source": prompt_source,
+                     "selected_figures": figures}
+        cache_key = hashlib.sha256(json.dumps({"skill": digest, "model": self.config["model"], "source_hash": source["sha256"], "input": user_data}, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+        cache_path = self.cache_dir / ("reading-" + cache_key + ".json")
+        if cache_path.exists():
+            try:
+                answer = load_json(cache_path)
+                return assemble(answer, paper, source, figures, digest, self.config["model"]), "cached"
+            except (ValueError, KeyError, TypeError):
+                pass
+        if not self.available:
+            return None, self.state
+        if self.ledger["successes"]["chat"] >= self.config["daily_paper_limit"]:
+            return None, "daily_paper_limit"
+        if figures and self.config["model"] != "deepseek-flash":
+            return None, "verified_vision_model_required"
+        content = [{"type": "text", "text": json.dumps(user_data, ensure_ascii=False)}]
+        for image in figures:
+            content.extend([{"type": "text", "text": "原文图 " + image["id"] + "：" + image["caption"]},
+                            {"type": "image_url", "image_url": {"url": image["src"], "detail": "original"}}])
+        payload = {
+            "model": self.config["model"], "thinking": {"type": "disabled"},
+            "max_tokens": self.config["full_reading_completion_tokens"], "response_format": {"type": "json_object"},
+            "messages": [{"role": "system", "content": body + "\n\n" + SCHEMA}, {"role": "user", "content": content}], "stream": False,
+        }
+        error = "full_reading_failed"
+        for attempt in range(self.config["max_attempts"]):
+            try:
+                response = self._post("chat", "/chat/completions", payload)
+                choice = response["choices"][0]
+                if choice.get("finish_reason") != "stop":
+                    raise ValueError("incomplete_reading_output")
+                answer = json.loads(choice["message"]["content"])
+                result = assemble(answer, paper, source, figures, digest, self.config["model"])
+                write_json(cache_path, answer)
+                return result, "ok"
+            except BudgetExceeded as exc:
+                return None, str(exc)
+            except (APIError, ValueError, KeyError, TypeError, IndexError, AttributeError):
+                error = "invalid_or_ungrounded_reading"
+                self._error("full_reading", error)
                 if not self.available:
                     return None, self.state
                 if attempt + 1 < self.config["max_attempts"]:

@@ -17,7 +17,7 @@ from radar_config import (
 )
 from deep_reading import load_deep_reads, render as render_deep_read
 
-STATUS_LABELS = {"metadata": "检索初筛", "ai": "AI 解读 · 待核验", "curated": "整理摘要", "deep": "图文精读 · 全文导读示范"}
+STATUS_LABELS = {"metadata": "检索初筛", "ai": "AI 解读 · 待核验", "curated": "整理摘要", "deep": "图文精读 · 全文导读"}
 
 
 def esc(value):
@@ -88,6 +88,7 @@ class Site:
         self.catalogue = {}
         self.issues = {}
         self.deep_reads = load_deep_reads(DATA / "deep_reads")
+        self.reading_queue = load_json(DATA / "reading_queue.json") if (DATA / "reading_queue.json").exists() else {"papers": {}}
         priority = {"deep": 4, "curated": 3, "ai": 2, "metadata": 1}
         for view in self.editions:
             rows = []
@@ -128,7 +129,9 @@ class Site:
             paper["status"] = "deep"
             paper["title_zh"] = paper["deep_read"]["title_zh"]
             paper["one_liner"] = paper["deep_read"]["dek"]
-            paper["tags"] = list(dict.fromkeys(["全文导读", "Flow Matching", "物理引导"] + paper["tags"]))
+            reading_tags = ["全文导读"] if paper["deep_read"].get("format") else ["全文导读", "Flow Matching", "物理引导"]
+            paper["tags"] = list(dict.fromkeys(reading_tags + paper["tags"]))
+        paper["full_reading_status"] = self.reading_queue["papers"].get(paper["id"], {}).get("status")
         return paper
 
     def count_domain(self, key, papers=None):
@@ -227,7 +230,7 @@ class Site:
         return '''<section class="paper-browser" data-browser data-default-domain="%s" data-page-size="12" aria-label="%s">
 <form class="filter-panel" data-filters>
 <div class="filter-search"><label for="paper-search">搜索%s</label><input id="paper-search" data-field="q" type="search" placeholder="标题、作者、摘要、标签、arXiv ID" autocomplete="off"></div>
-<div class="filter-controls"><label>研究领域<select data-field="domain">%s</select></label><label>交叉视角<select data-field="lens">%s</select></label><label>收录月份<select data-field="month">%s</select></label><label>内容状态<select data-field="status"><option value="all">全部状态</option><option value="deep">图文精读示范</option><option value="ai">AI 解读</option><option value="curated">整理摘要</option><option value="metadata">检索初筛</option></select></label><label>阅读状态<select data-field="reading"><option value="all">全部阅读状态</option><option value="unread">未读</option><option value="read">已读</option></select></label><label>排序<select data-field="sort"><option value="newest">发表时间 · 新到旧</option><option value="collected">收录时间 · 新到旧</option><option value="score">匹配度 · 高到低</option><option value="oldest">发表时间 · 旧到新</option></select></label></div>
+<div class="filter-controls"><label>研究领域<select data-field="domain">%s</select></label><label>交叉视角<select data-field="lens">%s</select></label><label>收录月份<select data-field="month">%s</select></label><label>内容状态<select data-field="status"><option value="all">全部状态</option><option value="deep">图文精读</option><option value="ai">AI 解读</option><option value="curated">整理摘要</option><option value="metadata">检索初筛</option></select></label><label>阅读状态<select data-field="reading"><option value="all">全部阅读状态</option><option value="unread">未读</option><option value="read">已读</option></select></label><label>排序<select data-field="sort"><option value="newest">发表时间 · 新到旧</option><option value="collected">收录时间 · 新到旧</option><option value="score">匹配度 · 高到低</option><option value="oldest">发表时间 · 旧到新</option></select></label></div>
 <div class="filter-footer"><label class="check-label"><input data-field="saved" type="checkbox">只看收藏</label><button type="button" class="text-button" data-reset>重置筛选</button><span class="local-note">收藏与已读保存在本设备，可导出迁移。</span></div>
 </form>
 <div class="results-toolbar"><p class="result-count" aria-live="polite" data-result-count>共 %d 篇</p><div class="view-toggle" aria-label="论文显示方式"><button data-view="cards" type="button" aria-pressed="true">卡片</button><button data-view="list" type="button" aria-pressed="false">紧凑列表</button></div></div>
@@ -272,7 +275,8 @@ class Site:
         if self.deep_reads:
             sample_id = max(self.deep_reads, key=lambda key: self.deep_reads[key]["checked_on"])
             sample = self.catalogue[sample_id]
-            feature = '<section class="deep-feature" aria-label="图文精读示范"><div><p class="eyebrow">DEEP READING / 单篇示范</p><h2>%s</h2><p>整体概括 → Research gap → 算法图解与公式 → 实验提升与局限。独立全文导读，不替代其他论文的摘要级解读。</p></div><a class="button primary" href="papers/%s/index.html">打开图文精读 →</a></section>' % (esc(sample["title_zh"]), esc(sample["slug"]))
+            mode = "AI 全文导读 · 待核验" if sample["deep_read"].get("format") else "单篇核读示范"
+            feature = '<section class="deep-feature" aria-label="图文精读"><div><p class="eyebrow">DEEP READING / %s</p><h2>%s</h2><p>整体概括 → Research gap → 原图与算法公式 → 实验提升与局限。独立全文导读，不替代其他论文的摘要级解读。</p></div><a class="button primary" href="papers/%s/index.html">打开图文精读 →</a></section>' % (mode, esc(sample["title_zh"]), esc(sample["slug"]))
         domains = []
         for key, domain in self.domains.items():
             domains.append('<a class="domain-tile" href="topics/%s/index.html" style="--domain:%s"><span class="tile-top"><b>%s</b><small>%s</small></span><h3>%s</h3><p>%s</p><span class="tile-bottom">%d 篇历史论文 <b aria-hidden="true">↗</b></span></a>' % (
@@ -311,7 +315,7 @@ class Site:
         heading = self.heading("DAILY RESEARCH / 第 %s 期" % view["edition"]["number"], date + " · 研究日报", "按当天收录内容回看。后续更新不会删除旧论文；相同论文的阅读笔记可能随整理进度补充。")
         papers = self.issues[date]
         counts = Counter(paper["status"] for paper in papers)
-        overview = '<div class="issue-summary"><strong>%d 篇论文</strong><span>图文精读示范 %d</span><span>AI 解读 %d</span><span>整理摘要 %d</span><span>检索初筛 %d</span></div>' % (len(papers), counts["deep"], counts["ai"], counts["curated"], counts["metadata"])
+        overview = '<div class="issue-summary"><strong>%d 篇论文</strong><span>图文精读 %d</span><span>AI 解读 %d</span><span>整理摘要 %d</span><span>检索初筛 %d</span></div>' % (len(papers), counts["deep"], counts["ai"], counts["curated"], counts["metadata"])
         if view["edition"].get("retrieval_status") in ("partial", "failed"):
             overview += '<p class="notice">本期检索不完整：部分来源限流、超时或失败，不代表其他方向没有论文。后续补跑会继续检查，并保留已收录内容。</p>'
         return self.shell(date + " 日报", "跨学科研究日报", "../../", navigation + heading + overview + self.browser(papers, "../../", scope="本期论文"), "archive")
@@ -414,6 +418,9 @@ class Site:
         related_html = '<section class="section"><div class="section-heading"><h2>沿着这条线继续读</h2><a href="../../library/index.html">全部论文 →</a></div><div class="paper-grid">' + "".join(self.card(item, root) for item in related) + '</div></section>'
         citation = {"id": paper["id"], "title": paper["title_en"], "authors": paper["authors"], "year": paper["date"][:4], "url": paper["links"]["abs"]}
         payload = json.dumps(citation, ensure_ascii=False).replace("<", "\\u003c").replace("&", "\\u0026")
+        if paper.get("full_reading_status"):
+            from reading_pipeline import label as reading_label
+            note += '<div class="notice"><strong>按九章模板精读 · 待处理</strong><p>%s。当前内容深度仍以上方标记为准，不将原有摘要自动升级为精读。</p></div>' % esc(reading_label(paper["full_reading_status"]))
         content = header + note + '<div class="reading-layout"><div class="reading-body">' + "".join(sections) + '</div>' + toc + '</div>' + related_html
         content += '<script type="application/json" id="citation-data">%s</script>' % payload
         return self.shell(paper["title_zh"], paper["one_liner"], root, content, "library")
@@ -433,13 +440,20 @@ class Site:
     def about(self):
         ai = self.status.get("ai", {})
         content = self.heading("SOURCES & OPERATIONS", "知道内容怎么来，也知道它的边界。", "这不是论文质量排行榜。我们把检索、AI 解读和原有整理分开标记，并保留来源与实际运行状态。")
-        content += '<div class="about-grid"><section class="panel"><h2>把内容深度分开标记</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li><li>图文精读示范：独立保存的版本化全文导读，含图解、公式、实验口径与原文定位；仍不等于独立复现。目前仅做单篇示范，不代表每日文章都已达到这个深度。</li></ul></section><section class="panel"><h2>更新与时区</h2><p>北京时间 00:17 首次触发，03:17、06:17 补跑。同日去重，保留历史。GitHub Actions 可能延迟，不提供严格的 08:00 服务保证。</p><p>最近检查：%s</p><p>检索状态：%s</p></section></div>' % (esc(timestamp(self.status.get("checked_at"))), esc(self.retrieval_label()))
+        content += '<div class="about-grid"><section class="panel"><h2>把内容深度分开标记</h2><ul><li>检索初筛：原始元数据与摘要，未生成中文解读。</li><li>AI 解读：DeepSeek 基于摘要或网页摘录生成，带来源与证据引用，仍需人工核验。</li><li>整理摘要：保留原有中文笔记，不表示已精读全文。</li><li>图文精读：独立保存的版本化全文导读，含图解、公式、实验口径与原文定位；仍不等于独立复现。已有人工辅助核读示范予以保留。新自动条目按内置 Skill 尝试同一九章结构，必须通过全文、原图、公式和证据检查，仍标注 AI 待核验；未完成的保留待处理原因。</li></ul></section><section class="panel"><h2>更新与时区</h2><p>北京时间 00:17 首次触发，03:17、06:17 补跑。同日去重，保留历史。GitHub Actions 可能延迟，不提供严格的 08:00 服务保证。</p><p>最近检查：%s</p><p>检索状态：%s</p></section></div>' % (esc(timestamp(self.status.get("checked_at"))), esc(self.retrieval_label()))
         failed = [self.domains[item["domain"]]["label"] for item in self.status.get("queries", [])
                   if item.get("status") != "ok" and item.get("domain") in self.domains]
         if failed:
             content += '<p class="notice">尚未成功检查的来源：%s。限流或超时不表示该方向没有新论文；下一次任务会重试。</p>' % esc("、".join(failed))
         limits = self.settings["deepseek"]
-        content += '<section class="panel section"><h2>DeepSeek 配置与用量</h2><p>密钥只通过 GitHub Actions Secret <code>DEEPSEEK_API_KEY</code> 传入，不在前端、不在公开 JSON，也不发送飞书原文。模型为 <code>%s</code>。</p><p>状态：<strong>%s</strong>。当日已报告输入 %s token、输出 %s token；不确定的请求预留量 %s token。</p><p>配置上限：每天解读 %s 篇、搜索 %s 次、网页读取 %s 次。token 用保守预留限制在 %s 内；具体账单以 DeepSeek 后台为准。</p><p><a href="https://api-docs.deepseek.com/guides/search">官方搜索与读取说明 ↗</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing">官方实时价格 ↗</a></p></section>' % (esc(limits["model"]), esc(ai.get("state", "unknown")), ai.get("input_tokens", 0), ai.get("output_tokens", 0), ai.get("uncertain_reserved_tokens", 0), limits["daily_paper_limit"], limits["daily_search_limit"], limits["daily_fetch_limit"], limits["daily_token_limit"])
+        if limits.get("full_reading_enabled"):
+            from reading_contract import skill
+            from reading_pipeline import label as reading_label
+            _, digest = skill()
+            pending = [record for identity, record in self.reading_queue["papers"].items() if identity not in self.deep_reads]
+            reasons = Counter(reading_label(record["status"]) for record in pending)
+            content += '<section class="panel section" id="reading-skill"><h2>内置 Skill · 论文图文精读</h2><p><code>paper-deep-reading</code> · 版本 %s。日更会实际读取同一份规范，按九章结构生成全文导读、原图读图说明、关键公式与实验依据；不是只给摘要套九个标题。</p><p>原图会提供给视觉模型，公式从原文提取并预先排成矢量图。事实附来源与逐字证据，研究建议单独标记；自动检查不能保证语义完全正确，AI 导读仍待人工核验。</p><p>仅有摘要、全文不可用、预算不足或证据未通过时，不发布残缺精读，而保留原始条目与待处理原因。已有核读示范不自动覆盖。原图来自外部官方图源，加载仍依赖读者网络。</p><p>每日总预算仍为 <strong>%s token</strong>，含补跑和重试；此上限不保证每天所有论文都能完成精读。</p><p>待处理 %s 篇；%s</p></section>' % (digest[:12], limits["daily_token_limit"], len(pending), esc("；".join("%s：%s" % (reason, count) for reason, count in reasons.items()) if pending else "新流程尚待下一次定时或手动检索执行；零待处理不表示已生成全部精读。"))
+        content += '<section class="panel section"><h2>DeepSeek 配置与用量</h2><p>密钥只通过 GitHub Actions Secret <code>DEEPSEEK_API_KEY</code> 传入，不在前端、不在公开 JSON，也不发送飞书原文。模型为 <code>%s</code>。</p><p>状态：<strong>%s</strong>。当日已报告输入 %s token、输出 %s token；不确定的请求预留量 %s token。</p><p>配置上限：每日模型成功响应 %s 次（无效生成也计入）、DeepSeek 搜索 %s 次、Fetch %s 次。新精读的全文与原图由程序从官方图源读取，未取得全文就保留待处理。token 用保守预留限制在 %s 内，不能据此保证相同数量的精读；具体账单以 DeepSeek 后台为准。</p><p><a href="https://api-docs.deepseek.com/guides/search">官方搜索与读取说明 ↗</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing">官方实时价格 ↗</a></p></section>' % (esc(limits["model"]), esc(ai.get("state", "unknown")), ai.get("input_tokens", 0), ai.get("output_tokens", 0), ai.get("uncertain_reserved_tokens", 0), limits["daily_paper_limit"], limits["daily_search_limit"], limits["daily_fetch_limit"], limits["daily_token_limit"])
         content += '<section class="panel"><h2>阅读数据与隐私</h2><p>收藏与已读存储在浏览器 localStorage，不需要登录，不会自动发往服务器。不同设备请通过论文库里的 JSON 导入／导出合并；清理浏览器会丢失未导出的记录。</p><h2>来源与版权</h2><p>论文标题、作者与摘要来自 arXiv，版权归原作者。学习资料链接指向官方文档。页面已重写为本项目的研究工作台；最初参考了 <a href="https://github.com/haoshendong/slam3d-paper-watch">slam3d-paper-watch</a> 的日报组织形式。</p><p>关键词匹配不等于质量评分；自动引文检查也不能确认语义一定正确。重要结论请回原文。</p></section>'
         return self.shell("来源与更新说明", "来源、AI 证据边界、隐私与自动化运行说明", "../", content)
 

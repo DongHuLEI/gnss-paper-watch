@@ -15,6 +15,8 @@ on:
       - "data/learning.json"
       - "data/editions/**"
       - "data/deep_reads/**"
+      - "data/reading_queue.json"
+      - ".agents/skills/paper-deep-reading/**"
 
 permissions:
   contents: write
@@ -41,12 +43,24 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Set up formula renderer
+        if: github.event_name != 'push'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install formula renderer
+        if: github.event_name != 'push'
+        run: npm --prefix .cache/math-tools install --no-audit --no-fund --ignore-scripts --package-lock=false mathjax-full@3.2.2
+
       - name: Restore source cache
         uses: actions/cache@v4
         with:
-          path: .cache/deepseek
-          key: deepseek-v2-${{ github.run_id }}
-          restore-keys: deepseek-v2-
+          path: |
+            .cache/deepseek
+            .cache/paper-reading
+          key: reading-skill-v1-${{ github.run_id }}
+          restore-keys: reading-skill-v1-
 
       - name: Configure git identity
         run: |
@@ -97,7 +111,7 @@ jobs:
 
       - name: Save daily data and usage
         run: |
-          git add -A -- index.html 404.html daily archive papers topics library learn about data/status.json data/editions data/usage
+          git add -A -- index.html 404.html daily archive papers topics library learn about data/status.json data/editions data/usage data/deep_reads data/reading_queue.json assets/deep-reading
           if ! git diff --cached --quiet; then
             git commit -m "Research radar update $(TZ=Asia/Shanghai date +%F)"
             git push origin HEAD

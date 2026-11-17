@@ -30,7 +30,10 @@
   "daily_fetch_limit": 6,
   "source_character_limit": 16000,
   "request_timeout": 90,
-  "max_attempts": 2
+  "max_attempts": 2,
+  "full_reading_enabled": true,
+  "full_reading_completion_tokens": 12000,
+  "full_reading_character_limit": 180000
  },
  "research_profile": {
   "core": ["GNSS 高精度定位与完好性", "电离层 TEC / ROTI 监测与预测", "工程感知与多传感器融合"],

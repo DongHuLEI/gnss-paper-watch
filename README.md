@@ -2,7 +2,7 @@
 
 在线地址：<https://donghulei.github.io/gnss-paper-watch/>
 
-以 GNSS、电离层和可靠感知为主线，连接科学 AI、具身智能与模型训练。纯静态前端，Python 标准库构建，不需要数据库、运行时 Node 或浏览器内 API 密钥。
+以 GNSS、电离层和可靠感知为主线，连接科学 AI、具身智能与模型训练。纯静态前端，Python 标准库构建，不需要数据库、前端 Node 服务或浏览器内 API 密钥。新精读公式的生成工具使用已有的 MathJax 3.2.2。
 
 ## 怎么浏览
 
@@ -37,6 +37,16 @@
 “匹配度”用于检索排序，不代表论文质量。旧整理分数与新关键词分数的口径不同，不能据此横向评价论文。
 
 AI 的结果引文须在来源中逐字匹配，结果中的数字须出现在相应引文中。自动检查不能保证语义推理正确，也不能代替人工核验。研究迁移建议单独展示为推断。
+
+## 内置论文精读 Skill
+
+规范位于 `.agents/skills/paper-deep-reading/SKILL.md`。在本项目中可用 `/skill:paper-deep-reading` 调用；独立的 GitHub Actions 不依赖 CLI 自动发现，`DeepSeekClient.analyze_full_reading` 会直接读取同一文件正文并记录其 SHA-256。
+
+默认新条目进入九章图文精读流程：固定版本 HTML 全文与附录 → 官方原图实际视觉输入 → 结构化导读 → 逐字引文与数字检查 → 原始公式安全提取与 SVG 排版 → 全部通过才发布。仅摘要、来源不可用、预算不足或校验失败时保留条目，并写入 `data/reading_queue.json` 等待后续补跑；已有 PGFM 核读示范不自动覆盖。旧的摘要级解读不会自动变成精读，也不批量重写整个历史库。
+
+自动文章与示范使用相同的九章阅读界面、原图放大和打印，但标为 AI 全文导读、待核验；自动校验不能保证达到人工逐图核读的语义准确度。无可用版本化 HTML 或图片/公式无法安全提取的文章需要人工核读，不会用猜测补齐。
+
+总日预算仍是 60,000 token，跨补跑共用账本；精读单次输出上限为 12,000 token，不代表必定消耗到上限。保守预留还包括完整输入与图片 token，长论文可能在请求前因预算不足被推迟，不能靠放宽标签伪装成完成。提高每日总预算需要用户决定。
 
 ## 每日更新
 
@@ -73,13 +83,13 @@ AI 的结果引文须在来源中逐字匹配，结果中的数字须出现在�
 - [Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion)
 - [实时价格](https://api-docs.deepseek.com/quick_start/pricing)
 
-`data/settings.json` 控制模型和限额，默认 `deepseek-flash`、关闭思考，每天最多解读 10 篇、搜索 6 次、网页读取 6 次、单次最多输出 2400 token。每日 60000 token 使用请求前的保守预留控制；网络中断等不确定调用保留预留量，实际账单以服务商为准。配置是安全默认值，不是费用承诺。
+`data/settings.json` 控制模型和限额，默认 `deepseek-flash`、关闭思考。每日模型成功响应上限 10 次（无效生成也消耗调用与 token），失败重试也受总请求上限限制；DeepSeek 搜索、Fetch 各最多 6 次。旧摘要模式单次输出上限 2400 token，新精读为 12000 token；精读正文与原图直接从官方公开图源读取并本地缓存，不占用 DeepSeek Fetch 次数。每日总计仍限 60000 token，使用请求前的保守预留控制；网络中断等不确定调用保留预留量，实际账单以服务商为准。上限不等于能完成相同数量的精读。
 
 同日用量持久化在 `data/usage/<date>.json`；生成结果缓存于被忽略的 `.cache/deepseek/`。认证失败或余额不足后停止后续付费请求。日志不保存 API 密钥、原始错误正文或模型思考内容。
 
 ## 本地使用
 
-Python 3.6+，无第三方运行时依赖。构建和日更使用相同的标准库代码；Actions 使用 Python 3.11。
+静态构建使用 Python 3.6+ 标准库，无浏览器公式运行时。生成新精读的公式时另需 Node.js 与已使用的 MathJax 3.2.2；Actions 会自动准备，本地首次生成前按 `node scripts/render_equations.cjs --help` 安装开发工具。Actions 使用 Python 3.11。
 
 ```bash
 python3 scripts/build_site.py
