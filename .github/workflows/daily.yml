@@ -14,6 +14,7 @@ on:
       - "data/settings.json"
       - "data/learning.json"
       - "data/editions/**"
+      - "data/deep_reads/**"
 
 permissions:
   contents: write

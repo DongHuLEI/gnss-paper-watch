@@ -9,6 +9,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from build_site import Site
+from deep_reading import equation_asset, validate_formula_asset
 from radar_config import ROOT
 
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
@@ -106,8 +107,15 @@ def check(root, public=False):
                 errors.append("%s: missing fragment %s" % (path.relative_to(root), url))
     site = Site()
     for paper in site.papers:
-        if not (root / "papers" / paper["slug"] / "index.html").exists():
+        path = root / "papers" / paper["slug"] / "index.html"
+        if not path.exists():
             errors.append("missing paper page " + paper["id"])
+        if paper["status"] == "deep":
+            doc = documents.get(path)
+            required = {"overview", "gap", "method", "equations", "experiments", "results", "limits", "transfer", "sources", "figure-workflow", "figure-path", "figure-results"}
+            required.update(item["id"] for item in paper["deep_read"]["equations"])
+            if doc is None or not required.issubset(doc.ids):
+                errors.append("incomplete full-text reading overlay: " + paper["id"])
     library = documents.get(root / "library" / "index.html")
     if library is None or set(library.paper_ids) != set(site.catalogue):
         errors.append("library is not the complete historical catalogue")
@@ -117,9 +125,20 @@ def check(root, public=False):
         if doc is None or set(doc.paper_ids) != expected:
             errors.append("topic is not all-history: " + key)
     if public:
+        formula_assets = set()
+        for data in site.deep_reads.values():
+            for equation in data["equations"]:
+                for field in ("mathml", "mathml_second"):
+                    if equation.get(field):
+                        formula_assets.add(equation_asset(data, equation, field))
+        if formula_assets:
+            formula_assets.add("assets/deep-reading/LICENSE.txt")
         for path in root.rglob("*"):
-            if path.is_file() and path.name != ".nojekyll" and path.suffix not in (".html", ".css", ".js"):
-                errors.append("unexpected deployment file: " + str(path.relative_to(root)))
+            relative = path.relative_to(root).as_posix()
+            if relative in formula_assets and path.suffix == ".svg":
+                validate_formula_asset(path)
+            if path.is_file() and path.name != ".nojekyll" and path.suffix not in (".html", ".css", ".js") and relative not in formula_assets:
+                errors.append("unexpected deployment file: " + relative)
     if errors:
         print("site validation failed:", file=sys.stderr)
         for error in errors[:40]:

@@ -1,0 +1,174 @@
+{
+  "paper_id": "2610.37159",
+  "source_version": "v1 · 2026-10-27",
+  "source_url": "https://arxiv.org/html/2610.37159v1",
+  "checked_on": "2026-11-17",
+  "title_zh": "PGFM：把电离层物理演化写进生成式 TEC 预测",
+  "dek": "不是给神经网络简单加一项物理损失，而是同时改变 Flow Matching 的训练路径与预测速度场。读懂它，也要分清模拟验证、真实业务与 GNSS 定位收益之间的距离。",
+  "reading_minutes": 25,
+  "scope": "AI 辅助全文导读示范：依据 arXiv v1 正文、附录 B、图表说明和表 1 整理。未运行作者代码，未独立复现实验；不代表同行评审意见。原文是预印本，本页不将其视为已正式发表的期刊论文。",
+  "references": {
+    "data": {"label": "§2 · 数据与问题定义", "anchor": "S2"},
+    "gap": {"label": "§1 · 作者提出的问题", "anchor": "S1"},
+    "method": {"label": "§3 · 方法", "anchor": "S3"},
+    "architecture": {"label": "Fig.3 · 总体框架", "anchor": "S2.F3"},
+    "path": {"label": "Fig.4 · 概率路径", "anchor": "S3.F4"},
+    "continuity": {"label": "Eq.(5)–(8) · 物理演化", "anchor": "S3.E5"},
+    "mean": {"label": "Eq.(9) · 路径均值", "anchor": "S3.E9"},
+    "target": {"label": "Eq.(11)–(12) · 训练目标", "anchor": "S3.E11"},
+    "fusion": {"label": "Eq.(13)–(14) · 融合与损失", "anchor": "S3.E13"},
+    "inference": {"label": "Eq.(15)–(16) · 推断", "anchor": "S3.E15"},
+    "experiments": {"label": "§4.1 · 实验设置", "anchor": "S4.SS1"},
+    "metrics": {"label": "Eq.(17) · 指标定义", "anchor": "S4.E17"},
+    "maps": {"label": "Fig.5 · 全球 TEC 预测图", "anchor": "S5.F5"},
+    "latitude": {"label": "Fig.6 · 纬度误差分布", "anchor": "S5.F6"},
+    "table": {"label": "Table 1 · 结果与表下注释", "anchor": "S5.T1"},
+    "curves": {"label": "Fig.7 · 全时效误差", "anchor": "S5.F7"},
+    "weights": {"label": "Fig.8 · 融合权重", "anchor": "S5.F8"},
+    "velocity": {"label": "Fig.9 · 速度场对照", "anchor": "S5.F9"},
+    "unet": {"label": "附录 B.1 · U-Net", "anchor": "A2.SS1"},
+    "convgru": {"label": "附录 B.2 · ConvGRU", "anchor": "A2.SS2"},
+    "units": {"label": "Eq.(29) · 单位转换", "anchor": "A2.E29"}
+  },
+  "overview": {
+    "question": "给定过去 24 小时的全球 TEC 图及可用的历史物理信息，能否在不读取未来真实物理量的前提下，预测未来 1–24 小时的 TEC 演化？",
+    "answer": "作者用物理引导的 Flow Matching（流匹配，PGFM）学习一小时状态转移：训练时用 TIEGCM 模拟的中间状态构造路径；推断时融合数据分支与物理预测分支，逐小时滚动到一天。",
+    "takeaways": [
+      {"title": "做了什么", "text": "用物理演化定义“怎么走”，再让两个神经网络分支共同估计“往哪走、多快走”。它不是直接把某一张 TEC 图映射成 24 小时后的图。"},
+      {"title": "证明到哪一步", "text": "在一年 TIEGCM 模拟数据上，相比 ConvLSTM，1–24 h 平均 RMSE 下降 39.2%；这是对模拟参考场的预测改进，不是实测 GNSS 定位精度提高 39.2%。"},
+      {"title": "最值得借鉴", "text": "物理知识可以进入训练路径、目标场和空间融合，而不只进入损失函数。但迁移到真实 GIM 时，首先要解决物理过程输入从哪里来。"}
+    ]
+  },
+  "gaps": [
+    {"before": "纯物理预报", "problem": "动力学有物理依据，但运行计算与驱动信息要求较高。", "change": "学习可快速推断的状态演化代理模型，同时保留物理信息入口。"},
+    {"before": "纯数据驱动预报", "problem": "可以拟合统计关系，却不自动保证学到的演化与电离层动力学一致。", "change": "把电子连续性方程相关的过程信息引入生成式预报。"},
+    {"before": "通用 Flow Matching", "problem": "人为插值连接两个端点，不一定经过符合真实物理演化的中间状态。", "change": "让条件路径均值沿模拟物理演化走，再学习其速度目标。"}
+  ],
+  "gap_note": "这是对作者研究动机的归纳，不是我们完成了全领域查新。本文的区别应落在“物理路径 + 空间自适应融合”的组合上，不宜仅概括为“首次把深度学习用于 TEC 预测”。",
+  "workflow": {
+    "inputs": ["过去 24 h TEC 图 H(t)", "历史驱动 D(t)：太阳、地磁与边界场", "历史过程 P(t)：产生、损失、漂移、风输运"],
+    "branches": [
+      {"title": "数据分支 · 条件 U-Net", "text": "输入当前流状态 xτ、τ 与编码后的历史信息，输出数据驱动速度 u_data。", "tone": "data"},
+      {"title": "物理分支 · 因果 ConvGRU", "text": "由历史过程与驱动预测未来净 TEC 变化率，再换算为流空间速度 u_phys。", "tone": "physics"}
+    ],
+    "fusion": "逐网格权重 λ(τ) 融合两个速度场",
+    "output": "积分 τ：0 → 1，得到下一小时 TEC 图",
+    "rollout": "把预测 TEC 放回历史窗口，逐小时滚动，最长 24 h；每小时重新开始一个流区间。",
+    "training": "训练专用：TIEGCM 中间状态 → 物理引导概率路径 → 目标速度 → 与融合速度做均方误差匹配。这个目标路径在业务推断时并不可直接读取。"
+  },
+  "method_notes": [
+    {"title": "“物理分支”仍然是网络", "text": "ConvGRU 预测的是净 TEC 变化率，不是每次推断都重新求解完整 TIEGCM。它利用物理过程历史作为依据，仍可能产生预测误差。", "refs": ["convgru"]},
+    {"title": "附录比框架图更具体", "text": "D(t) 不只有 F10.7 与 Kp：附录列出 8 个标量通道和 3 个空间通道。历史 TEC 编码 16 通道，空间驱动 12 通道，标量驱动 8 通道，再加 xτ 与 τ，合计 38 通道送入 U-Net。", "refs": ["unet"]},
+    {"title": "两个时间不要混", "text": "t 是物理时间，τ∈[0,1] 是一次生成转移内部的归一化坐标。本文一次转移的 Δt=1 h；τ=1 不是“已经预测到第 24 小时”。流速度也不是电子的实际漂移速度。", "refs": ["inference", "velocity"]}
+  ],
+  "path_note": "下图是本站独立绘制的一维教学投影，仅解释路径设计；曲线和宽度不是论文数据，也不表示作者模型的真实轨迹。通用线性路径只用端点决定均值；PGFM 的均值利用模拟物理中间态。",
+  "equations": [
+    {
+      "id": "eq-continuity", "title": "物理从哪里来：先看电子连续性方程", "number": "原文 (5)", "refs": ["continuity"],
+      "mathml": "<mrow><mfrac><mrow><mo>∂</mo><msub><mi>N</mi><mi>e</mi></msub></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>=</mo><msub><mi>P</mi><mi>e</mi></msub><mo>−</mo><msub><mi>L</mi><mi>e</mi></msub><mo>−</mo><mo>∇</mo><mo>⋅</mo><mo>(</mo><msub><mi>N</mi><mi>e</mi></msub><msub><mi>V</mi><mi>e</mi></msub><mo>)</mo></mrow>",
+      "accessible": "电子密度的时间变化等于产生项减去损失项再减去输运通量的散度。",
+      "meaning": "一句话：电子会产生、消失，也会被输运。作者对高度方向积分，把这些过程关联到 TEC 的变化，再抽象成 dX/dt=F(X;η)。",
+      "symbols": [{"symbol": "Nₑ / Pₑ / Lₑ", "text": "电子密度、产生率、损失率。"}, {"symbol": "Vₑ / ∇·", "text": "电子速度与通量散度；此处是物理空间中的输运，别与流匹配速度混同。"}],
+      "caution": "原文 (7) 的 TEC 平衡是近似式，并讨论了忽略可变上边界的积分修正；不能把模型说成无条件严格守恒。"
+    },
+    {
+      "id": "eq-path", "title": "改变训练路径：均值不再只是端点连直线", "number": "原文 (9)", "refs": ["mean", "path"],
+      "mathml": "<mrow><msub><mi>μ</mi><mtext>PDE</mtext></msub><mo>(</mo><mi>τ</mi><mo>)</mo><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msubsup><mo>∫</mo><mi>t</mi><mrow><mi>t</mi><mo>+</mo><mi>τ</mi><mi>Δt</mi></mrow></msubsup><mi mathvariant=\"script\">F</mi><mo>(</mo><msub><mi>X</mi><mi>r</mi></msub><mo>;</mo><mi>η</mi><mo>)</mo><mi mathvariant=\"normal\">d</mi><mi>r</mi></mrow>",
+      "accessible": "物理路径均值等于初始状态加上从 t 到 t 加 τΔt 的物理变化率积分。",
+      "meaning": "让中途经过的状态也有物理依据，而不只要求起点终点对得上。训练实现利用同一转移内的模拟中间状态做分段线性插值。",
+      "symbols": [{"symbol": "μPDE(τ)", "text": "条件概率路径的均值，不是每一个随机样本的轨迹。"}, {"symbol": "F / η / Δt", "text": "物理演化算子、驱动或参数、一小时物理预报间隔。"}],
+      "caution": "这里按正文物理坐标表达；实际网络用训练集统计量标准化。中间真值可用于构造训练目标，不等于推断时能获取未来真值。"
+    },
+    {
+      "id": "eq-target", "title": "到底拟合什么：路径样本与其导数", "number": "原文 (11)–(12)", "refs": ["target"],
+      "mathml": "<mrow><msub><mi>x</mi><mi>τ</mi></msub><mo>=</mo><msub><mi>μ</mi><mtext>PDE</mtext></msub><mo>(</mo><mi>τ</mi><mo>)</mo><mo>+</mo><msub><mi>s</mi><mi>τ</mi></msub><mi>ε</mi><mo>,</mo><mspace width=\"0.7em\"/><msub><mi>s</mi><mi>τ</mi></msub><mo>=</mo><msqrt><msubsup><mi>σ</mi><mtext>min</mtext><mn>2</mn></msubsup><mo>+</mo><msup><mi>σ</mi><mn>2</mn></msup><mi>τ</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>τ</mi><mo>)</mo></msqrt></mrow>",
+      "mathml_second": "<mrow><msup><mi>u</mi><mtext>target</mtext></msup><mo>=</mo><mi>Δt</mi><mi mathvariant=\"script\">F</mi><mo>(</mo><msub><mi>X</mi><mrow><mi>t</mi><mo>+</mo><mi>τ</mi><mi>Δt</mi></mrow></msub><mo>;</mo><mi>η</mi><mo>)</mo><mo>+</mo><mfrac><mrow><msup><mi>σ</mi><mn>2</mn></msup><mo>(</mo><mn>1</mn><mo>−</mo><mn>2</mn><mi>τ</mi><mo>)</mo></mrow><mrow><mn>2</mn><msub><mi>s</mi><mi>τ</mi></msub></mrow></mfrac><mi>ε</mi></mrow>",
+      "accessible": "中间状态等于物理路径均值加随 τ 变化的高斯扰动。目标速度是这个中间状态对 τ 的导数，由物理演化项与噪声变化项组成。",
+      "meaning": "Flow Matching 学的不是下一张图本身，而是“当前中间态应如何变化”的速度。求导时必须带上 Δt；噪声项的系数也随 τ 改变。",
+      "symbols": [{"symbol": "ε ∼ N(0,I)", "text": "高斯噪声。对同一条条件路径求导时固定 ε。"}, {"symbol": "σmin / σ / sτ", "text": "控制端点和区间内部的噪声尺度；不是模型误差的置信区间。"}],
+      "caution": "“生成式”不自动意味着已给出可靠预报区间。本文主结果是误差指标，本页没有把未校准的采样差异当成可靠不确定性。"
+    },
+    {
+      "id": "eq-units", "title": "容易漏的实现细节：两路速度先统一单位", "number": "原文 (29)", "refs": ["units", "convgru"],
+      "mathml": "<mrow><msubsup><mi>u</mi><mi>ψ</mi><mtext>phys</mtext></msubsup><mo>(</mo><mi>τ</mi><mo>)</mo><mo>=</mo><mfrac><mi>Δt</mi><msub><mi>σ</mi><mtext>TEC</mtext></msub></mfrac><msub><mover><mi>r</mi><mo>^</mo></mover><mrow><mi>ψ</mi><mo>,</mo><mi>κ</mi><mo>(</mo><mi>τ</mi><mo>)</mo></mrow></msub></mrow>",
+      "accessible": "物理分支在 τ 处的流速度等于一小时秒数除以训练集 TEC 标准差，再乘对应子步的净 TEC 变化率预测。",
+      "meaning": "ConvGRU 输出的 r̂ 是 TECU/s，U-Net 输出的是标准化状态对 τ 的变化率。先乘 Δt=3600 s，再除训练集 TEC 标准差，才能相加。",
+      "symbols": [{"symbol": "σTEC", "text": "仅由训练数据估计的 TEC 标准差，区别于路径噪声 σ。"}, {"symbol": "κ(τ)", "text": "从物理分支输出的 K 个子步中选对应一步，原文 (28) 定义其索引。"}],
+      "caution": "若直接把 TECU/s 与标准化速度混合，即便代码能运行也改变了模型含义。复现时要同时检查时间单位和归一化。"
+    },
+    {
+      "id": "eq-fusion", "title": "如何融合：每个格点都有自己的物理权重", "number": "原文 (13)，附录 (30)", "refs": ["fusion", "weights"],
+      "mathml": "<mrow><mover><mi>u</mi><mo>^</mo></mover><mo>=</mo><mo>(</mo><mn>1</mn><mo>−</mo><mi>λ</mi><mo>)</mo><mo>⊙</mo><msubsup><mi>u</mi><mi>θ</mi><mtext>data</mtext></msubsup><mo>+</mo><mi>λ</mi><mo>⊙</mo><msubsup><mi>u</mi><mi>ψ</mi><mtext>phys</mtext></msubsup></mrow>",
+      "accessible": "融合速度等于一减 λ 逐元素乘数据分支速度，加上 λ 逐元素乘物理分支速度。",
+      "meaning": "λ 接近 1 时偏向物理分支，接近 0 时偏向数据分支。不是用一个固定比例覆盖全球，也不是把整张 TEC 图简单做加权平均。",
+      "symbols": [{"symbol": "λ(τ) ∈ [0,1]ᴴˣᵂ", "text": "可学习的空间权重图，随流坐标变化。"}, {"symbol": "⊙ / θ / ψ", "text": "逐元素乘法，以及两路网络的参数。为便于阅读，这里省略条件输入下标。"}],
+      "caution": "权重图体现模型如何组合两个估计，不等于真实物理因果贡献率，也不能直接当作预测置信度。"
+    },
+    {
+      "id": "eq-loss", "title": "训练目标：让融合速度逼近目标速度", "number": "原文 (14)", "refs": ["fusion"],
+      "mathml": "<mrow><msub><mi mathvariant=\"script\">L</mi><mtext>FM</mtext></msub><mo>=</mo><msub><mi mathvariant=\"double-struck\">E</mi><mrow><mi>t</mi><mo>,</mo><mi>τ</mi><mo>,</mo><mi>ε</mi></mrow></msub><mo>[</mo><msubsup><mrow><mo>‖</mo><mover><mi>u</mi><mo>^</mo></mover><mo>(</mo><msub><mi>x</mi><mi>τ</mi></msub><mo>,</mo><mi>τ</mi><mo>)</mo><mo>−</mo><msup><mi>u</mi><mtext>target</mtext></msup><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup><mo>]</mo></mrow>",
+      "accessible": "流匹配损失是对时间样本、流坐标和噪声求期望的融合速度与目标速度之差的平方二范数。",
+      "meaning": "采样一小时转移、τ 和噪声，生成 xτ 与目标速度，再共同优化两路网络和融合权重。这里省略 H(t)、D(t)、P(t) 等条件输入以突出主线。",
+      "symbols": [{"symbol": "E / ‖·‖²₂", "text": "对训练采样取期望，以及速度图上的平方误差。"}],
+      "caution": "本文展示的核心目标是融合速度回归；不要未经依据把它改写成“数据损失 + 独立 PDE 残差损失”的典型 PINN 结构。"
+    },
+    {
+      "id": "eq-inference", "title": "推断：积分一次只前进一小时", "number": "原文 (15)–(16)", "refs": ["inference", "experiments"],
+      "mathml": "<mrow><mfrac><mrow><mi mathvariant=\"normal\">d</mi><msub><mi>x</mi><mi>τ</mi></msub></mrow><mrow><mi mathvariant=\"normal\">d</mi><mi>τ</mi></mrow></mfrac><mo>=</mo><mover><mi>u</mi><mo>^</mo></mover><mo>(</mo><msub><mi>x</mi><mi>τ</mi></msub><mo>,</mo><mi>τ</mi><mo>)</mo><mo>,</mo><mspace width=\"0.7em\"/><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><mover><mi>u</mi><mo>^</mo></mover><mo>(</mo><msub><mi>x</mi><mi>τ</mi></msub><mo>,</mo><mi>τ</mi><mo>)</mo><mi mathvariant=\"normal\">d</mi><mi>τ</mi></mrow>",
+      "accessible": "中间态对 τ 的导数等于融合速度；终点状态等于起点加上零到一的速度积分。",
+      "meaning": "从当前 TEC 状态出发，在流坐标上数值积分，终点反标准化得到下一小时 TEC；再更新历史 TEC 窗口并重复。",
+      "symbols": [{"symbol": "x₀ / x₁", "text": "标准化坐标中的当前状态和下一小时状态，不是物理时间编号。"}],
+      "caution": "Operational 版本不使用未来真实过程；Oracle 使用未来真值，只是诊断配置。要精确复现，还需确认多步过程中外部驱动与过程历史如何更新，不能自行假设可以读入未来观测。"
+    }
+  ],
+  "experiment": [
+    {"label": "参考数据", "value": "TIEGCM v3.0 的一年模拟输出；不是 IGS 实测 GIM。"},
+    {"label": "空间与时间", "value": "2.5° × 2.5°，72 × 144 网格；模拟输出间隔 15 min，预报按小时进行。"},
+    {"label": "TEC 的范围", "value": "对模拟垂直柱电子密度积分，下边界约 97 km、上边界约 600 km 且可变；不等于真实 GNSS 传播路径全部电子含量。"},
+    {"label": "输入 / 输出", "value": "过去 24 h TEC 与历史物理信息 → 一小时转移 → 自回归至 24 h。"},
+    {"label": "数据划分", "value": "每月留 3 天测试、2 天验证；全年训练 / 验证 / 测试为 305 / 24 / 36 天。"},
+    {"label": "计算成本", "value": "作者报告 2 张 A100（各 80 GB），每次训练约 6 h、一天预报约 20 s；不等于普通电脑的运行时间。"}
+  ],
+  "comparators": [
+    {"title": "ConvLSTM", "text": "时空递归深度学习基线，同样逐小时滚动；适合回答比常规数据模型好多少。"},
+    {"title": "FMB", "text": "保留同一流匹配框架、历史条件与滚动协议，移除物理引导组件；用于评估这些组件的组合增益。"},
+    {"title": "Oracle ≠ 业务模型", "text": "把未来真实物理信息交给同架构模型，只作诊断；不纳入可部署模型排名，也不作为本站图中的对手。"}
+  ],
+  "result_data": {
+    "models": ["ConvLSTM", "FMB", "PGFM"],
+    "lead_hours": [1, 3, 6, 12, 24],
+    "metrics": [
+      {"id": "rmse", "label": "RMSE", "unit": "TECU", "average": [3.114, 2.482, 1.892], "leads": [[1.654, 2.838, 3.164, 3.054, 3.439], [0.442, 1.151, 1.726, 2.562, 3.636], [0.269, 0.703, 1.234, 1.869, 3.266]]},
+      {"id": "mae", "label": "MAE", "unit": "TECU", "average": [2.250, 1.785, 1.341], "leads": [[1.235, 1.881, 2.234, 2.262, 2.282], [0.308, 0.781, 1.235, 1.871, 2.642], [0.204, 0.527, 0.912, 1.374, 2.139]]},
+      {"id": "nmae", "label": "nMAE", "unit": "%", "average": [10.607, 7.246, 6.119], "leads": [[5.561, 9.472, 10.923, 10.472, 10.266], [1.218, 3.047, 4.820, 7.616, 10.422], [0.916, 2.335, 4.034, 6.295, 9.461]]}
+    ],
+    "provenance": "按原文 Table 1 数值重绘。原表说明：这些模型的数值由 Fig.7 曲线坐标恢复并保留三位小数，不是本站取得的原始逐样本误差。Avg. 是全部 1–24 h 的算术平均，不是图中五个选定时效的平均。本站未补造其余时效数据。"
+  },
+  "result_findings": [
+    {"title": "平均改进很大，但别套到每个时效", "text": "原表报告：1–24 h 平均 RMSE，PGFM 为 1.892 TECU，ConvLSTM 为 3.114 TECU，相对下降 39.2%；对 FMB 为 23.8%。但 24 h 单点是 3.266 对 3.439 TECU，按表中四舍五入值计算仅下降约 5.0%。两种说法的统计口径不同。", "refs": ["table", "curves"]},
+    {"title": "误差分布不能只看全球平均", "text": "Fig.5 的 2023-03-29 个例中，低纬误差随时效增长更明显。Fig.6 显示低纬绝对误差较高，而高纬背景 TEC 较低，归一化误差可能更高。图中的纬度曲线做了五点平滑，仅用于可视化。", "refs": ["maps", "latitude"]},
+    {"title": "权重图提供线索，不是因果证明", "text": "作者观察到低纬区域物理权重相对较大，高纬相对较小；Fig.9 展示两分支与融合后的速度结构。它支持“模型学会空间差异化组合”的解释，但不能独立证明物理机理被完全辨识。", "refs": ["weights", "velocity"]},
+    {"title": "现有对照只测到了组合效果", "text": "PGFM 对 FMB 同时涉及物理引导组件的移除，因此不能据此把 23.8% 全部归功于某一个模块。若要区分路径与融合各自价值，需要更细的独立消融。", "refs": ["experiments"]}
+  ],
+  "limits": [
+    {"title": "模拟到实测的鸿沟", "evidence": "本文训练与评价参考均来自 TIEGCM；模型输入还包括通常不能直接从常规 GIM 获得的物理过程历史。", "question": "真实业务里如何获得或估计这些过程？在不同 GIM 产品、不同年份和磁暴条件下还能否保持增益？", "refs": ["data", "convgru", "experiments"]},
+    {"title": "训练 / 测试边界仍需复核", "evidence": "论文报告按月留天划分，而不是完整跨年外推。", "question": "复现时检查 24 h 滑窗与标签是否跨越划分边界，并安排跨年、事件隔离测试。这里提出检查项，不直接断言作者存在数据泄漏。", "refs": ["experiments"]},
+    {"title": "生成能力不等于可靠不确定性", "evidence": "主体结果报告 RMSE、MAE、nMAE 与空间分析。", "question": "若要把生成样本当预报区间，还应检查覆盖率、校准与概率评分；不能只根据 RMSE 宣称风险已可量化。", "refs": ["metrics", "table"]},
+    {"title": "复现完整度有待补齐", "evidence": "已读版本给出了网络结构和硬件耗时，但本次核读未取得可直接运行的作者训练工程。", "question": "正式复现前需确认代码与数据入口、ODE 求解器和步数、优化超参、随机种子、过程与驱动的滚动策略；不能只凭这页导读承诺跑出同样结果。", "refs": ["unet", "convgru", "inference"]}
+  ],
+  "transfer": {
+    "intro": "以下是本站面向你的研究方向提出的实验建议，不是原文已证实的结论。建议先解决输入可获得性，再考虑换模型；不要直接把模拟 TEC 的误差改善写成 PPP 定位收益。",
+    "steps": [
+      {"title": "第一步 · 做可部署的真实 TEC 预测基线", "text": "先用能稳定取得的 TEC 与截至预报起点已知的太阳 / 地磁信息，对比持续性、ConvLSTM 与无物理 FM。按时间隔离年份和磁暴事件，并固定同一输入与滚动方式。", "deliverable": "先交付逐时效、纬度带、平静 / 扰动期误差表，而不是先堆模型。"},
+      {"title": "第二步 · 再验证物理引导到底值不值", "text": "明确 P(t) 来自物理模拟、同化还是代理估计，以及业务延迟与成本。做 2×2 消融：有 / 无物理路径 × 有 / 无自适应融合，并单列输入不完整的情况。", "deliverable": "区分额外输入带来的收益与结构设计带来的收益，补充不同随机种子的波动。"},
+      {"title": "第三步 · 接入 GNSS 定位与监测评价", "text": "把预报 TEC 变成定位链路中可使用的电离层信息，再实测 PPP 收敛时间、定位误差与扰动后的恢复时间。ROTI 可作为扰动分层或可用历史特征，但 TEC 改进不能直接推出 ROTI 监测改进。", "deliverable": "用站点 / 卫星 / 事件隔离检验实际定位收益，防止从全球 TEC 指标跨级推断。"}
+    ],
+    "cross_domain": "与具身智能、工程感知的交叉点是“学习动力学 + 物理先验 + 自适应融合”的设计思路，而不是现成的机器人算法。用于机器人状态预测时，还要重新定义状态、动力学、可观测输入与闭环安全评价。",
+    "questions": [
+      {"question": "τ=1 是否表示预测到了明天？", "answer": "不是。本文一次 τ∈[0,1] 的积分只完成 Δt=1 h 的状态转移；一天预报通过逐小时重复得到。"},
+      {"question": "39.2% 能否写成第 24 小时误差下降？", "answer": "不能。它是 1–24 h 平均 RMSE 相对 ConvLSTM 的下降；24 h 单点按原表数值算约为 5.0%。"},
+      {"question": "如果只有真实 GIM 和 Kp，能否直接复用原方法？", "answer": "不能默认完整复用。还缺物理过程历史及附录中的其他驱动，需要可获得性审计、合理代理与对应消融。"}
+    ]
+  },
+  "copyright_note": "原论文使用 arXiv 非独占分发许可，本页不据此假定获得原图转载权。流程图和路径图为本站独立教学示意；数值结果按原表重绘并标明来源。所有原图均提供原文定位链接，不托管原 PDF、全文或作者图片。"
+}

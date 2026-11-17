@@ -160,6 +160,13 @@ input[type="checkbox"] { accent-color: var(--accent); }
 .domain-pill + .domain-pill { margin-left: 5px; }
 .status-badge { display: inline-flex; padding: 3px 7px; border: 1px solid var(--line); border-radius: 4px; font-size: 9px; line-height: 1.5; color: var(--muted); white-space: nowrap; }
 .status-ai { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
+.status-deep { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+.deep-feature { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; border: 1px solid var(--accent); border-radius: 10px; background: var(--surface); padding: 22px 25px; margin-top: 24px; }
+.deep-feature > div { flex: 1 1 300px; min-width: 0; }
+.deep-feature .eyebrow { color: var(--accent); margin-bottom: 7px; }
+.deep-feature h2 { font-size: 19px; margin: 0 0 8px; }
+.deep-feature p:not(.eyebrow) { font-size: 12px; color: var(--muted); margin-bottom: 0; }
+.deep-feature > a { flex: 0 0 auto; }
 .status-curated { color: #7456a5; background: #f3eff9; border-color: transparent; }
 html[data-theme="dark"] .status-curated { color: #c7b1ed; background: #30283f; }
 .paper-card h3 { font-size: 17px; line-height: 1.6; letter-spacing: -.015em; margin: 0 0 8px; overflow-wrap: anywhere; }

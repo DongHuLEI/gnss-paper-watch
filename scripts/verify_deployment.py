@@ -57,8 +57,16 @@ def main():
     paths = ["index.html", "library/index.html", "archive/index.html", "learn/index.html", "about/index.html",
              "daily/%s/index.html" % site.latest["edition"]["date"], "papers/%s/index.html" % paper["slug"],
              "assets/app.css", "assets/app.js"]
-    files = {name: (ROOT / name).read_bytes() for name in paths}
-    excluded = ("scripts/daily_update.py", "data/status.json", "README.md")
+    if site.deep_reads:
+        from deep_reading import equation_asset
+        paths.extend("papers/%s/index.html" % site.catalogue[paper_id]["slug"] for paper_id in site.deep_reads)
+        paths.extend(("assets/deep-reading.css", "assets/deep-reading.js", "assets/deep-reading/LICENSE.txt"))
+        for data in site.deep_reads.values():
+            for equation in data["equations"]:
+                paths.extend(equation_asset(data, equation, field) for field in ("mathml", "mathml_second") if equation.get(field))
+    files = {name: (ROOT / name).read_bytes() for name in dict.fromkeys(paths)}
+    excluded = ("scripts/daily_update.py", "scripts/deep_reading.py", "data/status.json", "README.md")
+    excluded += tuple("data/deep_reads/%s.json" % paper_id for paper_id in site.deep_reads)
     base_url = args.url.rstrip("/") + "/"
     errors = []
     for attempt in range(args.attempts):
