@@ -29,6 +29,7 @@ class Document(HTMLParser):
         self.title = False
         self.base = None
         self.paper_ids = []
+        self.original_images = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -52,6 +53,8 @@ class Document(HTMLParser):
                 self.links.append(attrs[key])
         if "data-paper-card" in attrs:
             self.paper_ids.append(attrs.get("data-id"))
+        if tag == "img" and "data-original-image" in attrs:
+            self.original_images.append(attrs)
         if tag not in VOID:
             self.stack.append(tag)
 
@@ -114,8 +117,15 @@ def check(root, public=False):
             doc = documents.get(path)
             required = {"overview", "gap", "method", "equations", "experiments", "results", "limits", "transfer", "sources", "figure-workflow", "figure-path", "figure-results"}
             required.update(item["id"] for item in paper["deep_read"]["equations"])
+            originals = paper["deep_read"].get("original_figures", [])
+            required.update(item["id"] for item in originals)
             if doc is None or not required.issubset(doc.ids):
                 errors.append("incomplete full-text reading overlay: " + paper["id"])
+            if doc is not None:
+                expected = [(item["src"], str(item["width"]), str(item["height"]), item["alt"]) for item in originals]
+                actual = [(item.get("src"), item.get("width"), item.get("height"), item.get("alt")) for item in doc.original_images]
+                if sorted(expected) != sorted(actual) or any(item.get("referrerpolicy") != "no-referrer" for item in doc.original_images):
+                    errors.append("incomplete or mismatched original figures: " + paper["id"])
     library = documents.get(root / "library" / "index.html")
     if library is None or set(library.paper_ids) != set(site.catalogue):
         errors.append("library is not the complete historical catalogue")

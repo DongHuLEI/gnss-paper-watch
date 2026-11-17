@@ -82,11 +82,15 @@ jobs:
           PY
 
       - name: Retrieve and interpret
+        if: github.event_name != 'push'
         id: update
         continue-on-error: true
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/daily_update.py --no-push
+
+      - name: Build saved content
+        run: python scripts/build_site.py
 
       - name: Validate generated site
         run: python scripts/validate_site.py
@@ -122,7 +126,11 @@ jobs:
       - name: Report update status
         if: always()
         run: |
-          python scripts/daily_update.py --show-status >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.update.outcome }}" = "skipped" ]; then
+            printf '%s\n' 'Content-only publication: built saved data without retrieval or AI calls. Daily retrieval status on the site is unchanged.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            python scripts/daily_update.py --show-status >> "$GITHUB_STEP_SUMMARY"
+          fi
           if [ "${{ steps.update.outcome }}" = "failure" ]; then
             exit 1
           fi

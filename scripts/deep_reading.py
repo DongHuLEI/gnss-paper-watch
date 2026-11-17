@@ -68,6 +68,24 @@ def load_deep_reads(directory):
         for reference in data["references"].values():
             if not re.fullmatch(r"[A-Za-z0-9.]+", reference["anchor"]):
                 raise ValueError("invalid source anchor")
+        figure_ids, figure_refs = set(), set()
+        for original in data.get("original_figures", []):
+            if not re.fullmatch(r"original-[a-z-]+", original["id"]) or original["id"] in figure_ids:
+                raise ValueError("invalid or duplicate original figure id")
+            figure_ids.add(original["id"])
+            reference = original["reference"]
+            number = original["number"]
+            if reference not in data["references"] or reference in figure_refs or type(number) is not int or number < 1:
+                raise ValueError("invalid original figure reference")
+            if not data["references"][reference]["anchor"].endswith(".F%d" % number):
+                raise ValueError("original figure number does not match source anchor")
+            figure_refs.add(reference)
+            if not re.fullmatch(re.escape(data["source_url"] + "/") + r"[A-Za-z0-9_-]+\.png", original["src"]):
+                raise ValueError("original figure must link to the versioned arXiv image")
+            if any(type(original[key]) is not int or not 1 <= original[key] <= 10000 for key in ("width", "height")):
+                raise ValueError("invalid original figure dimensions")
+            if not original["alt"].strip() or not original["reading_steps"] or not data.get("original_figure_credit", "").strip():
+                raise ValueError("original figure requires description, commentary and credit")
         ids = set()
         for equation in data["equations"]:
             if not re.fullmatch(r"eq-[a-z-]+", equation["id"]) or equation["id"] in ids:
@@ -109,6 +127,26 @@ def cards(items, text_key="text"):
 def figure(title, graphic, caption, source_links, figure_id):
     return '<figure class="dr-figure" id="%s"><div class="dr-figure-heading"><strong>%s</strong><button class="icon-button" type="button" data-expand-figure hidden>放大图示</button></div><div class="dr-graphic">%s</div><figcaption>%s%s</figcaption></figure>' % (
         figure_id, esc(title), graphic, esc(caption), source_links,
+    )
+
+
+def original_figure(data, reference):
+    item = next((item for item in data.get("original_figures", []) if item["reference"] == reference), None)
+    if item is None:
+        return ""
+    image = '<div class="dr-original-scroll" tabindex="0" role="region" aria-label="论文原图；放大后可切换原始尺寸并滚动查看"><a class="dr-original-link" href="%s" target="_blank" rel="noopener noreferrer" data-expand-original aria-label="放大原文 Fig.%s"><img data-original-image src="%s" width="%s" height="%s" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="%s"></a></div>' % (
+        esc(item["src"]), item["number"], esc(item["src"]), item["width"], item["height"], esc(item["alt"]),
+    )
+    status = '<p class="dr-image-status" role="status"><span data-image-message>原图由 arXiv 加载；若未显示，可打开下方原图链接。</span><button type="button" class="icon-button" data-retry-original hidden>重新加载</button></p>'
+    graphic = '<div class="dr-graphic dr-original-graphic" data-original-graphic>%s%s<div class="dr-image-meta"><span>原文图 · 外部图源 · %s × %s px</span><a href="%s" target="_blank" rel="noopener noreferrer">打开原图 ↗</a></div></div>' % (
+        image, status, item["width"], item["height"], esc(item["src"]),
+    )
+    steps = '<div class="dr-read-figure"><h3>跟着原图读</h3><ol>' + ''.join('<li><strong>%s</strong><p>%s</p></li>' % (esc(step["title"]), esc(step["text"])) for step in item["reading_steps"]) + '</ol><p class="dr-caution">%s</p></div>' % esc(item["caution"])
+    credit = '<div class="dr-image-credit">原图作者：%s。来源：arXiv:%s，%s。图后中文解说为本站整理，非作者原始图注。</div>' % (
+        esc(data["original_figure_credit"]), esc(data["paper_id"]), esc(data["source_version"]),
+    )
+    return '<figure class="dr-figure dr-original-figure" id="%s"><div class="dr-figure-heading"><strong>原文 Fig.%s / %s</strong><button class="icon-button" type="button" data-expand-figure hidden>放大原图</button></div>%s%s<figcaption>%s%s%s</figcaption></figure>' % (
+        esc(item["id"]), item["number"], esc(item["title"]), graphic, steps, esc(item["caption"]), credit, refs(data, [reference]),
     )
 
 
@@ -206,26 +244,30 @@ def render(data, abstract, issue_links):
     gaps = '<div class="dr-gap-list">' + ''.join('<div><h3>%s</h3><p><b>还缺什么</b>%s</p><p><b>本文的回应</b>%s</p></div>' % (esc(item["before"]), esc(item["problem"]), esc(item["change"])) for item in data["gaps"]) + '</div>'
     section("gap", gaps + '<p class="dr-caution">%s</p>' % esc(data["gap_note"]) + refs(data, ["gap", "method"]))
     method_notes = ''.join('<div class="dr-explainer"><h3>%s</h3><p>%s</p>%s</div>' % (esc(item["title"]), esc(item["text"]), refs(data, item["refs"])) for item in data["method_notes"])
-    section("method", workflow(data) + method_notes + path_diagram(data))
+    section("method", original_figure(data, "architecture") + workflow(data) + method_notes + path_diagram(data))
     section("equations", '<p>先看每条公式下面的直觉，再展开符号与实现提醒。不熟悉 Flow Matching 也可以先读融合与推断两式，之后回看路径设计。</p><p class="dr-caution">公式已预先排成矢量图，手机和旧浏览器无需联网加载公式服务。窄屏可横向滑动；省略的条件输入已在解释中说明。排版使用 MathJax 3.2.2，<a href="../../assets/deep-reading/LICENSE.txt">Apache 2.0 许可</a>；读者设备不运行该排版库。</p>' + ''.join(equation_card(data, item, i) for i, item in enumerate(data["equations"], 1)))
     setup = '<dl class="dr-setup">' + ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (esc(item["label"]), esc(item["value"])) for item in data["experiment"]) + '</dl>'
     section("experiments", setup + refs(data, ["data", "experiments"]) + '<h3 class="dr-subheading">重点比较谁？</h3>' + cards(data["comparators"]) + refs(data, ["experiments"]) + '<p class="dr-caution">指标口径：RMSE 强调大误差，MAE 是平均绝对误差；nMAE = 100 × 绝对误差之和 / 参考 TEC 绝对值之和。它不是逐格点百分比误差的平均；要复现全球结果，应核对有效网格及聚合方式。</p>' + refs(data, ["metrics"]))
-    findings = ''.join('<div class="dr-finding"><h3>%s</h3><p>%s</p>%s</div>' % (esc(item["title"]), esc(item["text"]), refs(data, item["refs"])) for item in data["result_findings"])
-    section("results", '<div class="dr-metric-pair"><div><strong>39.2%</strong><span>1–24 h 平均 RMSE 下降</span></div><div><strong>≈ 5.0%</strong><span>24 h 单点 RMSE 下降</span></div></div><p class="dr-small">均相对 ConvLSTM。前者为原文报告，后者由原表三位小数计算；仅在该模拟实验条件下成立。</p>' + result_chart(data) + result_table(data) + findings)
+    findings = []
+    for item in data["result_findings"]:
+        findings.append('<div class="dr-finding"><h3>%s</h3><p>%s</p>%s</div>' % (esc(item["title"]), esc(item["text"]), refs(data, item["refs"])))
+        findings.extend(original_figure(data, key) for key in ("maps", "weights") if key in item["refs"])
+    section("results", '<div class="dr-metric-pair"><div><strong>39.2%</strong><span>1–24 h 平均 RMSE 下降</span></div><div><strong>≈ 5.0%</strong><span>24 h 单点 RMSE 下降</span></div></div><p class="dr-small">均相对 ConvLSTM。前者为原文报告，后者由原表三位小数计算；仅在该模拟实验条件下成立。</p>' + result_chart(data) + result_table(data) + ''.join(findings))
     limits = ''.join('<div class="dr-limit"><h3>%s</h3><p><span class="dr-evidence-label">原文范围</span>%s</p><p><span class="dr-question-label">本站追问</span>%s</p>%s</div>' % (esc(item["title"]), esc(item["evidence"]), esc(item["question"]), refs(data, item["refs"])) for item in data["limits"])
     section("limits", '<p>下面把作者已展示的证据与进一步需要验证的问题分开。提出追问，不等于已经证明论文有问题。</p>' + limits)
     transfer = data["transfer"]
     steps = '<ol class="dr-transfer-steps">' + ''.join('<li><h3>%s</h3><p>%s</p><p class="dr-deliverable"><strong>应交付：</strong>%s</p></li>' % (esc(item["title"]), esc(item["text"]), esc(item["deliverable"])) for item in transfer["steps"]) + '</ol>'
     questions = ''.join('<details class="dr-self-check"><summary>%s</summary><p>%s</p></details>' % (esc(item["question"]), esc(item["answer"])) for item in transfer["questions"])
     section("transfer", '<div class="dr-transfer-intro"><strong>研究建议 · 尚未验证</strong><p>%s</p></div>' % esc(transfer["intro"]) + steps + '<div class="dr-explainer"><h3>跨到工程感知与具身智能，借鉴什么？</h3><p>%s</p></div><h3 class="dr-subheading">读完能回答这三个问题吗？</h3>%s' % (esc(transfer["cross_domain"]), questions))
-    section("sources", '<dl class="dr-source-meta"><div><dt>所读版本</dt><dd>arXiv:%s · %s</dd></div><div><dt>整理日期</dt><dd>%s</dd></div><div><dt>核读范围</dt><dd>%s</dd></div></dl><p>%s</p><div class="dr-source-buttons"><a class="button" href="%s">打开所读版本全文 ↗</a><a class="button" href="https://arxiv.org/abs/%s">元数据与许可说明 ↗</a></div><details class="dr-original-abstract"><summary>对照英文原始摘要</summary><div class="abstract" lang="en">%s</div></details><p class="dr-small">收录历史：%s</p><p class="dr-small">这篇导读独立保存，不替换其他论文的摘要级解读；日更重建会保留本示范。本站建议与作者结论已分开标记。</p>' % (
+    section("sources", '<dl class="dr-source-meta"><div><dt>所读版本</dt><dd>arXiv:%s · %s</dd></div><div><dt>整理日期</dt><dd>%s</dd></div><div><dt>核读范围</dt><dd>%s</dd></div></dl><p>%s</p><div class="dr-source-buttons"><a class="button" href="%s">打开所读版本全文 ↗</a><a class="button" href="https://arxiv.org/abs/%s">元数据与许可说明 ↗</a><a class="button" href="https://info.arxiv.org/help/license/reuse.html">原图重用说明 ↗</a></div><details class="dr-original-abstract"><summary>对照英文原始摘要</summary><div class="abstract" lang="en">%s</div></details><p class="dr-small">收录历史：%s</p><p class="dr-small">这篇导读独立保存，不替换其他论文的摘要级解读；日更重建会保留本示范。本站建议与作者结论已分开标记。</p>' % (
         esc(data["paper_id"]), esc(data["source_version"]), esc(data["checked_on"]), esc(data["scope"]), esc(data["copyright_note"]), esc(data["source_url"]), esc(data["paper_id"]), esc(abstract), issue_links,
     ))
     toc_links = ''.join('<a href="#%s"><span>%02d</span>%s</a>' % (key, i, esc(label)) for i, (key, label) in enumerate(SECTIONS, 1))
     mobile_toc = '<details class="dr-mobile-toc"><summary>本篇目录 · 9 个章节</summary><nav aria-label="移动端本篇目录">%s</nav></details>' % toc_links
+    originals = '<nav class="dr-original-index" aria-label="原文图快捷入口"><span>对照原文图</span>' + ''.join('<a href="#%s">Fig.%s · %s</a>' % (esc(item["id"]), item["number"], esc(data["references"][item["reference"]]["label"].split(" · ")[-1])) for item in data.get("original_figures", [])) + '</nav>' if data.get("original_figures") else ""
     tools = '<div class="dr-toolbar"><span>全文导读示范 · 约 %s 分钟</span><a href="#results">先看实验结论 ↓</a><button type="button" class="icon-button" data-print-reading hidden>打印 / 存 PDF</button></div>' % data["reading_minutes"]
     progress = '<div class="dr-progress" data-reading-progress hidden><progress max="100" value="0" aria-label="全文导读阅读进度"></progress></div>'
-    dialog = '<dialog class="dr-figure-dialog" aria-label="放大图示"><div class="dr-dialog-header"><strong>图示阅读</strong><button type="button" class="button" data-close-figure>关闭 · Esc</button></div><div class="dr-viewer-body"></div></dialog>'
-    return '<div class="deep-reader" data-deep-reader>%s<div class="dr-scope"><strong>全文导读，不把摘要扩写当精读</strong><p>%s</p></div>%s%s<div class="dr-layout"><article class="dr-body">%s</article><aside class="dr-toc"><p class="eyebrow">READ THE PAPER</p><nav aria-label="全文导读目录">%s</nav><p data-reading-percent aria-live="off">阅读进度 0%%</p><a href="#content">回到文章顶部 ↑</a></aside></div>%s</div>' % (
-        progress, esc(data["scope"]), tools, mobile_toc, ''.join(sections), toc_links, dialog,
+    dialog = '<dialog class="dr-figure-dialog" aria-label="放大图示"><div class="dr-dialog-header"><strong>图示阅读</strong><button type="button" class="button" data-close-figure>关闭 · Esc</button><div class="dr-view-controls" data-original-controls role="group" aria-label="原图显示方式" hidden><button type="button" class="icon-button" data-original-size="fit" aria-pressed="true">适应窗口</button><button type="button" class="icon-button" data-original-size="native" aria-pressed="false">原始尺寸</button><span>原始尺寸下可在图内滑动查看；放大不会增加像素细节。</span></div></div><div class="dr-viewer-body"></div></dialog>'
+    return '<div class="deep-reader" data-deep-reader>%s<div class="dr-scope"><strong>全文导读，不把摘要扩写当精读</strong><p>%s</p></div>%s%s%s<div class="dr-layout"><article class="dr-body">%s</article><aside class="dr-toc"><p class="eyebrow">READ THE PAPER</p><nav aria-label="全文导读目录">%s</nav><p data-reading-percent aria-live="off">阅读进度 0%%</p><a href="#content">回到文章顶部 ↑</a></aside></div>%s</div>' % (
+        progress, esc(data["scope"]), tools, originals, mobile_toc, ''.join(sections), toc_links, dialog,
     )
