@@ -1,0 +1,882 @@
+{
+ "edition": {
+  "date": "2026-11-17",
+  "number": 13,
+  "title": "2026-11-17 · 研究日报",
+  "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+  "kicker": "DAILY RESEARCH",
+  "blurb": "本期 8 篇，4 篇 AI 中文解读；所有条目保留原始来源。",
+  "overview": [
+   "本期收录 8 篇，覆盖 时空预测与科学 AI、工程感知与多源融合、具身智能与机器人、模型训练与高效适配。",
+   "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+   "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
+  ],
+  "threads": [
+   {
+    "domain": "ml",
+    "title": "时空预测与科学 AI · 2 篇",
+    "text": "分布式增材制造中跨未见几何的联邦物理信息热场预测"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知与多源融合 · 2 篇",
+    "text": "面向毫米波无线电SLAM的非相干积分角度图CFAR检测"
+   },
+   {
+    "domain": "embodied",
+    "title": "具身智能与机器人 · 2 篇",
+    "text": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation"
+   },
+   {
+    "domain": "training",
+    "title": "模型训练与高效适配 · 2 篇",
+    "text": "LoRA 的间隔视角：对灾难性遗忘的鲁棒性与适配器合并（MaLoRA）"
+   }
+  ],
+  "stats": [
+   {
+    "value": "8",
+    "label": "本期论文"
+   },
+   {
+    "value": "4",
+    "label": "AI 解读"
+   },
+   {
+    "value": "4",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "6",
+    "label": "研究方向"
+   }
+  ],
+  "note": [
+   "来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+   "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+   "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
+  ],
+  "generated_at": "2026-11-17T00:22:31Z",
+  "retrieval_status": "partial",
+  "ai_status": "ready"
+ },
+ "papers": [
+  {
+   "id": "2611.17794",
+   "slug": "arxiv-2611.17794",
+   "domain": "ml",
+   "domains": [
+    "ml",
+    "training"
+   ],
+   "lenses": [
+    "uncertainty",
+    "physics"
+   ],
+   "date": "2026-11-13",
+   "updated": "2026-11-13",
+   "score": 76,
+   "domain_scores": {
+    "ml": 76,
+    "training": 38
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "分布式增材制造中跨未见几何的联邦物理信息热场预测",
+   "title_en": "Federated Physics-Informed Thermal Field Prediction Across Unseen Geometries in Distributed Additive Manufacturing",
+   "authors": [
+    "Amirul Islam Saimon",
+    "Zhenyu",
+    "Kong"
+   ],
+   "cats": [
+    "cs.LG"
+   ],
+   "tags": [
+    "联邦学习",
+    "物理信息神经算子",
+    "增材制造热场",
+    "几何泛化",
+    "分布式训练"
+   ],
+   "one_liner": "论文针对增材制造里零件几何一变就要重做热仿真、设计评估代价高的问题，提出 Fed-PIGANO：各制造站点在本地训练物理信息几何感知神经算子 PI-GANO，只上传几何编码器与预测网络参数并由服务器聚合，从而在不共享专有零件几何的前提下互相借用几何多样性。摘要报告在二维金属增材稳态热基准上，三个站点、五类多边形几何、四种场景、七次重复下，未见几何上的平均相…",
+   "one_liner_en": "In additive manufacturing (AM), each change in part geometry requires a new thermal simulation, which makes design evaluation over many candidates costly. Geometry-aware models re…",
+   "lead_zh": "论文针对增材制造里零件几何一变就要重做热仿真、设计评估代价高的问题，提出 Fed-PIGANO：各制造站点在本地训练物理信息几何感知神经算子 PI-GANO，只上传几何编码器与预测网络参数并由服务器聚合，从而在不共享专有零件几何的前提下互相借用几何多样性。摘要报告在二维金属增材稳态热基准上，三个站点、五类多边形几何、四种场景、七次重复下，未见几何上的平均相对 L2 误差为 1.83% 至 2.04%，优于仅本地训练，并与集中式模型相当。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "In additive manufacturing (AM), each change in part geometry requires a new thermal simulation, which makes design evaluation over many candidates costly. Geometry-aware models reduce this cost by predicting thermal fields on unseen parts with a single learned model, but they assume that diverse geometries are available centrally. This assumption is restrictive when each manufacturing site holds only a limited set of proprietary part designs that it cannot share. We propose Fed-PIGANO, a federated framework that trains physics-informed geometry-aware neural operator (PI-GANO) models at individual sites and aggregates their geometry encoders and prediction networks without sharing part geometries. We evaluate the framework on a 2D steady-state thermal benchmark for metal AM, with geometries from five polygonal families distributed across three sites under four scenarios that range from identical to strongly different family compositions. Over seven replications, Fed-PIGANO achieves mean relative L2 errors of 1.83% to 2.04% across all 12 scenario-site cases, compared with up to 20.46% for local-only training, and consistently yields lower PDE residuals. Its prediction accuracy is comparable to that of a centralized model trained on the pooled geometries of all sites. These results demonstrate that federated learning lets manufacturing sites benefit from each other's geometries without sharing them, enabling rapid thermal prediction on new part designs for tasks such as shape optimization, inverse design, and uncertainty quantification.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.17794",
+    "pdf": "https://arxiv.org/pdf/2611.17794"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "分布式增材制造中跨未见几何的联邦物理信息热场预测",
+    "summary": "论文针对增材制造里零件几何一变就要重做热仿真、设计评估代价高的问题，提出 Fed-PIGANO：各制造站点在本地训练物理信息几何感知神经算子 PI-GANO，只上传几何编码器与预测网络参数并由服务器聚合，从而在不共享专有零件几何的前提下互相借用几何多样性。摘要报告在二维金属增材稳态热基准上，三个站点、五类多边形几何、四种场景、七次重复下，未见几何上的平均相对 L2 误差为 1.83% 至 2.04%，优于仅本地训练，并与集中式模型相当。",
+    "question": "在多个制造站点各自只持有少量专有零件几何、且不能共享这些设计的分布式增材制造场景下，如何让几何感知物理信息模型跨站点协作训练，从而对未见几何做出准确的热场预测。",
+    "method": "以 PI-GANO 作为各站本地模型，采用物理信息损失、不依赖标注温度数据训练；联邦聚合同时覆盖几何编码器与预测网络，只交换模型参数而不共享几何；在二维金属增材稳态热基准上，把五类多边形几何分配到三个站点，构造从相同到差异明显的四种家族组成场景，重复七次评估未见几何误差与 PDE 残差。",
+    "transfer": "推断：联邦聚合几何编码器+物理信息损失、无需标签的范式，可类比迁移到多测站 GNSS 观测协同训练电离层 TEC/ROTI 预测模型——各站数据不出本地、只聚合编码与预测网络，以应对站点覆盖不均；几何作为条件输入处理未见域的思路，也可对应到未见测区或未见机器人场景的泛化。",
+    "limitations": [
+     "提供的来源仅含摘要与部分正文（方法与实验设置章节被截断），具体网络结构、训练超参、通信轮数与算力配置未说明。",
+     "实验限定在二维稳态金属增材热基准与五类多边形几何，三维、瞬态及更复杂几何的适用性提供的来源未说明。",
+     "各站点被设定为共享同一热物理与工艺参数，物理或工艺异构下的表现提供的来源未说明。",
+     "隐私保护强度（如参数反演风险、差分隐私）提供的来源未说明，仅说明不共享几何。",
+     "仅基于摘要与部分网页正文阅读，未复现、未人工审核。"
+    ],
+    "practical_steps": [
+     "先核对 PI-GANO 的几何表示方式与损失构成（来源正文被截断，需回到论文方法与实验章节）。",
+     "确认联邦聚合的具体参数范围与通信轮数，未知配置不可补造。",
+     "复现二维基准前先核对五个多边形家族的生成方式与三站点划分、四种场景定义。",
+     "记录七次重复的随机种子与误差统计口径，再与本地训练和集中式基线比较。",
+     "迁移到 GNSS/电离层任务前，先评估各站物理模型是否一致，以及参数上传的隐私边界。"
+    ],
+    "tags": [
+     "联邦学习",
+     "物理信息神经算子",
+     "增材制造热场",
+     "几何泛化",
+     "分布式训练"
+    ],
+    "findings": [
+     {
+      "statement": "在 12 个场景与站点组合上，Fed-PIGANO 在七次重复中的平均相对 L2 误差为 1.83% 至 2.04%，仅本地训练最高达 20.46%。",
+      "quote": "Over seven replications, Fed-PIGANO achieves mean relative L2 errors of 1.83% to 2.04% across all 12 scenario-site cases, compared with up to 20.46% for local-only training",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.17794"
+     },
+     {
+      "statement": "该框架在 PDD 残差上持续更低，且预测精度与在所有站点几何汇总上训练的集中式模型相当。",
+      "quote": "consistently yields lower PDE residuals. Its prediction accuracy is comparable to that of a centralized model trained on the pooled geometries of all sites.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.17794"
+     },
+     {
+      "statement": "作者据此认为联邦学习使各站点在不共享几何的情况下互相受益，可支持形状优化、逆向设计与不确定性量化等任务的新零件快速热预测。",
+      "quote": "These results demonstrate that federated learning lets manufacturing sites benefit from each other's geometries without sharing them",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.17794"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-17T00:21:28Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.17794",
+      "title": "Federated Physics-Informed Thermal Field Prediction Across Unseen Geometries in Distributed Additive Manufacturing",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.17794v1",
+      "title": "Federated Physics-Informed Thermal Field Prediction Across Unseen Geometries in Distributed Additive Manufacturing",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4537,
+     "completion_tokens": 910
+    }
+   }
+  },
+  {
+   "id": "2611.14250",
+   "slug": "arxiv-2611.14250",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [],
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "score": 61,
+   "domain_scores": {
+    "perception": 61
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "面向毫米波无线电SLAM的非相干积分角度图CFAR检测",
+   "title_en": "CFAR Detection on Non-Coherently Integrated Angular Maps for mmWave Radio SLAM",
+   "authors": [
+    "Paolo Tosi",
+    "Ossi Kaltiokallio",
+    "Marcus Henninger",
+    "Silvio Mandelli",
+    "Mikko Valkama"
+   ],
+   "cats": [
+    "eess.SP"
+   ],
+   "tags": [
+    "毫米波ISAC",
+    "无线电SLAM",
+    "CFAR检测",
+    "多径检测",
+    "非相干积分"
+   ],
+   "one_liner": "论文针对波束扫描的双站ISAC毫米波链路，研究在AoA/AoD角度功率图上检测多径分量，以支撑无线电SLAM。作者指出非相干积分后噪声服从近似高斯分布，常规单元平均CFAR的指数分布阈值不再成立，因此推导了适配的CFAR检验，并引入多单元待测块和十字形训练窗以降低计算量。在60 GHz室内实测数据上以快照SLAM后端评估，CFAR检测使整体定位RMSE由0…",
+   "one_liner_en": "Reliable multipath detection is essential for millimeter-wave simultaneous localization and mapping (SLAM), where propagation paths reflecting off the environment provide geometri…",
+   "lead_zh": "论文针对波束扫描的双站ISAC毫米波链路，研究在AoA/AoD角度功率图上检测多径分量，以支撑无线电SLAM。作者指出非相干积分后噪声服从近似高斯分布，常规单元平均CFAR的指数分布阈值不再成立，因此推导了适配的CFAR检验，并引入多单元待测块和十字形训练窗以降低计算量。在60 GHz室内实测数据上以快照SLAM后端评估，CFAR检测使整体定位RMSE由0.30 m降至0.24至0.26 m。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Reliable multipath detection is essential for millimeter-wave simultaneous localization and mapping (SLAM), where propagation paths reflecting off the environment provide geometric constraints beyond the dominant line-of-sight component. This paper develops constant false alarm rate (CFAR)-based detectors for beam-swept bistatic integrated sensing and communications (ISAC). Starting from conventional CFAR on the I/Q datacube, we derive a modified detector for non-coherently integrated angular power maps, where the post-integration noise statistics differ from those assumed by standard cell-averaging CFAR. To improve practicality, we introduce a multi-cell cell-under-test formulation and a plus-shaped training window that reduces computational cost while accounting for sidelobe structure. The proposed methods are evaluated on experimental 60 GHz indoor measurements using a snapshot-SLAM estimator. Compared with a singular value decomposition (SVD)-based detector, the proposed CFAR approaches reduce the overall positioning RMSE from 0.30 m to 0.24-0.26 m, with the largest improvement in non-line-of-sight snapshots. The multi-cell non-coherent detector further lowers the computational complexity without degrading positioning accuracy, demonstrating its suitability for practical multipath radio-SLAM.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.14250",
+    "pdf": "https://arxiv.org/pdf/2611.14250"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "面向毫米波无线电SLAM的非相干积分角度图CFAR检测",
+    "summary": "论文针对波束扫描的双站ISAC毫米波链路，研究在AoA/AoD角度功率图上检测多径分量，以支撑无线电SLAM。作者指出非相干积分后噪声服从近似高斯分布，常规单元平均CFAR的指数分布阈值不再成立，因此推导了适配的CFAR检验，并引入多单元待测块和十字形训练窗以降低计算量。在60 GHz室内实测数据上以快照SLAM后端评估，CFAR检测使整体定位RMSE由0.30 m降至0.24至0.26 m。",
+    "question": "在波束扫描毫米波ISAC系统中，如何仅依赖角度功率图可靠检测较弱多径分量，替代只保留主分量的SVD检测，并避免逐RE检测的计算开销。",
+    "method": "从I/Q数据立方体出发，利用平方律样本的指数分布建立单视CFAR；对非相干积分的角度功率图，按Erlang/高斯统计修改阈值；将待测区域扩展为多单元块，每次只评估一个统计量并记录在最强单元；采用十字形训练窗匹配AoA/AoD轴向旁瓣结构；最后与SVD检测在同一快照SLAM后端上对比。",
+    "transfer": "推断：将检测统计量按积分后分布重新推导、并用结构化训练窗抑制旁瓣的思路，可迁移到GNSS多径/信号质量监测与多传感器融合中的异常回波筛选；但其在电离层TEC/ROTI时序或机器人学习任务中的有效性未经验证。",
+    "limitations": [
+     "提供的来源为摘要与部分HTML正文，未覆盖完整实验章节、参数设置与SLAM后端细节，不能视为精读全文。",
+     "提供的来源未说明数据集规模、快照数量、训练/测试划分与统计显著性。",
+     "提供的来源未说明CFAR的具体阈值因子、虚警率取值、训练窗尺寸和计算量绝对值。",
+     "提供的来源未说明除定位RMSE外的检测性能指标，如检测概率、虚警率实测值。",
+     "S2中NLOS数值在抓取文本中存在排版错乱，0.38/0.29与摘要所述改进方向不一致，需以原文核对。"
+    ],
+    "practical_steps": [
+     "核对非相干积分样本数NRS与高斯近似的适用条件。",
+     "复现时先确认CFAR阈值因子、目标虚警率与训练窗/保护带尺寸，来源未给出的配置不可假设。",
+     "确认SVD基线与所提方法使用相同的快照SLAM后端和相同数据划分。",
+     "复现计算量对比时明确统计的是检测统计量评估次数而非实际运行时间。",
+     "以原文排版正确的版本核对NLOS RMSE数值后再引用。"
+    ],
+    "tags": [
+     "毫米波ISAC",
+     "无线电SLAM",
+     "CFAR检测",
+     "多径检测",
+     "非相干积分"
+    ],
+    "findings": [
+     {
+      "statement": "与SVD检测相比，所提CFAR方法使整体定位RMSE从0.30 m降至0.24至0.26 m，且NLOS快照改善最大。",
+      "quote": "Compared with a singular value decomposition (SVD)-based detector, the proposed CFAR approaches reduce the overall positioning RMSE from 0.30 m to 0.24-0.26 m, with the largest improvement in non-line-of-sight snapshots.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.14250"
+     },
+     {
+      "statement": "多单元非相干CFAR在保持定位精度的同时降低计算复杂度。",
+      "quote": "The multi-cell non-coherent detector further lowers the computational complexity without degrading positioning accuracy, demonstrating its suitability for practical multipath radio-SLAM.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.14250"
+     },
+     {
+      "statement": "正文称多单元非相干CFAR相比逐RE CFAR加二进制积分，所需检测统计量评估次数少约三个数量级。",
+      "quote": "Multi-CUT non-coherent CFAR lowers positioning root mean squared error (RMSE) fromm to 0.300.30m overall and from 0.250.25m to 0.380.38m on NLOS snapshots, while requiring about three orders of magnitude fewer detector statistic evaluations than per-RE CFAR with binary integration.",
+      "source": "S2",
+      "url": "https://arxiv.org/html/2611.14250v1"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-17T00:21:45Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.14250",
+      "title": "CFAR Detection on Non-Coherently Integrated Angular Maps for mmWave Radio SLAM",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.14250v1",
+      "title": "CFAR Detection on Non-Coherently Integrated Angular Maps for mmWave Radio SLAM - License: CC BY-NC-ND 4.0",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 4915,
+     "completion_tokens": 897
+    }
+   }
+  },
+  {
+   "id": "2611.08577",
+   "slug": "arxiv-2611.08577",
+   "domain": "embodied",
+   "domains": [
+    "embodied",
+    "training"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-05",
+   "updated": "2026-11-12",
+   "score": 76,
+   "domain_scores": {
+    "embodied": 76,
+    "training": 38
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation",
+   "title_en": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation",
+   "authors": [
+    "Meituan Robotics Team",
+    "Caicheng Wang",
+    "Chen Zhao",
+    "Chengpeng Jin",
+    "Duo Xu",
+    "Fengjiao Chen",
+    "Guanglu Wan",
+    "Heqing Yang",
+    "Jia Wang",
+    "Jiacong Zhou",
+    "Jie Hu",
+    "Jiyuan Ru",
+    "Lingfeng Zhang",
+    "Linjiang Huang",
+    "Manyuan Zhang",
+    "Ningchu Liu",
+    "Shijie Zhou",
+    "Si Liu",
+    "Shuo Li",
+    "Tianyi Zhang",
+    "Xi Zhang",
+    "Xin Chen",
+    "Xuezhi Cao",
+    "Xunliang Cai",
+    "Yanbin Zeng",
+    "Yang Yang",
+    "Yang Yi",
+    "Yanli Tan",
+    "Yifu Xu",
+    "Yimeng Jia",
+    "Yuchen Tang",
+    "Yuchen Xie",
+    "Yuxiang Zheng",
+    "Zerwei Chng",
+    "Zilong Huang",
+    "Zipeng Ye",
+    "Ziyuan Qin",
+    "Ziqin Wang"
+   ],
+   "cats": [
+    "cs.RO",
+    "cs.CV"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "embodied",
+    "manipulation"
+   ],
+   "one_liner": "We present Meituan-Robotics-0 (MR0), a vision-language-action foundation model and embodied-agent system for stationary-base desktop manipulation. MR0 combines 147 million vision-…",
+   "one_liner_en": "We present Meituan-Robotics-0 (MR0), a vision-language-action foundation model and embodied-agent system for stationary-base desktop manipulation. MR0 combines 147 million vision-…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "We present Meituan-Robotics-0 (MR0), a vision-language-action foundation model and embodied-agent system for stationary-base desktop manipulation. MR0 combines 147 million vision-language samples with 15,060 hours of curated robot trajectories spanning 12 embodiments. A three-stage training recipe aligns multimodal representations with robot behavior through discrete action-token pre-training, transfers these priors to continuous cross-embodiment control through flow-matching mid-training, and adapts the policy through real-world post-training. We introduce Rollback, which pairs replaced policy segments with human corrections to provide positive and negative supervision for CFG-DAgger without value learning or advantage labeling. A unified end-effector interface supports heterogeneous embodiments, while asynchronous action-chunk merging maintains smooth execution under variable inference latency. An event-driven agent maintains persistent task events and reassesses plans when progress or feasibility changes, enabling cross-task retrieval and conditional task resumption. MR0 achieves 93.6% success on RoboTwin 2.0 and ranks fifth in the RoboDojo VLA track. Under matched HG-DAgger post-training, MR0 achieves higher average success rate and progress score than $π_{0.5}$ across three real-robot tasks. On Ethernet insertion, CFG-DAgger trained with Rollback data reaches 70% success and a progress score of 0.90. Qualitative agent deployments demonstrate cross-task event retrieval and recovery from temporarily unsatisfied task conditions.",
+   "version": "v3",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.08577",
+    "pdf": "https://arxiv.org/pdf/2611.08577"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "invalid_or_ungrounded_output"
+  },
+  {
+   "id": "2611.14397",
+   "slug": "arxiv-2611.14397",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [
+    "data-efficient"
+   ],
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "score": 68,
+   "domain_scores": {
+    "training": 68
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "LoRA 的间隔视角：对灾难性遗忘的鲁棒性与适配器合并（MaLoRA）",
+   "title_en": "A Margin Perspective on LoRA: Robustness to Catastrophic Forgetting and Adapter Merging (MaLoRA)",
+   "authors": [
+    "Ziqing Xu",
+    "Hancheng Min",
+    "Lachlan Ewen MacDonald",
+    "Salma Tarmoun",
+    "Enrique Mallada",
+    "Weijie Su",
+    "Rene Vidal"
+   ],
+   "cats": [
+    "cs.LG"
+   ],
+   "tags": [
+    "LoRA",
+    "灾难性遗忘",
+    "适配器合并",
+    "间隔理论",
+    "参数高效微调"
+   ],
+   "one_liner": "该论文从间隔（margin）角度为 LoRA 的两个经验现象提供统一理论解释：对灾难性遗忘的鲁棒性和独立训练适配器的可合并性。作者在多类线性分类、近正交任务与 ℓ2 正则条件下刻画最优 LoRA 适配器，指出在中间正则区间最优解对齐微调数据的最大间隔方向，并由此推导预训练与微调数据上的闭式间隔表达式及合并模型的间隔与最优混合系数，提出免训练的间隔式 LoR…",
+   "one_liner_en": "Low-rank adaptation (LoRA) is the de facto method for parameter-efficient fine-tuning of large neural networks, achieving strong task adaptation with minimal trainable parameters…",
+   "lead_zh": "该论文从间隔（margin）角度为 LoRA 的两个经验现象提供统一理论解释：对灾难性遗忘的鲁棒性和独立训练适配器的可合并性。作者在多类线性分类、近正交任务与 ℓ2 正则条件下刻画最优 LoRA 适配器，指出在中间正则区间最优解对齐微调数据的最大间隔方向，并由此推导预训练与微调数据上的闭式间隔表达式及合并模型的间隔与最优混合系数，提出免训练的间隔式 LoRA 合并规则 MaLoRA。实验称其在视觉与语言分类任务上匹配或优于若干适配器合并基线。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Low-rank adaptation (LoRA) is the de facto method for parameter-efficient fine-tuning of large neural networks, achieving strong task adaptation with minimal trainable parameters and low optimization cost. Beyond this efficiency, practitioners have observed two striking properties: \\textit{robustness to catastrophic forgetting} and the ability to \\textit{merge independently trained adapters} into a single model that performs competitively across multiple tasks. These properties are central to continual and multi-task learning, yet remain poorly understood. In this work, we provide a theoretical explanation through a unified \\textit{margin-based perspective}. We analyze LoRA in multiclass linear classification under a near-orthogonal task regime with $\\ell_2$-regularization, and characterize the optimal LoRA adapter across regularization regimes. Our analysis shows that, in an intermediate regime of regularization parameters, the optimal adapter aligns with the \\emph{max-margin solution} on the fine-tuning data. Building on this characterization, we derive two key consequences. First, we obtain closed-form expressions for the margins on pre-training and fine-tuning data, revealing a precise margin trade-off: the regularization parameter controls the balance between retention and adaptation. Second, we analyze adapter merging, proving that merged models achieve positive margin on each task and deriving optimal mixing coefficients that balance margins across tasks and maximize the margin over their union. These results lead to a simple, training-free merging rule, which we term \\textit{margin-based LoRA merging} (MaLoRA). Experiments on modern architectures and real datasets validate our theoretical predictions, showing that MaLoRA matches or outperforms several adapter-merging baselines across a range of vision and language classification tasks.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.14397",
+    "pdf": "https://arxiv.org/pdf/2611.14397"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "LoRA 的间隔视角：对灾难性遗忘的鲁棒性与适配器合并（MaLoRA）",
+    "summary": "该论文从间隔（margin）角度为 LoRA 的两个经验现象提供统一理论解释：对灾难性遗忘的鲁棒性和独立训练适配器的可合并性。作者在多类线性分类、近正交任务与 ℓ2 正则条件下刻画最优 LoRA 适配器，指出在中间正则区间最优解对齐微调数据的最大间隔方向，并由此推导预训练与微调数据上的闭式间隔表达式及合并模型的间隔与最优混合系数，提出免训练的间隔式 LoRA 合并规则 MaLoRA。实验称其在视觉与语言分类任务上匹配或优于若干适配器合并基线。",
+    "question": "为何 LoRA 在显著适配后仍对灾难性遗忘有鲁棒性，并能将不同任务独立训练的适配器合并为在多任务上表现良好的单一模型；这两个现象此前缺乏理论解释。",
+    "method": "在多类线性分类、微调样本彼此及与预训练样本近正交的设定下，对带 ℓ2 正则的 LoRA 目标分析全局最优解，按正则强度分区间刻画适配器方向；据此刻画预训练、微调及并集上的归一化间隔，导出间隔权衡与最大化并集间隔的正则参数；再对每个任务处于中间区间的情形推导合并模型各任务间隔与最优混合系数的闭式表达，形成免训练合并规则 MaLoRA，并在视觉与语言分类任务上做数值验证。",
+    "transfer": "推断：间隔与正则权衡的视角可类比到 GNSS 定位与电离层预测中的增量微调，例如用适配器范数比与验证间隔监测新任务微调对旧场景精度的侵蚀；其免训练加权合并思路或可用于合并不同测站、不同时段训练的小型适配器。以上仅为方法类比，论文未涉及时序定位或电离层数据。",
+    "limitations": [
+     "理论分析限定于多类线性分类、近正交任务几何与 ℓ2 正则等假设，这些假设在真实深度网络与真实数据上的偏离程度，提供的来源未说明。",
+     "摘要与部分网页正文未给出具体数据集、模型规模、训练超参数与算力配置，复现条件需另行核对。",
+     "MaLoRA 与基线的具体数值结果、方差与统计显著性，提供的来源未说明。",
+     "适配器合并在非线性表征、任务间非正交或类别集合变化较大时的表现，提供的来源未说明。"
+    ],
+    "practical_steps": [
+     "先核对论文假设（线性分类、近正交、ℓ2 正则）与实际任务数据的差距，再决定是否采用间隔分析。",
+     "在自有数据上复现时，记录正则参数、LoRA 秩与适配器范数比，并同时测预训练任务与微调任务的间隔。",
+     "合并多个适配器前，确认各任务均落在理论假设的中间正则区间，并记录混合系数的来源。",
+     "数据集、模型规模、优化器配置与算力需求：提供的来源未说明，需查阅全文或代码后再填。"
+    ],
+    "tags": [
+     "LoRA",
+     "灾难性遗忘",
+     "适配器合并",
+     "间隔理论",
+     "参数高效微调"
+    ],
+    "findings": [
+     {
+      "statement": "作者刻画了 LoRA 全局最优解随正则强度的变化：高惩罚时适配器为零，中间区间与微调数据的最大间隔方向对齐，低惩罚时对齐非最大间隔分类器。",
+      "quote": "In the high-penalty regime, the optimal adapter is zero. In the intermediate regime, the adapter aligns with the max-margin direction on the fine-tuning data.",
+      "source": "S2",
+      "url": "https://arxiv.org/html/2611.14397v1"
+     },
+     {
+      "statement": "作者给出预训练、微调及并集上归一化间隔的闭式表达，指出减小正则参数会增大微调间隔但也增大适配器与预训练权重的范数比，从而加重遗忘。",
+      "quote": "decreasing the regularization parameter increases the fine-tuning margin but also increases the Frobenius-norm ratio of the adapter to the pre-trained weights, leading to greater forgetting.",
+      "source": "S2",
+      "url": "https://arxiv.org/html/2611.14397v1"
+     },
+     {
+      "statement": "作者证明在每任务处于中间区间的假设下合并模型在每个任务上获得严格正间隔，并给出最大化并集间隔的混合系数，据此得到 MaLoRA。",
+      "quote": "We show that the merged model attains strictly positive margin on each task, providing a theoretical explanation for the effectiveness of adapter merging.",
+      "source": "S2",
+      "url": "https://arxiv.org/html/2611.14397v1"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-17T00:22:11Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract_and_retrieved_excerpts",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.14397",
+      "title": "A Margin Perspective on LoRA: Robustness to Catastrophic Forgetting and Adapter Merging (MaLoRA)",
+      "kind": "abstract"
+     },
+     {
+      "id": "S2",
+      "url": "https://arxiv.org/html/2611.14397v1",
+      "title": "A Margin Perspective on LoRA: Robustness to Catastrophic Forgetting and Adapter Merging (MaLoRA) - License: CC BY 4.0",
+      "kind": "retrieved_excerpt"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 5008,
+     "completion_tokens": 982
+    }
+   }
+  },
+  {
+   "id": "2611.18389",
+   "slug": "arxiv-2611.18389",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "uncertainty",
+    "physics"
+   ],
+   "date": "2026-11-13",
+   "updated": "2026-11-13",
+   "score": 69,
+   "domain_scores": {
+    "ml": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "A systematic comparison of physics-informed neural networks and mechanistic models for epidemic modeling and forecasting",
+   "title_en": "A systematic comparison of physics-informed neural networks and mechanistic models for epidemic modeling and forecasting",
+   "authors": [
+    "Martina Rama",
+    "Yuhan Li",
+    "Bruno Lepri",
+    "Nicola Perra",
+    "Michele Tizzoni"
+   ],
+   "cats": [
+    "physics.soc-ph",
+    "cs.LG"
+   ],
+   "tags": [
+    "forecasting",
+    "uncertainty",
+    "physics-informed"
+   ],
+   "one_liner": "Physics-Informed Neural Networks (PINNs) have recently been applied to epidemic modeling and forecasting with promising results. These methods integrate mechanistic knowledge with…",
+   "one_liner_en": "Physics-Informed Neural Networks (PINNs) have recently been applied to epidemic modeling and forecasting with promising results. These methods integrate mechanistic knowledge with…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Physics-Informed Neural Networks (PINNs) have recently been applied to epidemic modeling and forecasting with promising results. These methods integrate mechanistic knowledge with data-driven learning. Yet, their comparative performance against well-established, and simpler epidemic models is underexplored. Here, we conduct a systematic comparison of a PINN-based framework and a stochastic mechanistic model. Both approaches share the same age-structured SEIRD core and rolling-window forecasting pipeline, in a deliberately minimal setting. We evaluate their retrospective fits and probabilistic forecasts in two synthetic scenarios and the first COVID-19 wave in London. Interestingly, while PINNs underperform in synthetic scenarios, they achieve better performance on real data. Furthermore, PINNs provide narrower uncertainty intervals and sharper estimation of parameters in synthetic scenarios. Our findings confirm PINNs as a promising tool in epidemiology. At the same time, the results reaffirm the value of simpler approaches such as traditional compartmental models, and promote additional benchmarking studies.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.18389",
+    "pdf": "https://arxiv.org/pdf/2611.18389"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "daily_token_limit"
+  },
+  {
+   "id": "2611.13528",
+   "slug": "arxiv-2611.13528",
+   "domain": "perception",
+   "domains": [
+    "perception",
+    "embodied"
+   ],
+   "lenses": [
+    "uncertainty"
+   ],
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "score": 61,
+   "domain_scores": {
+    "perception": 61,
+    "embodied": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "GEMOR-GS: Global Extrinsic-calibration-refined Mapping and Online Relocalization for 3D Gaussian-Splatting SLAM",
+   "title_en": "GEMOR-GS: Global Extrinsic-calibration-refined Mapping and Online Relocalization for 3D Gaussian-Splatting SLAM",
+   "authors": [
+    "Yuchen Yang",
+    "Ming Ding",
+    "Xinyu Wu",
+    "Hesheng Wang"
+   ],
+   "cats": [
+    "cs.RO",
+    "cs.CV"
+   ],
+   "tags": [
+    "slam",
+    "lidar",
+    "localization"
+   ],
+   "one_liner": "Photorealistic and metrically consistent world representations are a primary requirement for LiDAR--inertial--visual SLAM systems that serve robots over continuous operation. 3D G…",
+   "one_liner_en": "Photorealistic and metrically consistent world representations are a primary requirement for LiDAR--inertial--visual SLAM systems that serve robots over continuous operation. 3D G…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Photorealistic and metrically consistent world representations are a primary requirement for LiDAR--inertial--visual SLAM systems that serve robots over continuous operation. 3D Gaussian splatting makes such representations attainable by supplying an explicit, renderable, and queryable scene model. We present GEMOR-GS (Global Extrinsic-calibration-refined Mapping and Online Relocalization for 3D Gaussian-Splatting SLAM) to make the Gaussian map geometrically accurate, globally refined, and re-enterable, providing a better appearance for robot perception and decision-making. To improve the 3DGS map, the LiDAR--camera extrinsic is first estimated offline by direct-method alignment over dedicated calibration segments and reused by all following online and offline processes. Under the calibrated geometry, keyframe poses and Gaussian parameters are refined alternately under a gated differentiable-rendering and LiDAR--projection objective. The final global reconstruction is then rebuilt from the refined keyframe schema with all online constraints lifted. For the robot SLAM lifecycle, the method recovers the pose from the 3DGS map after tracking loss through an XFeat bypass map, RANSAC-PnP coarse localization, and Gaussian RGB-D warp refinement. Experiments on one self-collected and five public sequences quantify each element: the offline reconstruction wins all paired keyframes against the online map by 14.3--19.9 dB, improves PSNR by approximately 9 dB over Gaussian-LIC2, and achieves 86--100% held-out relocalization success tied to extrinsic quality. The results show that GEMOR-GS improves the geometric accuracy, appearance fidelity, and re-enterability of the 3DGS map, serving as a dependable robot world model for SLAM and downstream tasks.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.13528",
+    "pdf": "https://arxiv.org/pdf/2611.13528"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "daily_token_limit"
+  },
+  {
+   "id": "2611.12676",
+   "slug": "arxiv-2611.12676",
+   "domain": "embodied",
+   "domains": [
+    "embodied",
+    "training"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-09",
+   "updated": "2026-11-09",
+   "score": 75,
+   "domain_scores": {
+    "embodied": 75,
+    "training": 38
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "VLA Adaptation with Real and Simulated Data: A Case Study on Robotic Chess",
+   "title_en": "VLA Adaptation with Real and Simulated Data: A Case Study on Robotic Chess",
+   "authors": [
+    "Matěj Kripner",
+    "Milan Straka"
+   ],
+   "cats": [
+    "cs.RO",
+    "cs.LG"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "robot learning",
+    "reinforcement learning",
+    "manipulation"
+   ],
+   "one_liner": "Vision-language-action (VLA) models are trained as general-purpose foundation models for robot learning, and require fine-tuning for each downstream task and robot. This raises pr…",
+   "one_liner_en": "Vision-language-action (VLA) models are trained as general-purpose foundation models for robot learning, and require fine-tuning for each downstream task and robot. This raises pr…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Vision-language-action (VLA) models are trained as general-purpose foundation models for robot learning, and require fine-tuning for each downstream task and robot. This raises practical questions such as how much data and training updates are needed, how checkpoints should be selected, and whether simulation can be leveraged to alleviate the cost of real data collection. We study these questions on a task that requires both precise manipulation and spatial understanding of the scene. In this task, an SO-101 arm moves a chess king between two squares that are given only by their names, such as e4 and a5. We fine-tune $π_{0.5}$ with various dataset sizes and update budgets, using teleoperated demonstrations as well as simulated demonstrations from a randomized scripted expert that imitates the variability of human demonstrations. In simulation, the success rate scales with both data and updates. Importantly, we find that a short learning-rate cool-down adds up to 31 points and is necessary for comparing checkpoints, and that validation loss and action error are unreliable for model selection. On the real arm, we fine-tune on up to 256 teleoperated demonstrations and evaluate ten policies in 25 trials each. Partial results indicate that pretraining on the simulated demonstrations helps substantially, most clearly when real data is scarce. We also present a negative result, in which training on the policy's own rollouts with filtered behavior cloning, RECAP-style advantage conditioning, corrections from an automatic coach, or residual reinforcement learning did not yield a measurable improvement over plain behavior cloning in our setting. We release the simulator, the expert and the real demonstrations.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.12676",
+    "pdf": "https://arxiv.org/pdf/2611.12676"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "daily_token_limit"
+  },
+  {
+   "id": "2611.14683",
+   "slug": "arxiv-2611.14683",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [],
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "score": 62,
+   "domain_scores": {
+    "training": 62
+   },
+   "tier": "AI 解读 · 待核验",
+   "auto": true,
+   "reading_status": "ai",
+   "title_zh": "大语言模型后训练中的特征搭便车",
+   "title_en": "Trait Hitchhiking in LLM Post-Training",
+   "authors": [
+    "Adil Soubki",
+    "Elizabeth S. Z. Tan",
+    "Miles Cranmer"
+   ],
+   "cats": [
+    "cs.LG",
+    "cs.CL"
+   ],
+   "tags": [
+    "强化学习后训练",
+    "特征搭便车",
+    "Price方程",
+    "GRPO",
+    "非目标行为"
+   ],
+   "one_liner": "该文针对强化学习后训练在提升能力的同时可能改变未被奖励目标的行为与内部属性的问题，提出描述后训练中“特征”演化的形式化框架，并从演化生物学引入 Price 方程，构建“特征搭便车”的数学模型，用来刻画训练重新分配补全概率时非目标特征的放大或抑制。作者在 GRPO 训练的模型上评估该 Price 更新表达式，报告其估计与采样得到的特征动态较为吻合。",
+   "one_liner_en": "Reinforcement learning (RL) is now a standard stage of language model post-training, and the compute devoted to it is growing rapidly. While it has been shown to improve capabilit…",
+   "lead_zh": "该文针对强化学习后训练在提升能力的同时可能改变未被奖励目标的行为与内部属性的问题，提出描述后训练中“特征”演化的形式化框架，并从演化生物学引入 Price 方程，构建“特征搭便车”的数学模型，用来刻画训练重新分配补全概率时非目标特征的放大或抑制。作者在 GRPO 训练的模型上评估该 Price 更新表达式，报告其估计与采样得到的特征动态较为吻合。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Reinforcement learning (RL) is now a standard stage of language model post-training, and the compute devoted to it is growing rapidly. While it has been shown to improve capabilities, particularly for tasks with verifiable rewards, it can also change behaviours and internal properties that the reward does not explicitly target. We present a formalism to describe the evolution of \"traits\" during RL post-training and, in doing so, recover the Price equation from evolutionary biology. We use this to develop a mathematical model for what we call \"trait hitchhiking\": the amplification or suppression of non-targeted traits as training redistributes probability across completions. We evaluate this Price update expression on language models trained with GRPO and show that the Price estimates closely track the sampled trait dynamics. These results identify trait hitchhiking as a mechanism by which RL post-training can silently amplify undesirable traits.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.14683",
+    "pdf": "https://arxiv.org/pdf/2611.14683"
+   },
+   "retrieved_at": "2026-11-17T00:21:20Z",
+   "analysis_status": "ok",
+   "analysis": {
+    "title_zh": "大语言模型后训练中的特征搭便车",
+    "summary": "该文针对强化学习后训练在提升能力的同时可能改变未被奖励目标的行为与内部属性的问题，提出描述后训练中“特征”演化的形式化框架，并从演化生物学引入 Price 方程，构建“特征搭便车”的数学模型，用来刻画训练重新分配补全概率时非目标特征的放大或抑制。作者在 GRPO 训练的模型上评估该 Price 更新表达式，报告其估计与采样得到的特征动态较为吻合。",
+    "question": "强化学习后训练会改变奖励未直接针对的行为与内部属性，作者关注这类非目标特征在训练中如何被放大或抑制。",
+    "method": "作者用形式化方式描述 RL 后训练中“特征”的演化，由此得到演化生物学中的 Price 方程，并据此建立“特征搭便车”的数学模型，解释训练在重新分配补全概率时非目标特征的变化；随后在 GRPO 训练的模型上计算该 Price 更新表达式，并与采样得到的特征动态比较。",
+    "transfer": "推断：Price 分解思路或可用于分析微调对非目标指标（如定位精度之外的多传感器任务稳健性）的连带影响；但该文针对语言模型补全概率，迁移到 GNSS 或机器人任务需要重新定义特征与选择算子。",
+    "limitations": [
+     "仅提供摘要，未说明模型规模、数据集、GRPO 具体配置与算力条件。",
+     "缺少对“不良特征”的量化定义与人工评估细节。",
+     "Price 估计与采样动态“较吻合”的统计标准未在来源中说明。",
+     "结论基于摘要中的实验描述，未提供复现实验或独立验证信息。"
+    ],
+    "practical_steps": [
+     "先确认来源多为摘要，检索全文核对 GRPO 训练配置与评估指标。",
+     "复现前记录模型版本、奖励函数、采样预算等来源中未说明的配置。",
+     "对非目标特征建立可量化跟踪指标，再与训练奖励曲线对照。",
+     "若迁移到工程感知任务，需先定义任务专属“特征”及概率分布口径。"
+    ],
+    "tags": [
+     "强化学习后训练",
+     "特征搭便车",
+     "Price方程",
+     "GRPO",
+     "非目标行为"
+    ],
+    "findings": [
+     {
+      "statement": "作者报告 Price 估计能较好跟随采样得到的特征动态。",
+      "quote": "We evaluate this Price update expression on language models trained with GRPO and show that the Price estimates closely track the sampled trait dynamics.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.14683"
+     },
+     {
+      "statement": "作者将特征搭便车识别为 RL 后训练可能悄然放大不良特征的一种机制。",
+      "quote": "These results identify trait hitchhiking as a mechanism by which RL post-training can silently amplify undesirable traits.",
+      "source": "S1",
+      "url": "https://arxiv.org/abs/2611.14683"
+     }
+    ]
+   },
+   "ai": {
+    "provider": "DeepSeek",
+    "model": "deepseek-flash",
+    "generated_at": "2026-11-17T00:22:31Z",
+    "prompt_version": "research-radar-2",
+    "scope": "abstract",
+    "sources": [
+     {
+      "id": "S1",
+      "url": "https://arxiv.org/abs/2611.14683",
+      "title": "Trait Hitchhiking in LLM Post-Training",
+      "kind": "abstract"
+     }
+    ],
+    "evidence_check": "quoted_findings_checked",
+    "human_reviewed": false,
+    "usage": {
+     "prompt_tokens": 789,
+     "completion_tokens": 579
+    }
+   }
+  }
+ ],
+ "discovery": [
+  {
+   "title": "Time Flies When You Parallelise: Pareto-efficient Time Series Foundation Models with Linear Recurrences",
+   "url": "https://arxiv.org/abs/2611.16934",
+   "date": "2026-11-12T16:00:00+00:00",
+   "snippet": "Time series foundation models have demonstrated strong zero-shot forecasting performance, but computational efficiency remains a central architectural challenge. ... The architecture alternates recurrent temporal processing with cross-variate attention, supporting multivariate probabilistic forecasting with past-only and future-known covariates. Across fev-bench's 100 forecasting tasks..."
+  },
+  {
+   "title": "SWIFT: Sample-Wise Instance Fine-Tuning of Time-Series Foundation Models for Forecasting",
+   "url": "https://arxiv.org/html/2611.17915",
+   "date": "2026-11-12T16:00:00+00:00",
+   "snippet": "2.2 Adaptation Paradigms for Time Series Forecasting Foundation Models Zero-shot. Zero-shot forecasting serves as the baseline for evaluating TSFMs, utilizing pre-trained weights without parameter updates [10, 2, 23, 11]. ... In this work, we introduce SWIFT, a sample-wise instance fine-tuning framework for TSFMs."
+  },
+  {
+   "title": "FlexCast: Flexible Context Learning for Time Series Foundation Models",
+   "url": "https://arxiv.org/html/2611.17862",
+   "date": "2026-11-12T16:00:00+00:00",
+   "snippet": "2. Related Work ### 2.1. Time Series Foundation Models Time series foundation models (TSFMs) pretrain large Transformer models on heterogeneous corpora and transfer them to unseen forecasting tasks. Existing TSFMs can be broadly grouped by their generation paradigm. Autoregressive ... Lag-Llama (Rasul et al."
+  },
+  {
+   "title": "T2ST: Data-Efficient Spatio-Temporal Foundation Models via Temporal Data and Knowledge Transfer",
+   "url": "https://arxiv.org/abs/2611.18199v1",
+   "date": "2026-11-12T16:00:00+00:00",
+   "snippet": "while multi-scale prediction distillation transfers forecasting behavior at fine and coarse temporal resolutions ... T2ST enables STFMs to achieve overall forecasting performance competitive with or superior to their full-data counterparts across six long-term and twelve short-term forecasting datasets."
+  },
+  {
+   "title": "T2ST: Data-Efficient Spatio-Temporal Foundation Models via Temporal Data and Knowledge Transfer",
+   "url": "https://arxiv.org/html/2611.18199v1",
+   "date": "2026-11-12T16:00:00+00:00",
+   "snippet": "For time-series forecasting, TimeDistill transfers multi-scale and multi-period patterns from Transformer and CNN based teachers to lightweight MLP students [33]. ... combining horizon-aware supervision with temporal representation alignment to train compact forecasters [34]. In spatio-temporal forecasting ... The STFM ... For spatio-temporal forecasting, its prediction is expressed as"
+  },
+  {
+   "title": "One Policy for 100 Household Tasks: Our Solution for the 2026 BEHAVIOR Challenge",
+   "url": "https://arxiv.org/abs/2611.14432",
+   "date": "2026-11-09T16:00:00+00:00",
+   "snippet": "The core of the solution is a single vision-language-action (VLA) model, one checkpoint for all 100 tasks, built on our 1st-place 2025 solution, which is based on \\pi_{0.5}. On the 50 tasks shared with 2025..."
+  },
+  {
+   "title": "VICTR: Value-Informed In-Context Learning for Vision-Language-Action Models - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.08698",
+   "date": "2026-11-04T16:00:00+00:00",
+   "snippet": "We introduce an In-Context Value Function Estimator (IC-VFE) that jointly conditions on the current observation, a language instruction, and a reference demonstration video. ... This estimator forms the core of VICTR, our Value-Informed Context Retrieval framework for in-context VLA policies. In VICTR, we"
+  },
+  {
+   "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.08577v3",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "We further introduce Rollback, a collection mechanism that returns to a historical anchor to collect a human replacement while retaining the original policy segment. ... Constructed through a separate pipeline, the robot corpus combines RoboDesk, licensed real-robot data, and open simulation data for action learning across heterogeneous hardware."
+  },
+  {
+   "title": "Vision-Language-Action Models: A Life-Cycle Survey of Design, Training and Deployment",
+   "url": "https://arxiv.org/html/2611.18372",
+   "date": "2026-11-12T16:00:00+00:00",
+   "snippet": "2.2 Precursors RT-1 [23] trained a 35M-parameter transformer on about 130k real episodes from 13 robots of a single type. ... Two describe how it learns ... Following Equation (1) ... in manipulation, the robot’s proprioceptive state, at the current time step only. ... Pretraining"
+  },
+  {
+   "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation",
+   "url": "https://arxiv.org/abs/2611.08577v3",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "We present Meituan-Robotics-0 (MR0), a vision-language-action foundation model and embodied-agent system for stationary-base desktop manipulation. ... A three-stage training recipe aligns multimodal representations with robot behavior through discrete action-token pre-training..."
+  },
+  {
+   "title": "Advancing Model Refinement: Muon-Optimized Distillation and Quantization for LLM Deployment - and the combined fine tuning loss is:",
+   "url": "https://arxiv.org/html/2601.09865v2",
+   "date": "2026-11-07T16:00:00+00:00",
+   "snippet": "The search space for key hyperparameters is defined in Table 3, including LoRA rank and scaling, learning rate, distillation temperature and weight ... We propose a unified framework that combines synthetic data generation via, vocabulary-aligned distillation from T1T_{1}, LoRA-based fine-tuning of T2T_{2} ... We further evaluate the use of the Muon optimizer under distillation and LoRA as a mechanism"
+  },
+  {
+   "title": "Not Yet in the Profile: Uncertainty-Aware Dynamic User Profiling by Learning from Future Interactions - Appendix B Ethical Considerations",
+   "url": "https://arxiv.org/html/2611.11204v1",
+   "date": "2026-11-07T16:00:00+00:00",
+   "snippet": "every baseline uses Qwen3.5-4B with reasoning disabled and outputs sampled at temperature 1, except the Stronger Model, and the trained baselines use the Dual Specialization and POPD subsets of UAPM, without the users of the downstream task model."
+  },
+  {
+   "title": "Demasking Fine-Tuning for Knowledge Injection in Autoregressive and Diffusion LLMs - Prompt distillation (Kujanpää et al., 2025).",
+   "url": "https://arxiv.org/html/2510.09885v7",
+   "date": "2026-11-04T16:00:00+00:00",
+   "snippet": "The student is the same model with a LoRA adapter (rank 1024 on all linear layers for the 3B/4B models and 512 for the 7B/8B models; the original paper used rank 1024 for 3B and 8B and 512 for 14B), trained with AdamW at to minimize the token-level KL divergence between the document-conditioned teacher distribution and the document-free student distribution over answer tokens, at distillation temperature 10−510^{-5}."
+  },
+  {
+   "title": "Human or Synthetic? What a Fixed Budget Buys for Post-Training - A.3 Training Hyperparameters",
+   "url": "https://arxiv.org/html/2611.16895v1",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "A.5 Synthetic Data Generation Details ##### Helpfulness. Conversations are built incrementally to between 1–3 turns (matching the typical turn count in the Anthropic dataset) ... A.6 Data Cleaning and Quality Filtering Generated candidates and human-annotated sources are cleaned and filtered before training ... and dataset-specific domain restriction and deduplication for SHP, HelpSteer3 ... This mirrors the one-pair-per-post design of ... (§2.3) and guards against the same failure mode that motivates per-post capping for SHP..."
+  },
+  {
+   "title": "SD-LoRA: Training-Time Structural Distillation into LoRA for Few-Shot Vision-Language Adaptation - Positive values mean structural distillation improves the deployed LoRA++cache model, with especially strong gains in low-shot a...",
+   "url": "https://arxiv.org/html/2611.07063v1",
+   "date": "2026-11-03T16:00:00+00:00",
+   "snippet": "Positive values mean structural distillation improves the deployed LoRA++cache model, with especially strong gains in low-shot and fine-grained scenarios. ... Structural distillation strengthens local texture, shape, and part-level cues ... adaptive placement decides where to insert LoRA, while structural distillation improves how its parameters are trained."
+  }
+ ]
+}

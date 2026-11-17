@@ -1,14 +1,15 @@
 {
- "checked_at": "2026-11-16T02:27:52Z",
- "checked_date": "2026-11-16",
- "retrieval_status": "ok",
- "retrieved_at": "2026-11-16T02:01:45Z",
+ "checked_at": "2026-11-17T00:22:31Z",
+ "checked_date": "2026-11-17",
+ "retrieval_status": "partial",
+ "retrieved_at": "2026-11-17T00:22:31Z",
  "queries": [
   {
    "domain": "gnss",
-   "status": "ok",
-   "returned": 5,
-   "accepted": 0
+   "status": "failed",
+   "returned": 0,
+   "accepted": 0,
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "iono",
@@ -20,56 +21,71 @@
    "domain": "ml",
    "status": "ok",
    "returned": 60,
-   "accepted": 30
+   "accepted": 28
   },
   {
    "domain": "perception",
    "status": "ok",
-   "returned": 26,
-   "accepted": 14
+   "returned": 20,
+   "accepted": 10
   },
   {
    "domain": "embodied",
    "status": "ok",
    "returned": 60,
-   "accepted": 40
+   "accepted": 39
   },
   {
    "domain": "training",
    "status": "ok",
    "returned": 60,
-   "accepted": 32
+   "accepted": 33
   }
  ],
- "candidate_count": 114,
- "issue_date": "2026-11-16",
+ "candidate_count": 105,
+ "issue_date": "2026-11-17",
  "issue_papers": 8,
- "ai_summaries": 8,
+ "ai_summaries": 4,
  "ai": {
-  "date": "2026-11-16",
+  "date": "2026-11-17",
   "model": "deepseek-flash",
   "requests": {
-   "chat": 9,
+   "chat": 8,
    "search": 6,
    "fetch": 6
   },
   "successes": {
-   "chat": 9,
+   "chat": 8,
    "search": 6,
    "fetch": 6
   },
-  "input_tokens": 30798,
-  "output_tokens": 7501,
-  "accounted_tokens": 38299,
+  "input_tokens": 33532,
+  "output_tokens": 7127,
+  "accounted_tokens": 40659,
   "uncertain_reserved_tokens": 0,
   "errors": [
    {
     "kind": "analysis",
     "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-16T02:01:30Z"
+    "at": "2026-11-17T00:21:35Z"
+   },
+   {
+    "kind": "analysis",
+    "code": "invalid_or_ungrounded_output",
+    "at": "2026-11-17T00:21:53Z"
+   },
+   {
+    "kind": "analysis",
+    "code": "invalid_or_ungrounded_output",
+    "at": "2026-11-17T00:22:02Z"
+   },
+   {
+    "kind": "analysis",
+    "code": "invalid_or_ungrounded_output",
+    "at": "2026-11-17T00:22:17Z"
    }
   ],
-  "updated": "2026-11-16T02:01:45Z",
+  "updated": "2026-11-17T00:22:31Z",
   "state": "ready",
   "limits": {
    "daily_paper_limit": 10,
@@ -78,6 +94,6 @@
    "daily_fetch_limit": 6
   }
  },
- "supplement_status": "not_requested",
- "result": "already_checked"
+ "supplement_status": "ok",
+ "result": "updated"
 }

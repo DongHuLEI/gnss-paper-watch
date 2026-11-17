@@ -1,0 +1,41 @@
+{
+ "date": "2026-11-17",
+ "model": "deepseek-flash",
+ "requests": {
+  "chat": 8,
+  "search": 6,
+  "fetch": 6
+ },
+ "successes": {
+  "chat": 8,
+  "search": 6,
+  "fetch": 6
+ },
+ "input_tokens": 33532,
+ "output_tokens": 7127,
+ "accounted_tokens": 40659,
+ "uncertain_reserved_tokens": 0,
+ "errors": [
+  {
+   "kind": "analysis",
+   "code": "invalid_or_ungrounded_output",
+   "at": "2026-11-17T00:21:35Z"
+  },
+  {
+   "kind": "analysis",
+   "code": "invalid_or_ungrounded_output",
+   "at": "2026-11-17T00:21:53Z"
+  },
+  {
+   "kind": "analysis",
+   "code": "invalid_or_ungrounded_output",
+   "at": "2026-11-17T00:22:02Z"
+  },
+  {
+   "kind": "analysis",
+   "code": "invalid_or_ungrounded_output",
+   "at": "2026-11-17T00:22:17Z"
+  }
+ ],
+ "updated": "2026-11-17T00:22:31Z"
+}
