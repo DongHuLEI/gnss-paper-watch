@@ -56,8 +56,8 @@
    "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
    "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
   ],
-  "generated_at": "2026-11-17T00:22:31Z",
-  "retrieval_status": "partial",
+  "generated_at": "2026-11-17T06:41:47Z",
+  "retrieval_status": "failed",
   "ai_status": "ready"
  },
  "papers": [
@@ -573,7 +573,7 @@
     "pdf": "https://arxiv.org/pdf/2611.18389"
    },
    "retrieved_at": "2026-11-17T00:21:20Z",
-   "analysis_status": "daily_token_limit"
+   "analysis_status": "daily_paper_limit"
   },
   {
    "id": "2611.13528",
@@ -624,7 +624,7 @@
     "pdf": "https://arxiv.org/pdf/2611.13528"
    },
    "retrieved_at": "2026-11-17T00:21:20Z",
-   "analysis_status": "daily_token_limit"
+   "analysis_status": "daily_paper_limit"
   },
   {
    "id": "2611.12676",
@@ -675,7 +675,7 @@
     "pdf": "https://arxiv.org/pdf/2611.12676"
    },
    "retrieved_at": "2026-11-17T00:21:20Z",
-   "analysis_status": "daily_token_limit"
+   "analysis_status": "daily_paper_limit"
   },
   {
    "id": "2611.14683",
