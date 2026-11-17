@@ -1,0 +1,444 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2509.00631",
+ "source_version": "v2",
+ "source_url": "https://arxiv.org/html/2509.00631v2",
+ "checked_on": "2026-11-17",
+ "title_zh": "稀疏 GNSS 电离层预报：TFT 如何融合太阳驱动，以及 3.33 TECU 应该怎样读",
+ "dek": "ionopy 用 Temporal Fusion Transformer 融合太阳辐照、地磁和历史电离层信息，预测稀疏 GNSS 派生的垂直 TEC。最佳配置报告较低的总体误差，但强扰动和低纬分组明显更难；原图展示的是一小时预报，不能把总体最优数值读成所有时效、所有风暴条件下的保证。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 Kimi Code 会话读取 arXiv v2 HTML 正文、附录和表格后整理，并实际查看所展示原图；不是 DeepSeek API 生成，不计入其用量。已读取附录纬度、地磁和太阳活动分层结果；未提取到独立展示的公式，因此不补造 TFT 数学。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S8": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S29": {
+   "label": "原文 · S5.p1.1",
+   "anchor": "S5.p1.1"
+  },
+  "S21": {
+   "label": "原文 · S4.p1.1",
+   "anchor": "S4.p1.1"
+  },
+  "S7": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S11": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S18": {
+   "label": "原文 · S3.p2.1",
+   "anchor": "S3.p2.1"
+  },
+  "S17": {
+   "label": "原文 · S3.p1.1",
+   "anchor": "S3.p1.1"
+  },
+  "S14": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S15": {
+   "label": "原文 · S2.SS2.p2.1",
+   "anchor": "S2.SS2.p2.1"
+  },
+  "S19": {
+   "label": "原文 · S3.p3.1",
+   "anchor": "S3.p3.1"
+  },
+  "S26": {
+   "label": "原文 · S4.p3.1",
+   "anchor": "S4.p3.1"
+  },
+  "S24": {
+   "label": "原文 · S4.T1.2",
+   "anchor": "S4.T1.2"
+  },
+  "S25": {
+   "label": "原文 · S4.p2.1",
+   "anchor": "S4.p2.1"
+  },
+  "S72": {
+   "label": "原文 · Ax1.T3.2.18.8.1",
+   "anchor": "Ax1.T3.2.18.8.1"
+  },
+  "S52": {
+   "label": "原文 · Ax1.T2.2.18.8.1",
+   "anchor": "Ax1.T2.2.18.8.1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "S4.F2"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S1.F1"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "预测对象是稀疏垂直 TEC，而不是直接解算位置",
+     "kind": "reported",
+     "text": "本文以 Madrigal 中稀疏的 GNSS 派生垂直 TEC 为目标，将不同分辨率的太阳、地磁和电离层数据整理成统一输入，使用 TFT 做多时效预测，并开放 ionopy 工具。研究贡献是预测与多源特征实验框架；输出并非接收机坐标，也不是直接估计周跳、闪烁或模糊度状态，不能把 TEC 误差下降直接写成定位精度改善。",
+     "evidence": [
+      {
+       "source": "S8",
+       "quote": "Here, we focus on accurate ionospheric TEC prediction by forecasting vTEC using a time-fusion transformer architecture, with the sparse GNSS Madrigal dataset serving as the target."
+      },
+      {
+       "source": "S29",
+       "quote": "In this work, we introduce and release the open-source framework ionopy , designed to preprocess, temporally align, and integrate solar and geomagnetic data to predict GNSS-derived sparse vTEC using Temporal Fusion Transformers. Solar EUV irradiance emerges as the most influential predictor, enabling accurate forecasts from 1 to 24 hours lead time, with RMSE as low as 3.33 TECU in the best experiments."
+      }
+     ]
+    },
+    {
+     "heading": "把最优总体指标与预报时效分开",
+     "kind": "interpretation",
+     "text": "作者覆盖 2010–2025 年的留出测试，预测时效从 60 分钟到 24 小时；最佳实验报告 RMSE 为 3.33 TECU。结果表没有按每个预报时效展开该最优数字，所以它支持“某配置获得较低总体误差”，不支持“全天每个时效都达到同一精度”。同时，稀疏目标的覆盖分布会影响总体统计，必须结合后面的纬度和扰动分层读结果。",
+     "evidence": [
+      {
+       "source": "S21",
+       "quote": "Model performance was evaluated on a completely held-out test set spanning 2010–2025, using root mean squared error (RMSE) and mean absolute error (MAE)."
+      },
+      {
+       "source": "S21",
+       "quote": "Prediction horizons ranged from 60 minutes up to 24 hours."
+      },
+      {
+       "source": "S29",
+       "quote": "In this work, we introduce and release the open-source framework ionopy , designed to preprocess, temporally align, and integrate solar and geomagnetic data to predict GNSS-derived sparse vTEC using Temporal Fusion Transformers. Solar EUV irradiance emerges as the most influential predictor, enabling accurate forecasts from 1 to 24 hours lead time, with RMSE as low as 3.33 TECU in the best experiments."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "从气候态经验模型走向扰动条件下的多源时序",
+     "kind": "reported",
+     "text": "作者的出发点是太阳、地磁和电离层响应存在非线性耦合，经验模型虽有气候态价值，在地磁扰动期间的表现仍有限。本文尝试用多源数据学习这些关系，重点不是给出新的电离层动力学方程，而是提供可更换输入、历史窗口和采样分辨率的预测平台。这是对作者研究动机的归纳，不代表本站已完成整个领域的新颖性检索。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "Despite rich observations, TEC prediction remains challenging due to nonlinear coupling between solar activity, geomagnetic conditions, and ionospheric response. Empirical models like the International Reference Ionosphere (IRI) [ 8 , 9 ] , though useful for climatology, show reduced accuracy during geomagnetic disturbances when ionospheric dynamics are most critical. This motivates machine learning approaches that can capture complex patterns from multi-source data."
+      },
+      {
+       "source": "S8",
+       "quote": "Our framework provides a flexible benchmarking platform that supports probabilistic forecasting, heterogeneous input sources, and scientific experimentation by accommodating varying input features, time histories, and resolutions."
+      }
+     ]
+    },
+    {
+     "heading": "为何不只在平滑全球图上训练和评价",
+     "kind": "interpretation",
+     "text": "相关研究常将经纬度覆盖均一的 JPL-GIM 当作预测目标，而本文选择稀疏 GNSS 派生观测作为目标，从而更直接面对观测缺口。不过，稀疏观测仍经过产品处理，并非未经处理的载波观测；未覆盖区域也不会因为画出了连续预测图就自动获得验证。训练目标、辅助图产品与独立评测证据应始终分开。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "Part of these studies have leveraged the JPL-GIM as a target data source since it provides a homogeneous set with respect to latitude and longitude [ 12 ] ."
+      },
+      {
+       "source": "S8",
+       "quote": "Here, we focus on accurate ionospheric TEC prediction by forecasting vTEC using a time-fusion transformer architecture, with the sparse GNSS Madrigal dataset serving as the target."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先对齐异构驱动，再编码循环时间与目标",
+     "kind": "reported",
+     "text": "输入包括 TIMED SEE 辐照、OMNI 太阳风和磁场、太阳活动代理、地磁指数以及 JPL-GIM 的抽样信息。不同时间分辨率先对齐和重采样；年内日期、经度和日内时刻采用正弦余弦编码，以免周期端点产生人为跳变。目标垂直 TEC 经对数变换与标准化后送入预测流程，复现时也必须核对变换和恢复物理量的口径。",
+     "evidence": [
+      {
+       "source": "S18",
+       "quote": "The framework integrates diverse data sources with different temporal resolutions, including Thermosphere, Ionosphere, Mesosphere Energetics and Dynamics (TIMED) Solar EUV Experiment (SEE) Level 3, OMNI solar wind, indices and magnetic field data, JPLD Global Ionospheric Maps, solar activity proxies (F10.7, M10.7, S10.7, Y10.7), and geomagnetic indices (Dst, Ap)."
+      },
+      {
+       "source": "S17",
+       "quote": "In terms of input features, day-of-year, longitude, and seconds-in-day are sine/cosine encoded to preserve cyclical relationships, while other coordinates are standardized or log-normalized depending on their statistical properties. Target vTEC values are log-transformed and standardized using pre-computed statistics to address typical skewness in ionospheric measurements."
+      }
+     ]
+    },
+    {
+     "heading": "TFT 将变量筛选、循环记忆和注意力串起来",
+     "kind": "reported",
+     "text": "网络先通过变量选择机制为异构特征分配权重，以静态位置等上下文调制时序处理，再结合序列到序列 LSTM 和多头注意力学习历史信息。文中配置使用两个注意力头、两层 LSTM 和大小为 64 的隐藏状态。注意力可帮助提出“模型依赖哪些输入和时刻”的问题，但并不是太阳驱动与电离层变化之间已被识别的物理因果关系。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "We employ Temporal Fusion Transformers (TFT) [ 16 ] to forecast vTEC behavior, leveraging their state-of-the-art design for multi-horizon time series forecasting with built-in interpretability. TFT integrates specialized components such as the variable selection network, sequence-to-sequence LSTM layers to replace positional encodings, and multi-head attention to handle heterogeneous inputs and temporal patterns common in real-world forecasting."
+      },
+      {
+       "source": "S15",
+       "quote": "Moreover, static covariate encoders incorporate time-invariant factors such as location, conditioning temporal processing with geographic and seasonal/daily contexts."
+      },
+      {
+       "source": "S21",
+       "quote": "Table 1 summarizes the outcomes of experiments using the Temporal Fusion Transformer (TFT) with two attention heads, two LSTM layers, a hidden state size of 64, and a 10% dropout rate."
+      }
+     ]
+    },
+    {
+     "heading": "历史输入范围不等于已经证明实时可部署",
+     "kind": "interpretation",
+     "text": "作者将 JPL-GIM 压缩为全球 10 个等距点的输入，并在实验中改变各来源的历史长度和分辨率。这说明其框架能够研究哪些历史信息有用，但离在线业务还需核对数据发布延迟、缺测处理和预报时刻实际可得的驱动。本次读取的文字没有充分展开这些运行条件，不能因为离线时间序列对齐成功就认定实时数据链已经闭环。",
+     "evidence": [
+      {
+       "source": "S18",
+       "quote": "JPLD data is subsampled to 10 equally spaced global points, reducing input features to 10."
+      },
+      {
+       "source": "S21",
+       "quote": "Each row of the table corresponds to a different experimental setup, where the input features, their historical time windows (lag), and temporal resolutions (res) were varied."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "未提取到独立展示的公式，不补造 TFT 推导",
+     "kind": "unknown",
+     "text": "本次读取的固定版本 HTML 没有提取到独立展示的公式，因此这里不附凭常识重写的注意力、损失或映射函数。原文对模型主要采用结构性文字说明，正文也有数学符号；“未提取到展示公式”不等于没有数学内容。若需要逐层实现或核对概率输出，应进一步检查作者代码及其引用的 TFT 方法，而不是把通用公式冒充本文原式。",
+     "evidence": []
+    },
+    {
+     "heading": "表中的均值和标准差是预测目标，不是重复训练误差棒",
+     "kind": "interpretation",
+     "text": "结果表分别给出垂直 TEC 均值与其标准差这两个量的 MAE、RMSE，因为 Madrigal 提供这些量，模型也预测这些量。因此逗号前后不是“多次训练的均值与波动”，后者更不是置信区间。目标还经历对数和标准化处理；复现时应确认回到 TECU 的评价步骤，并将目标分布的离散度、预测不确定性与训练随机性分开报告。",
+     "evidence": [
+      {
+       "source": "S21",
+       "quote": "Both the mean ( \\mu ) and standard deviation ( \\sigma ) of vTEC (in TEC units, 1\\ \\textrm{TECU}=10^{16} electrons/m 2 ) are reported, since these values are available in the Madrigal dataset and predicted by the TFT."
+      },
+      {
+       "source": "S17",
+       "quote": "Target vTEC values are log-transformed and standardized using pre-computed statistics to address typical skewness in ionospheric measurements."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "按跨年的月份轮换划分，不是末几年连续外推",
+     "kind": "reported",
+     "text": "训练、验证、测试按 80%、10%、10% 划分，使用跨年份的月份轮换来兼顾季节与太阳活动代表性。这是一种时间留出，但与把最后若干年完全留给测试的长期外推协议不同。评价未来年份、整场强磁暴或全新区域时，仍应专门设计对应留出，不能仅凭这一划分就声称已经验证所有类型的时空泛化。",
+     "evidence": [
+      {
+       "source": "S19",
+       "quote": "For training (80%), validation (10%), and testing (10%), a temporal split based on monthly rotations across years ensures models are evaluated on genuinely unseen periods while maintaining seasonal and solar activity representativeness, critical for assessing generalization to future space weather conditions."
+      }
+     ]
+    },
+    {
+     "heading": "主实验比较输入组合，空间图只是特定预报个例",
+     "kind": "reported",
+     "text": "主表改变输入特征、历史窗口和时间分辨率，使用留出测试的 MAE 与 RMSE 评价。原图则选取不同地磁条件下的一小时预报，与稀疏目标及对应 JPL 图并列；中间一列是经稀疏数据校准的图产品，不是另一个预报模型。代码入口是作者发布的 ionopy，但本次没有下载训练数据、运行程序或复核运行成本，不能称为独立复现。",
+     "evidence": [
+      {
+       "source": "S21",
+       "quote": "Each row of the table corresponds to a different experimental setup, where the input features, their historical time windows (lag), and temporal resolutions (res) were varied."
+      },
+      {
+       "source": "S26",
+       "quote": "Figure 2 further illustrates the TFT’s predictions with a one-hour lead time (left column) compared against GNSS-derived ionospheric data (right column) under four different geomagnetic storm conditions (based on NOAA geomagnetic storm G-classes). The central column displays corresponding JPL-GIM maps (calibrated on sparse data, not predictions)."
+      },
+      {
+       "source": "S8",
+       "quote": "To foster reproducibility and community-driven innovation, we publicly release our implementation as ionopy 1 1 1 https://github.com/spaceml-org/ionopy , accessed 30 August 2025 , offering a foundation for both applied forecasting and fundamental ionospheric research."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "最佳配置是较低总体误差，不是对所有旧模型的胜出率",
+     "kind": "reported",
+     "text": "表中包含太阳风、磁场、Ap、太阳代理、TIMED 辐照和 JPL 输入的一行，均值目标 MAE 为 2.13、RMSE 为 3.33 TECU；同一行标准差目标的 RMSE 为 0.49 TECU。它说明该输入组合的留出表现，但主表并不是与 IRI 等模型在完全相同信息和时效下的对照排名，也未展示该最优值对应的逐时效曲线，不能扩大为通用优越性结论。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "✗ 8640, 60 8640, 60 144, 1 144, 1 144, 1 8640, 60 2.13 , 0.31 3.33 , 0.49"
+      },
+      {
+       "source": "S21",
+       "quote": "Both the mean ( \\mu ) and standard deviation ( \\sigma ) of vTEC (in TEC units, 1\\ \\textrm{TECU}=10^{16} electrons/m 2 ) are reported, since these values are available in the Madrigal dataset and predicted by the TFT."
+      }
+     ]
+    },
+    {
+     "heading": "辐照信息有价值，但多组同时变化不等于因果消融",
+     "kind": "interpretation",
+     "text": "作者观察到去掉 JPL、TIMED 和太阳代理后误差明显上升，并指出直接 EUV 辐照可以取得与传统代理相近的表现。这为“优先检查辐照输入”提供经验依据，但表中多组输入、历史长度和采样率存在变化，不能把差异全部归因于某一个变量。注意力权重和这种配置比较也不能单独证明某个太阳驱动是所有事件中的物理主因。",
+     "evidence": [
+      {
+       "source": "S25",
+       "quote": "Importantly, the results demonstrate that TIMED SEE L3 irradiance data can effectively replace traditional solar proxies, providing comparable predictive accuracy while offering direct EUV irradiance measurements."
+      },
+      {
+       "source": "S25",
+       "quote": "Moreover, solar irradiance seems to be the most critical input for ionospheric forecasting: when JPL-GIM data, TIMED irradiance, and solar proxies were excluded, model errors nearly doubled (up to about 5.6 TECU in RMSE for the mean)."
+      },
+      {
+       "source": "S21",
+       "quote": "Each row of the table corresponds to a different experimental setup, where the input features, their historical time windows (lag), and temporal resolutions (res) were varied."
+      }
+     ]
+    },
+    {
+     "heading": "强扰动和低纬分组揭示总体数字掩盖的困难",
+     "kind": "reported",
+     "text": "对上述最佳总体配置，附录中 Ap 在 0–39 的均值目标 RMSE 为 3.25 TECU，而 Ap 大于 111 且不超过 300 的组达到 9.52 TECU；纬度小于 30° 的组为 5.041 TECU，高于 60° 的组为 2.093 TECU。这些是相应分组的观测误差，不是事件检出率或定位误差；它们提示全球平均较低仍不能保证强扰动、低纬和稀疏覆盖区域同样可靠。",
+     "evidence": [
+      {
+       "source": "S72",
+       "quote": "Ap [0-39]: 3.25 , 0.48 Ap (39-67]: 6.83, 0.78 Ap (67-111]: 7.24, 1.14 Ap (111-300]: 9.52, 0.74"
+      },
+      {
+       "source": "S52",
+       "quote": "<30°: 5.041, 0.561 30–60°: 2.319 , 0.393 >60°: 2.093, 0.493"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "上线还需核对预处理统计和驱动的实际可得性",
+     "kind": "unknown",
+     "text": "已读取来源说目标使用预先计算的统计量完成标准化，但没有充分说明统计量是否仅由训练部分估计，也没有给出完整的实时输入延迟清单。这些是复现和上线需要追问的细节，并不是已经发现数据泄漏。建议核对代码、数据时间戳与拟合范围，再区分离线历史回放、可获得驱动条件下的预报及真正在线运行。",
+     "evidence": [
+      {
+       "source": "S17",
+       "quote": "Target vTEC values are log-transformed and standardized using pre-computed statistics to address typical skewness in ionospheric measurements."
+      }
+     ]
+    },
+    {
+     "heading": "从稀疏观测拟合到 GNSS 工程收益还有距离",
+     "kind": "interpretation",
+     "text": "原文主要评价 TEC 的绝对误差和空间形态，稀疏目标本身无法在所有地点提供同等强度的验证。即使预测图再现赤道双峰与昼夜差异，也不能据此推断小尺度不规则体、ROTI 峰值或周跳发生率，更不能推出 PPP 收敛和模糊度固定率已改善。需要独立台站与真实解算实验把预测质量连接到工程指标，原图中的空白也不应解释成零电子含量。",
+     "evidence": [
+      {
+       "source": "S26",
+       "quote": "Qualitatively, the model successfully reproduces key ionospheric structures, such as the equatorial double crest enhancement (also called Equatorial Ionization Anomaly) and day–night variations during geomagnetic storm conditions."
+      },
+      {
+       "source": "S8",
+       "quote": "Here, we focus on accurate ionospheric TEC prediction by forecasting vTEC using a time-fusion transformer architecture, with the sparse GNSS Madrigal dataset serving as the target."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "面向中国区域：做数据延迟受控的特征增益实验",
+     "kind": "proposal",
+     "text": "可固定模型、样本和历史窗口，仅改变辐照、太阳代理与地磁输入，并按整场磁暴和连续年份留出；所有输入严格按发布时刻截断，标准化仅在训练集拟合。交付分时效、纬度、扰动等级和缺测条件的 TECU 误差，同时报告数据可用率和推断耗时。该实验可检验多源输入是否对你的区域监测有稳定增益，而不是依靠总体平均或注意力图作判断。",
+     "evidence": []
+    },
+    {
+     "heading": "连接定位与感知：把 TEC 预报作为有质量标志的外部信息",
+     "kind": "proposal",
+     "text": "若接入 GNSS 定位或移动平台感知，可先离线比较不使用预测、使用预测改正、只用预测做质量降权三种方案，并用独立站点和同一原始观测回放。交付定位误差分位数、收敛时间、失锁段恢复时间及误报警率，并按台站和事件分组。预测 TEC 不能直接替代闪烁监测；在受遮挡或稀疏观测条件下，应保留回退策略而非把连续地图当作可靠真值。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 2,
+   "reference": "F2",
+   "section": "results",
+   "src": "https://arxiv.org/html/2509.00631v2/madrigal_test_set_results_inference_cropped.png",
+   "width": 985,
+   "height": 968,
+   "caption": "Figure 2: Results of Ionopy temporal fusion transformer model with 1 hour lead time (left column) against ground truth target vTEC data derived from GNSS (right column), and the corresponding calibrated JPL-GIM map (center column).",
+   "title": "一小时预报与稀疏目标：先认三列，再逐条核对色标",
+   "alt": "原文图2按 G0 至 G3 条件分四行，每行左侧为一小时 TFT 预报，中间为 JPL-GIM，右侧为稀疏 GNSS 派生目标；各幅图有独立 TEC 色标，右侧有大片白色未覆盖区域。",
+   "caution": "原图展示一小时预报，不支持把总体最优 RMSE 直接贴到每张地图。本文保留独立色标和原始覆盖，不从像素估算精确误差，也不把 JPL 产品冒充独立预测基线。",
+   "reading_steps": [
+    {
+     "title": "先看列与时效：中列不是另一种预报",
+     "text": "左列标题明确为一小时提前量，右列是目标，中央是对应的校准 JPL-GIM 产品。不要将中央列当成与 TFT 公平竞争的一小时预报器，也不要将这些空间个例误写成全天时效的平均表现。"
+    },
+    {
+     "title": "再逐幅看颜色范围与空白覆盖",
+     "text": "每幅地图下方各有色条，跨行和部分同行图的上限并不一致；同样的红色未必表示同样的 TEC。右列白色区域反映目标缺测或未显示覆盖，不是零 TEC，也不能在那里直接判定连续预测图的对错。"
+    },
+    {
+     "title": "最后看结构，不从小图抄精确改善数字",
+     "text": "可定性观察赤道增强和昼夜分布是否对应，但稀疏点与平滑地图的纹理不同。要量化改善应回到有覆盖的配对样本及分层误差表；这几行个例不构成所有风暴和所有经度的性能保证。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2509.00631v2/ionosphere_schematic_vtec.jpg",
+   "width": 4807,
+   "height": 3327,
+   "caption": "Figure 1: Schematic representation of the vTEC (green).",
+   "title": "先分清斜路径 TEC 与模型预测的垂直 TEC",
+   "alt": "原文图1中黑色虚线为卫星到接收机的斜路径，绿色线为对应垂直 TEC，蓝色边界与虚线示意电离层高度和壳层；这不是 TFT 网络结构图。",
+   "caution": "这是作者的物理示意图，不是网络结构、观测覆盖图或测得的密度剖面。不可把绿色垂直线解释成新增的实际独立探针观测。",
+   "reading_steps": [
+    {
+     "title": "先看几何对应，不把卫星视线当成竖直积分",
+     "text": "接收机连接不同卫星形成两条黑色斜路径，各自在不同经纬位置对应绿色垂直路径。它说明 GNSS 派生 TEC 需要映射到统一的垂直量，不能直接把原始斜向积分与预测的垂直量逐点相减。"
+    },
+    {
+     "title": "再看蓝色壳层是近似，不是恢复出的高度剖面",
+     "text": "蓝色虚线示意壳层近似，绿色线强调垂直积分的含义。图中的高度标注用于示意几何，不表示本文通过 TFT 估计了电离层厚度或某一高度上的电子密度。"
+    },
+    {
+     "title": "最后回到预测目标与工程边界",
+     "text": "这张原图解释目标物理量，而非模型模块。由垂直 TEC 走到链路延迟和定位效果还需观测几何、映射和解算验证；本文没有用它直接证明位置误差改善。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Acciarini, Giacomo、Mestici, Simone、Kelebek, Halil、Wolniewicz, Linnea、Vergalla, Michael、Guhathakurta, Madhulika、Rebbapragada, Umaa、Poduval, Bala、Baydin, Atılım Güneş、Soboczenski, Frank",
+ "provenance": {
+  "provider": "Kimi Code",
+  "model": "Kimi Code 会话整理（精确模型标识未记录）",
+  "generated_at": "2026-11-17T09:48:02Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "1676cc7f29d19067240c5890d3883cff98edb1735a09133b5050fabbbe1b4540",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。"
+}

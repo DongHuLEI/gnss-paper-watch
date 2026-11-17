@@ -1,0 +1,524 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2511.15004",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2511.15004v1",
+ "checked_on": "2026-11-17",
+ "title_zh": "IonCast：把 GraphCast 的球面图网络用于电离层预报，何时优于持续性、何时会失稳",
+ "dek": "IonCast 将全球 TEC 图、太阳和地磁时间序列、日月几何与磁坐标送入自回归预测器。球面图网络在展示个例中改善长时效表现，但训练阶段、数据量、可知未来驱动与验证统计口径都影响结论；更大的输入集合和更强的架构并不自动等于稳定的工程收益。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 Kimi Code 会话读取 arXiv v1 HTML 正文、附录和表格后整理，并实际查看所展示原图；不是 DeepSeek API 生成，不计入其用量。已读取附录周期分布、对照表和辅助通道讨论；原文只有内联残差定义可用于解释，未提取到独立展示的公式。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S13": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S18": {
+   "label": "原文 · S3.p1.1",
+   "anchor": "S3.p1.1"
+  },
+  "S15": {
+   "label": "原文 · S2.SS2.p3.1",
+   "anchor": "S2.SS2.p3.1"
+  },
+  "S21": {
+   "label": "原文 · S3.p4.1",
+   "anchor": "S3.p4.1"
+  },
+  "S38": {
+   "label": "原文 · Ax1.p1.1",
+   "anchor": "Ax1.p1.1"
+  },
+  "S7": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S10": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S14": {
+   "label": "原文 · S2.SS2.p2.1",
+   "anchor": "S2.SS2.p2.1"
+  },
+  "S16": {
+   "label": "原文 · S2.SS2.p4.1",
+   "anchor": "S2.SS2.p4.1"
+  },
+  "S19": {
+   "label": "原文 · S3.p2.1",
+   "anchor": "S3.p2.1"
+  },
+  "S22": {
+   "label": "原文 · S3.T1",
+   "anchor": "S3.T1"
+  },
+  "S32": {
+   "label": "原文 · Ax1.F2",
+   "anchor": "Ax1.F2"
+  },
+  "S20": {
+   "label": "原文 · S3.p3.1",
+   "anchor": "S3.p3.1"
+  },
+  "S23": {
+   "label": "原文 · S3.T1.2",
+   "anchor": "S3.T1.2"
+  },
+  "S35": {
+   "label": "原文 · Ax1.T3.2.1",
+   "anchor": "Ax1.T3.2.1"
+  },
+  "S41": {
+   "label": "原文 · Ax1.p2.1",
+   "anchor": "Ax1.p2.1"
+  },
+  "S34": {
+   "label": "原文 · Ax1.T3",
+   "anchor": "Ax1.T3"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S2.F1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "Ax1.F2"
+  },
+  "F4": {
+   "label": "Fig.4 · 原文图",
+   "anchor": "Ax1.F4"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "输出是全球 TEC 演化，而不是导航解算结果",
+     "kind": "reported",
+     "text": "IonCast 比较卷积编码与 LSTM 结合的预测器，以及受 GraphCast 启发的球面图网络。两者基于 JPL 的 TEC 产品自回归预测全球演化，评价重点是相对图产品的误差及对持续性基线的增益。它把空间结构和多源驱动放在同一框架中，但没有直接报告接收机位置、模糊度固定、闪烁识别或移动平台控制的收益。",
+     "evidence": [
+      {
+       "source": "S13",
+       "quote": "We evaluate the forecasting performance of two models for total electron content (TEC): a long short-term memory (LSTM) ( 27 ) baseline, IonCast LSTM, and a Graph-based architecture inspired by GraphCast ( 28 ) , IonCast GNN. Both models autoregressively predict TEC using JPL [ 18 , 8 , 19 ] data products and learn the dynamics of the ionosphere well. Model hyperparameters were tuned using WandB [ 29 ] hyperparameter sweeps."
+      },
+      {
+       "source": "S18",
+       "quote": "Model performance is evaluated by comparing forecasted predictions against the GIM released by JPL ( 19 ) , which are processed from GNSS stations."
+      }
+     ]
+    },
+    {
+     "heading": "真正值得借鉴的是输入可知性与滚动稳定性",
+     "kind": "interpretation",
+     "text": "这篇文章不只是把天气图网络换成 TEC 数据：它区分可解析计算的未来日月几何，与必须由模型滚动生成的非强迫变量，并测试输入组合、残差目标和太阳周期训练范围。对电离层预测而言，这些协议比“用了图神经网络”更重要。结论仍来自有限事件与产品参照，不能自动扩展为所有风暴和所有地区的在线精度保证。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "Forcings are features whose values are known or can be analytically computed for any given timestamp, be it in the past or future. In the case of IonCast GNN, the forcings include all orbital mechanics-derived quantities, such as the positions of the Sun and Moon."
+      },
+      {
+       "source": "S21",
+       "quote": "Finally, using a residual target was shown to provide a notable improvement in model performance."
+      },
+      {
+       "source": "S38",
+       "quote": "The purpose of this ablation study was to examine how training on different portions of the solar cycle influences model performance and if models trained on local time periods can better predict specific event classes."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "从局部序列扩展到全球多源空间演化",
+     "kind": "reported",
+     "text": "作者希望同时处理异构驱动、全球尺度和可靠的短临及未来预报；其背景是部分传统机器学习方法以有限结构或区域范围为主。IonCast 用模块化框架把全球 TEC 地图与物理辅助特征统一起来。这是作者定位的研究缺口，不意味着所有此前方法都不具备全球预测能力，也不是本站已独立证明本文拥有跨领域的首创优先权。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "This context highlights the need for advanced ML architectures that can process heterogeneous and multi-source data, operate at global scales, and deliver reliable nowcasting, i.e. the model learns spatiotemporal patterns to project the current state forward in time, and forecasting capabilities."
+      },
+      {
+       "source": "S7",
+       "quote": "To address this challenge, we present IonCast, a modular framework built on state-of-the-art ML methods."
+      }
+     ]
+    },
+    {
+     "heading": "物理几何信息可帮助学习空间运动，但不等于显式物理求解",
+     "kind": "interpretation",
+     "text": "模型引入日月星历和准偶极磁坐标，为太阳照射位置、地球旋转和磁场几何提供上下文。它补充的是表示与学习条件，并非求解完整的电离层电动力学、化学和热层方程。即使这些输入带来误差下降，也只能支持其在特定学习配置中有用，不能据此认为网络已经识别出每一种扰动的物理机制。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "Auxiliary spatial features use quasi-dipole magnetic coordinates [ 25 ] and orbital mechanics data (Sun/Moon ephemerides: subsolar/sublunar points, zenith angles, Earth–Sun/Moon distances; [ 26 ] )."
+      },
+      {
+       "source": "S21",
+       "quote": "The importance of the orbital mechanics and magnetic coordinate maps is that they provide the model context on the trajectory of the TEC as the Earth rotates, through the encoding of the subsolar and sublunar points as well as the structure of the Earth’s magnetic field."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "两个模型共享全球数据，但空间表示不同",
+     "kind": "reported",
+     "text": "LSTM 方案用卷积编码器把二维 TEC 图与附加通道压到隐空间，循环层维持时间状态，再由解码器恢复地图。图网络则把经纬网格映射到球面二十面体网格，通过多层网格上的消息传递学习空间联系，最后映回经纬网格。前者依靠卷积与时间瓶颈，后者显式使用球面图结构；不能把两者都简称为同一种 LSTM 插件。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "The IonCast LSTM model uses a convolutional encoder–decoder architecture with an LSTM bottleneck, where the convolutional neural network (CNN) encodes each two-dimensional TEC map into a latent representation, the LSTM maintains a hidden state across timesteps, and the CNN decoder reconstructs the forecasted sequence."
+      },
+      {
+       "source": "S15",
+       "quote": "The encoder performs message passing on a graph that converts from the latitude-longitude grid to a spherical icosahedral mesh, the processor learns via message passing on a multi-layer icosahedral mesh, and finally, the decoder learns on the graph mapping from the mesh back to a latitude-longitude grid."
+      }
+     ]
+    },
+    {
+     "heading": "未来日月几何可提供真值，未来地磁驱动却不能混入",
+     "kind": "reported",
+     "text": "图网络将已知或可解析计算的星历量定义为强迫通道，在训练和推断时都能提供未来时刻值；这不等于使用不可知的未来观测。TEC、太阳和地磁驱动以及准偶极坐标被作者列为非强迫通道，在上下文之后都由模型自回归生成，不再输入额外真值。复现时应逐通道核对该划分，避免把星历可知性误读成未来太阳风也天然已知。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "During both training and inference, the model is provided with the ground truth forcings. These forcing channels are concatenated as additional features to each grid node, including those corresponding to the prediction timesteps."
+      },
+      {
+       "source": "S15",
+       "quote": "For all non-forcing channels, which include the TEC maps, the 1D solar and geomagnetic drivers, and quasi-dipole magnetic coordinates, IonCast GNN operates autoregressively."
+      },
+      {
+       "source": "S15",
+       "quote": "From the ground truth context, the model autoregressively generates predictions for times t+1 up to t+k with no additional ground truth values for the non-forcing channels."
+      }
+     ]
+    },
+    {
+     "heading": "单步训练的残差预测，需要多步滚动检验",
+     "kind": "reported",
+     "text": "作者以 15 分钟为采样步长，训练模型预测下一步残差，再加回当前状态；非强迫目标用均方误差训练。长时效结果来自连续滚动，不能用单步损失替代全程稳定性评价。数据覆盖 2010 年至 2024 年并进行稀疏序列采样，模型可能面对训练中少见的强扰动分布，因此后面的太阳周期实验对理解部署边界尤其重要。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "Both models are trained on the data detailed in Section 2.1 , covering the time period from 2010-05-13T00:00:00 to 2024-08-01T00:00:00 at 15-minute cadence, to align with JPL-GIM data."
+      },
+      {
+       "source": "S16",
+       "quote": "Models are trained to minimize the mean squared error between predictions and ground truth values, for all targets except forcing features. Both the IonCast LSTM and IonCast GNN models are trained with context windows of 8 (3 hours) to predict 1 timestep (15 minutes) ahead, and predict residual targets ( x_{T+1}=x_{T}+\\hat{x}_{predicted} )."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "内联残差定义的重点是增量，而非再预测一遍绝对场",
+     "kind": "interpretation",
+     "text": "正文用内联关系说明：下一步状态由当前状态加模型预测的增量构成；这使网络学习相邻时刻的变化。该定义并不保证守恒、稳定或在强扰动下准确，连续滚动仍会积累误差。训练目标对非强迫通道计算均方误差，意味着加入更多待预测通道时，优化任务也随之改变，比较输入组合不能只看多加了哪些物理变量。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "Models are trained to minimize the mean squared error between predictions and ground truth values, for all targets except forcing features. Both the IonCast LSTM and IonCast GNN models are trained with context windows of 8 (3 hours) to predict 1 timestep (15 minutes) ahead, and predict residual targets ( x_{T+1}=x_{T}+\\hat{x}_{predicted} )."
+      },
+      {
+       "source": "S21",
+       "quote": "One reason the model trained on the JPLD + orbital mechanics + quasi-dipole outperforms the model trained on all datastreams may be caused by the reduced number of channels over which the loss is computed, as the orbital mechanics are forcings and aren’t included in the model loss."
+      }
+     ]
+    },
+    {
+     "heading": "未提取到独立展示的公式，保留文字解释与原文定位",
+     "kind": "unknown",
+     "text": "本次固定版本 HTML 未提取到独立展示的公式，因此本站没有额外渲染网络或损失公式，也没有把内联符号改写成编号原式。上段只解释作者实际写出的残差定义；消息传递、归一化细节、通道权重和完整推断实现仍应回到公开代码核对。通用 GraphCast 数学不能直接当成本文已经给出的推导或稳定性证明。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "按风暴等级留出事件，参照仍是 JPL 图产品",
+     "kind": "reported",
+     "text": "训练数据按指定风暴日期剔除验证和测试事件，文中说各等级总共移出 10% 的风暴；评价相对于 JPL 图产品，在事件时段和空间网格计算 RMSE。持续性方案以先前 TEC 地图作为未来预测，构成真正的预报基线。参照产品来自 GNSS 处理，不等于在独立原始站网和解算链上检验，也不自动代表细尺度不规则体监测能力。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "Test and validation data are removed from the training set for specified dates that span various levels of geomagnetic storms, as defined by the NOAA geomagnetic storm scale (G0, G1, G2, G3, G4, and G5), for a total of 10% of storms at each scale removed from the training set."
+      },
+      {
+       "source": "S18",
+       "quote": "The RMSE is computed over the full event duration, latitude, and longitude TEC predictions compared with JPL TEC maps."
+      },
+      {
+       "source": "S19",
+       "quote": "As a baseline, we use a persistence model, which takes the TEC map from the previous frame as the prediction for the TEC map at a given lead time."
+      }
+     ]
+    },
+    {
+     "heading": "消融是验证集长时效平均，不是单时刻测试误差",
+     "kind": "reported",
+     "text": "输入消融表的 RMSE 是验证集上 12 小时预报范围的平均，而非最终测试集某个末端时刻的误差。消融分别加入辐照代理、地磁、太阳风及几何信息，同时比较残差目标。论文也提供公开代码入口，但本次没有运行；硬件成本和在线时延不能从“在云平台训练”推算，需要读取运行配置后实测。",
+     "evidence": [
+      {
+       "source": "S22",
+       "quote": "Table 1: Ablation study over the influence of input data. RMSE values are averaged over a 12-hour forecast on the validation set. Bold values highlight the experiment with the lowest RMSE value."
+      },
+      {
+       "source": "S21",
+       "quote": "For these reasons, the classes of solar radiation, solar wind, geomagnetic indices, and orbital mechanics were separated."
+      },
+      {
+       "source": "S7",
+       "quote": "Model code and data used to produce the IonCast models can be found on GitHub 1 1 1 https://github.com/FrontierDevelopmentLab/2025-HL-Ionosphere ."
+      }
+     ]
+    },
+    {
+     "heading": "附录较强 LSTM 同时改变上下文与训练数据量",
+     "kind": "interpretation",
+     "text": "附录图保留相同 GNN，但把 LSTM 上下文从 8 步扩为 16 步，并从每 256 个序列抽取一次改为每 32 个序列抽取一次，获得更多训练数据。它表明训练预算和历史窗口能显著影响基线，但并非只替换一个模块的受控架构实验。复现还需核对正文把上下文步数与小时数对应时的口径，不能直接照抄成确定时长。",
+     "evidence": [
+      {
+       "source": "S32",
+       "quote": "The IonCast GNN model shown is the same as in the main body. The IonCast LSTM model is trained on a longer context window (16 15-minute cadence time steps) and a larger amount of training data (trains on every 32nd sequence of 4 hours, thus sequences skip 8 hours between start and end dates) than the 8-context and 256 date dilation model evaluated in the main text."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "展示事件中图网络长时效更稳，但短时效不处处胜过持续性",
+     "kind": "reported",
+     "text": "在展示的中等风暴个例里，作者报告 GNN 的误差在 6–12 小时趋于稳定，而 LSTM 随滚动更易高估 TEC；原图可见持续性在最短时效仍具有竞争力。作者对 IRI 的比较只声称 GNN 优势延续到 6 小时，并明确承认 IRI 不是预报模型，所以它不是完全同等条件的预报排名。不能把个例长时效稳定扩写为所有风暴均稳定。",
+     "evidence": [
+      {
+       "source": "S19",
+       "quote": "The IonCast LSTM model struggles at longer horizon forecasts compared to the GNN, having a bias towards over-predicting the TEC as the forecast proceeds, whereas the RMSE for IonCast GNN stabilizes from hours 6 to 12."
+      },
+      {
+       "source": "S20",
+       "quote": "We find that the IonCast GNN model outperforms IRI up to a forecast horizon of 6 hours, however, it is not a perfect comparison as IRI is not a forecast model."
+      },
+      {
+       "source": "S19",
+       "quote": "The IonCast GNN models outperforms persistence for almost all forecast lead times, with the performance over the persistence improving as the forecast horizon increases, as shown by the orange line in the RMSE plot dipping below the gray."
+      }
+     ]
+    },
+    {
+     "heading": "几何辅助最佳，不代表所有外部驱动都无用",
+     "kind": "reported",
+     "text": "验证集消融中，TEC 加日月几何和准偶极信息的 RMSE 为 9.2±4.5 TECU，TEC 单独输入为 22.4±3.2，而全部输入的残差模型为 10.7±4.5。作者认为多通道预测使优化更复杂，这只是可能解释；原文没有充分交代 ± 的具体统计来源，本导读不把它标成随机种子标准差或置信区间，也不把不同训练目标间的差异当成物理因果。",
+     "evidence": [
+      {
+       "source": "S23",
+       "quote": "Input Features RMSE (TECU) JPLD 22.4\\pm 3.2 JPLD + F10.7 23.9\\pm 10.2 JPLD + F10.7, S10.7, M10.7, JB2008 13.3\\pm 4.4 JPLD + Ap & Kp 12.7\\pm 3.2 JPLD + Bx/By/Bz & vx/vy/vz (Omniweb) 15.5\\pm 12.6 JPLD + Orbital Mechanics + Quasi-Dipole \\mathbf{9.2\\pm 4.5} JPLD + All (Non-Residual Target) 18.8\\pm 10.7 JPLD + All 10.7\\pm 4.5"
+      },
+      {
+       "source": "S22",
+       "quote": "Table 1: Ablation study over the influence of input data. RMSE values are averaged over a 12-hour forecast on the validation set. Bold values highlight the experiment with the lowest RMSE value."
+      },
+      {
+       "source": "S21",
+       "quote": "This may suggest that the performance gained by the inclusion auxiliary channel is not great enough to compensate for the increased complexity in the optimization."
+      }
+     ]
+    },
+    {
+     "heading": "太阳极小期训练的泛化明显更弱，样本数量并非唯一因素",
+     "kind": "reported",
+     "text": "附录比较相同超参数、相同样本数量但来自不同太阳周期区间的模型：极大期训练总体 RMSE 为 8.63±4.34，极小期为 63.35±58.60，完整区间为 8.87±4.44。作者将极小期模型的弱泛化联系到扰动事件不足。这里训练分布、采样密度和事件结构仍不同，不能用这组结果推出太阳极小期数据不重要，或宣布某个周期训练方案永远最好。",
+     "evidence": [
+      {
+       "source": "S35",
+       "quote": "Solar Maximum 2013–2015 \\textbf{8.63}\\pm\\textbf{4.34}"
+      },
+      {
+       "source": "S35",
+       "quote": "Solar Minimum 2018–2020 63.35\\pm 58.60"
+      },
+      {
+       "source": "S35",
+       "quote": "Full Dataset 2010–2024 8.87\\pm 4.44"
+      },
+      {
+       "source": "S38",
+       "quote": "To ensure all three models received the same number of training samples, training sequences were more densely sampled for the models trained on the solar minimum and maximum date ranges compared to the model trained on the full date range."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "上下文时长与图注单位的文字口径需要回代码核对",
+     "kind": "unknown",
+     "text": "正文将上下文写为八个采样点并给出小时数，同时另处写两小时序列，这些描述之间的对应不够一致；中心联合分布图的色条标小时，图注却写分钟。本导读保留这些差异，不默默挑一种当成已核实实现。复现时应逐项核对数据索引、时间戳和绘图脚本，这些是待核验的报告口径问题，而不是已证明模型计算或测试无效。",
+     "evidence": []
+    },
+    {
+     "heading": "辅助通道的预测不应直接当成独立可信的太阳风预报",
+     "kind": "interpretation",
+     "text": "作者在附录观察到，一维驱动对应的全球输出通道出现类似 TEC 的空间结构，并推测网络可能把冗余通道当作内部寄存空间。这意味着优化 TEC 的多任务模型，其辅助输出未必具有直接的物理解释或独立预报能力。该解释仍是作者推测，本次也未检查所有辅助通道数据，不能将其扩张成已证明的网络内部机制。",
+     "evidence": [
+      {
+       "source": "S41",
+       "quote": "While examining the global view of the channels corresponding to 1-D drivers, certain patterns emerge that resemble TEC structure. This structure is shown in Figure 7 . This suggests the model may use the redundancy in the global feature channels as registers to inform TEC predictions."
+      }
+     ]
+    },
+    {
+     "heading": "极端事件样本有限，架构优势仍需预算匹配与独立站点检验",
+     "kind": "interpretation",
+     "text": "作者明确说研究区间仅含一场最高等级事件；加上附录 LSTM 同时改变数据量和上下文，现有结果不足以确定任何训练预算下都由图网络占优。JPL 产品内的平均误差也不等于独立站点上的观测一致性、ROTI 或定位收益。上线前还应报告分事件误差、长滚动失稳频率、实际输入延迟和回退表现，避免把平均分数当作安全保障。",
+     "evidence": [
+      {
+       "source": "S34",
+       "quote": "Table 3: Performance comparison for models trained during different solar cycle phases. There is only one G5 event present in the 2010-2024 date range. Bold values are the lowest RMSE for each event level."
+      },
+      {
+       "source": "S32",
+       "quote": "The IonCast GNN model shown is the same as in the main body. The IonCast LSTM model is trained on a longer context window (16 15-minute cadence time steps) and a larger amount of training data (trains on every 32nd sequence of 4 hours, thus sequences skip 8 hours between start and end dates) than the 8-context and 256 date dilation model evaluated in the main text."
+      },
+      {
+       "source": "S18",
+       "quote": "Model performance is evaluated by comparing forecasted predictions against the GIM released by JPL ( 19 ) , which are processed from GNSS stations."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "做预算匹配的全球—区域电离层预测基准",
+     "kind": "proposal",
+     "text": "可在同一数据延迟、训练样本、上下文和算力预算下比较持续性、卷积循环网络与球面图网络，分别控制残差目标、几何辅助和损失通道；按整场风暴和连续年份留出。交付逐时效及纬度分层的 TEC 误差、极端事件误差尾部、滚动失稳比例、显存和推断延迟，并用未参与建图的独立站点检查。这样才能判断复杂架构是否值得工程成本。",
+     "evidence": []
+    },
+    {
+     "heading": "连接 GNSS 与工程感知：预测质量先驱动风险策略",
+     "kind": "proposal",
+     "text": "可先让 TEC 预测提供环境质量特征，而非直接替换定位观测，并与 ROTI、失锁记录和台站遮挡信息对齐。比较不加特征、只做告警、按质量降权三种方案，在独立轨迹上交付定位误差尾部、恢复时长、误报警率和可用率。日月几何这类已知外生量与未知扰动量应分开输入；尚未验证模型收益前，不应让预测图直接触发移动平台的高风险控制。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "results",
+   "src": "https://arxiv.org/html/2511.15004v1/results_figure_jointhex_moderate_global_comparable_lstm_False.png",
+   "width": 2040,
+   "height": 918,
+   "caption": "Figure 1: Model predictions plotted and evaluated over various forecast lead times for a moderate geomagnetic storm (G2 event). Left: Subplots show ground truth data from JPL (upper) plotted against predictions by the IonCast LSTM (middle) and IonCast GNN (lower) models at a 60-minute lead time. The colorbar has units TECU (TEC Units). Center: The joint distribution between JPL (x-axis) and predictions (y-axis) over a 12-hour long-horizon forecast. The diagonal indicates perfect prediction; points below (above) the diagonal correspond to underprediction (overprediction). The colorbar encodes the mode of the forecast time (minutes) at which the prediction occurs, highlighting the error growth across the sequence. Marginal histograms show the distributions of ground truth and predicted values throughout the forecast. Right: The plot compares the average global RMSE of the IonCast LSTM (blue), IonCast GNN (orange), and persistence model predictions across growing forecast horizons.",
+   "title": "中等风暴个例：同时读空间形态、滚动偏差与持续性",
+   "alt": "原文图1左侧依次为 JPL、LSTM、GNN 一小时 TEC 地图，中间为预测对 JPL 的联合分布并用颜色区分预报时效，右侧为三种方法随时效变化的全球 RMSE；蓝色 LSTM 长时效升高，橙色 GNN 较平稳。",
+   "caution": "右侧是该展示条件下随时效变化的误差；不要把验证集消融表的平均数贴在这条曲线上。图注与色条的时间单位存在差异，本站保留并明确提示。",
+   "reading_steps": [
+    {
+     "title": "先分清左中右的时间口径",
+     "text": "左侧地图只对应一小时提前量，不能代表整段滚动；中间汇集长时效联合分布，横轴是 JPL、纵轴是预测，对角线上下分别是高估和低估。左侧地图共用 TECU 色标，中间颜色表达时效而非 TEC 大小。"
+    },
+    {
+     "title": "再看中心颜色与右侧基线",
+     "text": "短时效深色点更贴近对角线，LSTM 长时效浅色点明显偏离；右图灰色持续性在最短时效仍有竞争力，而 GNN 的长时效误差较平稳。原图中心色条标为 hr，原始图注写 minutes，单位口径应回绘图代码核验，不按颜色抄精确分钟。"
+    },
+    {
+     "title": "最后限制比较范围",
+     "text": "该图是标注日期的单个中等风暴结果，能够展示滚动偏差怎样增长，不能代表所有风暴平均，更不能证明整个预报区间从不失稳。图中相关性也不能替代 RMSE、独立观测或定位验证。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 2,
+   "reference": "F2",
+   "section": "experiments",
+   "src": "https://arxiv.org/html/2511.15004v1/results_figure_jointhex_moderate_global_comparable_lstm_True.png",
+   "width": 2040,
+   "height": 918,
+   "caption": "Figure 2: Model predictions plotted and evaluated over various forecast lead times for a moderate geomagnetic storm (G2 event). The IonCast GNN model shown is the same as in the main body. The IonCast LSTM model is trained on a longer context window (16 15-minute cadence time steps) and a larger amount of training data (trains on every 32nd sequence of 4 hours, thus sequences skip 8 hours between start and end dates) than the 8-context and 256 date dilation model evaluated in the main text. Left: Subplots show ground truth data from JPL (upper) plotted against predictions by the IonCast LSTM (middle) and IonCast GNN (lower) models at a 60-minute lead time. The colorbar has units TECU (TEC Units). Center: The joint distribution between JPL (x-axis) and predictions (y-axis) over a 12-hour long-horizon forecast. The diagonal indicates perfect prediction; points below (above) the diagonal correspond to underprediction (overprediction). The colorbar encodes the mode of the forecast time (minutes) at which the prediction occurs, highlighting the error growth across the sequence. Marginal histograms show the distributions of ground truth and predicted values throughout the forecast. Right: The plot compares the average global RMSE of the IonCast LSTM (blue), IonCast GNN (orange), and persistence model predictions across growing forecast horizons.",
+   "title": "更强 LSTM 基线说明：训练协议可以改变架构排名",
+   "alt": "原文附录图2沿用图1的布局与相同 GNN，但 LSTM 使用更长上下文和更多训练序列；右图蓝线相对主文降低，左图 TEC 色标的上限也与主文图不同。",
+   "caution": "这是另一套 LSTM 训练配置，不要与主文 LSTM 的超参数、数据量和结果混用。更长上下文与更多训练数据同时变化，因此并非单因素消融。",
+   "reading_steps": [
+    {
+     "title": "先读原图注里的训练改动",
+     "text": "附录没有只换一个网络层：LSTM 同时加长上下文并加密训练序列，GNN 保持原配置。它说明较强基线可能缩小差距，但不能把变化全部归因于上下文、样本量或架构中的任一项。"
+    },
+    {
+     "title": "再读 RMSE 曲线而非跨图颜色深浅",
+     "text": "右侧蓝线较主文更有竞争力，仍要看不同提前量的灰色持续性和橙色 GNN。左侧地图共用的 TECU 色条范围与主文不同，因此附录地图看起来更蓝不意味着 TEC 更低或预测更准确。"
+    },
+    {
+     "title": "最后把联合分布当作偏差诊断",
+     "text": "中间对角线用于辨别高估和低估，相关系数升高不等于所有时效误差都下降。中心时效色条与图注仍有单位口径差异，不据低清点云提取精确数值；公平比较需重新匹配训练预算。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 4,
+   "reference": "F4",
+   "section": "results",
+   "src": "https://arxiv.org/html/2511.15004v1/figs/TEC_maps.png",
+   "width": 2090,
+   "height": 362,
+   "caption": "Figure 4: Solar cycle model predictions at a 360-minute lead time for a G4 level event. (Left) JPLD Ground Truth, (Middle) Model trained on solar maximum date range (2013-2015), (Right) Model trained on solar minimum date range (2018-2020).",
+   "title": "太阳周期分布漂移：极小期训练在强事件上可能失真",
+   "alt": "原文附录图4从左到右为 JPL 真值、太阳极大期训练模型和极小期训练模型在强地磁事件中的六小时 TEC 图；右侧预测出现大片高值，三图共用右端 TECU 色标。",
+   "caution": "这是产品参照和模型输出的单次空间对比，非独立 GNSS 定位试验。图中异常不能单独归因于某条物理机制或某个网络层，也不用于估算未标出的数值。",
+   "reading_steps": [
+    {
+     "title": "先按原图注识别顺序与条件",
+     "text": "左图是 JPL 产品参照，中图来自极大期训练，右图来自极小期训练；图注限定为一个强风暴事件的六小时提前量。不要把三个面板误读成同一模型随时间的三帧动画。"
+    },
+    {
+     "title": "再看共享色标下的空间形态差异",
+     "text": "右端色条对三个面板共用，右图大面积接近高值颜色，空间分布也明显偏离左图。这支持展示条件下的泛化失真，但色条饱和区域不提供可可靠读取的精确误差；定量仍应看事件统计表。"
+    },
+    {
+     "title": "最后区分样本量与样本分布",
+     "text": "作者让各训练区间获得相同数量的样本，但加密采样并不补回极小期缺少的扰动事件。可将本图看作分布漂移警示，而不是“极小期数据无用”或“极大期训练必胜”的通用结论。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Kelebek, Halil S.、Wolniewicz, Linnea M.、Vergalla, Michael D.、Mestici, Simone、Acciarini, Giacomo、Poduval, Bala、Verkhoglyadova, Olga、Guhathakurta, Madhulika、Berger, Thomas E.、Soboczenski, Frank、Baydin, Atılım Güneş",
+ "provenance": {
+  "provider": "Kimi Code",
+  "model": "Kimi Code 会话整理（精确模型标识未记录）",
+  "generated_at": "2026-11-17T09:48:02Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "1eca98c2ef5246141e2efce38e08aefa98bdbb4142490cbd92db772d90bcfc10",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。"
+}
