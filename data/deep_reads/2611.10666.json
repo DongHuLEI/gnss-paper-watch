@@ -1,0 +1,792 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.10666",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2611.10666v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "用于嵌入式微流控芯片冷却仿真的参数化物理信息神经网络",
+ "dek": "把冷却器每换一组尺寸就重跑有限元，改成一次训练、反复查询。作者用几何位置编码与热学课程训练跨几何的稳态代理，报出了相对有限元的分场误差和计入训练后的时间回本点，两者都依赖限定的设计空间与工况。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读固定版本 arXiv HTML；本次不是独立 API 账单任务。读取 I–IV 节、表 1–2、全部图注及公式；该固定版无独立附录。配图 Fig. 1、2、4 为已逐张查看的同版官方图源。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S6": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S9": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S92": {
+   "label": "原文 · S4.p4.1",
+   "anchor": "S4.p4.1"
+  },
+  "S72": {
+   "label": "原文 · S3.SS1.p3.2",
+   "anchor": "S3.SS1.p3.2"
+  },
+  "S89": {
+   "label": "原文 · S4.p1.1",
+   "anchor": "S4.p1.1"
+  },
+  "S85": {
+   "label": "原文 · S3.SS3.p3.1",
+   "anchor": "S3.SS3.p3.1"
+  },
+  "S4": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S5": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S24": {
+   "label": "原文 · S2.SS2.p3.1",
+   "anchor": "S2.SS2.p3.1"
+  },
+  "S53": {
+   "label": "原文 · S2.SS4.p2.2",
+   "anchor": "S2.SS4.p2.2"
+  },
+  "S42": {
+   "label": "原文 · S2.SS3.p6.1",
+   "anchor": "S2.SS3.p6.1"
+  },
+  "S28": {
+   "label": "原文 · S2.SS2.p3.5",
+   "anchor": "S2.SS2.p3.5"
+  },
+  "S29": {
+   "label": "原文 · S2.SS2.p4.1",
+   "anchor": "S2.SS2.p4.1"
+  },
+  "S95": {
+   "label": "原文 · S4.F3",
+   "anchor": "S4.F3"
+  },
+  "S16": {
+   "label": "原文 · S2.SS1.p4.1",
+   "anchor": "S2.SS1.p4.1"
+  },
+  "S51": {
+   "label": "原文 · S2.SS4.p1.2",
+   "anchor": "S2.SS4.p1.2"
+  },
+  "S56": {
+   "label": "原文 · S2.SS4.p4.1",
+   "anchor": "S2.SS4.p4.1"
+  },
+  "S64": {
+   "label": "原文 · S2.SS4.p8.2",
+   "anchor": "S2.SS4.p8.2"
+  },
+  "S65": {
+   "label": "原文 · S2.SS4.p9.1",
+   "anchor": "S2.SS4.p9.1"
+  },
+  "S66": {
+   "label": "原文 · S2.SS4.p10.1",
+   "anchor": "S2.SS4.p10.1"
+  },
+  "S70": {
+   "label": "原文 · S3.SS1.p2.1",
+   "anchor": "S3.SS1.p2.1"
+  },
+  "S25": {
+   "label": "原文 · S2.SS2.p3.2",
+   "anchor": "S2.SS2.p3.2"
+  },
+  "S31": {
+   "label": "原文 · S2.SS3.p1.1",
+   "anchor": "S2.SS3.p1.1"
+  },
+  "S47": {
+   "label": "原文 · S2.SS3.p10.1",
+   "anchor": "S2.SS3.p10.1"
+  },
+  "S35": {
+   "label": "原文 · S2.SS3.p2.4",
+   "anchor": "S2.SS3.p2.4"
+  },
+  "S10": {
+   "label": "原文 · S2.SS1.p2.1",
+   "anchor": "S2.SS1.p2.1"
+  },
+  "S69": {
+   "label": "原文 · S3.SS1.p1.1",
+   "anchor": "S3.SS1.p1.1"
+  },
+  "S102": {
+   "label": "原文 · S4.T1.2",
+   "anchor": "S4.T1.2"
+  },
+  "S81": {
+   "label": "原文 · S3.SS2.p6.1",
+   "anchor": "S3.SS2.p6.1"
+  },
+  "S96": {
+   "label": "原文 · S4.F4",
+   "anchor": "S4.F4"
+  },
+  "S101": {
+   "label": "原文 · S4.T1",
+   "anchor": "S4.T1"
+  },
+  "S80": {
+   "label": "原文 · S3.SS2.p5.1",
+   "anchor": "S3.SS2.p5.1"
+  },
+  "S79": {
+   "label": "原文 · S3.SS2.p4.1",
+   "anchor": "S3.SS2.p4.1"
+  },
+  "S104": {
+   "label": "原文 · S4.T2.2",
+   "anchor": "S4.T2.2"
+  },
+  "S84": {
+   "label": "原文 · S3.SS3.p2.1",
+   "anchor": "S3.SS3.p2.1"
+  },
+  "S86": {
+   "label": "原文 · S3.SS3.p4.1",
+   "anchor": "S3.SS3.p4.1"
+  },
+  "S87": {
+   "label": "原文 · S3.SS3.p5.1",
+   "anchor": "S3.SS3.p5.1"
+  },
+  "S74": {
+   "label": "原文 · S3.SS1.p5.1",
+   "anchor": "S3.SS1.p5.1"
+  },
+  "M8": {
+   "label": "原公式 · S2.E8.m1",
+   "anchor": "S2.E8.m1"
+  },
+  "M10": {
+   "label": "原公式 · S2.E10.m1",
+   "anchor": "S2.E10.m1"
+  },
+  "M37": {
+   "label": "原公式 · S2.E15.m1",
+   "anchor": "S2.E15.m1"
+  },
+  "M31": {
+   "label": "原公式 · S2.E37.m1",
+   "anchor": "S2.E37.m1"
+  },
+  "M38": {
+   "label": "原公式 · S3.E43",
+   "anchor": "S3.E43"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S4.F1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "S4.F2"
+  },
+  "F4": {
+   "label": "Fig.4 · 原文图",
+   "anchor": "S4.F4"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "把一系列冷却器仿真变成一次训练",
+     "kind": "reported",
+     "text": "作者为嵌入式射流歧管微通道建一个跨几何的稳态代理：输入坐标和入口宽、出口宽、通道宽、高，输出速度分量、压力及流体与固体温度场。它在给定材料、几何、边界条件下替代反复求解，不是从温度传感器反推边界，也不是整个芯片的瞬态热点监控。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "Our network accepts the three spatial coordinates along with four geometric parameters as inputs, including microchannel height, width, and jet inlet/outlet widths. Once trained, the model predicts the coupled flow and temperature fields for any parameter combination in a continuous design space within milliseconds, enabling over four orders of magnitude reduction in per-design computational time and cost relative to conventional finite-element simulations on a 56-core workstation."
+      },
+      {
+       "source": "S9",
+       "quote": "As shown in Fig. 1 (a)-(c), the computational domain is symmetry-reduced from the entire cooler to a single microchannel unit, with symmetry boundary conditions imposed on the corresponding planes to minimize cost. The solid domain is the substrate that conducts heat from the active device layer to the coolant, while the fluid domain represents the coolant passages. Without loss of generality, we consider here a silicon substrate in conjunction with water as the coolant."
+      },
+      {
+       "source": "S92",
+       "quote": "Third, while the current model treats the flow as laminar and steady, extending the framework to turbulent or transient regimes would be valuable for more complex operating conditions."
+      }
+     ]
+    },
+    {
+     "heading": "精度与开销分别看：对照数值参考，不是实测",
+     "kind": "reported",
+     "text": "文中用 625 次 FEM 参考仿真校验，速度、温度场相对 L2 误差约 8.1% 和 5.6%；这些是整批抽样点的归一化场误差，不是每个设计的最坏误差。每次查询快不等于小样本任务一定划算，须把一次性 GPU 训练计入总耗时。",
+     "evidence": [
+      {
+       "source": "S72",
+       "quote": "The quantitative errors of the full PINN model are summarized in the first row of Table 1 . The trained PINN achieves relative MSEs of 0.66% and 0.31% for the velocity and temperature fields, respectively, corresponding to relative L_{2} errors (i.e., the square root of the relative MSEs) of 8.1% and 5.6%."
+      },
+      {
+       "source": "S89",
+       "quote": "Through systematic validation against 625 finite-element simulations, the network achieves relative L_{2} errors of 8.1% and 5.6% for the velocity and temperature fields, respectively, while reducing the per-design computational time and cost by over four orders of magnitude."
+      },
+      {
+       "source": "S85",
+       "quote": "Because the PINN involves a one-time training cost, its practical benefit is best assessed in terms of the break-even point. Based on wall-clock time, the training cost is amortized after approximately 108 design evaluations. Beyond this point, the cumulative time savings increase nearly linearly with the number of additional queries. This makes the proposed framework particularly attractive for applications that require many repeated evaluations, such as design optimization, sensitivity analysis, and interactive exploration of EMMC geometries."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "真正昂贵的是扫设计，不是单次求解",
+     "kind": "reported",
+     "text": "作者对照了固定几何的共轭传热 PINN 和其他参数化热沉工作，把难点归为多维几何扫描的开销、对流主导时的训练困难、以及几何一变同一绝对坐标的边界身份也会变。文章回应的是这个冷却结构族，不是全领域查新，也没有说传统 FEM 忽略几何。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "However, parametric optimization of EMMC requires a great number of high-fidelity simulations of three-dimensional (3D) conjugate heat transfer, which is expensive especially when using conventional approaches such as the finite-element method (FEM). When exploring a design space with multiple geometric parameters, the total computational cost becomes prohibitive [ 16 , 39 ] ."
+      },
+      {
+       "source": "S5",
+       "quote": "Zhang et al. utilized PINNs to simulate conjugate heat transfer in manifold microchannel heat sinks, focusing on modeling for a fixed geometry [ 43 ] . Yang et al. proposed a parameterized PINN for the thermal design of a power module based on a layer of millimeter-scale pin-fins [ 39 ] ."
+      },
+      {
+       "source": "S5",
+       "quote": "First, the computational cost of training 3D PINNs remains high [ 43 , 12 ] . Further, the training of PINNs for convection-dominated heat transfer faces a variety of optimization difficulties [ 31 , 17 ] . Finally, parameterized geometries introduce additional complexity that as design parameters change, the spatial relationship between sampling points and domain boundaries varies, making it difficult for networks to distinguish boundaries from interior regions."
+      }
+     ]
+    },
+    {
+     "heading": "模型最难的判断是点与边界的关系",
+     "kind": "interpretation",
+     "text": "同一坐标在一种几何可能临近壁面，在另一种几何却是内部点。作者没有只把参数添到输入末尾，而是让网络看见与当前边界相对的位置；再用扩散较强的容易问题初始化热场，逐步走向目标物理。这是改善表示和优化的设计，并非把边界强约束进网络输出。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "To better represent the parameterized geometry, the initial input \\mathbf{x}_{\\mathrm{input}} is further augmented with geometric ansatz embeddings. Variations in the geometric parameters can change both the domain to which a point belongs and its relative position with respect to nearby boundaries. To encode this information explicitly, normalized local coordinates are defined for each coordinate direction within the distinct domains:"
+      },
+      {
+       "source": "S53",
+       "quote": "where Pr_{\\min}=10^{-6} and Pr_{\\mathrm{target}}=6.977 . At the early stage of training, the small effective Prandtl number suppresses the stiffness associated with convection-dominated thermal transport and allows the network to first learn an easier diffusion-dominated temperature field."
+      },
+      {
+       "source": "S42",
+       "quote": "Boundary and interface conditions are enforced through additional loss terms. For the inlet boundary, the hydraulic and thermal constraints are defined separately because the thermal part is introduced progressively during training:"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先按几何采点，再给坐标加位置标记",
+     "kind": "reported",
+     "text": "硅基底与水流域利用对称性缩为一个通道单元。随几何实时构造体内块与边界面，在壁面、狭缝和进出口加密采样。坐标和四个几何量归一后，与八项光滑的局部位置特征拼接为十五维；经 Fourier 特征和 PirateNet 解码出速度、压力与双域温度。",
+     "evidence": [
+      {
+       "source": "S9",
+       "quote": "As shown in Fig. 1 (a)-(c), the computational domain is symmetry-reduced from the entire cooler to a single microchannel unit, with symmetry boundary conditions imposed on the corresponding planes to minimize cost. The solid domain is the substrate that conducts heat from the active device layer to the coolant, while the fluid domain represents the coolant passages. Without loss of generality, we consider here a silicon substrate in conjunction with water as the coolant."
+      },
+      {
+       "source": "S28",
+       "quote": "where \\mathbf{x}_{\\mathrm{norm}} comprises seven normalized spatial coordinates and geometric parameters, and \\tilde{\\mathbf{g}} denotes eight mapped local geometric features, which together constitute a fifteen-dimensional network input in the present implementation, as illustrated in Figure 2 (b)."
+      },
+      {
+       "source": "S29",
+       "quote": "Interior points are sampled uniformly over the composite multi-block regions corresponding to the jet inlet, microchannels, and jet outlet, whereas boundary points are sampled directly on the corresponding parameterized surfaces. A region-aware importance sampling strategy is further used so that more points are placed near the fluid-solid walls, narrow microchannel gaps, and inlet/outlet boundaries, where velocity and temperature gradients are strongest."
+      },
+      {
+       "source": "S95",
+       "quote": "This representation is further mapped through Fourier feature encoding and passed to the neural network, which predicts the coupled flow and thermal fields (u,v,w,p,T_{\\mathrm{f}},T_{\\mathrm{s}}) . The network outputs simultaneously serve as the final solution and as the basis for constructing the physics-informed loss"
+      }
+     ]
+    },
+    {
+     "heading": "把热物理逐步恢复，而非改实际工作条件",
+     "kind": "reported",
+     "text": "损失既有流固区域的方程残差，也有进出口、基底、绝热顶面、流固界面和对称面的条件。训练早期降低有效 Pr、从匹配导热率起步，缓启基底热约束；入流与顶面用另一退火日程逐步撤掉辅助温度项。训练步数不是物理时间，推断直接查询目标稳态场，不再运行这个日程。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "At the fluid-solid interface, temperature heat-flux continuity are imposed. Other conditions include the inlet and outlet boundaries in the fluid domain, the isothermal base and adiabatic top boundary in the solid domain, and also the symmetry planes. All thermophysical properties are treated as constants for simplicity, therefore the momentum equations are independent of temperature, while the energy equation depends on the velocity field."
+      },
+      {
+       "source": "S51",
+       "quote": "Here, t_{\\mathrm{warmup}}=25,000 , which is one eighth of the total 200,000 training steps. This factor is used consistently to control the thermal curriculum and activation of the heated-base thermal constraint."
+      },
+      {
+       "source": "S53",
+       "quote": "where Pr_{\\min}=10^{-6} and Pr_{\\mathrm{target}}=6.977 . At the early stage of training, the small effective Prandtl number suppresses the stiffness associated with convection-dominated thermal transport and allows the network to first learn an easier diffusion-dominated temperature field."
+      },
+      {
+       "source": "S56",
+       "quote": "In addition to parameter continuation, an auxiliary thermal boundary loss is introduced to stabilize the early stage of optimization. The auxiliary terms at the inlet and top surfaces share a common fading schedule \\beta(t)=\\min(t/100{,}000,1) , which extends beyond the main curriculum. The inlet loss is assembled as"
+      }
+     ]
+    },
+    {
+     "heading": "从预测场自动求导，再更新网络参数",
+     "kind": "reported",
+     "text": "JAX 在 GPU 上在线采点，用前向自动微分计算坐标导数、反向传播更新参数，并编译训练环路。SOAP 的 schedule-free 变体与动态梯度归一配合；原文同时写明基准学习率仍有预热和指数衰减，所以 schedule-free 不应读成所有学习率因子固定。FEM 参考用于事后评估。",
+     "evidence": [
+      {
+       "source": "S64",
+       "quote": "where the loss terms include the PDE residuals, the boundary and interface constraints, and the time-dependent inlet, base, and top losses defined above. Because the different loss components can differ substantially in magnitude during training, dynamic gradient normalization is used to balance them [ 31 ] ."
+      },
+      {
+       "source": "S65",
+       "quote": "Optimization is performed using the SOAP optimizer in its schedule-free variant [ 9 , 27 , 28 ] . SOAP combines matrix preconditioning with Adam-style momentum and bias correction, and has been found to improve the robustness of PINN training for stiff multiphysics problems. In the present implementation, the base learning rate is set to \\eta=10^{-3} . A linear warm-up is applied over the first 5,000 steps, after which the learning rate decays exponentially by a factor of 0.97 every 2,000 steps during the main stage of training."
+      },
+      {
+       "source": "S66",
+       "quote": "For this reason, forward-mode automatic differentiation is used for coordinate derivatives, together with reverse-mode backpropagation for parameter updates. This choice is well suited to the present setting and reduces the cost of evaluating the spatial derivatives required by the PDE residuals. The complete training loop, including point sampling, loss evaluation, and optimizer updates, is compiled with just-in-time compiler of JAX to reduce Python overhead."
+      },
+      {
+       "source": "S70",
+       "quote": "For each parameter combination, 10,000 random evaluation points are sampled in the relevant computational domains, and the reference fields are interpolated onto these locations. In total, this produces 6.25\\times 10^{6} point-wise comparisons for evaluation of the trained PINN, which is considerably stricter than comparing only global quantities such as pressure drop or peak temperature."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "归一几何坐标，界面仍靠损失",
+     "kind": "reported",
+     "text": "几何输入式用当前几何的区间两端把坐标映为相对位置；Sigmoid 再将中心和边界附近的变化编码成平滑特征。这支计算只提供线索，不直接令流固温度或通量相等。控制方程与条件另作无量纲化，实际须对固定几何的空间坐标求导。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "To better represent the parameterized geometry, the initial input \\mathbf{x}_{\\mathrm{input}} is further augmented with geometric ansatz embeddings. Variations in the geometric parameters can change both the domain to which a point belongs and its relative position with respect to nearby boundaries. To encode this information explicitly, normalized local coordinates are defined for each coordinate direction within the distinct domains:"
+      },
+      {
+       "source": "S25",
+       "quote": "where \\mathbf{p}=[W_{\\mathrm{in}},W_{\\mathrm{out}},W_{\\mathrm{mc}},H_{\\mathrm{mc}}] is the current vector of geometric parameters and \\mathbf{r}=[x,y,z] is the spatial coordinate. These local coordinates are then transformed by a smooth embedding function. In this work, a sigmoid function \\sigma_{\\mathrm{s}} is adopted,"
+      },
+      {
+       "source": "S31",
+       "quote": "To improve numerical conditioning, all governing equations and boundary conditions are cast into a nondimensional form. The characteristic scales used in this work are L_{\\mathrm{ref}}=$100\\text{\\,}\\mathrm{\\SIUnitSymbolMicro m}$ for the length, U_{\\mathrm{ref}}=$1\\text{\\,}\\mathrm{m}\\text{\\,}{\\mathrm{s}}^{-1}$ for the velocity, P_{\\mathrm{ref}}=\\rho U_{\\mathrm{ref}}^{2} for the pressure, and T_{\\mathrm{ref}}=$50\\text{\\,}\\mathrm{K}$ for the temperature. The corresponding nondimensional variables are defined as"
+      },
+      {
+       "source": "S47",
+       "quote": "At the fluid-solid interface, no-slip, temperature continuity, and heat-flux continuity are imposed through"
+      }
+     ]
+    },
+    {
+     "heading": "流速影响温度，但温度不反推流速",
+     "kind": "interpretation",
+     "text": "常物性设定让动量和能量单向耦合。读温度方程时，流速决定对流，Re 与 Pr 决定相对扩散强度；界面用导热率比配平热通量。相对 MSE 是先汇总平方误差，再除参考场平均平方加稳定项；相对 L2 则先按无量纲比值开方再写作百分数，不把每点均除以当地真值。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "At the fluid-solid interface, temperature heat-flux continuity are imposed. Other conditions include the inlet and outlet boundaries in the fluid domain, the isothermal base and adiabatic top boundary in the solid domain, and also the symmetry planes. All thermophysical properties are treated as constants for simplicity, therefore the momentum equations are independent of temperature, while the energy equation depends on the velocity field."
+      },
+      {
+       "source": "S35",
+       "quote": "denote the Reynolds number and Prandtl number, respectively. At the fluid–solid interface, continuity of heat flux gives"
+      },
+      {
+       "source": "S72",
+       "quote": "where N is the number of evaluation points for the corresponding field and \\epsilon=10^{-8} is introduced to avoid division by zero. Accordingly, the relative L_{2} error is defined as the square root of the relative MSE."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "四个尺寸各取五档，评估连续模型的一张网格",
+     "kind": "reported",
+     "text": "训练几何定义为入口宽 40–50 μm、出口宽 90–110 μm、通道宽 45–55 μm、高 140–160 μm。参考端做 625 个全因子几何，每几何 10,000 个随机评价点，共 6.25×10^6 次点级对比；COMSOL 6.3 用约 2.3×10^6 单元的网格、按常物性做单向耦合。不是把这些 FEM 值当训练标签。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "To define the parameterized design space, four key geometric dimensions are incorporated including the jet inlet width (W_{\\mathrm{in}}\\in[40,50]~$\\mathrm{\\SIUnitSymbolMicro m}$) , the jet outlet width (W_{\\mathrm{out}}\\in[90,110]~$\\mathrm{\\SIUnitSymbolMicro m}$) , the microchannel width (W_{\\mathrm{mc}}\\in[45,55]~$\\mathrm{\\SIUnitSymbolMicro m}$) , and the microchannel height (H_{\\mathrm{mc}}\\in[140,160]~$\\mathrm{\\SIUnitSymbolMicro m}$) . These parameters are selected"
+      },
+      {
+       "source": "S69",
+       "quote": "To assess the predictive accuracy of the proposed PINN model over the entire design space, FEM references are generated using COMSOL Multiphysics 6.3."
+      },
+      {
+       "source": "S69",
+       "quote": "Following the grid-independence assessment reported in our previous work on a similar microchannel configuration [ 34 ] , an extra-fine mesh with approximately 2.3\\times 10^{6} elements is adopted for all FEM cases."
+      },
+      {
+       "source": "S70",
+       "quote": "A full-factorial scan is then performed over the parameter space defined in Section II . Five values are taken for each of the four geometric parameters, yielding a total of 5^{4}=625 FEM simulations. For each parameter combination, 10,000 random evaluation points are sampled in the relevant computational domains, and the reference fields are interpolated onto these locations. In total, this produces 6.25\\times 10^{6} point-wise comparisons for evaluation of the trained PINN, which is considerably stricter than comparing only global quantities such as pressure drop or peak temperature."
+      }
+     ]
+    },
+    {
+     "heading": "训练成本、场误差与优化消融都单列",
+     "kind": "reported",
+     "text": "基准训练 200,000 步，单块 RTX 4090D 峰值约 20 GB；训练不依赖预生成 FEM 标签，JAX 会在参数化区域实时采方程点。消融比较全模型和去几何编码、骨干、SOAP、课程、schedule-free 或辅助损失等版本；分别用速度与温度场的参考误差，不只按训练损失选择。",
+     "evidence": [
+      {
+       "source": "S66",
+       "quote": "Under the baseline setting, training runs for 200,000 iterations and requires less than four hours on a single NVIDIA RTX 4090D GPU, with a peak memory usage of approximately 20\\text{\\,}\\mathrm{GB} ."
+      },
+      {
+       "source": "S29",
+       "quote": "Training points are generated on the fly in JAX [ 5 ] rather than pre-generated externally. The three-dimensional fluid and solid domains are algebraically decomposed into parameterized bounding boxes for interior regions and boundary planes for surface constraints."
+      },
+      {
+       "source": "S102",
+       "quote": "Velocity (%) Temperature (%) Configuration rel. MSE rel. L_{2} rel. MSE rel. L_{2} Full model (final) 0.66 8.12 0.31 5.58 w/o Geometric ansatz 281.33 167.73 99.91 99.95 w/o PirateNet 3.19 17.86 0.68 8.27 w/o SOAP 1.41 11.86 1.49 12.19 w/o Curriculum learning 0.40 6.29 0.39 6.27 w/o Schedule-free 264.27 162.56 10.41 32.26 w/o Auxiliary loss 128.15 113.20 10.41 32.27"
+      },
+      {
+       "source": "S81",
+       "quote": "More broadly, the ablation study shows that training loss alone is insufficient for evaluating the network quality in this setting. Even when the optimization appears successful in terms of aggregated loss reduction, the predicted physical fields may still be inaccurate, particularly for temperature, which is the stiffest component in the present one-way coupled system. Therefore, field-wise validation against a trusted numerical solver remains essential."
+      }
+     ]
+    },
+    {
+     "heading": "复现所需的几个设置仍需补齐",
+     "kind": "unknown",
+     "text": "已读固定版本说明了几何范围、方程、损失及主要硬件，却未见本文实现或 FEM 网格的数据仓库入口、独立重复种子方差、或每种采样面的逐迭代点数清单。应先记录同等边界与采样、用相同求导坐标和评价点复算；仅依据总步数无法保证复现。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "全域误差与中心几何示例是两种证据",
+     "kind": "reported",
+     "text": "表 1 全模型的速度/温度相对 MSE 为 0.66%/0.31%，表中相对 L2 为 8.12%/5.58%。Fig. 4 是中心几何的流场形态、局部温升和绝对差示例，可用来看误差落在哪里，不能用来估计边界最坏误差。压力图展示形态，表中没有把它并入这组误差。",
+     "evidence": [
+      {
+       "source": "S96",
+       "quote": "Figure 4: Representative three-dimensional field comparison between the FEM reference and the trained parameterized PINN. This geometry is located at the center of the parameter space,"
+      },
+      {
+       "source": "S102",
+       "quote": "Velocity (%) Temperature (%) Configuration rel. MSE rel. L_{2} rel. MSE rel. L_{2} Full model (final) 0.66 8.12 0.31 5.58 w/o Geometric ansatz 281.33 167.73 99.91 99.95 w/o PirateNet 3.19 17.86 0.68 8.27 w/o SOAP 1.41 11.86 1.49 12.19 w/o Curriculum learning 0.40 6.29 0.39 6.27 w/o Schedule-free 264.27 162.56 10.41 32.26 w/o Auxiliary loss 128.15 113.20 10.41 32.27"
+      },
+      {
+       "source": "S101",
+       "quote": "Table 1: Relative MSEs and relative L_{2} errors with respect to the FEM reference for the full model and for different ablation configurations."
+      },
+      {
+       "source": "S80",
+       "quote": "The pressure field is not emphasized here, since it is directly constrained by the boundary conditions and is therefore less representative of the model’s ability to capture the more challenging transport dynamics. By contrast, velocity and especially temperature provide a more meaningful assessment for the present thermohydraulic problem."
+      }
+     ]
+    },
+    {
+     "heading": "训练损失更低，温度场未必更准",
+     "kind": "reported",
+     "text": "无几何编码时相对 L2 速度/温度误差恶化到 167.73%/99.95%。去掉课程反而使速度相对 MSE 从 0.66% 降到 0.40%，但温度从 0.31% 升到 0.39%；去掉 SOAP 终点损失与整模近似，速度和温度误差仍一起变大。这个取舍说明不同归一化项加总不能替代分场评估。",
+     "evidence": [
+      {
+       "source": "S102",
+       "quote": "Velocity (%) Temperature (%) Configuration rel. MSE rel. L_{2} rel. MSE rel. L_{2} Full model (final) 0.66 8.12 0.31 5.58 w/o Geometric ansatz 281.33 167.73 99.91 99.95 w/o PirateNet 3.19 17.86 0.68 8.27 w/o SOAP 1.41 11.86 1.49 12.19 w/o Curriculum learning 0.40 6.29 0.39 6.27 w/o Schedule-free 264.27 162.56 10.41 32.26 w/o Auxiliary loss 128.15 113.20 10.41 32.27"
+      },
+      {
+       "source": "S79",
+       "quote": "As indicated by the green curve in Fig. 6 , the model trained without curriculum learning converges more rapidly and achieves the lowest training loss among all configurations. However, its relative MSE for temperature increases from 0.31% to 0.39%. Thus, curriculum learning trades a modest amount of flow-field accuracy for improved temperature fidelity, which is the primary quantity of interest."
+      },
+      {
+       "source": "S80",
+       "quote": "The run without SOAP reaches a final training loss comparable to that of the full model (Fig. 6 ), yet its velocity and temperature errors are markedly larger: removing SOAP increases the relative MSE of velocity from 0.66% to 1.41% and the temperature MSE from 0.31% to 1.49%, which again underlines that the aggregated training loss alone is not a reliable indicator of field accuracy in the present problem."
+      }
+     ]
+    },
+    {
+     "heading": "按查询数核算：122.53 s 对 9.3 ms",
+     "kind": "reported",
+     "text": "作者的 FEM 每个设计用 56 核花 122.53 s；单 GPU 代理查询 9.3 ms，另有约 3.67 h 训练，时间回本约 108 设计。按文中估算租价则约 24 设计回本。两个数字分别回答累计墙钟和租费，PC、工作流、查询点数、重训等变化时不能当普适门槛。",
+     "evidence": [
+      {
+       "source": "S104",
+       "quote": "Metric FEM PINN Cost basis Approx. rental price per hour 9 CNY/h 2 CNY/h Wall-clock performance One-time setup / training time – 3.67\\text{\\,}\\mathrm{h} Runtime per design 122.53\\text{\\,}\\mathrm{s} 9.3\\text{\\,}\\mathrm{ms} Per-design speedup – \\sim 1.32\\times 10^{4} Time break-even No. of designs – 108 Price break-even No. of designs – 24"
+      },
+      {
+       "source": "S84",
+       "quote": "Each simulation uses 56 CPU cores and requires 122.53\\text{\\,}\\mathrm{s} per design point. By contrast, the parameterized PINN is trained on a single NVIDIA RTX 4090D for 3\\text{\\,}\\mathrm{h} 40\\text{\\,}\\mathrm{min} , after which the prediction for a new design requires only 9.3\\text{\\,}\\mathrm{ms} . This corresponds to a per-design speedup by a factor of approximately 1.32\\times 10^{4} , indicating that the trained network can provide essentially real-time thermohydraulic predictions across the design space."
+      },
+      {
+       "source": "S86",
+       "quote": "A similar trend is observed when approximate hardware rental prices are considered. Using representative market rates at the time of submission, about 9 CNY/h for the CPU node and about 2 CNY/h for a single RTX 4090D GPU, the monetary break-even point is reached after only about 24 design evaluations. Nevertheless, wall-clock time is taken as the primary metric in this work, since turnaround time is generally the more relevant constraint in practical engineering design and model development."
+      },
+      {
+       "source": "S87",
+       "quote": "Although the FEM and PINN workflows are executed on different hardware platforms, the comparison still reflects their realistic end-to-end computational costs in practical use. In addition, the FEM reference is evaluated in its efficient one-way coupled form, so the reported acceleration is not attributable to an artificially weakened baseline."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "连续可查询不等于跨范围已验证",
+     "kind": "reported",
+     "text": "作者在固定温度边界和常物性下处理稳态层流，验证网格覆盖的是预先限定的几何范围。网格内可以查询新组合，但原文所给定量证据以全因子参考为主；更新入口结构、温依物性、两相或瞬态流被列为后续，不是本工作已经覆盖。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "At the fluid-solid interface, temperature heat-flux continuity are imposed. Other conditions include the inlet and outlet boundaries in the fluid domain, the isothermal base and adiabatic top boundary in the solid domain, and also the symmetry planes. All thermophysical properties are treated as constants for simplicity, therefore the momentum equations are independent of temperature, while the energy equation depends on the velocity field."
+      },
+      {
+       "source": "S74",
+       "quote": "It is also worth emphasizing that the trained network accepts the geometric parameters as continuous inputs. Therefore, although validation is carried out on the 625 reference cases, the resulting surrogate is not restricted to these discrete points and can be queried at unseen parameter combinations within the trained design space."
+      },
+      {
+       "source": "S92",
+       "quote": "First, extending the parameterized formulation to a wider range of geometric features, including manifold fin shapes and inlet/outlet configurations, would further broaden the practical applicability. Second, incorporating temperature-dependent material properties would address scenarios involving large temperature rises or phase-change cooling. Third, while the current model treats the flow as laminar and steady, extending the framework to turbulent or transient regimes would be valuable for more complex operating conditions."
+      }
+     ]
+    },
+    {
+     "heading": "追问：优化器会不会专挑代理的薄弱处",
+     "kind": "proposal",
+     "text": "以未落在全因子网格的几何和上、下边界带作为锁定测试集；多种子训练，并用相同 FEM 参考、相同总查询与训练预算比较。除点级场误差外，报告壁面通量闭合、流量与压降、峰温误差和选中设计的排序一致性；用 FEM 回算代理给出的候选最优解，检查是否误选。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "迁移方向：参数化热模型先用于 GNSS 接收机工程",
+     "kind": "proposal",
+     "text": "为多通道接收机或边缘感知模块的有源器件建立热模型，固定封装与负载后改变散热器尺寸。拆分网格内和近边界留出，比较直接 FEM、插值、无几何特征代理和完整代理；交付热点峰温误差、排序相关与计入训练后的时间回本曲线。先用样机温度核验，不把仿真温度当射频性能。",
+     "evidence": []
+    },
+    {
+     "heading": "进一步测量热漂移，才谈接收机收益",
+     "kind": "proposal",
+     "text": "在恒定射频输入的台架上切换相同负载及不同冷却几何，按批次留出一台接收机或一种几何，记录芯片温度和时频/观测偏差。用未建模的瞬态升降温单列失败率。只有热模型加入同一离线标定策略后，在留出条件下可重复降低漂移，才报告迁移成功。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S2.E8.m1",
+   "refs": [
+    "M8"
+   ],
+   "mathml": "<mrow><mrow><msub><mi>𝐠</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>𝐫</mi><mi>i</mi></msub><mo>−</mo><mrow><msub><mi>𝐫</mi><mrow><mi>i</mi><mo>,</mo><mi>min</mi></mrow></msub><mo>​</mo><mrow><mo>(</mo><mi>𝐩</mi><mo>)</mo></mrow></mrow></mrow><mrow><mrow><msub><mi>𝐫</mi><mrow><mi>i</mi><mo>,</mo><mi>max</mi></mrow></msub><mo>​</mo><mrow><mo>(</mo><mi>𝐩</mi><mo>)</mo></mrow></mrow><mo>−</mo><mrow><msub><mi>𝐫</mi><mrow><mi>i</mi><mo>,</mo><mi>min</mi></mrow></msub><mo>​</mo><mrow><mo>(</mo><mi>𝐩</mi><mo>)</mo></mrow></mrow></mrow></mfrac></mrow><mo>,</mo></mrow>",
+   "accessible": "\\mathbf{g}_{i}=\\frac{\\mathbf{r}_{i}-\\mathbf{r}_{i,\\min}(\\mathbf{p})}{\\mathbf{r}_{i,\\max}(\\mathbf{p})-\\mathbf{r}_{i,\\min}(\\mathbf{p})},",
+   "title": "用几何局部比例对齐边界",
+   "meaning": "与绝对距离相比，按当前几何宽度量尺度，中心读数不随尺寸改变。教学例：区间 0 到 40 μm 的 20 μm 点与 0 到 50 μm 的 25 μm 点，归一化都为 0.5。",
+   "caution": "局部区间长度须非零；特征是输入补充，不是把原点投影到壁面，也不保证条件精确满足。",
+   "symbols": [
+    {
+     "symbol": "gᵢ",
+     "text": "无量纲的第 i 项局部坐标，范围随区间内外而变。"
+    },
+    {
+     "symbol": "rᵢ",
+     "text": "所选方向的物理坐标，与上下界单位一致。"
+    },
+    {
+     "symbol": "rᵢ,ₘᵢₙ、rᵢ,ₘₐₓ；p",
+     "text": "由当前几何参数 p 决定的下、上边界，长度可用 μm。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S2.E10.m1",
+   "refs": [
+    "M10"
+   ],
+   "mathml": "<mrow><mrow><msub><mover><mi>𝐠</mi><mo>~</mo></mover><mi>i</mi></msub><mo>=</mo><mrow><msub><mi>σ</mi><mi>s</mi></msub><mo>​</mo><mrow><mo>(</mo><mfrac><mrow><msub><mi>𝐠</mi><mi>i</mi></msub><mo>−</mo><mn>0.5</mn></mrow><mi>δ</mi></mfrac><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\tilde{\\mathbf{g}}_{i}=\\sigma_{s}\\left(\\frac{\\mathbf{g}_{i}-0.5}{\\delta}\\right),",
+   "title": "用光滑映射把局部位置送进网络",
+   "meaning": "局部坐标以中心为零点，缩放后送入 Sigmoid。教学例：只要 gᵢ=0.5 且 δ 非零，Sigmoid 的输入就是 0，输出恰为 0.5；不同宽度的中心给出同一值。",
+   "caution": "式子不保证所有边界残差为零；边界点仍要取样并施加相应损失。",
+   "symbols": [
+    {
+     "symbol": "gᵢ、g̃ᵢ",
+     "text": "缩放前后的无量纲局部几何特征。"
+    },
+    {
+     "symbol": "σₛ",
+     "text": "斜率由 s 控制的 Sigmoid。"
+    },
+    {
+     "symbol": "δ",
+     "text": "无量纲缩放，控制过渡带的锐度。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S2.E15.m1",
+   "refs": [
+    "M37"
+   ],
+   "mathml": "<mrow><mrow><mrow><mrow><mo>(</mo><mrow><msup><mi>𝐮</mi><mo>∗</mo></msup><mo>⋅</mo><msup><mo>∇</mo><mo>∗</mo></msup></mrow><mo>)</mo></mrow><mo>​</mo><msubsup><mi>T</mi><mi>f</mi><mo>∗</mo></msubsup></mrow><mo>=</mo><mrow><mfrac><mn>1</mn><mrow><mrow><mrow><mi>R</mi><mo>​</mo><mi>e</mi></mrow><mo>⋅</mo><mi>P</mi></mrow><mo>​</mo><mi>r</mi></mrow></mfrac><mo>​</mo><mrow><msup><mo>∇</mo><mrow><mo>∗</mo><mn>2</mn></mrow></msup><msubsup><mi>T</mi><mi>f</mi><mo>∗</mo></msubsup></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "(\\mathbf{u}^{*}\\cdot\\nabla^{*})T_{f}^{*}=\\frac{1}{Re\\cdot Pr}\\nabla^{*2}T_{f}^{*},",
+   "title": "流体能量：对流与热扩散的相对权重",
+   "meaning": "速度场搬运温升，右边的拉普拉斯项扩散温升。教学例：固定 Re=10，设 Pr 从 1 增到 2，扩散系数从 0.1 降到 0.05；这说明训练早期小 Pr 为什么强化扩散。",
+   "caution": "这是稳态方程；课程序列只在优化时替换 Pr，不模拟温升从某时刻演化。",
+   "symbols": [
+    {
+     "symbol": "u*、T*f",
+     "text": "无量纲速度向量和流体温升。"
+    },
+    {
+     "symbol": "∇*",
+     "text": "对无量纲空间位置求导。"
+    },
+    {
+     "symbol": "Re、Pr",
+     "text": "雷诺数、普朗特数，均无量纲。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S2.E37.m1",
+   "refs": [
+    "M31"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>P</mi><mo>​</mo><msub><mi>r</mi><mi>eff</mi></msub><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mi>P</mi><mo>​</mo><msub><mi>r</mi><mi>min</mi></msub></mrow><mo>+</mo><mrow><mrow><mo>(</mo><mrow><mrow><mi>P</mi><mo>​</mo><msub><mi>r</mi><mi>target</mi></msub></mrow><mo>−</mo><mrow><mi>P</mi><mo>​</mo><msub><mi>r</mi><mi>min</mi></msub></mrow></mrow><mo>)</mo></mrow><mo>​</mo><mi>α</mi><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "Pr_{\\mathrm{eff}}(t)=Pr_{\\min}+\\left(Pr_{\\mathrm{target}}-Pr_{\\min}\\right)\\alpha(t),",
+   "title": "让训练从容易的热问题续接到目标问题",
+   "meaning": "以裁剪线性因子把有效 Pr 插值到目标。教学例：取 Prₘᵢₙ=0.01、目标值 7，在主预热过半时权重 0.5，得到 3.505；结束后保持 7。",
+   "caution": "这里的教学数字不是论文配置。界面导热率比也续接，但入流/顶面辅助温度项另用更长的退火期。",
+   "symbols": [
+    {
+     "symbol": "t、α(t)",
+     "text": "优化步和对应的主续接比例。"
+    },
+    {
+     "symbol": "Pr_eff、Pr_min、Pr_target",
+     "text": "训练时有效、初始、目标的无量纲 Pr。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文 · S3.E43",
+   "refs": [
+    "M38"
+   ],
+   "mathml": "<msub><mtext>Error</mtext><mi>u</mi></msub><mrow><mrow><mo>=</mo><mrow><mfrac><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>​</mo><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup><msubsup><mrow><mo>‖</mo><mrow><msub><mi>𝐮</mi><mrow><mi>pred</mi><mo>,</mo><mi>i</mi></mrow></msub><mo>−</mo><msub><mi>𝐮</mi><mrow><mi>ref</mi><mo>,</mo><mi>i</mi></mrow></msub></mrow><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup></mrow></mrow><mrow><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>​</mo><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup><msubsup><mrow><mo>‖</mo><msub><mi>𝐮</mi><mrow><mi>ref</mi><mo>,</mo><mi>i</mi></mrow></msub><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup></mrow></mrow><mo>+</mo><mi>ϵ</mi></mrow></mfrac><mo>×</mo><mrow><mn>100</mn><mo>%</mo></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\displaystyle\\text{Error}_{u} \\displaystyle=\\frac{\\frac{1}{N}\\sum_{i=1}^{N}\\|\\mathbf{u}_{\\mathrm{pred},i}-\\mathbf{u}_{\\mathrm{ref},i}\\|_{2}^{2}}{\\frac{1}{N}\\sum_{i=1}^{N}\\|\\mathbf{u}_{\\mathrm{ref},i}\\|_{2}^{2}+\\epsilon}\\times 100\\%,",
+   "title": "相对场误差：用参考场的总能量定标",
+   "meaning": "将速度向量差的平方按评价点平均，再除以参考速度向量平方的平均加稳定项。教学例：参考模为 2 m/s、差向量模 0.2 m/s，忽略极小稳定项，相对 MSE 为 1%，相对 L2 为 10%。",
+   "caution": "不是先求速度大小之差，也不是逐点百分比误差的平均。温度的式 (44) 使用标量；开方前应先撤掉百分数表示。",
+   "symbols": [
+    {
+     "symbol": "N、i",
+     "text": "某字段的评价点总数与索引。"
+    },
+    {
+     "symbol": "u_pred、u_ref",
+     "text": "评价点上的预测和参考速度向量，量纲一致。"
+    },
+    {
+     "symbol": "ε",
+     "text": "避免零分母的小稳定项。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.10666v1/geometry.png",
+   "width": 832,
+   "height": 520,
+   "caption": "Figure 1: Geometric configuration and computational domain of the jet-enhanced manifold microchannel cooler. (a) 3D schematic of the three-tier cooling structure, comprising the manifold, jet plate, and microfluidic layers. (b) A representative unit extracted from the full device as indicated by the green shade in (a). (c) The modeled computational domain which is symmetry-reduced and corresponds to the green shade in (b). The blue and white regions represent the fluid (water) and solid (silicon) domains, respectively, with the colored arrow showing the fluid flow from the jet inlet to the outlet. (d) Top-view schematic illustrating the alternating flow layout of cold fluid (inlets) and hot fluid (outlets) within the manifold layer. (e) Cross-sectional projections defining the key geometric dimensions. H , W_{x} , and W_{y} denote the overall outer dimensions of the domain. Due to the applied symmetric conditions, the physical widths of the microchannel, inlet, and outlet are depicted as half-widths. Notably, W_{\\text{in}} , W_{\\text{out}} , W_{\\text{mc}} , and H_{\\text{mc}} constitute the four geometric parameters incorporated into the PINN to form a continuous design space.",
+   "title": "完整歧管如何缩成一块计算域",
+   "alt": "三层微流控冷却结构、代表单元、对称缩域和投影尺寸。",
+   "caution": "箭头和三维几何是示意，不是实测流线或全装置温度。图示没验证各单元相互作用。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "沿 (a) 的绿色选区进入 (b)，再沿虚线到 (c) 的对称计算域；蓝色为水域、白色为硅域，(c) 彩色箭头由喷射入口沿微通道去往出口。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "(d) 给出冷热歧管交错的布局；(e) 左边是 y–z 投影、右边是 x–z，宽维标了半宽，高度不减半。读代码或建模时先核对对称域与物理尺寸的换算。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 2,
+   "reference": "F2",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.10666v1/ansatz.png",
+   "width": 851,
+   "height": 330,
+   "caption": "Figure 2: Spatial layout and relative position invariance of the geometric ansatz embeddings. (a) Mapping profiles from physical distances to the unified ansatz embedding space under two illustrative parametric conditions (chosen for visual contrast, whereas the training range is defined in Section II ). Despite variations in absolute physical dimensions, this mapping ensures that relative geometric features, such as boundaries or centers, consistently correspond to identical embedding values. For instance, the geometric center always aligns exactly with an embedding value of 0.5. (b) 3D spatial layout illustrating the placement of the eight designated geometric ansatz embeddings, denoted as g_{1} through g_{8} , within the computational domain. (c) Validation of the invariance property at the center of the inlet. As the geometric parameter W_{\\text{in}} varies, the actual physical distance from the wall increases linearly as indicated by the blue solid line. Meanwhile, the corresponding ansatz embedding value remains constant as indicated by the red dashed line.",
+   "title": "把相对几何不变性读成一条可检查的性质",
+   "alt": "左图两条距离映射、中间八个特征位置、右图入口中心的不变性。",
+   "caution": "(a) 所选的几何值只用于视觉对照，别当训练或外推验证范围；不变的是某个相对位置的特征，不是完整场解或边界误差。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "(a) 横轴是离壁距离（μm），纵轴是无量纲嵌入值。两配色对应不同示意入口宽，彩色圆点在不同距离处却共享中心值 0.5。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "(b) 先定位入口中心与八项局部特征；(c) 左轴读蓝色实线的距离（μm），右轴读红色虚线的嵌入值。几何宽度在变，中心这个相对位置不变。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 4,
+   "reference": "F4",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.10666v1/validation_fields.png",
+   "width": 839,
+   "height": 828,
+   "caption": "Figure 4: Representative three-dimensional field comparison between the FEM reference and the trained parameterized PINN. This geometry is located at the center of the parameter space, with W_{\\mathrm{in}}=$45\\text{\\,}\\mathrm{\\SIUnitSymbolMicro m}$ , W_{\\mathrm{out}}=$100\\text{\\,}\\mathrm{\\SIUnitSymbolMicro m}$ , W_{\\mathrm{mc}}=$50\\text{\\,}\\mathrm{\\SIUnitSymbolMicro m}$ , and H_{\\mathrm{mc}}=$150\\text{\\,}\\mathrm{\\SIUnitSymbolMicro m}$ . From left to right, the columns show the FEM solution, the PINN prediction, and their absolute difference. From top to bottom, the rows correspond to fluid pressure p , fluid temperature rise \\Delta T_{f} , solid temperature rise \\Delta T_{s} , fluid velocity magnitude |\\mathbf{u}| , and the velocity field with streamlines at the y=$75\\text{\\,}\\mathrm{\\SIUnitSymbolMicro m}$ cross-section. The close agreement between the first two columns indicates that the proposed PINN framework faithfully captures the main thermohydraulic features.",
+   "title": "同一中心几何：对照局部流态，别混用差值色标",
+   "alt": "前两列 FEM 与 PINN，右列绝对差，底行是截面速度与流线。",
+   "caution": "这是中心几何，不是全 625 个设计的误差图。截面流线协调，不等于全几何的局部峰温、压降或热通量经过验证。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "逐行横看 FEM/PINN/绝对差。前三行分别是压力 kPa、流体温升 K、固体温升 K；注意固体温升的起始刻度与流体不同，右列也有独立的差值标尺。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "底行 y=75 μm 截面里，前两列流线可辨入口转向、通道内回流与出口加速，底部速度色标为 m/s。右列中通道压力差的着色、截面转角处速度差的着色各看本行尺度。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Weiheng Li、Zhiyao Jiang、Bai Song",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T04:37:44Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "ed63aab054f79ea8fef75c04a63cb015a0213e59728469053b43fc49864bdeb6",
+  "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。该版本标注 CC BY-NC-ND 4.0，本站仅外链原始图源作评述，不分发修改图。"
+}
