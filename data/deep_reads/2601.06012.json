@@ -1,0 +1,796 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2601.06012",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2601.06012v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "协作式差分 GNSS：参考站噪声如何进入网络定位与精度界",
+ "dek": "用同一有噪声参考站作差，多个用户的观测误差会相关。作者把相关性纳入联合加权最小二乘与 Fisher 信息矩阵，分别分析纯伪距和带载波的定位。协作收益依赖共同可见卫星与额外几何；仿真支持收益趋势，但有限几何下的无限用户极限不能仅凭逐块收敛断言。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理读取固定版本 arXiv v1 HTML 全文（I–VI 节、脚注、表 I–VI、图注、关键式，以及同页补充材料 SI/SII 的协方差展开与 FIM 推导）；逐张实际查看页面所载原图。不是独立 API 账单任务，不计入独立 API 用量。未运行作者程序，未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S11": {
+   "label": "原文 · S1.p5.1",
+   "anchor": "S1.p5.1"
+  },
+  "S27": {
+   "label": "原文 · S3.p1.1",
+   "anchor": "S3.p1.1"
+  },
+  "S24": {
+   "label": "原文 · S2.p6.1",
+   "anchor": "S2.p6.1"
+  },
+  "S169": {
+   "label": "原文 · S5.p1.1",
+   "anchor": "S5.p1.1"
+  },
+  "S12": {
+   "label": "原文 · S1.p6.1",
+   "anchor": "S1.p6.1"
+  },
+  "S6": {
+   "label": "原文 · S1.T1",
+   "anchor": "S1.T1"
+  },
+  "S36": {
+   "label": "原文 · S3.SS1.p3.1",
+   "anchor": "S3.SS1.p3.1"
+  },
+  "S71": {
+   "label": "原文 · Thmdefinition1.p2.1",
+   "anchor": "Thmdefinition1.p2.1"
+  },
+  "S74": {
+   "label": "原文 · S3.SS1.SSS5.p1.2",
+   "anchor": "S3.SS1.SSS5.p1.2"
+  },
+  "S223": {
+   "label": "原文 · S1.SS4.p8.2",
+   "anchor": "S1.SS4.p8.2"
+  },
+  "S101": {
+   "label": "原文 · S3.SS2.SSS1.p2.1",
+   "anchor": "S3.SS2.SSS1.p2.1"
+  },
+  "S109": {
+   "label": "原文 · S3.SS2.SSS2.p1.1",
+   "anchor": "S3.SS2.SSS2.p1.1"
+  },
+  "S110": {
+   "label": "原文 · S3.SS2.SSS2.p2.1",
+   "anchor": "S3.SS2.SSS2.p2.1"
+  },
+  "S123": {
+   "label": "原文 · S4.SS1.p2.1",
+   "anchor": "S4.SS1.p2.1"
+  },
+  "S134": {
+   "label": "原文 · S4.SS2.p2.1",
+   "anchor": "S4.SS2.p2.1"
+  },
+  "S240": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S209": {
+   "label": "原文 · S1.SS3.p4.1",
+   "anchor": "S1.SS3.p4.1"
+  },
+  "S221": {
+   "label": "原文 · S1.SS4.p7.1",
+   "anchor": "S1.SS4.p7.1"
+  },
+  "S89": {
+   "label": "原文 · S3.T3.5",
+   "anchor": "S3.T3.5"
+  },
+  "S116": {
+   "label": "原文 · S3.SS2.SSS2.p6.1",
+   "anchor": "S3.SS2.SSS2.p6.1"
+  },
+  "S107": {
+   "label": "原文 · S3.SS2.SSS1.p4.3",
+   "anchor": "S3.SS2.SSS1.p4.3"
+  },
+  "S139": {
+   "label": "原文 · S4.SS3.p1.1",
+   "anchor": "S4.SS3.p1.1"
+  },
+  "S170": {
+   "label": "原文 · S5.p2.1",
+   "anchor": "S5.p2.1"
+  },
+  "S172": {
+   "label": "原文 · S5.p4.1",
+   "anchor": "S5.p4.1"
+  },
+  "S173": {
+   "label": "原文 · S5.p4.2",
+   "anchor": "S5.p4.2"
+  },
+  "S102": {
+   "label": "原文 · S3.SS2.SSS1.p2.2",
+   "anchor": "S3.SS2.SSS1.p2.2"
+  },
+  "S129": {
+   "label": "原文 · S4.SS1.p5.1",
+   "anchor": "S4.SS1.p5.1"
+  },
+  "S130": {
+   "label": "原文 · S4.SS1.p5.2",
+   "anchor": "S4.SS1.p5.2"
+  },
+  "S152": {
+   "label": "原文 · S4.F4.sf1",
+   "anchor": "S4.F4.sf1"
+  },
+  "S153": {
+   "label": "原文 · S4.F4.sf2",
+   "anchor": "S4.F4.sf2"
+  },
+  "S154": {
+   "label": "原文 · S4.F4",
+   "anchor": "S4.F4"
+  },
+  "S171": {
+   "label": "原文 · S5.p3.1",
+   "anchor": "S5.p3.1"
+  },
+  "S174": {
+   "label": "原文 · S5.p5.1",
+   "anchor": "S5.p5.1"
+  },
+  "S157": {
+   "label": "原文 · S4.SS3.SSS2.p3.1",
+   "anchor": "S4.SS3.SSS2.p3.1"
+  },
+  "S159": {
+   "label": "原文 · S4.SS3.SSS3.p1.1",
+   "anchor": "S4.SS3.SSS3.p1.1"
+  },
+  "S176": {
+   "label": "原文 · S6.p1.1",
+   "anchor": "S6.p1.1"
+  },
+  "S25": {
+   "label": "原文 · S2.p7.1",
+   "anchor": "S2.p7.1"
+  },
+  "S126": {
+   "label": "原文 · S4.SS1.p4.2",
+   "anchor": "S4.SS1.p4.2"
+  },
+  "S163": {
+   "label": "原文 · S4.SS3.SSS4.p1.2",
+   "anchor": "S4.SS3.SSS4.p1.2"
+  },
+  "S164": {
+   "label": "原文 · S4.SS3.SSS4.p1.3",
+   "anchor": "S4.SS3.SSS4.p1.3"
+  },
+  "S165": {
+   "label": "原文 · S4.F5",
+   "anchor": "S4.F5"
+  },
+  "S160": {
+   "label": "原文 · S4.SS3.SSS3.p1.2",
+   "anchor": "S4.SS3.SSS3.p1.2"
+  },
+  "M7": {
+   "label": "原公式 · S3.E26.m1",
+   "anchor": "S3.E26.m1"
+  },
+  "M8": {
+   "label": "原公式 · S3.E29.m1",
+   "anchor": "S3.E29.m1"
+  },
+  "M23": {
+   "label": "原公式 · S3.E36.m1",
+   "anchor": "S3.E36.m1"
+  },
+  "M24": {
+   "label": "原公式 · S4.E46.m1",
+   "anchor": "S4.E46.m1"
+  },
+  "M21": {
+   "label": "原公式 · S5.E55.m1",
+   "anchor": "S5.E55.m1"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S1.F1"
+  },
+  "F5": {
+   "label": "Fig.5 · 原文图",
+   "anchor": "S4.F5"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "共享的基站噪声，联合估计能用到多少？",
+     "kind": "reported",
+     "text": "多个邻近用户与同一个已测量坐标的基站作差，共模误差会被抑制，但基站的测量噪声同时进入每个用户的残差。作者把纯码 C-DGNSS 与码加相位 C-RTK 放入统一高斯估计框架，通过卫星几何和噪声协方差计算受助用户的位置误差下界。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "When multiple receivers rely on a common reference station for DGNSS corrections, their differential observations become statistically correlated through the shared reference noise. Accounting for these correlations, which are particularly pronounced when low-cost reference stations are used, enhances positioning accuracy."
+      },
+      {
+       "source": "S27",
+       "quote": "This section presents a unified estimation framework for the C-DGNSS and C-RTK methodologies under a reference station with arbitrary noise variance, covering their linearized observation models (Sec. III - III-A ) as well as the associated estimation problem and performance bounds (Sec. III - III-B ). The reader should refer to Fig. 2 for an overview of this section."
+      }
+     ]
+    },
+    {
+     "heading": "协作是集中联合处理，不是邻居之间量距离",
+     "kind": "reported",
+     "text": "用户与参考站的量测进入共同处理中心 CPC，在那里做联合估计。用户数据并不脱离地理基准，也没有车车测距或视觉约束。作者用不同卫星可见性、用户数与基准噪声测试受助用户的位置和整周模糊度，验证是在模拟几何和随机误差设定下。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "Cooperation is realized through centralized processing : all receivers (and the reference station) share their raw code and carrier-phase measurements with a common central processing center (CPC), which performs joint state estimation. Importantly, there is no inter-user ranging ; all differential measurements are formed between each user and the reference station, providing a shared differencing anchor and enabling explicit modeling of inter-measurement correlations across the network."
+      },
+      {
+       "source": "S169",
+       "quote": "This section evaluates the proposed methodologies through simulation experiments. We first outline the experimental setup, followed by an analysis of the impact of N_{\\text{o}} , K_{\\text{o}} , and \\alpha on the 3D position RMSE and ambiguity fix success rate of the proposed cooperative differential GNSS frameworks. For a consolidated overview of the observed trends, see Table V ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "经典差分抵消共模，不抵消被反复减掉的基站噪声",
+     "kind": "reported",
+     "text": "论文要回答低成本基站是否一定卡住差分精度。独立解算只使用自己的差分残差，无法联合利用共享基站所形成的误差交叉项；有噪声基站并没因多个用户都收到改正而变成多个独立参考。作者据此问哪些可见性和噪声条件允许协作缓解精度限制。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "While low-cost receivers reduce deployment costs, their limited hardware quality degrades the accuracy of DGNSS and RTK corrections."
+      },
+      {
+       "source": "S11",
+       "quote": "When multiple receivers rely on a common reference station for DGNSS corrections, their differential observations become statistically correlated through the shared reference noise. Accounting for these correlations, which are particularly pronounced when low-cost reference stations are used, enhances positioning accuracy."
+      },
+      {
+       "source": "S12",
+       "quote": "In this work, we adopt an estimation-theoretic perspective to address the following questions: Can large-scale user cooperation compensate for the reference-station noise propagated through the differencing operation in standard (non-cooperative) DGNSS? If so, under which conditions, and to what extent?"
+      }
+     ]
+    },
+    {
+     "heading": "不是给定位问题凭空加约束",
+     "kind": "interpretation",
+     "text": "论文回顾了用用户间差分形成相对约束、融合额外传感器、以及用参考约束锚定的不同合作方式。这里选择后一类的实测坐标锚点，比较的改变是从独立解算到显式处理跨用户协方差，而不是增加新的物理观测类型；这也决定了额外用户提供的信息取决于其可见卫星。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "TABLE I : Overview of representative GNSS cooperative positioning approaches by measurement source; see [ 24 ] for a broad survey. We focus on the C-DGNSS and C-RTK methodologies (blue row), which rely on GNSS measurements differenced with those of a surveyed base station, without using auxiliary sensing."
+      },
+      {
+       "source": "S24",
+       "quote": "Importantly, there is no inter-user ranging ; all differential measurements are formed between each user and the reference station, providing a shared differencing anchor and enabling explicit modeling of inter-measurement correlations across the network."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "从单站残差到用户间非对角块",
+     "kind": "reported",
+     "text": "先围绕近似位置线性化几何并堆叠各接收机的码相残差。纯码 C-DGNSS 对已测基站做单差，保留位置和接收机相对钟差未知量；C-RTK 进一步相对枢轴卫星做双差，消去接收机钟差，联合估位置和双差整周。基站噪声本来共享，双差后枢轴噪声又在不同卫星间共享。",
+     "evidence": [
+      {
+       "source": "S36",
+       "quote": "The derivation follows four steps, each detailed in Secs. III - III-A . III-A2 through III - III-A . III-A5 : (1) definition and linearization of the single-user observation model; (2) introducing a compact notation to stack all network observations; (3) applying the single difference (SD) operator with respect to the reference station to obtain the C-DGNSS model (Definition 1 ); and (4) extending to the double difference (DD) case by selecting a reference satellite, yielding the C-RTK model (Definition 2 )."
+      },
+      {
+       "source": "S71",
+       "quote": "Hence, in C-DGNSS , the relative state increment reduces to the user’s absolute one as \\delta\\mathbf{x}_{bi}=[\\,\\delta\\mathbf{p}_{bi}^{\\top},\\ c\\,\\delta t_{bi}\\,]^{\\top}\\stackrel{{\\scriptstyle(a)}}{{=}}[\\,\\delta\\mathbf{p}_{i}^{\\top},\\ c\\,\\delta t_{i}\\,]^{\\top} ."
+      },
+      {
+       "source": "S74",
+       "quote": "where, beyond the single-difference error cancelation in ( 13 ), double differencing cancels receiver clock offsets. Here, \\tilde{\\mathbf{E}}_{N}=\\mathbf{I}_{N}\\otimes\\mathbf{E} , and we use the shorthands \\tilde{\\mathbf{b}}=\\delta\\tilde{\\mathbf{p}}_{b} and \\tilde{\\mathbf{a}}=\\tilde{\\mathbf{N}}_{b}^{p} to denote the network-wide baseline vector and the vector of integer ambiguities, respectively."
+      },
+      {
+       "source": "S223",
+       "quote": "The off-diagonal blocks encode the inter-user correlation terms and contain only contributions from the base-station noise. Within each block, the diagonal entries exhibit a twofold contribution from the base station (one term associated with the common satellite and one with the pivot), whereas the off-diagonal entries include only the pivot-satellite contribution."
+      }
+     ]
+    },
+    {
+     "heading": "解算和算界是两件事",
+     "kind": "reported",
+     "text": "单差码模型做加权最小二乘，非线性几何可以用 Gauss–Newton 逐步重线性化。联合 RTK 先放松整数为实数得到浮点解，再搜索整数，最后按固定后的参数估位置；论文把浮点和正确固定分别当成两个界。中间过渡区的错误固定并不受正确固定界单独描述。",
+     "evidence": [
+      {
+       "source": "S101",
+       "quote": "The estimator in ( 30 ) can be obtained through an iterative procedure that relinearizes the system model at each step, equivalent to the Gauss–Newton optimization method [ 2 ] . At the k -th iteration, one has"
+      },
+      {
+       "source": "S109",
+       "quote": "The model in ( 1 ) defines a mixed linear regression problem involving both real-valued parameters \\bm{\\omega} and integer-valued parameters \\bm{z} , a characteristic feature of GNSS carrier-phase positioning [ 33 ] . Due to the integer nature of \\bm{z} , the estimation problem admits no closed-form solution. Following standard RTK practice, a three-stage procedure is adopted (i.e., float estimation, integer ambiguity resolution, and fixed estimation) and this architecture is extended to the cooperative setting in [ 31 ] ."
+      },
+      {
+       "source": "S110",
+       "quote": "We therefore focus on the corresponding Cramér–Rao-type bounds that describe the float and fix regions of C-RTK, which can be interpreted as limiting cases of the MSB when the ambiguities remain unresolved (float) or are correctly fixed."
+      }
+     ]
+    },
+    {
+     "heading": "共有卫星传递相关，独有卫星提供几何",
+     "kind": "interpretation",
+     "text": "作者把网络分为可见性受限和开阔天空两簇。两簇共同跟踪的卫星建立与基站噪声的统计联系；开放簇多跟踪的卫星改善它对自身状态的约束，从而影响消去辅助用户后受助用户的有效信息。补充材料先对测量协方差做块逆，再把这些系数传进 FIM。",
+     "evidence": [
+      {
+       "source": "S123",
+       "quote": "The first cluster comprises N_{\\text{c}} constrained-visibility users (also referred to as aided users ), operating under constrained visibility conditions, such as in urban environments, with access to K_{\\text{c}} satellites. The second cluster consists of the remaining N_{\\text{o}}=N-N_{\\text{c}} open-sky users (also referred to as aiding users ), who observe a total of K=K_{\\text{c}}+K_{\\text{o}} satellites, where K_{\\text{o}}\\geq 0 denotes the number of satellites exclusively visible to this group."
+      },
+      {
+       "source": "S134",
+       "quote": "Left/right-multiplication by \\tilde{\\mathbf{G}} preserves the block structure of \\tilde{\\mathbf{R}} , mapping each covariance block into its corresponding block of \\mathbf{J}(\\bm{\\omega}) . The diagonal blocks scale with \\mathbf{J}_{c} and \\mathbf{J}_{o} , reflecting the contributions of common and exclusive satellites, whereas the off-diagonal blocks depend solely on \\mathbf{J}_{c} ."
+      },
+      {
+       "source": "S240",
+       "quote": "The FIM follows directly from the unified linear model in ( 29 ). Owing to the block structure of \\tilde{\\mathbf{R}}^{-1} in ( S30 ), multiplication by \\tilde{\\mathbf{G}} preserves this structure and maps each block of \\tilde{\\mathbf{R}}^{-1} into the corresponding block of \\mathbf{J}(\\bm{\\omega}) . This yields the compact expression in ( 45 ), which is used in Sec. IV – IV-C to analyze the asymptotic performance of the C-DGNSS/C-RTK estimators."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "协方差里标清测量类型、用户和卫星",
+     "kind": "reported",
+     "text": "同噪声模型结构下，单差协方差的用户间块只含基站项；双差后同用户内的非对角元还含枢轴星噪声。原文表格把三种估计界映射到一个几何矩阵和一个测量协方差：单差码、双差码主导的浮点 RTK，以及正确固定且相位更精密时的相位主导近似。",
+     "evidence": [
+      {
+       "source": "S209",
+       "quote": "Here, the diagonal blocks capture intra-user terms, with diagonal entries reflecting the combined base–user variance for each satellite and zero off-diagonals. The off-diagonal blocks contain only base-station noise: their diagonals include the base variance for each satellite, and their off-diagonals are zero, indicating no inter-user cross-correlation beyond the shared base."
+      },
+      {
+       "source": "S221",
+       "quote": "The diagonal blocks capture the intra-user correlation terms: their diagonal entries contain a fourfold variance contribution (from both the base and the user at the pivot satellite, and from both the base and the user at the corresponding satellite), and the off-diagonal elements contain a twofold contribution arising solely from the pivot-satellite terms (from base and user)."
+      },
+      {
+       "source": "S89",
+       "quote": "Method Model \\tilde{\\mathbf{G}} \\tilde{\\mathbf{R}} C-DGNSS (code-only) ( 34 ) \\tilde{\\mathbf{H}}_{N} \\tilde{\\bm{\\Sigma}}_{b,\\rho}^{\\alpha} C-RTK float ( 35 ) \\tilde{\\mathbf{D}}_{p}\\tilde{\\mathbf{E}}_{N} \\tilde{\\bm{\\Sigma}}_{b,\\rho}^{p,\\alpha} C-RTK fix ( 37 ) \\tilde{\\mathbf{D}}_{p}\\tilde{\\mathbf{E}}_{N} \\tilde{\\bm{\\Sigma}}_{b,\\Phi}^{p,\\alpha}"
+      },
+      {
+       "source": "S116",
+       "quote": "where the assumptions and matrix definitions from ( 35 ) continue to apply. Under the standard assumption that \\sigma_{\\Phi}\\ll\\sigma_{\\rho} , the approximation (\\tilde{\\bm{\\Sigma}}_{b,\\Phi}^{p,\\alpha})^{-1}+(\\tilde{\\bm{\\Sigma}}_{b,\\rho}^{p,\\alpha})^{-1}\\approx(\\tilde{\\bm{\\Sigma}}_{b,\\Phi}^{p,\\alpha})^{-1} holds, leading to an estimation precision dominated by the carrier-phase measurements, with the bound"
+      }
+     ]
+    },
+    {
+     "heading": "信息矩阵不能直接当位置误差",
+     "kind": "interpretation",
+     "text": "原文作法是先将测量噪声逆权投影到状态空间，再从全逆矩阵取目标用户的位置块，取迹并开方换成米。直接取目标用户在信息矩阵中的对角块并求逆，会把辅助用户的未知量误当成已知；正确的消元由 Schur 补给出，合作效果就落在该补项上。",
+     "evidence": [
+      {
+       "source": "S107",
+       "quote": "As a scalar 3D positioning performance metric for receiver r we calculate the root mean square error (RMSE) of its position estimate, expressed in meters, as \\sqrt{\\mathrm{Tr}\\left[\\text{block}_{r}\\left(\\mathbf{J}^{-1}(\\bm{\\omega})\\right)\\right]} ."
+      },
+      {
+       "source": "S139",
+       "quote": "This section focuses on the term in ( 41 ) capturing the estimation performance of the aided user, which can be calculated with the Schur complement of matrix ( 45 ) as"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "C-DGNSS：误差统计针对第一名受限用户",
+     "kind": "reported",
+     "text": "作者设 20° 截止角，场景基站跟踪总数在正文写作 19；受限簇有 2 名用户、各见 4 星、GDOP 2.5，对所有卫星用相同噪声权。每参数变体与实验设 10⁴ 次 Monte Carlo，报告首名受限用户的三维位置 RMSE，而非协作用户平均或时间序列误差。图注与正文的卫星计数措辞另见局限。",
+     "evidence": [
+      {
+       "source": "S170",
+       "quote": "An elevation mask of 20^{\\circ} is applied, with the base station tracking a total of K=19 satellites. The constrained visibility cluster comprises N_{\\text{c}}=2 aided users, each observing K_{\\text{c}}=4 satellites with geometric dilution of precision (GDOP) of 2.5. The weighting matrix is set to \\mathbf{W}_{r}=\\mathbf{I} , reflecting the assumption of identical noise variance across all satellites."
+      },
+      {
+       "source": "S170",
+       "quote": "To obtain statistically meaningful results, M=10^{4} Monte Carlo runs are conducted for each parameter variation and experiment. The performance of the cooperative differential GNSS estimator is reported for the first user in the constrained-visibility cluster"
+      }
+     ]
+    },
+    {
+     "heading": "C-RTK：同时记录米与正确固定比例",
+     "kind": "reported",
+     "text": "这组仿真中基站与辅助接收机总共跟踪 8 星，单个受限用户见 4 星、独立 GDOP 2.97。基站和用户方差比对码、相位都设为 1，相位标准差是码的 1/100。正确固定比例按受限用户的整条整周向量逐试验是否全对计数，不是每颗星单独的命中率。",
+     "evidence": [
+      {
+       "source": "S172",
+       "quote": "We provide additional experiments considering the C-RTK framework to assess the impact of cooperation on carrier-phase positioning and integer ambiguity resolution. In this experiment, the base station and aiding receivers track a total of K=K_{o}=8 satellites, while the aided user ( N_{c}=1 ) observes K_{c}=4 satellites, yielding a standalone GDOP of 2.97 . The base–rover variance ratio is set to \\alpha=1 for both code and carrier-phase observations, and \\sigma_{\\Phi}=\\sigma_{\\rho}/100 . The empirical ambiguity–resolution success rate is defined as"
+      },
+      {
+       "source": "S173",
+       "quote": "where \\hat{\\mathbf{a}}^{(m)}_{c} denotes the estimated ambiguity vector of the constrained user at the m -th Monte Carlo iteration, \\mathbf{a}_{\\mathrm{ref},c} is the corresponding true ambiguity vector, and \\delta(\\mathbf{x}) denotes the Kronecker delta."
+      }
+     ]
+    },
+    {
+     "heading": "作者给出复杂度阶，不等于运行用时",
+     "kind": "reported",
+     "text": "纯码联合重线性化的稠密法方程求逆，作者给出的用户数复杂度是 O(N³)，并提出分布式实现可作为后续工作。精度基线是同受助用户几何下的普通非协作差分和无噪基站理想差分；另外还用理想辅助可见性的渐近界，不把它当真实可用基站。",
+     "evidence": [
+      {
+       "source": "S102",
+       "quote": "where the geometry matrix \\tilde{\\mathbf{G}}^{k} is evaluated at \\hat{\\bm{\\omega}}^{k} , although this dependency is omitted in the notation for simplicity. Remarkably, the computational cost of the proposed estimator in ( 31 ) is dominated by the inversion of (\\tilde{\\mathbf{G}}^{\\top}\\tilde{\\mathbf{R}}^{-1}\\tilde{\\mathbf{G}}) , which scales as \\mathcal{O}(N^{3}) , increasing rapidly with the number of users and motivating future work on distributed formulations to improve scalability."
+      },
+      {
+       "source": "S129",
+       "quote": "Theoretical Benchmarks: We consider two benchmarks for comparison. The first is the non-cooperative bound reflecting the performance of standard differential architectures, i.e., DGNSS , RTK , defined as"
+      },
+      {
+       "source": "S130",
+       "quote": "Here, the factor 1+\\alpha accounts for the contribution of error variances from both the base station and the aided user, as reflected in the diagonal elements of ( 22 ). The second is the ideal bound , which is defined as"
+      }
+     ]
+    },
+    {
+     "heading": "复现仍需完整仿真配置",
+     "kind": "unknown",
+     "text": "已读取的固定版没有提供能直接复画曲线的公开代码链接、随机种子、完整逐星方位俯仰角或硬件计时。正文与补充材料足以重建矩阵结构，但不能由摘要或图像反推出所有几何与方差扫描网格；复验时应先保存几何、枢轴选择和真值模糊度。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "纯码仿真：人数和额外几何作用不同",
+     "kind": "reported",
+     "text": "原图 a 固定 10 名辅助用户扫方差比；高方差比会抬升该受限用户的三维 RMSE，但协作曲线在普通差分界之下。原图 b 固定方差比 0.5 扫用户数，有限额外可见性下曲线下降趋缓，且组间仍有间隔。星数曲线依图标采用 8、14、19 的 K_o 标签；渐近参考线不能当成这些有限组的样本均值。",
+     "evidence": [
+      {
+       "source": "S152",
+       "quote": "(a) Impact of the inter-user correlation factor \\alpha for N_{o}=10 ."
+      },
+      {
+       "source": "S153",
+       "quote": "(b) Impact of the number of aiding users N_{o} for \\alpha=0.5 ."
+      },
+      {
+       "source": "S154",
+       "quote": "Fig. 4 : Impact of cooperative network parameters on 3D positioning RMSE in C-DGNSS. Results are shown for K_{o}=\\{8,\\,14,\\,19\\} ."
+      },
+      {
+       "source": "S171",
+       "quote": "For fixed N_{o} and \\alpha , as K_{o} grows, the cooperative RMSE approaches the asymptotic benchmark \\beta_{1}^{-1} , reflecting the ideal-visibility regime. This trend is observed across all values of \\alpha , confirming that sufficient cooperative visibility can compensate for increased base-station noise."
+      }
+     ]
+    },
+    {
+     "heading": "载波仿真：转变区的提升来自更可靠的固定",
+     "kind": "reported",
+     "text": "同等码噪声下，协作实线在图示的浮点至固定过渡区更早向正确固定界靠近，右图显示受限用户整组整数固定成功率更高。论文扫的是码噪声幅度，不是经过时间，因而可说图示条件下在更高噪声处仍较可靠，不能据图报首次固定秒数。",
+     "evidence": [
+      {
+       "source": "S174",
+       "quote": "Two regimes are clearly observed, namely the float and fix regimes, and in both cases cooperation yields a consistent improvement over the non-cooperative baseline. It can be observed that increasing the number of cooperating users shifts the transition to the fixed-ambiguity regime toward higher noise levels, indicating that cooperation enables faster and more reliable ambiguity resolution. This effect is further quantified in Fig. 5 (right), which shows a marked increase in the empirical ambiguity resolution success rate as the number of cooperating users grows."
+      }
+     ]
+    },
+    {
+     "heading": "人数不能替代可见性条件",
+     "kind": "reported",
+     "text": "在同几何且没有专属卫星的模型中，作者得出的受助用户界与不协作相同；在两簇完全不共享卫星的情形，跨簇协方差消失，因此也没有受助收益。只有共享链路存在且辅助几何提供额外信息时，才应期望相对普通差分改善。仿真和渐近极限都不能突破受助用户自身几何的理想界。",
+     "evidence": [
+      {
+       "source": "S157",
+       "quote": "The result in ( 52c ) shows that, for finite N_{\\text{o}} , cooperation provides no gain when aiding users offer no additional visibility. In this scenario, adding users with identical information, effectively corresponding to N_{\\text{c}}>1 , leaves the performance unchanged."
+      },
+      {
+       "source": "S159",
+       "quote": "Under this condition, the covariance in ( 40 ) becomes block diagonal, with all cross-covariance terms vanishing, and its structure comprising an upper-left block (1+\\alpha)\\mathbf{R}_{c} and a lower-right block \\mathbf{C}_{N_{o}}^{\\alpha}\\otimes\\mathbf{R}_{o} ."
+      },
+      {
+       "source": "S176",
+       "quote": "Cooperation improves the positioning accuracy of users with limited satellite visibility, and the influence of base-station noise diminishes as the network size increases when cooperative users bring enhanced visibility. In large networks, the achievable accuracy converges to the limit imposed by the user’s own satellite geometry."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "作者范围：短基线和受控可见性模型",
+     "kind": "reported",
+     "text": "原文假设用户与低成本参考站近邻，典型短基线 <10 km，重点是差分后可共同处理的观测，而非局部多路径、遮挡、隐私和时间同步。理论协方差分析为便于化简只取一个受限用户；码仿真可有多个受限用户但只报告首位，因此不能把曲线解读成全网人员的可靠性保证。",
+     "evidence": [
+      {
+       "source": "S25",
+       "quote": "This work instead targets the mitigation of atmospheric effects that are common to all receivers and to the low-cost reference station operating under short-baseline conditions (typically < 10 km). Multipath, NLOS , privacy preservation [ 19 ] , and time-synchronization issues [ 36 ] fall outside the scope of this paper."
+      },
+      {
+       "source": "S126",
+       "quote": "Furthermore, in ( 40 ), we adopt the assumptions outlined in Remark 1 and consider the case N_{\\text{c}}=1 , which facilitates the analytical manipulation of the covariance expression while still providing a representative assessment of the position estimation performance for an aided user."
+      },
+      {
+       "source": "S170",
+       "quote": "The performance of the cooperative differential GNSS estimator is reported for the first user in the constrained-visibility cluster and is compared against two reference limits: the model CRB and the asymptotic benchmark \\beta_{1}(\\alpha)^{-1} corresponding to the ideal-visibility regime discussed in Sec. IV - IV-C . IV-C1 ."
+      }
+     ]
+    },
+    {
+     "heading": "进一步追问：维数增长时，Schur 补是否真消失？",
+     "kind": "proposal",
+     "text": "原文大规模段由逐块非对角系数趋零推到理想界，但消元时辅助块的公共模态也在随人数变小，逆矩阵可能放大补项。按表 IV 与式 (45)–(46) 做归一化标量验算：令 α=1、Jc=Jo=1，把辅助块投影到全一方向，补项趋于 1/3，协作界趋于 1.5 而非理想的 1（非协作为 2）。建议核对有限额外几何下的极限与适用条件；这是对该版代数的检查，不是定位仿真的复现。",
+     "evidence": [
+      {
+       "source": "S163",
+       "quote": "The cross-information terms vanish, and the Schur complement reduces to"
+      },
+      {
+       "source": "S164",
+       "quote": "Hence, in large-scale networks, cooperation asymptotically removes the impact of the base-station noise and drives the constrained-user bound to the ideal limit determined solely by \\mathbf{J}_{\\text{c}} ."
+      },
+      {
+       "source": "S139",
+       "quote": "This section focuses on the term in ( 41 ) capturing the estimation performance of the aided user, which can be calculated with the Schur complement of matrix ( 45 ) as"
+      }
+     ]
+    },
+    {
+     "heading": "复图前先让标签、配置和求解式对齐",
+     "kind": "proposal",
+     "text": "图 5 原图的黄色曲线写 N_o=20，HTML 图注对应档写 25；正文 C-DGNSS 场景写基站总数 K=19，而图 4 用 K_o=19 标示有额外可见性的档位。另一个应核对的记号是完全不相交时正文先写目标协方差乘 (1+α)，所列 FIM 左上也乘该因子；若按式 (29) 逆协方差，信息项理应除该因子。复跑前请以版本化代码或作者确认为准，不擅自改图或唯一认定实验档位。",
+     "evidence": [
+      {
+       "source": "S165",
+       "quote": "Fig. 5 : Impact of cooperative network parameters on 3D positioning RMSE and ambiguity resolution in C-RTK. Results are reported for N_{o}\\in\\{1,5,25\\} ."
+      },
+      {
+       "source": "S170",
+       "quote": "An elevation mask of 20^{\\circ} is applied, with the base station tracking a total of K=19 satellites. The constrained visibility cluster comprises N_{\\text{c}}=2 aided users, each observing K_{\\text{c}}=4 satellites with geometric dilution of precision (GDOP) of 2.5."
+      },
+      {
+       "source": "S160",
+       "quote": "Comparing this result with the non-disjoint case in ( 45 ), the aiding-user block preserves its cooperative structure, whereas the constrained-user block reduces to (1+\\alpha)\\mathbf{J}_{c} rather than \\beta_{1}(\\alpha)\\mathbf{J}_{c} . Consequently, the Schur complement yields the non-cooperative bound in ( 43 ), indicating that disjoint satellite visibility provides no benefit to the constrained user."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "把额外几何与用户数交叉隔离",
+     "kind": "proposal",
+     "text": "在一条短基线同历元回放中，用测量条件可控的参考站，将同一批流动站分别设为同星、部分共享且有高质量额外星、完全不共享三组。对每组扫基站／用户方差比、人数和额外几何的最小信息特征值；交付目标用户经验 RMSE、对应下界、两者间隙与置信区间，另做错误地忽略跨用户协方差的对照。",
+     "evidence": []
+    },
+    {
+     "heading": "同时验收 RTK 的错误固定与共享信息成本",
+     "kind": "proposal",
+     "text": "在真值已知的路测或模拟回放中，冻结星历、枢轴策略和单用户硬件，比较独立 RTK、联合估计及按可见性与几何筛选辅助用户的版本。对同噪声档报告整条模糊度的正确与错误固定比例、三维误差尾部、端到端解算时延和 CPC 上行字节；把未固定与误固定分开计数。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S3.E26.m1",
+   "refs": [
+    "M7"
+   ],
+   "mathml": "<mrow><mrow><msubsup><mover><mi>𝚺</mi><mo>~</mo></mover><mrow><mi>b</mi><mo>,</mo><mi>ρ</mi></mrow><mrow><mi>p</mi><mo>,</mo><mi>α</mi></mrow></msubsup><mo>=</mo><mrow><mrow><msubsup><mi>𝐂</mi><mi>N</mi><mi>α</mi></msubsup><mo>⊗</mo><msub><mi>𝐃</mi><mi>p</mi></msub></mrow><mo>​</mo><msub><mi>𝚺</mi><mi>ρ</mi></msub><mo>​</mo><msubsup><mi>𝐃</mi><mi>p</mi><mo>⊤</mo></msubsup></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\tilde{\\bm{\\Sigma}}_{b,\\rho}^{p,\\alpha}=\\mathbf{C}_{N}^{\\alpha}\\otimes\\mathbf{D}_{p}\\bm{\\Sigma}_{\\rho}\\mathbf{D}_{p}^{\\top},",
+   "title": "双差后相关性有用户层和卫星层",
+   "meaning": "左因子表示不同用户共享基站，右因子表示不同卫星双差共享同一枢轴，两层通过 Kronecker 积组合。观测以米计，协方差以平方米计。",
+   "caution": "例如接收机与基站各星独立且等方差 1 m²，一条双差有四个方差贡献；同一用户的两条双差共享两条枢轴噪声，因此其协方差为 2 m²。不同可见集合需按实际观测重选分块。",
+   "symbols": [
+    {
+     "symbol": "C_N^α",
+     "text": "用户维的无量纲正相关结构；α 是基站／用户方差比"
+    },
+    {
+     "symbol": "D_p",
+     "text": "枢轴差分矩阵，星维从 K 变为 K−1"
+    },
+    {
+     "symbol": "Σ_rho",
+     "text": "单接收机伪距噪声协方差"
+    },
+    {
+     "symbol": "Σ_tilde_b,rho^(p,α)",
+     "text": "整网双差码协方差，同质可见时为 N(K−1) 阶"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S3.E29.m1",
+   "refs": [
+    "M8"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>𝐉</mi><mo>⁡</mo><mrow><mo>(</mo><mi>𝝎</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><msup><mover><mi>𝐆</mi><mo>~</mo></mover><mi>𝖳</mi></msup><mo>​</mo><msup><mover><mi>𝐑</mi><mo>~</mo></mover><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>​</mo><mover><mi>𝐆</mi><mo>~</mo></mover></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\mathbf{J}(\\bm{\\omega})=\\tilde{\\mathbf{G}}^{\\mathsf{T}}\\tilde{\\mathbf{R}}^{-1}\\tilde{\\mathbf{G}},",
+   "title": "同一 Fisher 结构接入不同模型",
+   "meaning": "把以 R 度量的测量信息通过 G 投影到参数坐标。若只有一条单位灵敏度的标量观测，观测方差为 4 m² 时对应信息为 0.25 m⁻²；多用户时须使用有跨块的 R。",
+   "caution": "实现宜分解协方差并解线性系统，核查秩与可辨识性，不靠直接逆病态矩阵。估计坐标的协方差单位是 m²，不是 RMSE 的米。",
+   "symbols": [
+    {
+     "symbol": "ω",
+     "text": "连续参数集合；码模型含位置与钟差，RTK 连续部分为位置"
+    },
+    {
+     "symbol": "G_tilde",
+     "text": "观测设计矩阵，行对应残差，列对应连续状态"
+    },
+    {
+     "symbol": "R_tilde",
+     "text": "与模型、码或相位以及浮点／固定条件相符的协方差"
+    },
+    {
+     "symbol": "J",
+     "text": "信息矩阵；位置相关元素的单位是 m⁻²"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S3.E36.m1",
+   "refs": [
+    "M23"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>𝐂𝐑𝐁</mi><mo>⁡</mo><mrow><mo>(</mo><mover><mi>𝝎</mi><mo>^</mo></mover><mo>)</mo></mrow></mrow><mo>=</mo><msup><mrow><mo>(</mo><mrow><mi>𝐔</mi><mo>−</mo><mrow><msup><mi>𝐕𝐖</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>​</mo><msup><mi>𝐕</mi><mo>⊤</mo></msup></mrow></mrow><mo>)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>=</mo><msup><mrow><mo>(</mo><mrow><msubsup><mover><mi>𝐁</mi><mo>~</mo></mover><mi>ρ</mi><mo>⊤</mo></msubsup><mo>​</mo><msup><mrow><mo>(</mo><msubsup><mover><mi>𝚺</mi><mo>~</mo></mover><mrow><mi>b</mi><mo>,</mo><mi>ρ</mi></mrow><mrow><mi>p</mi><mo>,</mo><mi>α</mi></mrow></msubsup><mo>)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>​</mo><msub><mover><mi>𝐁</mi><mo>~</mo></mover><mi>ρ</mi></msub></mrow><mo>)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><mo>.</mo></mrow>",
+   "accessible": "\\begin{split}\\mathbf{CRB}(\\hat{\\bm{\\omega}})=\\big(\\mathbf{U}-\\mathbf{V}\\mathbf{W}^{-1}\\mathbf{V}^{\\top}\\big)^{-1}=\\left(\\tilde{\\mathbf{B}}_{\\rho}^{\\top}\\big(\\tilde{\\bm{\\Sigma}}_{b,\\rho}^{p,\\alpha}\\big)^{-1}\\tilde{\\mathbf{B}}_{\\rho}\\right)^{-1}.\\end{split}",
+   "title": "浮点 RTK：消去整周自由度后主要剩码信息",
+   "meaning": "把模糊度当连续未知量后，Schur 补扣掉相位中可被自由整周解释的信息，原文给出由双差伪距主导的浮点位置下界。这解释为何同一相位精度并不自动带来固定后的厘米级。",
+   "caution": "依赖正文的相位／码不相关与双差模型。只有整周被正确固定，而且相位噪声较小，才宜用相位主导的固定近似；错误固定不能代入这条正确固定界。",
+   "symbols": [
+    {
+     "symbol": "U, V, W",
+     "text": "对完整浮点信息矩阵按位置、整周分块后的左上、交叉、右下块"
+    },
+    {
+     "symbol": "B_tilde_rho",
+     "text": "双差伪距设计矩阵，列对应位置"
+    },
+    {
+     "symbol": "Σ_tilde_b,rho^(p,α)",
+     "text": "双差码的测量协方差（m²）"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S4.E46.m1",
+   "refs": [
+    "M24"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>𝐂𝐑𝐁</mi><mo>⁡</mo><mrow><mo>(</mo><msub><mover><mi>𝝎</mi><mo>^</mo></mover><mi>c</mi></msub><mo>)</mo></mrow></mrow><mo>=</mo><msup><mrow><mo>(</mo><mrow><msub><mi>𝐌</mi><mn>11</mn></msub><mo>−</mo><mrow><msub><mi>𝐌</mi><mn>12</mn></msub><mo>​</mo><msubsup><mi>𝐌</mi><mn>22</mn><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo>​</mo><msub><mi>𝐌</mi><mn>21</mn></msub></mrow></mrow><mo>)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><mo>.</mo></mrow>",
+   "accessible": "\\begin{split}\\mathbf{CRB}(\\hat{\\bm{\\omega}}_{c})=\\left(\\mathbf{M}_{11}-\\mathbf{M}_{12}\\mathbf{M}_{22}^{-1}\\mathbf{M}_{21}\\right)^{-1}.\\end{split}",
+   "title": "对辅助用户消元后，才是目标用户的界",
+   "meaning": "先算全网信息。辅助用户状态未知时，目标块需减去由耦合项和辅助块共同决定的有效信息，再求逆。若两个簇完全不耦合，交叉块为零，此式就只保留目标本身的信息逆。",
+   "caution": "不能因为每个交叉系数小就丢掉整个补项：辅助人数会同时改变块尺寸和条件数。可沿辅助簇全一方向做尺寸增长的极限校验。",
+   "symbols": [
+    {
+     "symbol": "M_11",
+     "text": "受限用户自身的信息块"
+    },
+    {
+     "symbol": "M_12, M_21",
+     "text": "目标与辅助状态的交叉块，互为转置"
+    },
+    {
+     "symbol": "M_22",
+     "text": "辅助用户信息块；求解前检查其公共模态"
+    },
+    {
+     "symbol": "CRB",
+     "text": "受助者估计协方差下界；位置块迹开方后才和米制 RMSE 对比"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文 · S5.E55.m1",
+   "refs": [
+    "M21"
+   ],
+   "mathml": "<mrow><mrow><msub><mover><mi>P</mi><mo>^</mo></mover><mi>succ</mi></msub><mo>=</mo><mrow><mfrac><mn>1</mn><mi>M</mi></mfrac><mo>​</mo><mrow><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><mrow><mpadded><mi>δ</mi></mpadded><mo>⁡</mo><mrow><mo>(</mo><mrow><msubsup><mover><mi>𝐚</mi><mo>^</mo></mover><mi>c</mi><mrow><mo>(</mo><mi>m</mi><mo>)</mo></mrow></msubsup><mo>−</mo><msub><mi>𝐚</mi><mrow><mi>ref</mi><mo>,</mo><mi>c</mi></mrow></msub></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\hat{P}_{\\mathrm{succ}}=\\frac{1}{M}\\sum_{m=1}^{M}\\delta\\!\\left(\\hat{\\mathbf{a}}^{(m)}_{c}-\\mathbf{a}_{\\mathrm{ref},c}\\right),",
+   "title": "一次试验只有整组都正确才算固定成功",
+   "meaning": "对受限用户每次估出的整周向量与真值逐项比较，再除以总 Monte Carlo 次数。若十次里有九次完全一致，估计成功比例就是 90%；不能把同一次中只对大部分卫星当成成功。",
+   "caution": "比例无量纲，图右以百分数显示。需要额外报告错误固定与不固定的分别计数；本统计自身不包含首次固定时间或成功率置信区间。",
+   "symbols": [
+    {
+     "symbol": "M, m",
+     "text": "试验次数与试验索引"
+    },
+    {
+     "symbol": "a_hat_c^(m), a_ref,c",
+     "text": "第 m 次受助用户的双差整数估计与真值，单位为周"
+    },
+    {
+     "symbol": "δ",
+     "text": "向量完全相同时为一，否则为零"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2601.06012v1/intro_general_realsatcar.png",
+   "width": 379,
+   "height": 267,
+   "caption": "Fig. 1 : Overview of the cooperative DGNSS architecture considered in this work. Nearby users r\\in{1,\\ldots,N} transmit code ( \\bm{\\rho}_{r} ) and carrier-phase ( \\bm{\\Phi}_{r} ) measurements to a CPC, which jointly processes them with base-station DGNSS corrections. Cooperation is centralized, base-station–anchored, and does not involve inter-user ranging.",
+   "title": "跟着数据箭头分清谁负责协作",
+   "alt": "基站、卫星、两辆车及手机用户围绕中央处理中心的原文框架图。",
+   "caution": "不能推出什么：这不是链路吞吐或定位精度实测，也不能从两个车图标推断用户总数或使用车载传感器。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "先跟橙色的参考站码相量和蓝色的用户码相量，箭头都指向 CPC；再看灰虚线的卫星到接收机观测，不要把它们认成用户之间的网络消息。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "同一有坐标基站是公共差分锚，CPC 联合使用用户观测，绿色示意区是共同参与者。附近用户之间没有额外测距，所谓合作不是每辆车独自与邻车求共识。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 5,
+   "reference": "F5",
+   "section": "results",
+   "src": "https://arxiv.org/html/2601.06012v1/results_crtk_nozoom.svg",
+   "width": 807,
+   "height": 234,
+   "caption": "Fig. 5 : Impact of cooperative network parameters on 3D positioning RMSE and ambiguity resolution in C-RTK. Results are reported for N_{o}\\in\\{1,5,25\\} . We show (left) the bounds \\mathbf{CRB}_{\\mathrm{C\\text{-}RTK,float}} in ( 36 ) and \\mathbf{CRB}_{\\mathrm{C\\text{-}RTK,fix}} in ( 38 ), together with the empirical \\mathbf{WLS}_{\\mathrm{C\\text{-}RTK}} performance, and (right) the success probability \\hat{P}_{\\mathrm{succ}} in ( 55 ). For reference, the corresponding non-cooperative baselines are included in all cases.",
+   "title": "把浮点、正确固定与估计器过渡分开看",
+   "alt": "左为对数尺度的受助用户 RMSE 与三个线型，右为固定成功率；横轴向右噪声减小。",
+   "caution": "不能推出什么：不同纵轴不可相减；对给定噪声变化的阈值不是按时间推进的固定时长。只描述原图支持的趋势，不从像素估算精确提升率。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "两侧横轴都是码标准差 σ_rho（m），从左向右变小，勿照普通递增习惯读。左侧纵轴是对数 RMSE（m）：上簇点划线为浮点界，下簇虚线为正确固定界，实线为经验 WLS；右侧为整组固定成功率（%）。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "比较同一横坐标：有色协作实线较黑色非协作更早向下簇转移，右图的过渡也相应提前。蓝和红标示 1、5 名辅助用户；黄色原图标 20、文字图注却为 25，本导读不以其人数作定量结论。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Helena Calatrava、Daniel Medina、Pau Closas",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T03:40:27Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "0aecd1fcf3c3470c7cba0f5763ee12eafd6c3d9a53cc85782b93d7a6a2c27f36",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自所读固定版本的 arXiv 官方图源，仅外部链接与嵌入用于逐图评述，不镜像图片、PDF 或全文。该版本标示 arXiv 永久非独占分发许可，不是 CC BY，不授予读者另行转载权；如需再使用请向权利人确认。正文、内附补充材料与原图均以 v1 为准；图注与图内人数标记的差别在导读中保留，不以作者其他论文代替本稿原图。"
+}

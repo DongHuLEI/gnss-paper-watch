@@ -203,7 +203,7 @@ def parse_source(content, paper, max_characters):
             except ValueError:
                 continue
             equations.append({"id": "M%d" % (len(equations) + 1), "anchor": node.anchor(), "mathml": formula, "text": node.attrs.get("alttext", normalize(node.text()))})
-    main_sections = {block["anchor"].split(".")[0] for block in blocks if re.match(r"S\d", block["anchor"])}
+    main_sections = {block["anchor"].split(".")[0] for block in blocks if re.fullmatch(r"S(?:x)?\d+", block["anchor"].split(".")[0])}
     if len(main_sections) < 3 or sum(len(block["text"]) for block in blocks) < 4000:
         raise SourceUnavailable("insufficient_full_text")
     if sum(len(block["text"]) for block in blocks) > max_characters:
