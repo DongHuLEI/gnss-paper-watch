@@ -630,10 +630,20 @@
   },
   "2611.14683": {
    "paper_id": "2611.14683",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:39:14Z",
+   "completed_at": "2026-11-18T06:39:14Z",
+   "source_status": "versioned_html_with_live_official_original_figures",
+   "source_version": "v1",
+   "source_url": "https://arxiv.org/html/2611.14683v1",
+   "source_sha256": "8548347850ccf5d114da5157e4873f03c1e8e2c6e41a0d69b0f3065e900f7960",
+   "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2611.14683v1",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.15491": {
    "paper_id": "2611.15491",
@@ -691,10 +701,22 @@
   },
   "2611.16856": {
    "paper_id": "2611.16856",
-   "status": "historical_backfill_pending",
+   "status": "original_figure_rights_pending",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:39:14Z",
+   "source_status": "versioned_full_text_read_conflicting_arxiv_cc_by_and_ieee_reuse_notice_no_complete_official_figure_endpoint",
+   "source_version": "v1",
+   "source_url": "https://arxiv.org/html/2611.16856v1",
+   "source_sha256": "2f369800eca014a9f64cc729908d8ec49c66231d11a87e7f24942230e59a3d26",
+   "source_pdf_url": "https://arxiv.org/pdf/2611.16856v1",
+   "source_pdf_sha256": "276476da60648ea50e648f340a135de14dcbd6a1ab829e9dd5d670fea8f0be83",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2611.16856v1",
+   "rights_notice_url": "https://arxiv.org/html/2611.16856v1#footnotex1.1",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.16895": {
    "paper_id": "2611.16895",
@@ -718,6 +740,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T06:23:28Z",
+ "updated_at": "2026-11-18T06:44:53Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
