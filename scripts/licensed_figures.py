@@ -12,6 +12,14 @@ LICENSES = {
 # Each entry binds the official version and license to individually verified complete figures.
 # Figure rows: PDF page, extension, natural width, natural height, asset SHA-256.
 APPROVED = {
+    ("2611.00316", "v1"): (
+        "by", "5c243e2f0090f0092ec03d26b3b25625e489d464267ea547a7d942133c3ae39e", 15,
+        "Zakaria El Mrabet、Prakash Ranganathan",
+        {
+            4: (5, "png", 4469, 1809, "2e3cafa298e8d60936f366ed67a8e91d81e4d9408fc83da7aac64d5551be9797"),
+            5: (6, "png", 4266, 2538, "697f4c73ece7ce4b660cba5bd3106b23257c28f854f7dc2e594144a74ff766f2"),
+        },
+    ),
     ("2606.29644", "v1"): (
         "by", "40a8406d70ace911ce3e0bcc82e53f28c297061d147d9bc166b51aefaebefc26", 40,
         "Stephen Tete、Carl Shneider、Maxime Cordy、Claudio Cesaroni、Andreas Hein、Vasily Petrov",

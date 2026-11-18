@@ -1,0 +1,757 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.00316",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/pdf/2611.00316v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "广域电力测量的异常检测：从同步相量质量到流式告警",
+ "dek": "这篇综述从 GPS 授时的同步相量出发，梳理传统、机器学习和混合检测，并区分随机、连续缺测及概念漂移。其表格汇列不同来源的分类与定位成绩，不是统一基准；读用时和误报指标时还须检查原文口径。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读 arXiv v1 的 15 页 PDF，覆盖第 I–VI 节、Fig. 1–5、表 1、式 (1)–(8) 与参考文献；同版 HTML 不可用。该 PDF 无独立论文附录或随附补充材料；关联 IET 书章不等同于本次所读排版。本次不是独立 API 账单任务，未运行作者代码或独立复现实验，未经过人工审稿。",
+ "references": {
+  "S7": {
+   "label": "原文 · PDF 第 1 页",
+   "anchor": "page=1"
+  },
+  "S373": {
+   "label": "原文 · PDF 第 12 页",
+   "anchor": "page=12"
+  },
+  "S42": {
+   "label": "原文 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S92": {
+   "label": "原文 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S368": {
+   "label": "原文 · PDF 第 12 页",
+   "anchor": "page=12"
+  },
+  "S113": {
+   "label": "原文 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S96": {
+   "label": "原文 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S25": {
+   "label": "原文 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S90": {
+   "label": "原文 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S81": {
+   "label": "原文 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "S78": {
+   "label": "原文 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "S94": {
+   "label": "原文 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S68": {
+   "label": "原文 · PDF 第 4 页",
+   "anchor": "page=4"
+  },
+  "S65": {
+   "label": "原文 · PDF 第 4 页",
+   "anchor": "page=4"
+  },
+  "S111": {
+   "label": "原文 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S323": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S328": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S336": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S345": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S340": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S356": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S357": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S352": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S363": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S105": {
+   "label": "原文 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S106": {
+   "label": "原文 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S121": {
+   "label": "原文 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S131": {
+   "label": "原文 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S125": {
+   "label": "原文 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S197": {
+   "label": "原文 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S168": {
+   "label": "原文 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S512": {
+   "label": "原文 · PDF 第 15 页",
+   "anchor": "page=15"
+  },
+  "M1": {
+   "label": "原公式 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "M2": {
+   "label": "原公式 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "M4": {
+   "label": "原公式 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "M5": {
+   "label": "原公式 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "M7": {
+   "label": "原公式 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "F4": {
+   "label": "Fig.4 · 原文图",
+   "anchor": "page=5"
+  },
+  "F5": {
+   "label": "Fig.5 · 原文图",
+   "anchor": "page=6"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "这是一篇检测综述，不是一个新检测器",
+     "kind": "reported",
+     "text": "相量测量单元（PMU）用 GPS 授时给电压、电流、频率、相位等观测加上可对齐的时间戳，广域测量系统（WAMS）汇聚这些观测。作者从数据是否可用、内容是否可信两方面整理异常，比较传统、机器学习与混合检测方法，并把缺测和概念漂移放在同一工程问题里讨论。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "A wide area measurement system (WAMS) based Phasor Measurement Unit (PMU) can assist in improving visibility within the grid by collecting relevant measurements including magnitude, phase angle, frequency, voltage, and current, with a precise GPS-based timestamp."
+      },
+      {
+       "source": "S7",
+       "quote": "This paper provides state-of-the-art cyber and physical anomalies in the WAMS and analyses their impact on the integrity and availability of the system."
+      },
+      {
+       "source": "S373",
+       "quote": "impact on the availability and integrity of the WAMS. A critical review of current anomaly detection approaches was conducted. These approaches were divided into conventional, machine learning, and hybrid approaches, and then their strengths and limitations were assessed. Lastly, it provided insight into a variety of statistical and machine learning-based approaches to deal with missing PMU data and concept drifts."
+      }
+     ]
+    },
+    {
+     "heading": "能够收到数据，不等于数据可以用于决策",
+     "kind": "interpretation",
+     "text": "从防御侧读，缺包、时间质量异常、负荷变化与真正的电网扰动需要分别记录。收到数据帧不能保证其中的时间和量测可信；反过来，检测到一段异常，也不能由此归因于攻击。文章的价值是整理这些检查的位置与方法选择，不是证明某一类算法能从所有异常中识别原因。",
+     "evidence": [
+      {
+       "source": "S42",
+       "quote": "In the WAMS contexts, anomalies refer to all malfunctions either intentionally or unintentionally caused by physical or cyber events. Here, we classified anomalies into two classes: cyber and physical; all anomalous events that are directed at compromising the IT network are considered cyber-anomalous events, while those that target the OT network are termed physical malicious events. The Physical and cyber anomalies target the availability and integrity of the WAMS."
+      },
+      {
+       "source": "S92",
+       "quote": "the STAT flag in the data frame either to 10 or 11. This may indicate that the reported data is invalid. The missing data can be due to network dropout, database storage errors, or missing data from the PMU itself. It can also be detected from the PMU data frame when the STAT flag reports a value of 01. Though getting these data quality flags is necessary, but not sufficient for identifying all the bad data."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "历史批处理的成绩，不能替代流式监测证据",
+     "kind": "reported",
+     "text": "作者给出的背景量级是北美电网超过 2500 台 PMU，每台每秒 30 至 60 个样本。这里是原文写作时的部署与采样描述，不是新实测或当前盘点。开放式数据流不能假设整个数据集可装入内存，正常负荷也会改变数据分布；检测器要同时满足资源限制和随时间适应的要求。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "So far, there are more than 2500 PMUs deployed in the North American power grid, where each of which generates between 30 and 60 samples/s, roughly 1.5 TB/month of streamed data. Thus, processing such large PMU streams requires expensive computational resources and faster algorithms."
+      },
+      {
+       "source": "S368",
+       "quote": "Thus, two important criteria have to be satisfied by any ML approach when it comes to dealing with streaming PMU data: building the model with a limited dataset as it is challenging to store the entire streaming PMU measurements into memory, and the model must adapt itself to concept drift when the data distribution changes gradually or abruptly over time, which could be due to load changes [82]. Otherwise, the model built in the past will no longer be consistent with the data received in the present and its performance will decrease."
+      }
+     ]
+    },
+    {
+     "heading": "是否有标签、缺多久、事件持续多久，是不同问题",
+     "kind": "reported",
+     "text": "在线树已有适应负荷变化的案例，但综述指出相关测试没有把物理故障的持续时间纳入生成数据；有些短时变化不能与持续事件合并评价。缺测也是如此：随机漏样表现良好的补齐方法，不一定能跨越连续断档。用随机样本准确率回答这两个问题，会掩盖监测系统真正要承担的延迟与漏报。",
+     "evidence": [
+      {
+       "source": "S113",
+       "quote": "However, in these two studies, the duration of the physical fault events was not considered while generating the training synchrophasor dataset. Some faults have to be monitored for a certain time to identify their natures."
+      },
+      {
+       "source": "S96",
+       "quote": "Additionally, and even though these approaches have shown prominent results with random missing data, they are inefficient with consecutive missing data [45]. Alternatively, other approaches considered imputing consecutive missing data. In [53], the authors presented a method that could address consecutive data loss across multiple PMU channels based on a low-rank Hankel structure."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "顺着时钟与量测两条路径读",
+     "kind": "reported",
+     "text": "模拟输入经过抗混叠与模数转换；处理器结合 GPS 同步时钟计算相量，结果由本地相量数据集中器（PDC）汇集，再上报区域 PDC。先从帧的时间戳、源标识和质量状态区分重复、无效或缺失，再考虑信号端的诊断；状态字段能提供线索，但不能覆盖所有坏数据。",
+     "evidence": [
+      {
+       "source": "S25",
+       "quote": "This signal is filtered through an anti-aliasing module to limit the bandwidth of the incoming signal and then converted into a digital signal via the (A/D) converter module. The digital signal is fed to the Central Processing Unit (CPU) to compute the phase and magnitude of the signal using the Discrete Fourier Transformer in conjunction with the timed GPS signal. The output signal is time-synchronized using a sampling clock that is phase-locked to the one-pulse-per-second provided by the GPS receiver."
+      },
+      {
+       "source": "S25",
+       "quote": "Then, the measurements from several local PDC are reported to the regional PDC. As shown in Figures 1 and 2."
+      },
+      {
+       "source": "S90",
+       "quote": "The message includes an identification header, message length, the source ID of the message, a time stamp, and detailed status information regarding the data and its source and quality. Thus, if there are two data frames with the same identification header and the same timestamp, then it can be regarded as duplicated data."
+      },
+      {
+       "source": "S92",
+       "quote": "Though getting these data quality flags is necessary, but not sufficient for identifying all the bad data."
+      }
+     ]
+    },
+    {
+     "heading": "把预处理按失真代价拆开",
+     "kind": "reported",
+     "text": "主成分分析（PCA）用少量方向保留同步量测中较强的共同变化；张量表示用于保留时间、测点、量测类型间的联系。补齐支路先区分孤立和连续缺测：均值或中位数能保留序列长度，却压低方差、抹掉瞬变；连续缺测则可考虑跨通道低秩结构、张量或时序模型。",
+     "evidence": [
+      {
+       "source": "S81",
+       "quote": "analysis (PCA). The synchrophasor data dimension is reduced by finding a correlation between features such as voltage, frequency, and current, then representing it with their principal components."
+      },
+      {
+       "source": "S78",
+       "quote": "This clearly shows the need for higher-order generalizations of vectors and matrices to represent multivariable Spatio-temporal PMU data. Tensors (e.g., multi-way arrays) provide a natural representation for such data [36], [37]."
+      },
+      {
+       "source": "S94",
+       "quote": "The main drawback of these techniques is that they reduce the variance in the data and they may also delete some important frequency events such as transient or impulse."
+      },
+      {
+       "source": "S96",
+       "quote": "Alternatively, other approaches considered imputing consecutive missing data. In [53], the authors presented a method that could address consecutive data loss across multiple PMU channels based on a low-rank Hankel structure. In [54], the authors proposed the alternating direction multiplier method (ADMM), which also results in good results for missing data in multiple PMUs. In [55], the authors describes how to recover missing PMU data by employing tensor decomposition."
+      }
+     ]
+    },
+    {
+     "heading": "有标签时拟合事件，无标签时先找偏离",
+     "kind": "reported",
+     "text": "传统行波法侧重用同步到达时间定位，阻抗法从故障电压电流估计；两者的约束不同。机器学习可按标签条件选择监督、无监督或半监督，另外有强化学习和把信号变换与分类器串联的混合方案。作者也举出 Hoeffding 树配合 DDM、ADWIN 的在线做法，并讨论 ADWIN 用变化信号调节窗口，而非给所有方法共用一个在线网络。",
+     "evidence": [
+      {
+       "source": "S68",
+       "quote": "grid. The traveling wave approach needs high-speed data acquisition equipment, a GPS, sensors, and a transient fault recorder to detect the transient waveform for fault location. The location of the fault is computed by tracking” time-tagging the arrival of the traveling wave at each end of the line and comparing against the time difference to the total propagation time of the line with the help of GPS” [57]."
+      },
+      {
+       "source": "S68",
+       "quote": "Unlike the time wave method, the impedance-based approaches [35], [59] are simple and easy to implement, as they require only measurement data that include fault voltages and fault currents collected from the digital fault recorder or relays to compute the impedance. The accuracy of this approach can be affected in the case of a grounded fault, where the fault resistances can reach higher values."
+      },
+      {
+       "source": "S65",
+       "quote": "have proposed conventional approaches, such as impedance-based and traveling wave techniques, while others have proposed machine learning-based approaches, which can be categorized into supervised, unsupervised, semi-supervised, and reinforcement learning. Other authors have proposed hybrid approaches comprising conventional and machine learning approaches. In this section, we will examine all these various approaches and analyze their advantages and limitations."
+      },
+      {
+       "source": "S111",
+       "quote": "anomalies. For instance, authors [64] proposed a Hoeffding Tree (HT) combined with two concept drift detectors: drift detection method (DDM) and Adaptive sliding windows (ADWIN) for building a fast decision tree that is adaptable to changes."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "先定义预测单位，再看正确、检出与漏掉各占多少",
+     "kind": "reported",
+     "text": "混淆矩阵区分真正例、真负例、假正例、假负例。总体准确率容易被常见的正常类主导；Kappa 以预测和真实标签的边际频数为参照，扣除偶然一致。检出和漏检都以实际异常为分母。将来落地时，应先明确是一帧、一窗口还是一个连续事件算一个样本。",
+     "evidence": [
+      {
+       "source": "S323",
+       "quote": "several metrics can be considered including the accuracy, Kappa, Probability of detection, miss detection, and fault alarms. The accuracy evaluates the models in terms of distinguishing accurately the anomalous and normal events. It is expressed as:"
+      },
+      {
+       "source": "S328",
+       "quote": "The accuracy may provide overly prediction results with imbalanced classes. The Kappa metrics can be used to address this issue and control the instances that may have been correctly classified by chance. It is expressed as:"
+      },
+      {
+       "source": "S336",
+       "quote": "The probability of detection ()0) is the number of anomalous events divided by the total number of anomalous events in the dataset. It is given by:"
+      },
+      {
+       "source": "S345",
+       "quote": "The probability of miss detection ()20) is the number of events that are incorrectly classified as normal, while in fact, they are"
+      }
+     ]
+    },
+    {
+     "heading": "两处公式与邻近定义有冲突，不能原样当规范",
+     "kind": "interpretation",
+     "text": "误报一式印成 FP 除以 FP 与 FN 之和，分母是两类错误的总数，而式前文字指的是实际正常却被报异常；不要把这个印刷式当标准的假正率。平方误差式的左端印成 MAE，正文和右端平方运算讲的却是 MSE。下方保留所选原式和页码，不静默改写。",
+     "evidence": [
+      {
+       "source": "S340",
+       "quote": "The probability of false alarm ()9%) is the number of events that are incorrectly classified as anomalies, while in fact, they are"
+      },
+      {
+       "source": "S356",
+       "quote": "where yˆ is the predicted value, y is the actual value, and n is the number of instances or cases. Unlike MAE, MSE has the"
+      },
+      {
+       "source": "S357",
+       "quote": "benefit of penalizing for significant errors because it averages the squared differences between the actual value and the predicted one, expressed as:"
+      },
+      {
+       "source": "S352",
+       "quote": "can be selected. The MAE is the average of the absolute differences between the actual and predicted value, and it is given by:"
+      }
+     ]
+    },
+    {
+     "heading": "补齐误差和告警表现要分开报",
+     "kind": "interpretation",
+     "text": "对连续信号，绝对误差可用原量纲报告，这是重建吻合度；平均误差小不能证明尖峰保留得好，也不能证明二分类的误报低。评价在线方法时还要顺着时间测试并更新，不能先用验证窗口之后的数据求补齐值再回头给该窗口打分。",
+     "evidence": [
+      {
+       "source": "S352",
+       "quote": "can be selected. The MAE is the average of the absolute differences between the actual and predicted value, and it is given by:"
+      },
+      {
+       "source": "S94",
+       "quote": "The main drawback of these techniques is that they reduce the variance in the data and they may also delete some important frequency events such as transient or impulse."
+      },
+      {
+       "source": "S363",
+       "quote": "In interleaved test-and-train, each instance of the data stream is used for testing and training the model. Prequential is similar to interleaved test-and-train and uses a sliding window"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "同一张表里是不同研究、不同数据",
+     "kind": "reported",
+     "text": "综述汇列了样本类型截然不同的工作：邻近方案用仿真得到的光伏数据做故障分类；讨论的流式入侵检测使用 KDD Cup 1999，原文特意提醒它是计算机网络通信而非电力系统通信，不能视为真实电网测试。另有在实时电力仿真器上接入实物 PMU 的降维例子，硬件读数不等于生产运行数据。",
+     "evidence": [
+      {
+       "source": "S105",
+       "quote": "A KNN based approach for detecting faults in a photovoltaic (PV) system is proposed in [62]. This approach has been trained"
+      },
+      {
+       "source": "S106",
+       "quote": "and tested on data generated from a developed PV model. The reported results show a classification accuracy of 98.70% with an error value ranging between 0.61% and 6.5%."
+      },
+      {
+       "source": "S121",
+       "quote": "These algorithms have been trained and tested on the KDD Cup 1999 dataset [14] and a performance analysis comparison has been conducted based on several metrics including Accuracy, the Kappa, the false positive rate (FPR), and false-negative rate (FNR)."
+      },
+      {
+       "source": "S81",
+       "quote": "The proposed approach has been tested on real PMU data generated by SEL412 and GE n60 PMUs deployed on a Real-Time Digital Power System Simulator of a 4-bus and 3-generator system."
+      }
+     ]
+    },
+    {
+     "heading": "流式评测至少要说清何时更新",
+     "kind": "reported",
+     "text": "留出法用一段传入序列训练并以测试样例计算指标；逐样本先测后训让每条记录先检验当前模型，再供后续更新；文中也区分滑动窗口或衰减式的 prequential 汇总。比较时应同时注明标签到达时间和计算资源，否则更新频率和可观测范围可能远不同。",
+     "evidence": [
+      {
+       "source": "S363",
+       "quote": "evaluate the real-time ML models. Therefore, other evaluation techniques are considered for evaluating these models’ performances, particularly, Holdout, interleaved test-then-train, and prequential. In Holdout, a section of the incoming data is used to train the model and small test cases were used to compute the performance. In interleaved test-and-train, each instance of the data stream is used for testing and training the model. Prequential is similar to interleaved test-and-train and uses a sliding window"
+      },
+      {
+       "source": "S368",
+       "quote": "Thus, two important criteria have to be satisfied by any ML approach when it comes to dealing with streaming PMU data: building the model with a limited dataset as it is challenging to store the entire streaming PMU measurements into memory, and the model must adapt itself to concept drift when the data distribution changes gradually or abruptly over time, which could be due to load changes [82]."
+      }
+     ]
+    },
+    {
+     "heading": "没有可照单复现的统一实验配置",
+     "kind": "unknown",
+     "text": "已读取版本未给出综述自己的统一数据划分、相同硬件上的重新计时、统一调参预算或可直接运行的基准代码，也未给出可复核的系统检索筛选流程；表中的各研究应回到原始论文逐项核对，不应把作者的优缺点描述当作对比消融。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "流式树的成绩来自合成二分类",
+     "kind": "reported",
+     "text": "文中转述 Hoeffding 树结合 ADWIN 和 DDM，在混有正常、物理与网络异常的合成数据上报告二分类准确率大于 98%。这个分母不是生产电网的新事件数，也不是断档或时钟质量下降条件下的召回率；原作者没有给这些不同检测器重跑同一条流。",
+     "evidence": [
+      {
+       "source": "S111",
+       "quote": "This model has been trained on a synthetic dataset where different attack scenarios were simulated. The dataset contains normal and anomaly events, and physical and cyber events."
+      },
+      {
+       "source": "S111",
+       "quote": "The model HT+ADWIN+DDM has been trained and tested on this heterogeneous dataset and reported a classification accuracy greater than 98% for binary classification."
+      }
+     ]
+    },
+    {
+     "heading": "定位任务和事件分类不能横向比百分比",
+     "kind": "reported",
+     "text": "综述称 KNN 在光伏模型生成的数据上有 98.70% 分类准确率，而混合 K-means 与小波的工作使用包含 32 个动态事件的实地 PMU 设置，任务是事件定位。前者的准确率不能和后者的事件定位准确率直接比较；正文还提醒后者并未纳入 PMU 数据质量问题。",
+     "evidence": [
+      {
+       "source": "S105",
+       "quote": "A KNN based approach for detecting faults in a photovoltaic (PV) system is proposed in [62]. This approach has been trained"
+      },
+      {
+       "source": "S106",
+       "quote": "and tested on data generated from a developed PV model. The reported results show a classification accuracy of 98.70% with an error value ranging between 0.61% and 6.5%."
+      },
+      {
+       "source": "S131",
+       "quote": "The authors implemented the ELE approach in real-world PMU-setting containing 32 dynamic events with an excellent localizing accuracy value. It is important to note that the authors did not consider data quality issues in the PMU measurements. Some probable causes for data quality issues could be irregular sampling or data rate, bandwidth challenges, and time synchronization errors."
+      }
+     ]
+    },
+    {
+     "heading": "正文的平均用时和表中的上限不是同一口径",
+     "kind": "interpretation",
+     "text": "MLE 与 DBSCAN 的条目，正文说涉及五台 PMU 的 30 样本窗口，分类平均约 0.09 s；表中写的是少于 0.9 s。后者是宽松上限措辞，不能互相当作平均值，也不能直接保证端到端时限。来源没有用相同的计时范围和硬件解释这两种表述的对应关系。",
+     "evidence": [
+      {
+       "source": "S125",
+       "quote": "Additionally, the average run-time taken for their classification algorithm is around 0.09s for a typical window size of 30 samples involving five PMU sensors."
+      },
+      {
+       "source": "S197",
+       "quote": "Less than 0.9 s to classify events for a"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "数据域与资源上限会改变可用结论",
+     "kind": "reported",
+     "text": "综述指出 KDD Cup 的通信场景不代表电力系统；低秩在线补齐在扰动的瞬态上表现可能下降，而且随机缺测上的成功不能直接外推至连续缺测。这些是作者讨论的适用范围，不是本站重新运行后发现的失效，也不是说低秩和集成在所有设备上都不可用。",
+     "evidence": [
+      {
+       "source": "S121",
+       "quote": "However, the dataset used for training these models is not based on power system communication scenarios. Instead, it is based on the communication scenarios in computer networks. Thus, the reported results do not reflect the actual output of the studied data stream classifiers in the power system context."
+      },
+      {
+       "source": "S96",
+       "quote": "The tracking and estimation performances of the low-rank matrices completion method will be impaired during transients, which occur during disturbances. The online low-rank matrix completion methods should start with PMU measurements that do not have missing index values. Additionally, and even though these approaches have shown prominent results with random missing data, they are inefficient with consecutive missing data [45]."
+      }
+     ]
+    },
+    {
+     "heading": "表、正文与参考文献的编号需要回查",
+     "kind": "interpretation",
+     "text": "例如 KNN 光伏工作在正文标 [62]，而文后按题名可辨认的光伏 KNN 条目是 [68]，表中的相应行又采用不同编号。因此本文导读只把这些数字当作该版本中的转述，不把编号当作可直接定位原实验的索引，也未据此声称复核了所有下游论文。",
+     "evidence": [
+      {
+       "source": "S105",
+       "quote": "A KNN based approach for detecting faults in a photovoltaic (PV) system is proposed in [62]. This approach has been trained"
+      },
+      {
+       "source": "S168",
+       "quote": "Fault location accuracy reaches 98.70% with an error between 0.61% and 6.5%."
+      },
+      {
+       "source": "S512",
+       "quote": "[68] S. R. Madeti and S. N. Singh, “Modeling of PV system based on experimental data for fault detection using kNN method,”"
+      }
+     ]
+    },
+    {
+     "heading": "需要把设备状态变化与短故障分开验证",
+     "kind": "proposal",
+     "text": "追问：当正常负荷逐渐改变，同时标签晚到、时间质量状态发生改变，自适应窗口会不会把短时异常一起吸收？可对同一记录依次用固定和自适应阈值回放，用操作者日志独立标记停运与维护期，分别统计稳定期与变化后的误报、漏报和恢复时间。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "将缺测形态带到 GNSS 授时健康监测",
+     "kind": "proposal",
+     "text": "在隔离的离线回放中使用授权的多站时钟残差和参考时钟日志，留出整站和整日；仅对回放数据施加随机遮盖或连续缺口。对照保留缺测标记、因果中位数和跨站模型，固定同一告警器。交付故障事件召回、每站日误报、持续缺口的告警延时分位数，以及被补齐段和真实观测段的独立误差。",
+     "evidence": []
+    },
+    {
+     "heading": "把事件检测与运营可用性分开交付",
+     "kind": "proposal",
+     "text": "给监测流保留观测值与时间质量两条信号，先做预测，再在真实标签到达后才能更新，并按正常负荷变化、设备切换和中断分层。比较固定模型与漂移检测触发的更新，在同一计算上限下请求报告峰值内存、端到端延迟、每小时有效监测比例及冻结更新时的结果；不得把离线告警结果视作可接入电网保护的证书。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文式 (1) · PDF 第 11 页",
+   "refs": [
+    "M1"
+   ],
+   "mathml": "<mi>Accuracy</mi><mo>=</mo><mfrac><mrow><mi>TP</mi><mo>+</mo><mi>TN</mi></mrow><mrow><mi>TP</mi><mo>+</mo><mi>TN</mi><mo>+</mo><mi>FP</mi><mo>+</mo><mi>FN</mi></mrow></mfrac>",
+   "accessible": "Accuracy = (TP + TN)/(TP + TN + FP + FN)",
+   "title": "准确率：正确了多少条",
+   "meaning": "例子（均非论文数据）：实际异常 10 条、正常 90 条，其中真正例 8、真负例 81、假正例 9、假负例 2。原式得到 (8+81)/100＝89%；同一组数据若全判正常，准确率反而是 90%。",
+   "caution": "统一计数单位与正类。按帧算与按事件算的分母不同；空集不定义准确率。",
+   "symbols": [
+    {
+     "symbol": "TP / TN",
+     "text": "正确报异常 / 正常，单位为计数"
+    },
+    {
+     "symbol": "FP / FN",
+     "text": "错报异常 / 漏报异常，单位为计数"
+    },
+    {
+     "symbol": "Accuracy",
+     "text": "正确分类数占全部实例的比例，无量纲"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文式 (2) · PDF 第 11 页",
+   "refs": [
+    "M2"
+   ],
+   "mathml": "<mi>Kappa</mi><mo>=</mo><mfrac><mrow><mo>(</mo><mi>Accuracy</mi><mo>−</mo><mi>random accuracy</mi><mo>)</mo></mrow><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>random accuracy</mi><mo>)</mo></mrow></mfrac>",
+   "accessible": "Kappa = (Accuracy − random accuracy)/(1 − random accuracy)",
+   "title": "Kappa：扣掉随机一致成分",
+   "meaning": "接续前例，真实标签为异常 10、正常 90，预测标签为异常 17、正常 83。按原式 (3)，偶然一致为 (10×17+90×83)/100²＝0.764；代入本式，Kappa＝(0.89−0.764)/(1−0.764)≈0.534。",
+   "caution": "分母为零时不能直接报告 Kappa，也不能用它代替逐类检出和误报；比较时要保留实际类别比例。",
+   "symbols": [
+    {
+     "symbol": "Accuracy",
+     "text": "原式 (1) 的总体正确比例，无量纲"
+    },
+    {
+     "symbol": "random accuracy",
+     "text": "从真实与预测的类别边际频数计算的随机一致比例，无量纲"
+    },
+    {
+     "symbol": "Kappa",
+     "text": "超出随机一致的相对量，无量纲"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文式 (4) · PDF 第 11 页",
+   "refs": [
+    "M4"
+   ],
+   "mathml": "<mi>Pd</mi><mo>=</mo><mfrac><mrow><mi>TP</mi></mrow><mrow><mi>TP</mi><mo>+</mo><mi>FN</mi></mrow></mfrac>",
+   "accessible": "Pd = TP/(TP + FN)",
+   "title": "检出概率：只在实际异常中计",
+   "meaning": "接续前例，实际异常共 10 条，正确检出 8 条，所以 Pd＝8/10＝0.8；原式 (6) 对应漏检率 2/10＝0.2。两者的分母相同，和总体准确率或告警中有多少是真异常均不同。",
+   "caution": "没有任何真实异常的批次，Pd 无法估计；不要按默认值写成百分之百。",
+   "symbols": [
+    {
+     "symbol": "TP",
+     "text": "正确检出的异常事件数"
+    },
+    {
+     "symbol": "FN",
+     "text": "误当正常的异常事件数"
+    },
+    {
+     "symbol": "Pd",
+     "text": "检出比例，无量纲"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文式 (5) · PDF 第 11 页",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mi>Pfa</mi><mo>=</mo><mfrac><mrow><mi>FP</mi></mrow><mrow><mi>FP</mi><mo>+</mo><mi>FN</mi></mrow></mfrac>",
+   "accessible": "Pfa = FP/(FP + FN) — as printed",
+   "title": "误报项：这里保留原文印刷式，并标明问题",
+   "meaning": "原式按两类错误的总数归一。接续前例，代入得 9/(9+2)≈81.8%，它不是正常实例中误报的比例。按正文指向的标准条件口径，应在 90 条实际正常中计 9 条误报，得到 10%。这两个百分数回答不同问题。",
+   "caution": "这是版本内可直接看到的分母问题，不是本文提出的新误报率。实施时按实际正常数归一并记录无正常样本的例外。",
+   "symbols": [
+    {
+     "symbol": "FP",
+     "text": "正常实例被报为异常的计数"
+    },
+    {
+     "symbol": "FN",
+     "text": "实际异常被报为正常的计数"
+    },
+    {
+     "symbol": "Pfa",
+     "text": "原式的左端标签；原式不得作为标准误报概率实现"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文式 (7) · PDF 第 11 页",
+   "refs": [
+    "M7"
+   ],
+   "mathml": "<mi>MAE</mi><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>n</mi></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo>|</mo><mover><mi>y</mi><mo>^</mo></mover><mo>−</mo><mi>y</mi><mo>|</mo>",
+   "accessible": "MAE = (1/n) Σ from i=1 to n of |ŷ − y|",
+   "title": "平均绝对误差：先取绝对值，再平均",
+   "meaning": "若某信号两个样点的预测减真值为 −0.1 Hz 与 +0.3 Hz，绝对值平均是 0.2 Hz；直接求带符号差的均值只会得到 0.1 Hz。MAE 与原量测同单位，不能直接与用平方损失算的指标并排比数值大小。",
+   "caution": "不同量纲（例如频率、电压）分开归一和报告。不能从平均值推出尖峰保真度；原文式 (8) 左端标 MAE，但正文和右端是平方误差口径。",
+   "symbols": [
+    {
+     "symbol": "ŷ / y",
+     "text": "第 i 个样点的预测与实测；图中省略了下标"
+    },
+    {
+     "symbol": "n / i",
+     "text": "有效实例总数 / 累加索引"
+    },
+    {
+     "symbol": "MAE",
+     "text": "平均绝对误差，单位同所评估变量"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 4,
+   "reference": "F4",
+   "section": "method",
+   "src": "assets/deep-reading/2611.00316/original-fig-4.png",
+   "width": 4469,
+   "height": 1809,
+   "caption": "Figure 4. Taxonomy of anomaly detection approaches in the WAMS",
+   "title": "先按数据能提供什么选检测路线",
+   "alt": "传统、混合和机器学习检测分类色块；机器学习部分分强化学习、监督、半监督、无监督，深蓝图例标记实时方法。",
+   "caution": "不能推出什么：色块大小不是覆盖范围，颜色不是准确率或满足生产时限的证明。",
+   "reading_steps": [
+    {
+     "title": "先看哪里：先读顶层分类，再读深蓝图例",
+     "text": "左侧两栏为传统和混合方案，右侧机器学习按标签与反馈方式分支。右下角深蓝图例才表示综述归类为实时的方案；橙色是类别标题，不是风险等级。"
+    },
+    {
+     "title": "能说明什么：两个实时例子的输入不同",
+     "text": "中部决策树栏的 HT + ADWIN + DDM 和最右 MLE + DBSCAN 都涂成深蓝，前者依赖标签与漂移监测，后者以清洗与聚类为主。图没有量化坐标、单位或大小尺度，色块只帮助定位方法家族。"
+    },
+    {
+     "title": "如何核查：对照原文表格的部署描述",
+     "text": "把深蓝的 MLE + DBSCAN 与表中同名行并读：图把它列为实时，表的局限栏却把一组方法标成不适合实时，正文另给选定窗口的平均用时。应区分该处理片段的速度和整套系统的部署证据。"
+    }
+   ],
+   "asset_sha256": "2e3cafa298e8d60936f366ed67a8e91d81e4d9408fc83da7aac64d5551be9797",
+   "modified": false
+  },
+  {
+   "id": "original-figure-b",
+   "number": 5,
+   "reference": "F5",
+   "section": "experiments",
+   "src": "assets/deep-reading/2611.00316/original-fig-5.png",
+   "width": 4266,
+   "height": 2538,
+   "caption": "Figure 5. Taxonomy of imputing PMU data approaches",
+   "title": "先识别缺测形态，再选择补齐对照",
+   "alt": "补齐方法分类图，左边随机缺测包括均值、中位数和 SVT 等；右边连续缺测包括低秩 Hankel、张量分解、ADMM 和 LSTM。",
+   "caution": "不能推出什么：不能从这张图得到可补的最长缺口、单机延迟、最优模型或对告警召回的增益。",
+   "reading_steps": [
+    {
+     "title": "先看哪里：从橙色标题沿黑色箭头分左右",
+     "text": "左侧随机缺测列出均值与中位数、ARIMA、拉格朗日插值、SVD/SVT 与集成回归。右侧连续缺测才列低秩 Hankel 结构、张量分解、ADMM 和 LSTM。"
+    },
+    {
+     "title": "能说明什么：缺包结构不是一个比例就够",
+     "text": "图中没有横纵坐标、误差单位或置信区间，蓝框只是方法清单；用它设计随机打孔与整段缺口两组，不应把它读成优劣排名。须到正文核对不同方法的供数、跨测点信息和瞬变保真限制。"
+    }
+   ],
+   "asset_sha256": "697f4c73ece7ce4b660cba5bd3106b23257c28f854f7dc2e594144a74ff766f2",
+   "modified": false
+  }
+ ],
+ "original_figure_credit": "Zakaria El Mrabet、Prakash Ranganathan",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T05:58:42Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "5c243e2f0090f0092ec03d26b3b25625e489d464267ea547a7d942133c3ae39e",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill",
+  "license_evidence_url": "https://arxiv.org/abs/2611.00316v1"
+ },
+ "copyright_note": "仅转载 Zakaria El Mrabet、Prakash Ranganathan 的 arXiv v1 分类图 Fig. 4、5。版本元数据标注 CC BY 4.0，所选图无单独版权或改编署名；保留整图像素、图例、配色和英文图注，PNG 无损导出，不裁剪、不重绘、不加注。Fig. 1–3 与汇总表只在原文中查看；本站不镜像 PDF 或全文。中文解说与原图分开，作者不为本导读背书。",
+ "source_type": "licensed_arxiv_pdf"
+}
