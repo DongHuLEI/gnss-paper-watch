@@ -1,0 +1,798 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2610.34468",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2610.34468v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "城市峡谷中的 GNSS 异常检测：从接收机信号到多模态可见性推断",
+ "dek": "看到天空，不等于收到干净的卫星信号。本文用逐星接收状态串起接收机内部特征、地图先验和在线传感器，区分直达路径的几何可见性、实际跟踪状态与定位后端是否采用该观测。它是设计权衡综述，不是统一评测或准确率排行榜。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。由 GPT6.2sol 子代理读取 arXiv v1 固定版 HTML 的正文 I–VII、全部图注和表 I–III、原文公式及声明；该版本未见单独附录。对照并查看所展示的 Fig. 6、7、9 官方原图；其余图按原文定位，在正文交代相关证据口径。图 6 是实景几何示例，图 7、9 为原作者示意。不是独立 API 账单任务，未调用 DeepSeek；主会话仅验收提交与状态。未独立复现实验，未经过人工审稿。",
+ "references": {
+  "S5": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S7": {
+   "label": "原文 · S1.SS1.p1.1",
+   "anchor": "S1.SS1.p1.1"
+  },
+  "S172": {
+   "label": "原文 · S5.SS2.p1.1",
+   "anchor": "S5.SS2.p1.1"
+  },
+  "S197": {
+   "label": "原文 · S6.p4.1",
+   "anchor": "S6.p4.1"
+  },
+  "S200": {
+   "label": "原文 · S7.p1.1",
+   "anchor": "S7.p1.1"
+  },
+  "S27": {
+   "label": "原文 · S1.SS2.p1.1",
+   "anchor": "S1.SS2.p1.1"
+  },
+  "S33": {
+   "label": "原文 · S1.SS2.p7.1",
+   "anchor": "S1.SS2.p7.1"
+  },
+  "S110": {
+   "label": "原文 · S3.SS2.p1.1",
+   "anchor": "S3.SS2.p1.1"
+  },
+  "S32": {
+   "label": "原文 · S1.SS2.p6.1",
+   "anchor": "S1.SS2.p6.1"
+  },
+  "S49": {
+   "label": "原文 · S2.F5",
+   "anchor": "S2.F5"
+  },
+  "S105": {
+   "label": "原文 · S3.T2.5",
+   "anchor": "S3.T2.5"
+  },
+  "S107": {
+   "label": "原文 · S3.SS1.p2.1",
+   "anchor": "S3.SS1.p2.1"
+  },
+  "S144": {
+   "label": "原文 · S4.SS2.p1.1",
+   "anchor": "S4.SS2.p1.1"
+  },
+  "S164": {
+   "label": "原文 · S4.SS2.SSS5.p3.1",
+   "anchor": "S4.SS2.SSS5.p3.1"
+  },
+  "S156": {
+   "label": "原文 · S4.SS2.SSS3.p1.1",
+   "anchor": "S4.SS2.SSS3.p1.1"
+  },
+  "S158": {
+   "label": "原文 · S4.SS2.SSS4.p1.1",
+   "anchor": "S4.SS2.SSS4.p1.1"
+  },
+  "S168": {
+   "label": "原文 · S5.SS1.p1.1",
+   "anchor": "S5.SS1.p1.1"
+  },
+  "S180": {
+   "label": "原文 · S5.SS2.SSS3.p1.1",
+   "anchor": "S5.SS2.SSS3.p1.1"
+  },
+  "S184": {
+   "label": "原文 · S5.SS3.p2.1",
+   "anchor": "S5.SS3.p2.1"
+  },
+  "S14": {
+   "label": "原文 · S1.SS1.p2.3",
+   "anchor": "S1.SS1.p2.3"
+  },
+  "S16": {
+   "label": "原文 · S1.SS1.p2.5",
+   "anchor": "S1.SS1.p2.5"
+  },
+  "S19": {
+   "label": "原文 · S1.SS1.p3.1",
+   "anchor": "S1.SS1.p3.1"
+  },
+  "S161": {
+   "label": "原文 · S4.SS2.SSS5.p1.2",
+   "anchor": "S4.SS2.SSS5.p1.2"
+  },
+  "S162": {
+   "label": "原文 · S4.SS2.SSS5.p1.3",
+   "anchor": "S4.SS2.SSS5.p1.3"
+  },
+  "S163": {
+   "label": "原文 · S4.SS2.SSS5.p2.1",
+   "anchor": "S4.SS2.SSS5.p2.1"
+  },
+  "S116": {
+   "label": "原文 · S3.T3.5",
+   "anchor": "S3.T3.5"
+  },
+  "S104": {
+   "label": "原文 · S3.T2",
+   "anchor": "S3.T2"
+  },
+  "S194": {
+   "label": "原文 · S6.p1.1",
+   "anchor": "S6.p1.1"
+  },
+  "S195": {
+   "label": "原文 · S6.p2.1",
+   "anchor": "S6.p2.1"
+  },
+  "S196": {
+   "label": "原文 · S6.p3.1",
+   "anchor": "S6.p3.1"
+  },
+  "S188": {
+   "label": "原文 · S5.F11",
+   "anchor": "S5.F11"
+  },
+  "S93": {
+   "label": "原文 · S2.SS3.SSS5.p2.1",
+   "anchor": "S2.SS3.SSS5.p2.1"
+  },
+  "S76": {
+   "label": "原文 · S2.SS3.SSS1.p2.1",
+   "anchor": "S2.SS3.SSS1.p2.1"
+  },
+  "S152": {
+   "label": "原文 · S4.SS2.SSS2.p3.1",
+   "anchor": "S4.SS2.SSS2.p3.1"
+  },
+  "S135": {
+   "label": "原文 · S4.SS1.SSS2.p1.1",
+   "anchor": "S4.SS1.SSS2.p1.1"
+  },
+  "S202": {
+   "label": "原文 · S7.I1.i1.p1.1",
+   "anchor": "S7.I1.i1.p1.1"
+  },
+  "S203": {
+   "label": "原文 · S7.I1.i2.p1.1",
+   "anchor": "S7.I1.i2.p1.1"
+  },
+  "S205": {
+   "label": "原文 · S7.I1.i4.p1.1",
+   "anchor": "S7.I1.i4.p1.1"
+  },
+  "S206": {
+   "label": "原文 · S7.I1.i5.p1.1",
+   "anchor": "S7.I1.i5.p1.1"
+  },
+  "S111": {
+   "label": "原文 · S3.SS2.p2.1",
+   "anchor": "S3.SS2.p2.1"
+  },
+  "S82": {
+   "label": "原文 · S2.SS3.SSS2.p4.1",
+   "anchor": "S2.SS3.SSS2.p4.1"
+  },
+  "M3": {
+   "label": "原公式 · S1.E3.m1",
+   "anchor": "S1.E3.m1"
+  },
+  "M4": {
+   "label": "原公式 · S1.E4.m1",
+   "anchor": "S1.E4.m1"
+  },
+  "M5": {
+   "label": "原公式 · S1.E5.m1",
+   "anchor": "S1.E5.m1"
+  },
+  "M17": {
+   "label": "原公式 · S4.E17.m1",
+   "anchor": "S4.E17.m1"
+  },
+  "M18": {
+   "label": "原公式 · S4.E18.m1",
+   "anchor": "S4.E18.m1"
+  },
+  "F9": {
+   "label": "Fig.9 · 原文图",
+   "anchor": "S4.F9"
+  },
+  "F7": {
+   "label": "Fig.7 · 原文图",
+   "anchor": "S4.F7"
+  },
+  "F6": {
+   "label": "Fig.6 · 原文图",
+   "anchor": "S4.F6"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "先问每颗卫星的观测可不可信",
+     "kind": "reported",
+     "text": "综述把问题放在定位解算之前：逐星判断接收状态或可靠性，供后端保留、降权、剔除或校正观测。它讨论手机、车载系统与多天线等配置；接收机开放了什么数据、是否已有环境传感器，会改变可用方法，而不是把同一分类器部署到所有平台。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "This survey focuses on the identification of GNSS reception states—including line-of-sight, non-line-of-sight, and multipath-contaminated reception—in urban environments before the corresponding measurements are accepted, excluded, weighted, or corrected by the navigation solution."
+      },
+      {
+       "source": "S5",
+       "quote": "These platforms differ in their access to raw signal information, auxiliary sensors, computational resources, and calibrated hardware, and these receiver capabilities directly influence the applicability and practical trade-offs of the corresponding detection methods."
+      }
+     ]
+    },
+    {
+     "heading": "几何遮挡、跟踪状态与观测去留是不同问题",
+     "kind": "reported",
+     "text": "直达占主导是名义 LOS；直达仍在但叠加反射是多径；直达被挡而接收机仍跟踪间接分量，才是 NLOS 接收。如果没有可跟踪分量，就是不可用，与已经跟踪到一条受污染的测量不同。这个区分贯穿全文：摄像头可证实一条视线在几何上可见，却不能仅凭这一点断言没有反射。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "In the Line-of-Sight (LOS) case, the direct satellite-to-receiver path is available and dominates the received signal. In the multipath case, the direct path remains present, but one or more reflected components arrive together with it. In the NLOS case, the direct path is blocked and the receiver tracks an indirect reflected or diffracted component. A geometrically blocked satellite may also be completely unavailable when no indirect component is strong enough to be acquired or tracked."
+      },
+      {
+       "source": "S172",
+       "quote": "Importantly, visual direct-path availability does not imply multipath-free reception: a satellite projected onto the visible sky may still be affected by reflected components. Camera screening should therefore be interpreted primarily as direct-path visibility evidence rather than as a complete multipath classifier."
+      }
+     ]
+    },
+    {
+     "heading": "作者最有说服力的是证据分工，不是单一赢家",
+     "kind": "interpretation",
+     "text": "最值得带走的不是某个网络，而是先明确观察对象：RF 与跟踪特征描写波形或接收表现，地图约束传播路径是否合理，车载传感器补足环境或运动信息。把它们当可互相质疑的证据，比直接把它们压成同一种标签更符合作者的综合结论。",
+     "evidence": [
+      {
+       "source": "S197",
+       "quote": "These spatial sources do not directly measure the RF propagation path; instead, they constrain blockage and reflection hypotheses geometrically. Distinguishing reflected NLOS reception or multipath contamination can therefore benefit from combining this geometric evidence with GNSS-domain observables."
+      },
+      {
+       "source": "S200",
+       "quote": "The comparative analysis reveals that no single category is universally dominant. Observable-level rules provide lightweight baseline screening, learning-based models exploit nonlinear, temporal, and cross-satellite structure across observable- and receiver-internal features, map-based priors offer geometry-driven blockage determination, and auxiliary sensors provide complementary geometric and kinematic evidence about local occlusions, dynamic scene changes, and measurement consistency."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "缺口在于综述如何把不同证据放在同一张图上",
+     "kind": "reported",
+     "text": "作者比较了侧重接收机、机器学习、环境建模或传感器融合的代表性综述，认为缺少一个同时连接逐星接收状态、几何可见性和标注口径的组织框架。表 I 的勾选表示主题覆盖，不是质量评分；这是作者对所选综述的归纳，不是本站完成了全领域查新。",
+     "evidence": [
+      {
+       "source": "S27",
+       "quote": "Existing review coverage remains uneven across methodological domains: some works emphasize receiver- and signal-level processing, whereas others focus primarily on machine learning, environmental modeling, or multisensor integration. Even broader reviews that span several of these topics generally do not organize them under a common per-satellite reception-state and visibility framework, making cross-domain comparison difficult."
+      },
+      {
+       "source": "S33",
+       "quote": "Table I summarizes the coverage of representative reviews and overview works across seven methodological dimensions."
+      }
+     ]
+    },
+    {
+     "heading": "缺标签并不是唯一问题，标签测的量也不一样",
+     "kind": "reported",
+     "text": "现有数据集多为定位或融合而采集。参考轨迹可以告诉我们接收机在哪里，却不能单独告诉我们某颗星是直达、多径还是间接传播。不同作品用地图、相机或接收机指标生成标签；作者把标注和评测协议独立成章，并没有用综述自身填上统一基准的缺口。",
+     "evidence": [
+      {
+       "source": "S110",
+       "quote": "Unlike many standard machine-learning problems, relatively few GNSS datasets provide native per-satellite LOS/NLOS or multipath labels. Most widely used navigation datasets were collected primarily for localization and sensor-fusion research; reception-state labels must therefore be reconstructed by aligning raw GNSS measurements with accurate reference trajectories and independent environmental information, such as 3D city models, LiDAR geometry, or sky-view imagery [ 100 ] ."
+      },
+      {
+       "source": "S32",
+       "quote": "Nevertheless, there remains no unified benchmark that compares signal-level, map-based, camera-based, and LiDAR-based reception-state methods under common labels, receiver configurations, and urban scenarios. Accordingly, the present survey treats datasets, labeling strategies, and evaluation protocols as a distinct methodological component, without claiming to introduce a new quantitative cross-method benchmark."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "从接收机能导出的表示出发，再选分类器",
+     "kind": "reported",
+     "text": "阵列利用到达角、极化或阵元协方差；基带用相关峰失真或多抽头输出；常规接口可使用载噪密度、残差、码减载波或多普勒一致性。阈值是轻量基线，SVM、随机森林可组合多特征，序列模型利用时间演变，图模型则把同一历元的卫星关系纳入判断。它们是备选设计，不是必须串行执行的模块。",
+     "evidence": [
+      {
+       "source": "S49",
+       "quote": "Antenna/EM features characterize spatial wavefields, tracking/baseband features characterize correlation responses, and observable-domain features characterize measurement, geometric, and temporal consistency. The domains can be fused; their left-to-right order indicates increasing abstraction and typical data accessibility rather than a strictly sequential detector."
+      },
+      {
+       "source": "S105",
+       "quote": "Supervised classifiers, such as SVM, decision trees, and random forests, trained on engineered signal-quality and geometry features. Supervised classifiers can learn nonlinear LOS/NLOS/MP decision boundaries"
+      },
+      {
+       "source": "S107",
+       "quote": "Sequence models incorporate temporal context to distinguish persistent propagation effects from short-term measurement fluctuations [ 96 , 26 ] , whereas graph-based methods explicitly model relationships among simultaneously observed satellites and can incorporate their evolving spatial configuration [ 27 , 91 ] ."
+      }
+     ]
+    },
+    {
+     "heading": "地图先预测，有实时观测后再核对",
+     "kind": "reported",
+     "text": "接收机候选位置、星历方向与街区模型先形成可见性先验：射线求交给出二值遮挡，显式反射路径可给候选附加延迟，神经场沿射线查询可给软分数。阴影匹配比较预测可见性与接收证据；3DMA 测距比较伪距与预测传播条件。两者遇到不一致都不能自动归咎于 NLOS，地图或位姿也可能错。",
+     "evidence": [
+      {
+       "source": "S144",
+       "quote": "map-based predictors infer the expected visibility or propagation state from the receiver position, satellite geometry, and environmental model, without requiring the current GNSS observation being classified. Such predictions may be precomputed offline or evaluated online at each navigation epoch [ 53 , 132 ] ."
+      },
+      {
+       "source": "S164",
+       "quote": "Geometric screening provides efficient binary visibility priors, whereas explicit ray tracing adds richer propagation-path information; shadow matching and 3DMA ranging subsequently exploit map–measurement consistency as reception-state evidence. Neural-field methods extend this spectrum toward continuous, learned visibility priors."
+      },
+      {
+       "source": "S156",
+       "quote": "Agreement between map-predicted and measurement-derived visibility supports the corresponding reception hypothesis, whereas disagreement flags an inconsistency requiring further interpretation. Importantly, such disagreement does not uniquely imply NLOS reception: map incompleteness, pose uncertainty, dynamic occluders, or measurement errors can produce the same outcome."
+      },
+      {
+       "source": "S158",
+       "quote": "Range-based 3DMA GNSS uses the environmental model together with pseudorange measurements to evaluate the compatibility between map-predicted reception conditions and the observed ranges [ 114 , 141 , 142 ] . Although these methods were developed primarily for map-aided positioning and NLOS correction, their ranging likelihoods can also be interpreted from a reception-state perspective as pseudorange-consistency evidence ."
+      }
+     ]
+    },
+    {
+     "heading": "在线辅助感知不等于离线监督",
+     "kind": "reported",
+     "text": "IMU 检查短时运动与 GNSS 是否相容，本身不看见遮挡；车载相机把卫星方向投进当期天空掩膜，LiDAR 补充深度和候选反射面。离线同样可以借相机和参考姿态做几何标签、训练只用 GNSS 观测量的分类器；此时部署不依赖实时相机，不能把标注端数据当成线上随手可得的输入。",
+     "evidence": [
+      {
+       "source": "S168",
+       "quote": "Unlike cameras or LiDAR, it does not observe satellite blockage or reflecting surfaces; instead, it provides an independent motion reference against which GNSS measurements can be tested."
+      },
+      {
+       "source": "S180",
+       "quote": "The same projection process is also useful for offline supervision. Camera- and INS-derived visibility labels have been used to train receiver-side classification models from GNSS observables, allowing the resulting detector to operate without a live camera during deployment [ 90 , 153 ] ."
+      },
+      {
+       "source": "S184",
+       "quote": "Camera sky masks primarily provide angular direct-path visibility, whereas LiDAR additionally provides depth and local surface geometry that can support the localization of candidate blockers or reflecting surfaces [ 44 ] ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "相关峰怎么把反射变成带符号的伪距偏差",
+     "kind": "interpretation",
+     "text": "直达和间接分量先在复相关输出叠加，早迟功率鉴别器再寻找稳定零点。反射把零点推开，偏移要乘码片时长再乘光速才成为长度。论文把直达路径的传播延迟设为参考；多径可把估计推向两侧，与只跟踪更长间接路径产生的正附加传播长度不是一个口径。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "The delayed and phase-shifted indirect components therefore deform the nominal correlation response observed by the receiver [ 2 ] . Fig. 2 illustrates this effect for a representative single-reflection case, highlighting both the displacement of the DLL discriminator zero crossing and the rotation of the prompt-correlator phasor. For a conventional noncoherent early–late power Delay-Locked Loop (DLL) with early–late spacing d , the early-minus-late power (EMLP) discriminator is"
+      },
+      {
+       "source": "S16",
+       "quote": "Thus, under multipath reception, the pseudorange bias is fundamentally a tracking-point displacement : depending on the relative delay, amplitude, and carrier phase of the reflected components, interference can shift the DLL equilibrium in either direction and produce rapidly varying errors as the receiver or surrounding reflectors move."
+      },
+      {
+       "source": "S19",
+       "quote": "This introduces a positive excess propagation delay and hence a positively biased pseudorange component associated with the indirect path [ 4 ] ."
+      }
+     ]
+    },
+    {
+     "heading": "软可见性与相关峰测的是不同东西",
+     "kind": "interpretation",
+     "text": "神经场一侧用天线位置和星历方向取样，累积分布在空间中的学得密度，形成有界的透射量，再映射为软可见性证据。相关峰一侧则从实际接收波形出发。前者不是 RF 功率或直接校准过的 LOS 概率，也不能只靠软分数把反射路径和伪距偏差解算出来。",
+     "evidence": [
+      {
+       "source": "S161",
+       "quote": "Samples evaluated along this path provide learned density- or occupancy-related quantities that can be aggregated into a visibility feature or soft LOS/NLOS score. For density-based neural fields, the corresponding volumetric transmittance can be expressed generically as [ 127 ]"
+      },
+      {
+       "source": "S162",
+       "quote": "This ray-integrated quantity represents the transmittance implied by the accumulated learned density along the satellite direction and can be mapped to a soft visibility prediction. This contrasts with the hard LOS/NLOS decision produced by conventional geometric ray casting."
+      },
+      {
+       "source": "S163",
+       "quote": "Neural-field visibility prediction should therefore be regarded as a soft, learned spatial prior. Compared with explicit 3D maps, it offers continuous querying and potentially richer scene representation at the cost of offline scene learning, dependence on training coverage, and reduced geometric transparency."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "表 III：真实数据要先看标签从哪里来",
+     "kind": "reported",
+     "text": "UrbanNav 需要参考位姿和同步的相机或点云来回推可见性。KLT 提供鱼眼标注的逐星 LOS/NLOS，但表中注明只标 GPS 和北斗，暗光可能影响标签。smartLoc 则用参考接收机的状态指示；它的 LOS 不分干净直达和直达加多径，不能拿来直接监督这两个类别的区分。",
+     "evidence": [
+      {
+       "source": "S116",
+       "quote": "UrbanNav [ 102 ] Multi-grade raw GNSS, LiDAR, cameras, IMU, reference GNSS/INS Derivable from reference pose and synchronized LiDAR/camera context LOS/NLOS classification in medium-to-harsh urban canyons and tunnel transitions No native reception-state labels; accuracy depends on environmental-model quality and pose/time alignment."
+      },
+      {
+       "source": "S116",
+       "quote": "KLT [ 105 ] Raw multi-GNSS, reference GNSS/INS, fisheye camera, LiDAR, IMU Provided per-satellite LOS/NLOS labels from fisheye-based environmental labeling Direct training and benchmarking of satellite-level LOS/NLOS classifiers Only GPS/BeiDou are labeled; very-low-light imagery can reduce labeling reliability."
+      },
+      {
+       "source": "S116",
+       "quote": "smartLoc [ 108 ] Raw u-blox GNSS, NovAtel reference GNSS/INS, vehicle motion Provided LOS/NLOS indicator sourced from the NovAtel reference receiver Observable-level LOS/NLOS classification from code, carrier, Doppler, and C/N_{0} Receiver-derived labels; LOS does not distinguish clean LOS from LOS+MP."
+      }
+     ]
+    },
+    {
+     "heading": "表 III：真实 RF 深度与路径真值不能一概而论",
+     "kind": "reported",
+     "text": "CardiffNav 有多通道原始 RF/IQ 和同步传感器，适合回放相关器与检查场景，但没有随数据提供的逐星状态真值。MVRGD-MUE 的直达与反射路径由仿真生成，适合看机制或做受控消融，不等于现场验证。Xu 等的分类基准提供四种场景的目标；场景覆盖范围不能当作跨城市或跨设备证据。",
+     "evidence": [
+      {
+       "source": "S116",
+       "quote": "CardiffNav [ 111 ] Multi-channel raw GNSS RF/IQ, receiver GNSS, 3D LiDAR, RGB/stereo cameras, IMU, reference navigation No native satellite-state labels; derivable from environmental sensing and reference pose Raw-signal and multimodal LOS/NLOS/MP studies in canyon, obstruction, and GNSS-denied transitions RF–scene alignment and independent geometry-based labeling are required."
+      },
+      {
+       "source": "S116",
+       "quote": "MVRGD-MUE [ 112 ] Simulated raw GNSS, vehicle truth, IMU/odometry, 3D ray-traced propagation LOS/LOS+MP/NLOS states known from simulated propagation paths Controlled classification with explicit propagation/path truth Fidelity depends on geometry, propagation, and receiver models."
+      },
+      {
+       "source": "S116",
+       "quote": "Xu et al. Benchmark [ 50 ] Measurement-level GNSS features across four scenarios Provided LOS/multipath/NLOS benchmark targets across four scenarios Standardized evaluation of learning-based multipath/NLOS classification and mitigation Evaluation is confined to four benchmark scenarios."
+      }
+     ]
+    },
+    {
+     "heading": "没有可横向归并的一套训练、测试或计时",
+     "kind": "unknown",
+     "text": "已读取的综述版本没有给出本文统一的训练、验证和测试划分，也没有统一实现和调优预算下的基线、端侧计时或复现仓库。表 II 比较算法范式，表 III 指向准备好的基准和可再标注资源；真正复现实验须回到相应数据与原研究核对切分、协议和许可。",
+     "evidence": [
+      {
+       "source": "S32",
+       "quote": "without claiming to introduce a new quantitative cross-method benchmark."
+      },
+      {
+       "source": "S104",
+       "quote": "Detailed numerical performance should be interpreted in the context of each study’s receiver hardware and dataset."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "证据最一致的结果是部署权衡，而非统一提升率",
+     "kind": "reported",
+     "text": "作者的定性对照认为，可直接用观测量的规则或传统机器学习具有低额外硬件负担，但特征分布会重叠；相关域和阵列离传播机制更近，却要求接收机内部输出或标定硬件。带地图的走廊和已有相机或 LiDAR 的平台选择不同。图中方法位置不是可取差、取平均或排序的准确率。",
+     "evidence": [
+      {
+       "source": "S194",
+       "quote": "Reported performance should therefore be interpreted together with the validation setting, receiver hardware, data access, and assumptions of each study rather than compared directly across different experimental regimes. Fig. 11 provides a qualitative design-space view, positioning the major method families across hardware/deployment burden and data/prior dependence ."
+      },
+      {
+       "source": "S195",
+       "quote": "signal-observable rules and classical machine learning on engineered features remain attractive because they require no additional exteroceptive infrastructure and operate on the standard GNSS measurement stream. They are therefore well suited to low-latency measurement screening, exclusion, or reweighting."
+      },
+      {
+       "source": "S196",
+       "quote": "Correlator-domain learning, antenna arrays, and polarization-aware methods are more directly tied to propagation mechanisms than scalar observables. Their main limitation is architectural access: they often require receiver-internal data, software-defined radio architectures, calibrated RF hardware, or multi-antenna installations."
+      },
+      {
+       "source": "S188",
+       "quote": "The axes reflect implementation burden and dependence on labeled data or environmental priors; positions indicate relative methodological trade-offs rather than quantitative performance rankings."
+      }
+     ]
+    },
+    {
+     "heading": "文献中的相对收益只在原条件下成立",
+     "kind": "reported",
+     "text": "综述转述的都市评测中，按实测载噪密度加权可优于仅按仰角加权；这不是证明载噪密度能把 LOS 与 NLOS 分开，也没有在该段报告统一的差值或置信区间。GPU 像素着色射线追踪的另一个对照讲的是反射次数增加时的计算增长，不是定位精度提升；场景图则只展示一次逐星几何判决。",
+     "evidence": [
+      {
+       "source": "S93",
+       "quote": "In such challenging conditions, observation weighting models that rely on measured signal strength ( C/N_{0} ) have been shown to outperform purely elevation-based weighting in evaluated urban scenarios [ 80 , 88 ] ."
+      },
+      {
+       "source": "S76",
+       "quote": "However, a clear separation is not always guaranteed; LOS and NLOS C/N_{0} distributions frequently overlap, particularly in dense urban canyons where NLOS signals may transiently exhibit LOS-like power levels or where constructive multipath interference artificially boosts the observed signal strength [ 74 , 78 , 79 , 4 ] ."
+      },
+      {
+       "source": "S152",
+       "quote": "PSBRT reduces the computational growth from exponential in conventional mirror-based implementations to approximately linear with the maximum considered number of reflections."
+      },
+      {
+       "source": "S135",
+       "quote": "These remain geometry-derived visibility labels rather than radio frequency (RF) ground truth, since sky-visible signals may still contain multipath and blocked directions do not necessarily imply that a reflected signal is being tracked."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "作者明确的边界：观测丰富也会引入新的不确定性",
+     "kind": "reported",
+     "text": "重复路线上的高分不代表能迁移到新城市、接收机或运动方式。地图陈旧、掩膜边缘配准误差以及复杂场景下不同标签定义的冲突，都可能让多模态输出过于自信。作者建议从硬标签过渡到逐观测校准的置信度，并把标注质量与实时集成独立检验。",
+     "evidence": [
+      {
+       "source": "S202",
+       "quote": "robust transfer across cities, receivers, constellations, and mobility modes with little or no relabeling remains an open challenge."
+      },
+      {
+       "source": "S203",
+       "quote": "the broader challenge is to produce calibrated measurement-level reliability that can directly support weighting, exclusion, correction, and integrity monitoring."
+      },
+      {
+       "source": "S205",
+       "quote": "Reception-state labels derived from 3D maps, cameras, LiDAR, ray tracing, or GNSS measurements do not always represent identical physical conditions and can disagree in complex scenes [ 100 ] . Future benchmarks should therefore standardize state definitions and labeling uncertainty and emphasize cross-city, cross-receiver, and cross-platform evaluation rather than only within-dataset accuracy."
+      },
+      {
+       "source": "S206",
+       "quote": "map-based approaches additionally require mechanisms for detecting and updating stale environmental information [ 167 , 116 ] ."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：同一数据既造标签又进模型时，结果解释什么？",
+     "kind": "proposal",
+     "text": "若用同一幅掩膜同时生成测试标签和验收同源相机模型，高一致率更多反映几何自洽，不能独立验证 RF 接收状态。若残差来自包含待测卫星的定位解，误差还可能被钟差或位姿吸收。建议报告独立核查、留出待测星生成残差，再把遮挡边缘和缺模态分开统计，而不是事后只挑容易历元。",
+     "evidence": [
+      {
+       "source": "S111",
+       "quote": "Such geometry- and perception-based supervision is attractive because it avoids defining reception state from the same signal features used by the classifier."
+      },
+      {
+       "source": "S82",
+       "quote": "When several NLOS measurements are simultaneously present, their biases can be partially absorbed into the estimated position and clock states, reducing residual separability and weakening conventional consistency checks [ 80 , 84 ] ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "可做的对照：同一接收机管线，整段留出路线和设备",
+     "kind": "proposal",
+     "text": "固定星历、后端与条件分组，在 UrbanNav 的可标注序列试做三支：仰角或载噪密度规则、只输入可部署观测量的学习模型、再融合在线可见性证据的版本。按完整行程划分训练、验证和测试，先在训练段拟合预处理再锁定参数，再留一类设备做外测；不要随机拆相邻滑窗。几何标签和 RF 传播状态分开验收，边缘设置不确定类。",
+     "evidence": []
+    },
+    {
+     "heading": "交付分类、完好性代理与代价三份结果",
+     "kind": "proposal",
+     "text": "逐星交付混淆矩阵、宏平均 F1、概率可靠性图与 Brier 分数；定位侧用同一参考轨迹报告水平误差分位数、可解率及误剔除导致的卫星几何退化。计算侧记录端侧耗时分布和降级触发次数。按行程成组计算区间，并分别测试地图过期、低光或传感器掉线；这些是待检验指标，不是原文报告的收益。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S1.E3.m1",
+   "refs": [
+    "M3"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>Z</mi><mo>⁡</mo><mrow><mo>(</mo><mi>ϵ</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mrow><msub><mi>g</mi><mn>0</mn></msub><mo>​</mo><msub><mi mathvariant=\"normal\">Γ</mi><mi>c</mi></msub><mo>​</mo><mrow><mo>(</mo><mi>ϵ</mi><mo>)</mo></mrow></mrow><mo>+</mo><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><msub><mi>g</mi><mi>i</mi></msub><mo>​</mo><msup><mi>e</mi><mrow><mi>j</mi><mo>​</mo><msub><mi>θ</mi><mi>i</mi></msub></mrow></msup><mo>​</mo><msub><mi mathvariant=\"normal\">Γ</mi><mi>c</mi></msub><mo>​</mo><mrow><mo>(</mo><mrow><mi>ϵ</mi><mo>−</mo><msub><mi mathvariant=\"normal\">Δ</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "Z(\\epsilon)=g_{0}\\Gamma_{c}(\\epsilon)+\\sum_{i=1}^{N}g_{i}e^{j\\theta_{i}}\\Gamma_{c}(\\epsilon-\\Delta_{i}),",
+   "title": "直达与迟到分量叠加成复相关峰",
+   "meaning": "每条间接分量把码自相关曲线移到其相对码延迟，并给它一个复相位再相加。教学例（非原文数据）：若某个取样点的直达项为 1、反射项为 +0.5j，则复输出为 1+0.5j，平方模 1.25；若将反射项改为同幅同相 +0.5，平方模成为 2.25。只知道分量功率不能确定合成结果。",
+   "caution": "原式未列显式噪声项；这是相关域模型，不要直接套到观测量接口。以直达为参照的码延迟在直达消失时未必能从数据独立恢复。",
+   "symbols": [
+    {
+     "symbol": "Z(ε)",
+     "text": "码偏移处的复相关器输出，幅值单位随接收机归一化约定。"
+    },
+    {
+     "symbol": "Γc",
+     "text": "码自相关函数，其自变量为码片偏移。"
+    },
+    {
+     "symbol": "ε、Δᵢ",
+     "text": "跟踪误差和第 i 条间接路径相对直达的超额延迟，均以码片为单位。"
+    },
+    {
+     "symbol": "g₀、gᵢ、θᵢ",
+     "text": "直达、间接分量的幅度和间接分量相对直达的载波相位，θᵢ 用弧度。"
+    },
+    {
+     "symbol": "N、j",
+     "text": "间接分量数与虚数单位。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S1.E4.m1",
+   "refs": [
+    "M4"
+   ],
+   "mathml": "<mrow><mrow><mrow><msub><mi>D</mi><mi>DLL</mi></msub><mo>​</mo><mrow><mo>(</mo><mi>ϵ</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><msup><mrow><mo>|</mo><mrow><mpadded><mi>Z</mi></mpadded><mo>⁡</mo><mrow><mo>(</mo><mrow><mi>ϵ</mi><mo>+</mo><mfrac><mi>d</mi><mn>2</mn></mfrac></mrow><mo>)</mo></mrow></mrow><mo>|</mo></mrow><mn>2</mn></msup><mo>−</mo><msup><mrow><mo>|</mo><mrow><mpadded><mi>Z</mi></mpadded><mo>⁡</mo><mrow><mo>(</mo><mrow><mi>ϵ</mi><mo>−</mo><mfrac><mi>d</mi><mn>2</mn></mfrac></mrow><mo>)</mo></mrow></mrow><mo>|</mo></mrow><mn>2</mn></msup></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "D_{\\mathrm{DLL}}(\\epsilon)=\\left|Z\\!\\left(\\epsilon+\\frac{d}{2}\\right)\\right|^{2}-\\left|Z\\!\\left(\\epsilon-\\frac{d}{2}\\right)\\right|^{2}.",
+   "title": "用早迟功率之差刻画 DLL 零点",
+   "meaning": "教学例（非原文数据）：同一候选码偏移处，若两侧相关输出幅值都是 0.5，早减迟为 0；若按式中加、减偏移的顺序分别为 0.6 和 0.4，平方模之差为 0.36−0.16=0.20，此时不在零点。反射令曲线形状变化，跟踪点不必仍在直达时延上。",
+   "caution": "不同接收机早迟符号、时间约定或前端带宽可能不同，先核对本机鉴别器和稳定零点；本式是功率差，不是跟踪章节把同相分量除以 prompt 的归一化指标。",
+   "symbols": [
+    {
+     "symbol": "D_DLL(ε)",
+     "text": "非相干早迟功率鉴别器，单位是相关输出幅值的平方。"
+    },
+    {
+     "symbol": "ε、d",
+     "text": "候选码跟踪误差与早、迟抽头的全间距，单位为码片；各自距中心半个 d。"
+    },
+    {
+     "symbol": "Z",
+     "text": "复相关输出；式中取平方模而不是取实部。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S1.E5.m1",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi mathvariant=\"normal\">Δ</mi><mo>​</mo><msub><mi>ρ</mi><mi>MP</mi></msub></mrow><mo>=</mo><mrow><mi>c</mi><mo>​</mo><msub><mi>T</mi><mi>c</mi></msub><mo>​</mo><msub><mover><mi>ϵ</mi><mo>^</mo></mover><mi>MP</mi></msub></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\Delta\\rho_{\\mathrm{MP}}=cT_{c}\\,\\widehat{\\epsilon}_{\\mathrm{MP}},",
+   "title": "把码跟踪点位移换成米",
+   "meaning": "教学例（非原文数据）：若每码片对应传播距离 300 m，稳定跟踪点相对直达参考偏移 −0.02 码片，则伪距误差为 −6 m。负号指跟踪点位移，不意味着反射走了一条比直达更短的路径。",
+   "caution": "不要混用载波相位与码跟踪量：文中另用 prompt 复相关器的相角，并用载波波长把相位扰动换成等效距离。这里的码片周期取决于所用码。",
+   "symbols": [
+    {
+     "symbol": "Δρ_MP",
+     "text": "多径引起的码伪距偏差，米。"
+    },
+    {
+     "symbol": "c、T_c",
+     "text": "真空光速（米每秒）和单码片周期（秒每码片）。"
+    },
+    {
+     "symbol": "ε̂_MP",
+     "text": "鉴别器的稳定零点相对直达的码偏移，码片。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S4.E17.m1",
+   "refs": [
+    "M17"
+   ],
+   "mathml": "<mrow><mrow><mrow><mrow><mi>𝐱</mi><mo>⁡</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>𝐱</mi><mi>r</mi></msub><mo>+</mo><mrow><mi>t</mi><mo>​</mo><msub><mi>𝐮</mi><mi>s</mi></msub></mrow></mrow></mrow><mo>,</mo><mrow><mi>t</mi><mo>≥</mo><mn>0</mn></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\mathbf{x}(t)=\\mathbf{x}_{r}+t\\mathbf{u}_{s},\\qquad t\\geq 0,",
+   "title": "从天线沿卫星方向查询空间",
+   "meaning": "教学例（非原文数据）：局部直角坐标下，接收天线在 (2, 0, 1) m，卫星方向为 (0, 0, 1)，取沿程距离 5 m，查询位置就是 (2, 0, 6) m。由此可在显式地图判求交，也可在连续场取样。",
+   "caution": "t 是空间距离，不是接收时间；星历、天线和地图必须表达在相容坐标框架下。现场位姿、航向及时间同步的不确定性会移动查询方向。",
+   "symbols": [
+    {
+     "symbol": "x_r、x(t)",
+     "text": "接收天线位置与射线上查询点，均为空间三维位置。"
+    },
+    {
+     "symbol": "u_s",
+     "text": "指向卫星 s 的三维单位向量。"
+    },
+    {
+     "symbol": "t",
+     "text": "非负沿程距离；坐标以米计时 t 也以米计。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文 · S4.E18.m1",
+   "refs": [
+    "M18"
+   ],
+   "mathml": "<mrow><mi>T</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo><mpadded><mi>exp</mi></mpadded><mrow><mo>(</mo><mo>−</mo><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mi>σ</mi><mrow><mo>(</mo><mi>𝐱</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow><mo>)</mo></mrow><mi>d</mi><mi>s</mi><mo>)</mo></mrow><mo>,</mo></mrow>",
+   "accessible": "T(t)=\\exp\\!\\left(-\\int_{0}^{t}\\sigma(\\mathbf{x}(s))\\,ds\\right),",
+   "title": "把沿线学习密度转为软透射量",
+   "meaning": "教学例（非原文数据）：若连续 2 m 内的密度恒为每米 0.5，则累积为无量纲的 1，透射量约为 0.37。它描述场模型给的通透程度；把它变成分类或观测权重仍要外部校准。",
+   "caution": "积分要与空间尺度和采样范围一致；低密度可能来自训练影像覆盖不足。此式源于连续场透射，不是 GNSS 频段的实测传播损耗，也不输出反射延迟。",
+   "symbols": [
+    {
+     "symbol": "T(t)",
+     "text": "到沿程距离 t 的累积无量纲透射量，非负密度下在零与一之间。"
+    },
+    {
+     "symbol": "σ(x(s))",
+     "text": "射线位置上的学得密度；若距离以米计，单位为每米。"
+    },
+    {
+     "symbol": "s、t",
+     "text": "沿程积分变量与积分上限，和卫星标号的下标 s 不同。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 9,
+   "reference": "F9",
+   "section": "method",
+   "src": "https://arxiv.org/html/2610.34468v1/Geometric_LOS_Screening_redesigned.svg",
+   "width": 336,
+   "height": 609,
+   "caption": "Fig. 9 : Conceptual illustration of geometric GNSS visibility screening. ( a ) Satellite–receiver rays are tested for intersections with a 3D urban model. ( b ) The same geometry defines a sky mask, where projected satellite directions are classified relative to the building skyline.",
+   "title": "同一城区几何的两种画法",
+   "alt": "上面以街谷建筑检查 Rx 到卫星的射线交会；下面把同一标记投到带方位和仰角圈的天空图，蓝点为直达候选、橙色叉为遮挡。",
+   "caution": "概念图，不是外场评估。橙叉仅说明该几何假设下直达被挡；不表示该卫星一定可跟踪，更没有测出反射的路径、偏差或筛选准确率。",
+   "reading_steps": [
+    {
+     "title": "先看 (a) 从哪个位置发射查询射线",
+     "text": "Rx 位于街道上。蓝色实线指向 S1、S4、S6；橙色虚线表示 S2、S3、S5、S7 的直达路径遇到楼体。先找 Rx 和楼体相交关系，不按画面上卫星图标的高低判别。"
+    },
+    {
+     "title": "再看 (b) 如何用天空掩膜复查",
+     "text": "北为 0°，东为 90°；仰角圈从中央向外降低，图示 60° 和 30°。蓝点位于浅色开放区，S5 虽在北向狭长缺口内的方位上，却落在天际线外侧的灰色遮挡区。这里没有功率或概率色标。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 7,
+   "reference": "F7",
+   "section": "method",
+   "src": "https://arxiv.org/html/2610.34468v1/Signal_Based_Urban_Mapping_Illustration.svg",
+   "width": 680,
+   "height": 381,
+   "caption": "Fig. 7 : Conceptual pipeline of crowdsourced signal-based mapping. In contrast to conventional 3DMA GNSS, which uses an existing environmental model to predict satellite visibility, the inverted paradigm aggregates observed GNSS reception states (e.g., LOS, NLOS, or blocked) from multiple users to infer or update the surrounding urban geometry.",
+   "title": "用接收状态反推地图，方向倒过来",
+   "alt": "左侧多台手机在街区观测卫星，绿色直达、红色虚线遮挡、橙色折线反射；右侧先聚合多用户多历元观测，再估计建筑几何并更新地图。",
+   "caution": "作者概念图，没有时标、空间尺度、重建误差或吞吐量。卫星几何覆盖差、状态误判或短时遮挡都可能误导地图更新，不可读作自动重建精度的结果。",
+   "reading_steps": [
+    {
+     "title": "先看左图三种路径",
+     "text": "绿线到达接收机；红色虚线在蓝色待补绘建筑处被截断；橙色折线路径由建筑表面转向另一台手机。线色表示传播假设，不是信号功率。"
+    },
+    {
+     "title": "顺箭头先聚合，再估计几何",
+     "text": "右下框的多用户、多历元数据先做接收状态分类，并把模式证据交给迭代几何估计；右上框的输出是待更新的地图。与先拿地图预测可见性的常规方向相反。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 6,
+   "reference": "F6",
+   "section": "results",
+   "src": "https://arxiv.org/html/2610.34468v1/Camera_Aided_Visibility_Real_Scene.png",
+   "width": 860,
+   "height": 477,
+   "caption": "Fig. 6 : Illustration of image-derived GNSS visibility screening from georeferenced urban imagery. ( a ) A City of Amsterdam Open Panorama image at Muntplein, Amsterdam, reprojected into a north-up hemispherical sky view. ( b ) The resulting sky/occluder mask is queried with representative satellite directions to classify candidate direct-path visibility and blockage. Imagery: Gemeente Amsterdam, Kernregistratie Panoramabeelden, CC BY 4.0; reprojected and processed by the authors.",
+   "title": "阿姆斯特丹一帧：天空掩膜给出几何候选",
+   "alt": "Muntplein 街景重投影的两幅半球图，左为北朝上的街景，右为蓝色天空与橙棕遮挡掩膜，其上标注 GPS 卫星方向。",
+   "caution": "照片是实景，标记是代表性卫星方向的几何筛查示例，不是同历元 RF 真值、定量对照或定位误差图。即使视线落在天空也可有多径，落在遮挡处也未必跟踪到间接分量。",
+   "reading_steps": [
+    {
+     "title": "先在 (a) 定方向与几何",
+     "text": "北在上、东在右，天顶在圆心附近；两侧楼体把天空挤成狭长带。对照 (b) 的蓝色天空和橙棕色遮挡，颜色是离散区域类别，没有连续色标。"
+    },
+    {
+     "title": "再读 (b) 的候选标记与边界",
+     "text": "G06 和 G07 的空心绿圈在蓝区；G04 和 G20 的红叉在建筑区。G09 紧邻右侧天际线，对姿态、分割或配准误差更敏感。图未提供逐点角度刻度，不从像素位置估计精确仰角。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Abdelgabar Ahmed、Tarig Ballal、Nour Kouzayha、Tareq Y. Al-Naffouri",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T03:19:12Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "4df203465e60ce832271033984ac7f8bfb5abf6f4136aa9281015da0de8b0e97",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。 本版本为 arXiv 非独占分发许可，不是整篇 CC BY。图 6 的底图单独标明来自 Gemeente Amsterdam 的 Kernregistratie Panoramabeelden，CC BY 4.0，由原作者重新投影及处理；此说明不外推到其他图或全文。"
+}

@@ -238,7 +238,8 @@ def svg_dimensions(content):
         if count > 200000 or node.tag not in SVG_TAGS:
             raise SourceUnavailable("unsupported_original_image")
         for key, value in node.attrs.items():
-            if key.lower().startswith("on") or "url(" in value.lower() or (key in ("href", "xlink:href") and not re.fullmatch(r"#[A-Za-z0-9_.:-]+", value)):
+            local_clip = key == "clip-path" and re.fullmatch(r"url\(#[A-Za-z0-9_.:-]+\)", value)
+            if key.lower().startswith("on") or ("url(" in value.lower() and not local_clip) or (key in ("href", "xlink:href") and not re.fullmatch(r"#[A-Za-z0-9_.:-]+", value)):
                 raise SourceUnavailable("unsupported_original_image")
     if "viewbox" in root.attrs:
         try:

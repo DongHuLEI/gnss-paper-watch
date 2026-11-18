@@ -265,10 +265,15 @@
   },
   "2610.34468": {
    "paper_id": "2610.34468",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T03:19:12Z",
+   "completed_at": "2026-11-18T03:19:12Z",
+   "source_sha256": "4df203465e60ce832271033984ac7f8bfb5abf6f4136aa9281015da0de8b0e97",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.00316": {
    "paper_id": "2611.00316",
@@ -501,6 +506,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T02:31:02Z",
+ "updated_at": "2026-11-18T03:19:12Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
