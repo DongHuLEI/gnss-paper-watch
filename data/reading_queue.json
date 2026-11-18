@@ -655,17 +655,39 @@
   },
   "2611.15717": {
    "paper_id": "2611.15717",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:23:28Z",
+   "completed_at": "2026-11-18T06:23:28Z",
+   "source_version": "v1",
+   "source_url": "https://arxiv.org/pdf/2611.15717v1",
+   "source_status": "versioned_pdf_cc_licensed_complete_original_figures",
+   "source_sha256": "0af146a18e96923bab372d44494b61581ab1335a0bc1eda3c9900b519e1f59be",
+   "source_pdf_sha256": "0af146a18e96923bab372d44494b61581ab1335a0bc1eda3c9900b519e1f59be",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2611.15717v1",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.16246": {
    "paper_id": "2611.16246",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:23:28Z",
+   "completed_at": "2026-11-18T06:23:28Z",
+   "source_version": "v1",
+   "source_url": "https://arxiv.org/html/2611.16246v1",
+   "source_status": "versioned_html_with_live_official_original_figures",
+   "source_sha256": "afdd95ed4d994281a510263401be0ad5343230f75ddc9f49c0ecf951a9b8eadc",
+   "source_pdf_sha256": "d5121aeb0b0f383d43f0e4e64a9e327351d557fe427520bc903646aaace00499",
+   "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2611.16246v1",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.16856": {
    "paper_id": "2611.16856",
@@ -696,6 +718,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T06:17:15Z",
+ "updated_at": "2026-11-18T06:23:28Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
