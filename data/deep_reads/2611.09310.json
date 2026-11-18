@@ -1,0 +1,561 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.09310",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/pdf/2611.09310v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "印度次大陆夜间 MSTID 能到多南？从偶发 E 层足迹看 E–F 耦合",
+ "dek": "印度高太阳活动期的夜间扰动向赤道传播，南界随事件而变。密集 GNSS 显示波前，掩星和新德里测高仪辨识偶发 E 层；地磁映射后的 Es 最南足迹与波前南界同向变化，背景电子含量未显示清楚关联。结果支持层间耦合解释，但不等于直接测得极化电场。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读固定版本官方原文；本次不是独立 API 账单任务。读取 arXiv v1 的官方 PDF 22 页（版本化 HTML 返回 404），覆盖正文、图1–5 及图注、内嵌公式、数据声明和参考文献；该 PDF 无表格或内附附录。正文另指向补图 S1–S19 与 Movie S1：它们未随该固定版本一同提供，arXiv 未列这两类附属文件，作者所引 Zenodo 数据包仅有观测数据和说明，未取得这两类补件，未把它们列为核读证据。未运行作者代码或独立复现实验，未经过人工审稿。",
+ "references": {
+  "S7": {
+   "label": "原文 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S2": {
+   "label": "原文 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S12": {
+   "label": "原文 · PDF 第 12 页",
+   "anchor": "page=12"
+  },
+  "S4": {
+   "label": "原文 · PDF 第 4 页",
+   "anchor": "page=4"
+  },
+  "S5": {
+   "label": "原文 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "S6": {
+   "label": "原文 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S11": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S13": {
+   "label": "原文 · PDF 第 13 页",
+   "anchor": "page=13"
+  },
+  "S14": {
+   "label": "原文 · PDF 第 14 页",
+   "anchor": "page=14"
+  },
+  "S17": {
+   "label": "原文 · PDF 第 17 页",
+   "anchor": "page=17"
+  },
+  "S21": {
+   "label": "原文 · PDF 第 21 页",
+   "anchor": "page=21"
+  },
+  "S10": {
+   "label": "原文 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S16": {
+   "label": "原文 · PDF 第 16 页",
+   "anchor": "page=16"
+  },
+  "M1": {
+   "label": "原公式 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "M2": {
+   "label": "原公式 · PDF 第 13 页",
+   "anchor": "page=13"
+  },
+  "F2": {
+   "label": "原文图 Fig.2 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "F3": {
+   "label": "原文图 Fig.3 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "F5": {
+   "label": "原文图 Fig.5 · PDF 第 15 页",
+   "anchor": "page=15"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "用观测回答「波前能走多远」",
+     "kind": "reported",
+     "text": "作者追踪印度次大陆夜间中尺度行进式电离层扰动（MSTID）的波前，把每晚视场内到达的最南地理纬度作为结果，再分别与当地背景 VTEC、沿磁力线映射的 sporadic-E（Es）足迹比较。样本是高太阳活动期的印度区域事件，而不是一张全球发生率图。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "Here, the equatorward extent of a MSTID event is defined as the southernmost geographic latitude reached by its wavefronts within the observational field-of-view during that night."
+      },
+      {
+       "source": "S2",
+       "quote": "We have analyzed multiple MSTID events using total electron content (TEC) measurements from a dense network of dual- frequency GNSS receivers across India, GNSS radio occultation (RO) profiles, and ionosonde observations from New Delhi during May-July 2025, a high solar activity period."
+      }
+     ]
+    },
+    {
+     "heading": "同一季节里，波前停止位置并不固定",
+     "kind": "reported",
+     "text": "作者汇总 21 次事件，波前南界约在 17°N 至 25°N，所见波前呈西北—东南走向且向西南传播。背景 VTEC 的局地比较没有检出显著关联，映射后的 Es 南界在有可用 RO 的子样本中则与波前南界同向变化；这不是对磁力线电场的直接测量。",
+     "evidence": [
+      {
+       "source": "S12",
+       "quote": "We analyzed 21 MSTID events during May-July 2025 which exhibited northwest-southeast orientation and southwestward propagation. Their preferential alignment and propagation direction were consistent with the characteristic signatures of MSTIDs generated through the Perkins instability (Perkins, 1973; Hamza, 1999). However, the southernmost latitude reached by the MSTID wavefronts varied across these events from ~17°N to ~25°N geographic latitude."
+      },
+      {
+       "source": "S2",
+       "quote": "Their low-latitude extension showed no significant correlation with background TEC, but was positively correlated with the geomagnetically mapped southernmost latitude of sporadic-E (Es) layers identified from GNSS-RO measurements."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "仅靠 F 区不稳定性，解释不了什么",
+     "kind": "reported",
+     "text": "Perkins instability 能解释典型波前方向和极化电场，但作者指出其单独线性增长偏慢。风切变产生的薄 Es 层可带有极化电场，沿地磁场映射后给 F 区扰动提供正反馈。生成阶段存在耦合，不自动回答传播阶段波前会在哪里衰减。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "Although, Perkins instability explains the preferential alignment and associated polarization electric fields of nighttime MSTIDs, its inherently low linear growth rate (~10-4 s-1) remains a major limitation in explaining the development of MSTIDs (Kelley & Makela, 2001; Narayanan et al., 2018; Otsuka et al., 2007). Theoretical and observational studies have demonstrated that E-F region coupling significantly enhances this low linear growth rate of Perkins instability by providing positive feedback"
+      },
+      {
+       "source": "S4",
+       "quote": "These polarization electric fields can map along geomagnetic field lines into the F-region, thereby reinforcing the Perkins instability and promoting the growth of MSTDs (Narayanan et al., 2018; Otsuka et al., 2007; Patgiri et al., 2024c)."
+      }
+     ]
+    },
+    {
+     "heading": "把替代解释放到同一批夜晚检验",
+     "kind": "reported",
+     "text": "作者归纳的既有解释包括赤道电离异常（EIA）峰附近的阻力、低背景密度，以及午夜亮度波等条件。本文的增量是对照波前南界与磁映射 Es 南界，并与同期背景 VTEC 作比较；不是声称首次发现 Es 与 MSTID 共同发生，也不是一次全面查新。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "Shiokawa et al. (2002) suggested that the usually higher ion drag in the equatorial ionization"
+      },
+      {
+       "source": "S5",
+       "quote": "reported that solar minima conditions favor low-latitude ingression of MSTIDs due to reduced background electron density and lower ion drag. Narayanan et al. (2014) and Sivakandan et al. (2019) suggested that a weak EIA, absence of midnight brightness wave (MBW), and solar minimum conditions can play a role in the propagation of MSTIDs to low-latitudes."
+      },
+      {
+       "source": "S5",
+       "quote": "However, potential role of ES-layers and the associated E-F region coupling in facilitating the propagation of MSTIDs to low-latitudes has not been explicitly explored and reported in the literature."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先用 DVTEC 定波前，再用 VTEC 描背景",
+     "kind": "reported",
+     "text": "双频 GNSS 相位与伪距按 30 秒采样，按 350 km 薄壳求斜向与垂直 TEC，截去低于 35° 的观测。VTEC 用于背景对照；减去 1 小时居中滑均值得 DVTEC，按 0.25° × 0.25° 格点成图，再作时域聚合及空间移动均值，跟踪交替波带而不是读绝对电子含量的峰。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "Dual-frequency carrier phase and pseudo-range measurements were sampled at a 30-second interval, which were processed to extract Slant and Vertical Total Electron Content (STEC and VTEC) following the methodology of Seemala (2023), assuming an Ionospheric Pierce Point (IPP) altitude of 350 km. An elevation cutoff of 35° was applied to mitigate errors associated with the thin-shell approximation."
+      },
+      {
+       "source": "S5",
+       "quote": "We computed detrended VTEC (DVTEC) by subtracting the 1-hour running average (±30 min) from the background VTEC. The calculated DVTEC values were then spatially gridded at a 0.25°×0.25° resolution."
+      },
+      {
+       "source": "S6",
+       "quote": "the data gaps, the 30s VTEC and DVTEC data were aggregated into a 3-minute average (±90s) and interpolated via a 2D moving mean across a 3×3 window."
+      }
+     ]
+    },
+    {
+     "heading": "然后把探测位置映到同一高度",
+     "kind": "reported",
+     "text": "多星座掩星的 GPS L1 信噪比先按 20 km 背景窗归一化，再计算 1 km 滑动标准差作为幅度闪烁指标；用限定高度内的阈值识别薄层。AACGM-v2 把 E 区切点沿地磁场映到 350 km 穿刺点高度。只有这个足迹才和 F 区波前比较，不能把切点原纬度当足迹。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "The presence of Es-layers was detected using GPS L1 signal-to-noise ratio (SNR) profiles obtained from the RO measurements of COSMIC-2, SPIRE, MetOp-B and C, following the techniques described by Patgiri et al. (2024b), Tsai et al. (2018) and Yamazaki et al. (2022)."
+      },
+      {
+       "source": "S6",
+       "quote": "The RO-SNR profiles were normalized against a 20 km running mean background, and we computed their 1 km running standard deviation to derive the amplitude scintillation index (𝑆4) (Patgiri et al., 2024b). An Es-layer was confirmed when 𝑆4 ≥ 0.2 strictly within 90 to 120 km altitude (Tsai et al., 2018)."
+      },
+      {
+       "source": "S6",
+       "quote": "To establish the spatial relationship governing E-F region coupling, the E-region RO tangent point locations were mapped to the 350 km IPP altitude along geomagnetic field lines using the Altitude-Adjusted Corrected Geomagnetic version 2 (AACGM-v2) model"
+      }
+     ]
+    },
+    {
+     "heading": "新德里电离图是时间互证，不是经纬地图",
+     "kind": "interpretation",
+     "text": "RO 是离散抽样，作者另查新德里测高仪的电离图，并用近 100 km 虚高处的遮蔽型回波辨识 Es。这个地面观测补足同地时间连续性，不能代表整个印度区域，更不能用一个站推断低纬任意无覆盖格点有或没有薄层。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "Since the RO profiles only provide intermittent observations in space and time, for continuous ground-based verification of Es-layer occurrence, we also utilized ionograms from New Delhi (28.6°N, 77.2°E; Upadhayaya & Mahajan, 2013) whose location is marked by a black asterisk in Figure 1a. The corresponding ionograms were visually inspected to confirm the presence or absence of Es-layers, identified by a characteristic blanketing type layer near 100 km virtual height."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "把识别规则和物理解释分开",
+     "kind": "reported",
+     "text": "掩星判别式是观测筛选：归一化振幅剖面起伏达到门槛仍须发生在规定高度窗里。图上的红色闪烁曲线用上方刻度，蓝色归一化信噪比用下方刻度；不能拿两种曲线交叉的位置代替阈值。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "The RO-SNR profiles were normalized against a 20 km running mean background, and we computed their 1 km running standard deviation to derive the amplitude scintillation index (𝑆4) (Patgiri et al., 2024b). An Es-layer was confirmed when 𝑆4 ≥ 0.2 strictly within 90 to 120 km altitude (Tsai et al., 2018)."
+      },
+      {
+       "source": "S11",
+       "quote": "The blue and red curves in (b, d, f, h, j, & l) denote the corresponding profiles of normalized SNR and 𝑆4, respectively."
+      }
+     ]
+    },
+    {
+     "heading": "有效电场式不负责算边界",
+     "kind": "interpretation",
+     "text": "讨论中的有效电场把背景发电机电场与中性风在地磁场中的运动项相加。作者用它解释 Perkins 增长为什么会受电场驱动及场线积分碰撞项限制，但文中并未用拟合这条公式来确定最南纬度；原式和检测阈值都直接取自该版 PDF 的公式附件。",
+     "evidence": [
+      {
+       "source": "S13",
+       "quote": "It is closely linked to growth rate of Perkins instability, that is directly proportional to effective electric field at the F-region (𝑬∗= 𝑬+ 𝑼× 𝑩) and inversely proportional to the density weighted field-line-integrated ion-neutral collision frequency (⟨𝜈𝑖𝑛⟩) (Hamza, 1999; Otsuka et al., 2007, 2021a; Perkins, 1973). Here, 𝑬 and U are the F-region dynamo electric field and thermospheric neutral wind, respectively."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "已发生事件内的配对，不是事件预报验证",
+     "kind": "reported",
+     "text": "样本为 2025 年五月至七月地磁安静时段的 21 次夜间事件，每晚分析窗口是 13:00–24:00 UTC。背景比较在波前最南位置对应时刻取 5° × 5° 的均值；Es 比较只对在波前达到南界时有 RO 观测的 17 次做。原文并无预测训练集和测试集切分。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "Our analysis focuses specifically on nighttime MSTIDs during the high solar activity period of May-July 2025."
+      },
+      {
+       "source": "S6",
+       "quote": "In the present study, we have analyzed 21 different MSTID events in geomagnetically quiet conditions and presented two nights with contrasting ingression: 20 May 2025 (KP ~3) and 27 May 2025 (KP ~2). The remaining 19 events are presented in the supplementary material (Figures S1-S19). For all the events, the analysis covers the period from 13:00 to 24:00 UTC, corresponding to 18:30-05:30 IST (IST = UTC + 5.5 h)."
+      },
+      {
+       "source": "S7",
+       "quote": "The scatter plot in Figure 2 also shows no clear correlation (r ~0.1; p ~0.66) between the MSTIDs’ equatorward extent and the mean VTEC within a 5°×5° window around that location and at the corresponding time."
+      },
+      {
+       "source": "S14",
+       "quote": "For 17 out of the 21 events, the RO observations were available when the MSTIDs reached their southernmost extent. The latitude of this extent was positively correlated (r ~0.6; p ~0.01) with the latitude of the southernmost observed Es-layer’s footprint at 350 km (Figure 5c)."
+      }
+     ]
+    },
+    {
+     "heading": "从可公开的数据开始，不假设可直接拿原始接收机资料",
+     "kind": "reported",
+     "text": "论文指明 SOI-CORS 原始观测经许可取得；多任务掩星来源是 UCAR CDAAC，另列 Seemala TEC 软件和 aacgmv2 包。作者把处理后的 VTEC、DVTEC、掩星剖面存于 Zenodo（DOI 10.5281/zenodo.23971105）；此数据入口不等于现成的图件生成流水线。",
+     "evidence": [
+      {
+       "source": "S17",
+       "quote": "The Survey of India, Continuously Operating Reference Stations (SOI-CORS) data is obtained with due permission from the ftp server of CORS (ftp-cors.surveyofindia.gov.in). Additional information about the SOI-CORS network is publicly accessible through the website at https://cors.surveyofindia.gov.in. The GPS-TEC processing software utilized for this study, developed by G. Seemala, is freely available at https://seemala.blogspot.com/."
+      },
+      {
+       "source": "S17",
+       "quote": "The RO data from the COSMIC-2, SPIRE, MetOp-B, and MetOp-C missions were accessed through the UCAR COSMIC Data Analysis and Archive Center (CDAAC) at https://data.cosmic.ucar.edu/gnss-ro/. The Altitude-Adjusted Corrected Geomagnetic version 2 (AACGM-v2) coordinate mapping was performed using the aacgmv2 Python package, which is accessible via the Python Package Index at https://pypi.org/project/aacgmv2/."
+      },
+      {
+       "source": "S17",
+       "quote": "The processed gridded VTEC and DVTEC data, RO-SNR and 𝑆4 profiles used in this study are publicly available on Zenodo (Upadhyaya et al., 2026)."
+      },
+      {
+       "source": "S21",
+       "quote": "over the Indian Subcontinent [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.23971105"
+      }
+     ]
+    },
+    {
+     "heading": "尚未有可直接照抄的评测配置",
+     "kind": "unknown",
+     "text": "已读取的来源未说明批处理耗时与硬件，也未报告波前南界是否由多人独立标注及其一致性。格网平滑前后比较是同一格内异星、异站测量的离散变化，并非与外部真值比较的地图误差。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "两晚对照先给定位，再看总体",
+     "kind": "reported",
+     "text": "20 May 2025 的波前约到 17°N，沿途观测到 Es；27 May 2025 则局限于约 25°N，北段仍观测到 Es，但预期南进路径和新德里电离图未见同样响应。两晚不是简单的「有 Es」与「无 Es」：变化的是覆盖到哪里，以及哪里有记录。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "On 20 May 2025, the MSTID wavefronts propagated into the low latitudes, reaching as far south as ~17°N geographic latitude, extending across nearly the entire Indian mainland (Figures 1h-1j). However, on 27 May 2025, the MSTID remained confined to ~25°N geographic latitude (Figures 1k-1m)."
+      },
+      {
+       "source": "S10",
+       "quote": "On 20 May 2025, Es-layers were observed over the northern latitudes (Figures 3i-3j) as well as along the equatorward propagation path of the MSTID (Figures 3a-3h). The New Delhi ionograms also showed a blanketing type Es-layer near 100 km during this event"
+      },
+      {
+       "source": "S10",
+       "quote": "On 27 May 2025, MSTID wavefronts were confined to the northern region (>25°N), where Es activity was also observed (Figures 4c-4d, 4g- 4h). However, unlike 20 May 2025, no Es activity was detected along the expected equatorward propagation path of the MSTIDs (Figures 4a-4b, 4e-4f, 4i-4l). In addition, New Delhi ionosonde also didn’t detect any Es-layer (Figures 4m-4p)."
+      }
+     ]
+    },
+    {
+     "heading": "背景散点没有给出清楚的线性关联",
+     "kind": "reported",
+     "text": "最南纬度与波前周围的背景 VTEC 作配对，正文报告 r 约 0.1、p 约 0.66。这里读到的是选定事件和背景窗口下未检出关联，不是证明背景等离子体一定无影响。EIA 北峰衰减以后也有波停在偏北位置；这削弱「只用背景解释停止位置」的说法。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "The scatter plot in Figure 2 also shows no clear correlation (r ~0.1; p ~0.66) between the MSTIDs’ equatorward extent and the mean VTEC within a 5°×5° window around that location and at the corresponding time."
+      },
+      {
+       "source": "S13",
+       "quote": "However, our observations show that after the nighttime decay of the EIA crest, several MSTIDs remained confined to higher latitudes despite low background VTEC, while other events propagated into the lower latitudes under comparable or even higher background VTEC conditions. Furthermore, the VTEC keograms for all 21 events and the comparison between background VTEC and the lowest MSTID latitude show no correlation (Figure 2). This indicates that background F-region plasma density alone does not explain the equatorward extent of these MSTIDs."
+      }
+     ]
+    },
+    {
+     "heading": "磁映射之后的最南 Es 足迹才是关联量",
+     "kind": "reported",
+     "text": "在 21 次事件中，17 次于波前最南时刻有可用 RO；作者对照该时刻最南已检出 Es 的 350 km 足迹，正文报告 r 约 0.6、p 约 0.01。正相关在这里意味着两个地理纬度一起偏南或偏北，并非 Es 越往北，MSTID 南侵越深。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "For 17 out of the 21 events, the RO observations were available when the MSTIDs reached their southernmost extent. The latitude of this extent was positively correlated (r ~0.6; p ~0.01) with the latitude of the southernmost observed Es-layer’s footprint at 350 km (Figure 5c). However, the apparent not-so-strong correlation is likely due to the simultaneous RO profiles being unavailable (in some cases) close to the southernmost extent of MSTID fronts. The overall trend nevertheless suggests that MSTIDs extend to lower latitudes when active Es-layers are also observed at lower latitudes."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "覆盖缺测不是 Es 缺席，空间关联不是干预",
+     "kind": "interpretation",
+     "text": "作者明确指出有时波前到达最南处附近没有同时 RO 剖面。最南已检出足迹会受轨道采样位置约束，未检出也受阈值影响；新德里测高仪无法填满整条波前。统计配对支持耦合解释，但没有直接测量层间极化电场，也不是把 Es 关闭后的因果对照。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "However, the apparent not-so-strong correlation is likely due to the simultaneous RO profiles being unavailable (in some cases) close to the southernmost extent of MSTID fronts."
+      },
+      {
+       "source": "S16",
+       "quote": "These results suggest that Es-mediated E-F region electrodynamic coupling may help sustain MSTID propagation and facilitates their ingression into lower latitudes, even when the uncoupled Perkins instability is suppressed during high solar activity."
+      }
+     ]
+    },
+    {
+     "heading": "外推之前，先确认比较基准和共同分母",
+     "kind": "interpretation",
+     "text": "原文把太阳活动偏高和日落后 EIA 衰减视为解释条件。背景 VTEC 与 Es 对照未用完全相同的事件分母，不能只比两组 p 值就说 Es 解释力已被公平比较。建议在可共同配对事件上重做同口径估计，并按掩星覆盖、局地时和季节分层。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "On both nights, MSTID activities were observed after 16:00 UT (21:30 IST), when the Equatorial Ionization Anomaly (EIA) generally weakens or decays over the Indian sector (Kumar et al., 2021, 2022; Sunda & Vyas, 2013). The corresponding VTEC maps also show that the northern EIA crest had already decayed with no distinct crest visible during this period (Figures 1b-1g)."
+      },
+      {
+       "source": "S16",
+       "quote": "Crucially, our May-July study period coincided with the summer maximum of low and mid- latitude nighttime Es occurrence (Arras et al., 2008; Haldoupis et al., 2007; Lee et al., 2021). Consequently, under high solar activity and post-sunset EIA decay, the latitudinal extent of Es- layers acts as the primary factor governing how far nighttime MSTIDs can propagate into the low latitudes."
+      },
+      {
+       "source": "S14",
+       "quote": "For 17 out of the 21 events, the RO observations were available when the MSTIDs reached their southernmost extent. The latitude of this extent was positively correlated (r ~0.6; p ~0.01) with the latitude of the southernmost observed Es-layer’s footprint at 350 km (Figure 5c)."
+      }
+     ]
+    },
+    {
+     "heading": "单独标出待检验的采样偏差",
+     "kind": "proposal",
+     "text": "可把同一夜的 RO 剖面按可用经纬范围和时间距离做重抽样，加入等覆盖但错时的足迹对照；如果错时仍得到类似关联，就先检查轨道覆盖、共有的局地时间趋势或地磁纬度分布，而不是把关联全归给电场映射。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "预注册留夜测试：Es 足迹是否增加预警信息",
+     "kind": "proposal",
+     "text": "用独立夜晚的地基 GNSS DVTEC 追踪波前，锁定预测起点，比较仅用背景 VTEC 和历史波前、再加 RO 的 Es 足迹及覆盖掩膜两种方案；留夜并留站验证，按有无掩星覆盖分组，报告南界纬度误差、越界预警命中率及虚警率。原文的双侧窗口使用未来样本，实时实验必须换成因果滤波再验证。",
+     "evidence": []
+    },
+    {
+     "heading": "把定位影响作为独立交付",
+     "kind": "proposal",
+     "text": "如果要判断 PPP 是否受益，在同一接收机链路上对波前穿越前后做对齐，用无波事件和匹配卫星仰角的时段作对照，比较电离层残差、水平与垂直解误差分位数及恢复时间。先交付覆盖图与失败案例；即使南界跟踪变好，也不能以 TEC 指标替代定位收益。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · page=6",
+   "refs": [
+    "M1"
+   ],
+   "mathml": "<msub><mrow><mi>S</mi></mrow><mn>4</mn></msub><mo>≥</mo><mo> </mo><mn>0</mn><mo>.</mo><mn>2</mn>",
+   "accessible": "S₄ ≥ 0.2",
+   "title": "以闪烁门槛标记 Es 候选",
+   "meaning": "这不是电子密度反演。教学例：同一条掩星剖面在 105 km 处得到 0.25，就超过原式门槛；即便 135 km 处也为 0.25，高度不在研究窗口，不能按此规则判为 Es。",
+   "caution": "原文同时限定 90–120 km；原式不度量薄层面密度，也不判定未掩星区域没有 Es。",
+   "symbols": [
+    {
+     "symbol": "S₄",
+     "text": "归一化信噪比在 1 km 滑窗中的标准差，无量纲；输入为同条掩星剖面。"
+    },
+    {
+     "symbol": "0.2",
+     "text": "原文判据的无量纲门槛；边界用大于或等于。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · page=13",
+   "refs": [
+    "M2"
+   ],
+   "mathml": "<msup><mrow><mi>𝑬</mi></mrow><mo>∗</mo></msup><mo>=</mo><mi>𝑬</mi><mo>+</mo><mi>𝑼</mi><mo>×</mo><mi>𝑩</mi>",
+   "accessible": "E* = E + U × B",
+   "title": "把中性风转换为与电场同量纲的驱动",
+   "meaning": "教学例：在右手坐标中，风向沿 x，地磁沿 y；若 U 为 100 m/s、B 为 50 μT，叉积沿正 z，为 0.005 V/m。若背景电场在同轴反向 0.002 V/m，有效值为沿正 z 的 0.003 V/m。这不是印度地区的实测。",
+   "caution": "原式只定义有效电场；Perkins 增长还与密度加权的场线积分离子—中性碰撞频率有关。不能拿公式直接反演 RO 切点电场或给事件估速。",
+   "symbols": [
+    {
+     "symbol": "E*",
+     "text": "F 区有效电场，三分量向量，单位 V/m。"
+    },
+    {
+     "symbol": "E",
+     "text": "F 区发电机电场，三分量向量，单位 V/m。"
+    },
+    {
+     "symbol": "U",
+     "text": "热层中性风矢量，单位 m/s。"
+    },
+    {
+     "symbol": "B",
+     "text": "地磁场矢量，单位 T；风与磁场的叉积仍是 V/m。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 2,
+   "reference": "F2",
+   "section": "results",
+   "src": "assets/deep-reading/2611.09310/original-fig-2.png",
+   "width": 1423,
+   "height": 1258,
+   "caption": "Figure 2. Upper panels: VTEC keograms for 75-80°E longitude during 21 nighttime MSTID events observed in May-July 2025. The asterisks indicate the southernmost latitude extent of MSTID wavefronts. Bottom panel: Scatter plot of the southernmost latitude extent versus mean background VTEC within a 5°×5° window (±2.5° in latitude and longitude) centered on the southernmost wavefront location at the corresponding time.",
+   "title": "背景 VTEC 的全样本对照",
+   "alt": "上方是夜间纬度—时间 VTEC 热图；下方是背景 VTEC 和最南波前地理纬度的散点图。",
+   "caution": "不能由相关不显著证明背景密度或离子拖曳不起作用；它们也不是直接由这张背景 VTEC 图测得。",
+   "reading_steps": [
+    {
+     "title": "先按时间和纬度找白色星号",
+     "text": "上方每小图是一夜，横轴 UT 小时，纵轴北纬，色标为 VTEC（TECU），经度剖面取 75–80°E。星号是被跟踪波前最南的位置与时刻，不是 VTEC 亮色峰。"
+    },
+    {
+     "title": "再读下部散点的轴与样本",
+     "text": "横轴是以事件末端位置为中心的 5° × 5° 窗平均背景 VTEC，纵轴为波前最南纬度。图中印出 r = 0.1032、p = 0.6563；读的是跨夜关联，颜色热图和散点不是两组不同事件。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "cdbeb5985bebfbe13bd67491f04faa76027bc67bdfb975052fb3c767755f4675"
+  },
+  {
+   "id": "original-figure-b",
+   "number": 3,
+   "reference": "F3",
+   "section": "method",
+   "src": "assets/deep-reading/2611.09310/original-fig-3.png",
+   "width": 1258,
+   "height": 953,
+   "caption": "Figure 3. (a, c, e, g, i, & k) DVTEC maps for 20 May 2025 overlaid with E-region RO-SNR tangent points (white-filled circles with magenta boundaries), their mapped footprints at the 350 km IPP altitude (white-filled circles with black boundaries), and the New Delhi ionosonde’s location (black asterisk). The blue and red curves in (b, d, f, h, j, & l) denote the corresponding profiles of normalized SNR and 𝑆4, respectively. (m-p) The ionograms over New Delhi indicate the presence of Es-layers near 100 km virtual height.",
+   "title": "波前、掩星切点和地面回波怎么对齐",
+   "alt": "20 May 2025 六组 DVTEC 与掩星剖面，上下用色标、两条横轴和电离图来区分三种观测。",
+   "caution": "各列来自不同掩星和时刻，不能把连起来的六列当作同一薄层的连续轨迹；虚高与掩星几何高度也不是同一观测量。",
+   "reading_steps": [
+    {
+     "title": "从上排顺着每列向下",
+     "text": "上排经纬网的色标为 DVTEC（TECU），洋红圈是 E 区掩星切点，黑圈是同一点沿磁力线映射到 350 km 的足迹，黑星标新德里。两圈不是两次探测。"
+    },
+    {
+     "title": "用红轴读门槛，再看虚高",
+     "text": "中排红线读上轴 S₄，与红色竖虚线的 0.2 阈值比较；蓝线用下轴归一化 SNR，纵轴是真几何剖面高度。末列 (l) 的红线在阈值左侧；底排横轴频率（MHz）、纵轴虚高（km），近 100 km 的水平回波支持新德里存在 Es。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "c220060d3f46d5c8084fcc8f62f125ab265f965a00b21df7d2450e84788d4849"
+  },
+  {
+   "id": "original-figure-c",
+   "number": 5,
+   "reference": "F5",
+   "section": "results",
+   "src": "assets/deep-reading/2611.09310/original-fig-5.png",
+   "width": 1483,
+   "height": 1288,
+   "caption": "Figure 5. (a) Schematic illustration of F-region MSTID wavefronts (alternating maroon and blue fronts) and underlying irregular Es-layers (black strips) over the Indian subcontinent. (b) Three-dimensional representation showing the mapping of polarization electric fields from Es-layer irregularities to the F-region along geomagnetic field lines (green). White-filled circles with magenta and black boundaries denote the E-region RO-SNR tangent points and their mapped F-region footprints, respectively. (c) Scatter plot of the MSTIDs’ equatorward extent versus the southernmost mapped latitude of nearby detected active Es-layers across different events.",
+   "title": "同一张图里严格分开机制示意与散点证据",
+   "alt": "左上为平面图、右上为两高度层三维示意、下方为最南映射足迹和波前纬度散点。",
+   "caution": "不能从点离对角参考位置的距离推算电场强弱，不能把虚线当作“有 Es 才能通过”的硬门槛。正文说明有同时 RO 的事件为一个子样本，原图也不足以可靠拆开重叠点。",
+   "reading_steps": [
+    {
+     "title": "先辨认示意中的映射而非测量",
+     "text": "(a) 黑色细条与红蓝波带分别画 Es 不规则体和 MSTID；(b) 绿线表示 B，橙箭头表示极化电场映射，洋红圈到黑圈跨越两个高度层。上两幅没有实测电场色标或强度单位。"
+    },
+    {
+     "title": "下图看正相关的方向",
+     "text": "(c) 横坐标是 350 km 处最南的已探测 Es 足迹纬度，纵坐标是波前最南纬度；两轴均为 °N，向左和向下才是偏南。图注旁的点按事件汇总，图标示 r = 0.6085、p = 0.0124，蓝虚线不是逐夜轨迹或预报区间。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "86e35d0bb49b6d988b4f2fae386e1ead7ad3493b909bbf9abc65ae8de5569b06"
+  }
+ ],
+ "original_figure_credit": "Jeevan Upadhyaya、Dipjyoti Patgiri、Mehta Harsh Jayeshkumar、Rahul Rathi、Virendra Yadav、Satarupa Chakrabarti、Arun K. Upadhayaya、Sumanta Sarkhel",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T06:09:46Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "9dae8432897d7f050ed56a7876876549759f3656edecfeca61941e280cb7a085",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill",
+  "license_evidence_url": "https://arxiv.org/abs/2611.09310v1"
+ },
+ "copyright_note": "原图按 arXiv 版本记录的 CC BY 4.0 转载，保留作者、完整图件、英文图注和原文页码；不镜像论文 PDF 或全文。中文读图与建议非作者原文。",
+ "source_type": "licensed_arxiv_pdf"
+}

@@ -73,11 +73,35 @@ APPROVED = {
             11: (10, "png", 1016, 540, "ee48140003251707239ab991bf52bcf750fbfe5db27fb8033255a210b0789f3b"),
         },
     ),
+    ("2611.09310", "v1"): (
+        "by", "9dae8432897d7f050ed56a7876876549759f3656edecfeca61941e280cb7a085", 22,
+        "Jeevan Upadhyaya、Dipjyoti Patgiri、Mehta Harsh Jayeshkumar、Rahul Rathi、Virendra Yadav、Satarupa Chakrabarti、Arun K. Upadhayaya、Sumanta Sarkhel",
+        {
+            2: (9, "png", 1423, 1258, "cdbeb5985bebfbe13bd67491f04faa76027bc67bdfb975052fb3c767755f4675"),
+            3: (11, "png", 1258, 953, "c220060d3f46d5c8084fcc8f62f125ab265f965a00b21df7d2450e84788d4849"),
+            5: (15, "png", 1483, 1288, "86e35d0bb49b6d988b4f2fae386e1ead7ad3493b909bbf9abc65ae8de5569b06"),
+        },
+    ),
+    ("2611.15491", "v1"): (
+        "by", "62beb63a3a523a9e5a4b2986990dd0b7e039580048b7cc2f08c6ef08a871d582", 13,
+        "Zhuoyue Li、Zhendong Han、Pankhuri Vanjani、Wenting Li、Rudolf Lioutikov",
+        {
+            2: (3, "png", 1845, 460, "690e3971ba5123564900e1d488fa9de08d6a1df369a5b2a82f981fe6b85d7f5e"),
+            3: (4, "png", 1965, 465, "93873d51de9e73f03204aaa9a43c02fc8a713a62ed1aafb674c95124324c9e4a"),
+            5: (7, "png", 1364, 527, "4c6080b4ad942fffc460e1708f3a771c86730ffe5434dbc577b05caf40417770"),
+        },
+    ),
 }
-FIGURE_REGION_RENDERS = {("2611.14250", "v1", 2), ("2611.14250", "v1", 4), ("2611.08118", "v1", 1), ("2611.08118", "v1", 6), ("2611.08118", "v1", 11)}
+FIGURE_REGION_RENDERS = {("2611.14250", "v1", 2), ("2611.14250", "v1", 4), ("2611.08118", "v1", 1), ("2611.08118", "v1", 6), ("2611.08118", "v1", 11), ("2611.15491", "v1", 2), ("2611.15491", "v1", 3)}
 
 FIGURE_FORM_SVGS = {("2611.12806", "v1", 3), ("2611.12806", "v1", 8)}
 CAPTION_SHA256 = {
+    ("2611.09310", "v1", 2): "4744561ceffcb7dc8e391a1f0d12bfee2f84182b362fb2d7f4e4a1abefb7f4f5",
+    ("2611.09310", "v1", 3): "ca401741a1d31c318767c4fa744c81678d7450ad97b21ebe58c3992ad87bbc71",
+    ("2611.09310", "v1", 5): "3c5e8a26d912f522994ee719b4e7cfa82b96fb95df946229ceddbf7757ffe676",
+    ("2611.15491", "v1", 2): "117043fe5ad490b4593356e89f14df2edcc51fe664c75251d8a36516171a4944",
+    ("2611.15491", "v1", 3): "c708ab69e15fdf23eeb8765d7d09e7915044faeea59e71031f67d88efa5f2f7c",
+    ("2611.15491", "v1", 5): "00ee5fb75a058923d71c09c3c9022c0033e57fb9e982bc12baf568c2c6dd786c",
     ("2611.08118", "v1", 1): "7159561878c887cbeb1bd74b73cb71177e0ae1dacb43592ab0cf92072d512874",
     ("2611.08118", "v1", 6): "f6d99950ce760131fbe9ece4eef8bbf9c9b52d1b5c09d1b43b0917a9c0075aeb",
     ("2611.08118", "v1", 11): "9ae8d854a2ded21316af922d4f73b2aeeb96171c7860185648b2af75867b3bc2",
