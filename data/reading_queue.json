@@ -207,10 +207,15 @@
   },
   "2610.06759": {
    "paper_id": "2610.06759",
-   "status": "historical_backfill_pending",
+   "status": "original_figure_rights_pending",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T05:35:14Z",
+   "source_sha256": "bfb63be06fb5cdf767007e51e68eaa5e5a9c7674b606eff65b1e778593fe07a0",
+   "source_version": "v1",
+   "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2610.06759v1"
   },
   "2610.10360": {
    "paper_id": "2610.10360",
@@ -281,10 +286,15 @@
   },
   "2610.28695": {
    "paper_id": "2610.28695",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T05:35:14Z",
+   "completed_at": "2026-11-18T05:35:14Z",
+   "source_sha256": "fde145ffcb1b75898725ead3c713f40c701304ee2904cfc09bfec88115e98463",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2610.29630": {
    "paper_id": "2610.29630",
@@ -629,6 +639,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T05:27:10Z",
+ "updated_at": "2026-11-18T05:35:14Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
