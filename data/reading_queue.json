@@ -467,17 +467,24 @@
   },
   "2611.11798": {
    "paper_id": "2611.11798",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T05:16:46Z",
+   "completed_at": "2026-11-18T05:16:46Z",
+   "source_sha256": "8049328c35a5926859af001824bd75877dcb5177adfffccdcc75a9f08b8ee3ad",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.12671": {
    "paper_id": "2611.12671",
    "status": "historical_backfill_pending",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T05:16:46Z",
+   "pending_reason": "原文核心方法涉及主动干扰无人机控制链路；未发布可复现的操作导读，保留原条目。"
   },
   "2611.12676": {
    "paper_id": "2611.12676",
@@ -600,6 +607,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T05:01:06Z",
+ "updated_at": "2026-11-18T05:22:42Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
