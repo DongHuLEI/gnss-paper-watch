@@ -1,0 +1,835 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.14397",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/pdf/2611.14397v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "MaLoRA：用分类间隔平衡低秩适配与多域合并",
+ "dek": "在线性、近正交的任务几何里，正则强度控制适配器的尺度，合并权重可按最弱训练间隔推导。真实多域实验用验证平均间隔及全局尺度，汇总结果与基线接近；理想条件下的间隔结论不是深网泛化保证。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读固定版本官方原文；本次不是独立 API 账单任务。通读方法、主结果、附录 A–H、检查清单、图注、表格和公式，同版本 PDF 对照核读；已视觉核读三张所展示的图。英文逐字证据取自同版本官方 HTML，引用定位到同版本 PDF；未运行作者程序、未独立复现实验，也未经过人工审阅。",
+ "references": {
+  "S8": {
+   "label": "原文 · S1.p4.1 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S11": {
+   "label": "原文 · S1.I2.i3.p1.1 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S103": {
+   "label": "原文 · S5.p2.1 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S20": {
+   "label": "原文 · S2.SS1.p1.5 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S61": {
+   "label": "原文 · S3.SS1.p4.1 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S87": {
+   "label": "原文 · S3.SS3.p4.1 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S7": {
+   "label": "原文 · S1.p3.1 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S10": {
+   "label": "原文 · S1.I2.i2.p1.1 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S111": {
+   "label": "原文 · A2.p2.1 · PDF 第 17 页",
+   "anchor": "page=17"
+  },
+  "S25": {
+   "label": "原文 · S2.SS2.p3.1 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S26": {
+   "label": "原文 · S2.SS2.p4.1 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S27": {
+   "label": "原文 · S2.SS2.p4.2 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S35": {
+   "label": "原文 · S2.Thmasmp4.p1.1 · PDF 第 4 页",
+   "anchor": "page=4"
+  },
+  "S9": {
+   "label": "原文 · S1.I2.i1.p1.1 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S58": {
+   "label": "原文 · S3.Thmrem1.p1.1 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S221": {
+   "label": "原文 · A4.SS2.p3.2 · PDF 第 26 页",
+   "anchor": "page=26"
+  },
+  "S77": {
+   "label": "原文 · S3.SS3.p2.1 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S88": {
+   "label": "原文 · S3.SS3.SSS0.Px1.p1.1 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S89": {
+   "label": "原文 · S3.SS3.SSS0.Px2.p1.1 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S62": {
+   "label": "原文 · S3.SS1.p4.2 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S72": {
+   "label": "原文 · S3.SS2.p2.1 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S283": {
+   "label": "原文 · A5.SS2.p1.2 · PDF 第 32 页",
+   "anchor": "page=32"
+  },
+  "S285": {
+   "label": "原文 · A5.SS2.p3.1 · PDF 第 32 页",
+   "anchor": "page=32"
+  },
+  "S85": {
+   "label": "原文 · S3.Thmthm3.p1.2 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S92": {
+   "label": "原文 · S4.p2.1 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S478": {
+   "label": "原文 · A8.SS1.p2.2 · PDF 第 46 页",
+   "anchor": "page=46"
+  },
+  "S485": {
+   "label": "原文 · A8.SS1.SSS0.Px2.p1.1 · PDF 第 47 页",
+   "anchor": "page=47"
+  },
+  "S536": {
+   "label": "原文 · A8.SS2.SSS0.Px1.p1.1 · PDF 第 52 页",
+   "anchor": "page=52"
+  },
+  "S538": {
+   "label": "原文 · A8.I2.i1.p1.1 · PDF 第 52 页",
+   "anchor": "page=52"
+  },
+  "S542": {
+   "label": "原文 · A8.I2.i5.p1.1 · PDF 第 53 页",
+   "anchor": "page=53"
+  },
+  "S99": {
+   "label": "原文 · S4.T1.4 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S552": {
+   "label": "原文 · A8.SS2.SSS0.Px2.p2.2 · PDF 第 53 页",
+   "anchor": "page=53"
+  },
+  "S559": {
+   "label": "原文 · A8.SS2.SSS2.p1.1 · PDF 第 54 页",
+   "anchor": "page=54"
+  },
+  "S471": {
+   "label": "原文 · A8.p2.1 · PDF 第 46 页",
+   "anchor": "page=46"
+  },
+  "S97": {
+   "label": "原文 · S4.SS2.p1.1 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S530": {
+   "label": "原文 · A8.T5 · PDF 第 52 页",
+   "anchor": "page=52"
+  },
+  "S532": {
+   "label": "原文 · A8.T6 · PDF 第 52 页",
+   "anchor": "page=52"
+  },
+  "S531": {
+   "label": "原文 · A8.T5.4 · PDF 第 52 页",
+   "anchor": "page=52"
+  },
+  "S561": {
+   "label": "原文 · A8.SS2.SSS2.p3.1 · PDF 第 54 页",
+   "anchor": "page=54"
+  },
+  "S506": {
+   "label": "原文 · A8.SS1.SSS2.p2.1 · PDF 第 49 页",
+   "anchor": "page=49"
+  },
+  "S511": {
+   "label": "原文 · A8.T4.2 · PDF 第 51 页",
+   "anchor": "page=51"
+  },
+  "S94": {
+   "label": "原文 · S4.SS1.p1.1 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S215": {
+   "label": "原文 · A4.Thmthm2.p1.1 · PDF 第 26 页",
+   "anchor": "page=26"
+  },
+  "S363": {
+   "label": "原文 · A6.Thmthm1.p1.3 · PDF 第 38 页",
+   "anchor": "page=38"
+  },
+  "M1": {
+   "label": "原公式 · S2.E4.m1 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "M2": {
+   "label": "原公式 · S2.E5.m1 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "M3": {
+   "label": "原公式 · S3.E13.m1 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "M4": {
+   "label": "原公式 · S3.E15.m1 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "M5": {
+   "label": "原公式 · S3.E17.m1 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "F3": {
+   "label": "原文图 · Fig.3 · PDF 第 50 页",
+   "anchor": "page=50"
+  },
+  "F1": {
+   "label": "原文图 · Fig.1 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "F4": {
+   "label": "原文图 · Fig.4 · PDF 第 50 页",
+   "anchor": "page=50"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "一个几何解释，两种证据",
+     "kind": "reported",
+     "text": "低秩适配（LoRA）在冻结权重上加低秩增量。本文在类别平衡、任务特征近正交的多类线性分类中分析正则化的全局最优增量与训练集间隔，再构造无需额外梯度训练的合并法 MaLoRA。深网多域分类是对合并规则的经验检验，不是把线性定理推广成深网保证。",
+     "evidence": [
+      {
+       "source": "S8",
+       "quote": "Paper contributions. We study LoRA in multiclass linear classification under a near-orthogonal-task regime, in which fine-tuning samples are nearly orthogonal to one another and to the pre-training samples. In this setting, we characterize the global minimizer of the LoRA objective and use this characterization to analyze forgetting and adapter merging. Compared with prior theoretical work on LoRA (see Appendix B ), our work makes the following contributions:"
+      },
+      {
+       "source": "S11",
+       "quote": "Under the intermediate-regime assumption for each task, we derive closed-form expressions for the margin of the merged model on every task (Theorem 3.3 ). We show that the merged model attains strictly positive margin on each task, providing a theoretical explanation for the effectiveness of adapter merging. We also characterize, in closed form, the mixing coefficients that maximize the margin of the merged model on the union of all tasks, which naturally leads to margin-based LoRA merging (MaLoRA), a theoretically motivated adapter-merging method."
+      },
+      {
+       "source": "S103",
+       "quote": "Second, experiments applying MaLoRA to nonlinear models provide empirical support for the practical usefulness of our merging rule beyond multiclass linear classification. These findings motivate extending the margin-based theoretical analysis to nonlinear adaptation."
+      }
+     ]
+    },
+    {
+     "heading": "合并标准针对最弱任务，不是平均准确率",
+     "kind": "reported",
+     "text": "核心理论用真实类得分减去最强错误类得分，并考虑每份训练数据中的最小差值。在严格正交的参考几何中，各任务主要依赖自己的权重分量，作者让合并后的最弱任务间隔尽可能大；选择权重时需要知道各任务增量本身的分离能力。",
+     "evidence": [
+      {
+       "source": "S20",
+       "quote": "The hard-margin SVM problem in ( 3 ) seeks a weight matrix of minimum norm that separates all examples with at least unit margin between the correct class and the nearest competing class."
+      },
+      {
+       "source": "S61",
+       "quote": "That is, the two components operate independently: W_{\\mathrm{pre}} classifies the pre-training data, while B_{\\lambda}^{\\ast}A_{\\lambda}^{\\ast} adapts to the fine-tuning data:"
+      },
+      {
+       "source": "S87",
+       "quote": "Theorem 3.3 characterizes the margins on each task as well as on the union of tasks as functions of the mixing coefficients. In particular, it shows that the optimal mixing coefficients are given by the ratio between the unnormalized margin of the pre-trained model on \\mathcal{D}_{\\mathrm{pre}} and that of each fine-tuned adapter on its own task."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "参数省，不等于说明了为何少忘",
+     "kind": "reported",
+     "text": "冻结大部分权重解释了训练参数少，却不能直接推出旧任务得分不变，也不能保证独立学出的低秩增量相加后还能分类。两项经验观察的共同问题，是如何量化新增权重在旧任务方向上的干扰及其在自身任务上的贡献；作者用归一化间隔连接二者。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "Despite these empirical benefits, the theoretical mechanisms underlying LoRA’s robustness to catastrophic forgetting and its adapter merging capabilities remain poorly understood. In this work, we provide a unified theoretical explanation for both phenomena through a margin-based perspective."
+      },
+      {
+       "source": "S10",
+       "quote": "We define forgetting as the reduction in margin on the pre-training data after fine-tuning, and derive closed-form expressions for the normalized margins on the pre-training data, the fine-tuning data, and their union (Theorem 3.2 )."
+      }
+     ]
+    },
+    {
+     "heading": "从凭经验定配比到明示目标",
+     "kind": "reported",
+     "text": "已有合并策略可按权重平均、输入动态门控或对消符号冲突；作者并不否定它们的经验效果，而是在一个可解析的设置下指出：若最大化联合训练数据中最坏的归一化间隔，可以解出以各任务未归一化间隔为分母的权重。这是论文里的问题设置，不是对全部合并工作的查新。",
+     "evidence": [
+      {
+       "source": "S111",
+       "quote": "LoRA merging. A variety of techniques have been proposed to merge task-specific LoRA adapters by forming a weighted average of their parameters. For example, LoRA-Hub [ Huang et al., 2023 ] learns per-task mixing coefficients first, and then applies a weighted average of LoRA weight matrices B and A separately. LoRA-Flow [ Wang et al., 2024 ] introduces token-level gates that dynamically assign merging coefficients to each LoRA adapter before taking weighted averaging."
+      },
+      {
+       "source": "S111",
+       "quote": "TIES [ Yadav et al., 2023 ] proceeds in three steps: trimming redundant parameters, resolving sign conflicts into an aggregate vector, and averaging only the parameters consistent with the aggregate sign, thereby mitigating degradation from redundant or conflicting updates."
+      },
+      {
+       "source": "S87",
+       "quote": "In particular, it shows that the optimal mixing coefficients are given by the ratio between the unnormalized margin of the pre-trained model on \\mathcal{D}_{\\mathrm{pre}} and that of each fine-tuned adapter on its own task."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先冻结线性权重，再优化低秩增量",
+     "kind": "reported",
+     "text": "理论输入为冻结的预训练分类器和标注的微调特征。微调类是原输出标签的子集，每类样本同数；最优解分析要求相应的秩条件，并把预训练线性权重写成对应硬间隔支持向量机解的缩放。训练时最小化微调交叉熵加低秩因子平方惩罚；推断只使用合成权重，不读取真实标签。",
+     "evidence": [
+      {
+       "source": "S25",
+       "quote": "Fine-tuning stage. We adapt the pre-trained model to a downstream dataset \\mathcal{D}_{\\mathrm{ft}} consisting of n additional samples from each of 2\\leq\\bar{K}\\leq K classes selected from the original K pre-training classes. This restriction applies throughout the paper and appendix, including to every task in adapter merging."
+      },
+      {
+       "source": "S26",
+       "quote": "When LoRA is applied to adapt the pre-trained model to the fine-tuning task, we introduce a low-rank update to the weights, parameterized by matrices B\\in\\mathbb{R}^{K\\times r} and A\\in\\mathbb{R}^{r\\times d} :"
+      },
+      {
+       "source": "S27",
+       "quote": "Here, the Frobenius-norm penalties explicitly constrain the adapters in weight space, limiting the deviation of the fine-tuned model from the pretrained initialization."
+      },
+      {
+       "source": "S35",
+       "quote": "The pre-trained classifier W_{\\mathrm{pre}} is a scaled version of the hard-margin SVM solution on \\mathcal{D}_{\\mathrm{pre}} : W_{\\mathrm{pre}}\\!=\\!\\rho_{\\mathrm{pre}}\\!\\cdot\\!W_{\\mathrm{pre}}^{\\mathrm{SVM}}/\\|W_{\\mathrm{pre}}^{\\mathrm{SVM}}\\|_{F} , for some scalar \\rho_{\\mathrm{pre}}\\!>\\!0 , where W_{\\mathrm{pre}}^{\\mathrm{SVM}}\\!=\\!W^{\\mathrm{SVM}}(\\mathcal{D}_{\\mathrm{pre}}) ."
+      }
+     ]
+    },
+    {
+     "heading": "按正则强度区分方向和尺度",
+     "kind": "reported",
+     "text": "强惩罚把增量压为零；中间区间使微调类别对应的权重行对齐硬间隔分类器方向，强度另由正则决定；若微调标签仅为子集，低惩罚区通常不是该最大间隔方向。覆盖全部标签时不再有独立的正低惩罚区。附录将因子惩罚转成数据坐标中的核范数问题，从而刻画的是全局最优乘积，而不是某次优化轨迹。",
+     "evidence": [
+      {
+       "source": "S9",
+       "quote": "In the high-penalty regime, the optimal adapter is zero. In the intermediate regime, the adapter aligns with the max-margin direction on the fine-tuning data. In the low-penalty regime, the adapter aligns with a non-max-margin classifier whose direction generally does not admit a simple closed form."
+      },
+      {
+       "source": "S58",
+       "quote": "For \\bar{K}\\!\\geq\\!2 , the critical weight satisfies \\lambda_{\\mathrm{crit}}\\!=\\!0 if and only if \\bar{K}\\!=\\!K . In this case, the intermediate regime covers all 0\\!<\\!\\lambda\\!<\\!1/(K\\sqrt{n}) , and the low-penalty regime contains no positive regularization weights. The limits in ( 9 ) remain valid as \\lambda\\!\\to\\!0^{+} , approached through the intermediate regime."
+      },
+      {
+       "source": "S221",
+       "quote": "Setting Z=B\\tilde{A} and applying the variational form of the nuclear norm (Lemma G.2 ), the LoRA problem becomes the rank-constrained minimization \\min_{Z\\in\\mathbb{R}^{K\\times\\bar{K}n},\\,\\mathrm{rank}(Z)\\leq r}\\Phi(Z;S,R) , where \\Phi(Z;\\bar{S},\\bar{R}):=L(Z;\\bar{S},\\bar{R})+\\lambda\\|Z\\|_{*} . Let Z_{\\lambda}^{\\ast}(S,R) denote the unique unconstrained minimizer of \\Phi(\\cdot;S,R) over \\mathbb{R}^{K\\times\\bar{K}n} (Lemma G.6 ). We first establish a perturbation bound for this unconstrained problem, then verify that its minimizer satisfies the rank constraint."
+      }
+     ]
+    },
+    {
+     "heading": "实用规则改用验证平均间隔",
+     "kind": "reported",
+     "text": "先分别训练适配器，再对已经学得的权重增量加权求和，不分别平均两低秩因子。实用 MaLoRA 以平均间隔替代理论的极小值以降低难例敏感性，平均间隔非正的支路权重置零，然后在留出的验证集上选一个全局缩放系数。免额外训练并不等于不看标签、不验证或零算力。",
+     "evidence": [
+      {
+       "source": "S77",
+       "quote": "Let \\bigl(B_{i}^{\\ast},A_{i}^{\\ast}\\bigr) denote the LoRA adapter trained on dataset \\mathcal{D}_{i} , for i\\in[T] . We merge the adapters with the pre-trained weight matrix as follows:"
+      },
+      {
+       "source": "S88",
+       "quote": "In practice, however, datasets are often not perfectly separable, so the minimum margin C(\\cdot;\\cdot) can be negative and overly sensitive to hard examples. We therefore use the average margin \\bar{C}(\\cdot;\\mathcal{D}) as a more stable proxy for adapter performance."
+      },
+      {
+       "source": "S89",
+       "quote": "When a task has non-positive average margin \\bar{C}_{i} , the corresponding coefficient would be negative and no longer consistent with the regime motivated by the theorem. Algorithm 1 therefore drops such tasks by setting their coefficients to zero. We also tune a global scaling factor s^{\\ast} on a held-out validation set, following Ilharco et al. (2022) , and find that this further improves performance."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "旧样本可一个都没翻类，作者的遗忘指标仍会变",
+     "kind": "interpretation",
+     "text": "在严格正交的证明中，增量乘旧任务特征为零，旧样本的 logits 没有改变。归一化间隔却除以整套模型的 Frobenius 范数；增量变大时分母变大，旧任务间隔缩小。这正是理论里仍有遗忘量的原因，但不是旧数据上发生同等比例准确率损失的证明。",
+     "evidence": [
+      {
+       "source": "S61",
+       "quote": "Under Assumptions 2.1 and 2.4 , Proposition 2.1 and Theorem 3.1 imply that W_{\\mathrm{pre}}\\bm{\\bar{x}}=0 for all \\bm{\\bar{x}}\\in\\mathcal{D}_{\\mathrm{ft}} and B_{\\lambda}^{\\ast}A_{\\lambda}^{\\ast}\\bm{x}=0 for all \\bm{x}\\in\\mathcal{D}_{\\mathrm{pre}} . That is, the two components operate independently: W_{\\mathrm{pre}} classifies the pre-training data, while B_{\\lambda}^{\\ast}A_{\\lambda}^{\\ast} adapts to the fine-tuning data:"
+      },
+      {
+       "source": "S62",
+       "quote": "This clean separation lets us decompose the normalized margin of W_{\\mathrm{LoRA}}^{\\lambda} on each component dataset into a contribution from the relevant component (either W_{\\mathrm{pre}} or B_{\\lambda}^{\\ast}A_{\\lambda}^{\\ast} ) and a relative-norm factor:"
+      },
+      {
+       "source": "S72",
+       "quote": "As \\lambda decreases, the adapter scale \\Theta_{\\lambda} increases, improving \\mathrm{Adapt}(\\lambda) on the fine-tuning data while also increasing \\mathrm{Forget}(\\lambda) on the pre-training data. Thus, LoRA fine-tuning induces a direct margin trade-off: stronger adaptation comes at the cost of larger pre-training margin degradation."
+      }
+     ]
+    },
+    {
+     "heading": "联合目标由最弱一边决定",
+     "kind": "reported",
+     "text": "单增量情形下，作者把并集间隔写作旧任务剩余间隔与新任务适配间隔的较小者，正则扫到两者平衡时达到最优。多适配器时，每个正权重放大其任务间隔，也增加共享范数；使各未归一化间隔配平才是定理的目标，不是无条件把困难任务权重加大。",
+     "evidence": [
+      {
+       "source": "S283",
+       "quote": "follows from the definition of the union margin together with \\gamma(W_{\\mathrm{LoRA}}^{\\lambda};\\mathcal{D}_{\\mathrm{pre}})=\\gamma_{\\mathrm{pre}}-\\mathrm{Forget}(\\lambda) and \\gamma(W_{\\mathrm{LoRA}}^{\\lambda};\\mathcal{D}_{\\mathrm{ft}})=\\mathrm{Adapt}(\\lambda) from Theorem 3.2 . It remains to maximize this minimum over \\lambda ."
+      },
+      {
+       "source": "S285",
+       "quote": "Their minimum is therefore uniquely maximized where they are equal:"
+      },
+      {
+       "source": "S85",
+       "quote": "Choosing the weights \\textstyle\\alpha_{i}=\\frac{C(W_{\\mathrm{pre}};\\mathcal{D}_{\\mathrm{pre}})}{C(B_{i}A_{i};\\mathcal{D}_{i})},\\;i\\in[T], maximizes the margin on the union of all tasks:"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "线性探针：细类不重叠，粗类标签共享",
+     "kind": "reported",
+     "text": "CIFAR-100 线性探针冻结 ResNet-50、ViT-B/16、ConvNeXt、CLIP，只调整末端线性分类器。预训练集合用若干细分种类，微调从同样的粗类中取不重叠细类；分类头预测粗类，因此实验不属于增加新输出标签。分开考察正则强度和双适配器混合权重，而非直接用深网权重检验线性证明。",
+     "evidence": [
+      {
+       "source": "S92",
+       "quote": "First, in linear probing on CIFAR-100 ( Krizhevsky et al., 2009 ) (§ 4.1 ), we use four frozen pre-trained backbones ( ResNet-50 , ViT-B/16 , ConvNeXt , and CLIP ) as feature extractors ( He et al., 2016 ; Dosovitskiy et al., 2021 ; Radford et al., 2021 ; Liu et al., 2022 ) , apply LoRA only to the final linear classifier ( Kornblith et al., 2019 ) , and construct tasks from the CIFAR-100 superclass hierarchy."
+      },
+      {
+       "source": "S478",
+       "quote": "Hence \\mathcal{D}_{\\mathrm{pre}} contains 60 fine classes (three per super-class) while each fine-tuning task \\mathcal{D}_{i} contains exactly one new class per superclass, preserving maximal diversity yet zero overlap with \\mathcal{D}_{\\mathrm{pre}} ."
+      },
+      {
+       "source": "S485",
+       "quote": "The 20 rows correspond to the super-classes, not the 60 fine labels; this matches our theoretical model where each task’s labels share a common output."
+      }
+     ]
+    },
+    {
+     "heading": "多域合并：固定划分，选全局尺度",
+     "kind": "reported",
+     "text": "视觉基准用 ViT-B/16，语言基准用 XLM-RoBERTa Base；每域按种子分层划为 80% 微调、10% 验证、10% 测试，任务尺度由验证集选。先把一个预训练域适配器折入底模，其余各域训练专属适配器；末端 Transformer 层改 query/value 投影，每域另拟合分类头，合并时一并聚合权重。",
+     "evidence": [
+      {
+       "source": "S92",
+       "quote": "Second, in multi-domain adapter merging (§ 4.2 ), we evaluate ViT-B/16 on PACS, VLCS, and TerraIncognita ( Fang et al., 2013 ; Li et al., 2017 ; Beery et al., 2018 ) , and XLM-RoBERTa Base on MNLI, Amazon Reviews, and CivilComments ( Zhang et al., 2015 ; Williams et al., 2018 ; Borkan et al., 2019 ; Conneau et al., 2020 ) ."
+      },
+      {
+       "source": "S536",
+       "quote": "For every domain, we hold out a stratified 10\\% validation split and a stratified 10\\% test split from the per-domain training set, with the remaining 80\\% used for fine-tuning. The split indices are deterministic in the configured random seed and are reused across all methods so that Soup, Task Arithmetic, and MaLoRA are evaluated on the same per-domain val/test sets within a seed. Validation accuracy averaged over all merged domains is the criterion for selecting the merge coefficient \\lambda^{\\ast} ."
+      },
+      {
+       "source": "S538",
+       "quote": "Target modules: query and value projections only (no key, no MLP, no embeddings, no normalization)."
+      },
+      {
+       "source": "S542",
+       "quote": "Classifier head: a fresh classification head is initialized for each adapter and trained jointly with the LoRA parameters. At merge time, each merged adapter contributes both its classifier head and its LoRA delta to the weighted sum, so that the merged model has a coherent classifier without an external head-aggregation step."
+      }
+     ]
+    },
+    {
+     "heading": "基线与耗时：两套搜索口径",
+     "kind": "reported",
+     "text": "准确率实验比较 Uniform Soup、Task Arithmetic（TA）、TIES、DARE-Linear 与 DARE-TIES，验证网格因方法而异。运行时间是另设的 49 配置等预算协议，固定硬件与线程，统计已训练适配器的合并及参数选择，不含训练。原文附录提供 MaLoRA 代码入口及训练硬件、步数和超参表。",
+     "evidence": [
+      {
+       "source": "S99",
+       "quote": "Soup 96.38 96.89 64.31 101.16 100.64 98.27 92.94 7.06 TA 97.52 97.19 64.46 101.27 100.68 97.80 93.15 6.85 TIES 97.52 96.95 63.78 100.87 100.64 98.00 92.96 7.04 DARE-TIES 97.57 97.23 64.23 100.90 100.45 97.92 93.05 6.95 DARE-Linear 96.48 96.77 64.73 101.12 100.50 97.61 92.87 7.13 MaLoRA 96.69 97.54 65.75 101.23 100.69 98.00 93.32 6.68"
+      },
+      {
+       "source": "S552",
+       "quote": "All baselines that involve density and \\lambda are tuned over d\\in\\{0.2,0.3,\\ldots,0.9\\} and \\lambda\\in\\{0.1,0.2,\\ldots,1.0\\} (80 configurations); Task Arithmetic uses the same \\lambda grid (10 configurations)."
+      },
+      {
+       "source": "S559",
+       "quote": "We measure end-to-end merge-selection runtime on all six benchmarks over ten random seeds, using one NVIDIA RTX A5000 GPU and a fixed budget of four CPU threads. For the six methods compared in Table 10 , we use a matched budget of 49 configurations per method, separately from the accuracy-selection grids described above. The timings measure merging and coefficient selection from trained adapters; adapter-training costs are reported separately in the hardware description."
+      },
+      {
+       "source": "S471",
+       "quote": "Code availability. Code is available at https://github.com/simonxu97/MaLoRA ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "平均略优，不是每个基准都更好",
+     "kind": "reported",
+     "text": "主表按每域合并准确率除以该域专用微调模型准确率，域内平均后再等权汇总各基准。MaLoRA 为 93.32%，互补的相对下降为 6.68%；TA 为 93.15%。PACS 中 MaLoRA 为 96.69%，低于 DARE-TIES 的 97.57%。附录给出 10 个种子的标准差；这些是归一化比值而非原始正确率。",
+     "evidence": [
+      {
+       "source": "S97",
+       "quote": "Following Ilharco et al. (2022) , we report average normalized accuracy (per-task merged accuracy divided by per-task finetuned accuracy, averaged across tasks) and its complement, relative accuracy drop , in Table 1 ."
+      },
+      {
+       "source": "S99",
+       "quote": "Method PACS VLCS Terra Inc. MNLI Amazon CivilComm. Avg. norm. acc Rel. drop Soup 96.38 96.89 64.31 101.16 100.64 98.27 92.94 7.06 TA 97.52 97.19 64.46 101.27 100.68 97.80 93.15 6.85 TIES 97.52 96.95 63.78 100.87 100.64 98.00 92.96 7.04 DARE-TIES 97.57 97.23 64.23 100.90 100.45 97.92 93.05 6.95 DARE-Linear 96.48 96.77 64.73 101.12 100.50 97.61 92.87 7.13 MaLoRA 96.69 97.54 65.75 101.23 100.69 98.00 93.32 6.68"
+      },
+      {
+       "source": "S530",
+       "quote": "Table 5: Average normalized accuracy (%) following Ilharco et al. [2022] : each task’s merged-model accuracy is divided by the per-domain finetuned model’s accuracy on that task, then averaged across domains within each benchmark. Mean \\pm std over 10 seeds. Bold = best per column. Values > 100 indicate the merged model outperforms the per-task finetuned model on that benchmark."
+      },
+      {
+       "source": "S532",
+       "quote": "Avg is the equally weighted mean across benchmarks; its std is \\sqrt{\\sum_{b}\\sigma_{b}^{2}}/6 , where \\sigma_{b} is the per-benchmark std, assuming independent benchmarks."
+      }
+     ]
+    },
+    {
+     "heading": "种子波动与匹配成本应分别解读",
+     "kind": "interpretation",
+     "text": "附录表里 MaLoRA 汇总归一化准确率为 93.32 ± 0.55，TA 为 93.15 ± 0.58；标准差不是配对检验，无法据此宣布显著占优。另在计时协议中，已训练适配器的合并加选择时间跨基准平均 972.6 s，TA 为 950.3 s，作者报告约 2.35% 开销。不可把这个比例当训练加速。",
+     "evidence": [
+      {
+       "source": "S531",
+       "quote": "TA 97.52 \\pm 0.97 97.19 \\pm 0.96 64.46 \\pm 2.65 101.27 \\pm 0.24 100.68 \\pm 0.64 97.80 \\pm 1.69 93.15 \\pm 0.58"
+      },
+      {
+       "source": "S531",
+       "quote": "MaLoRA 96.69 \\pm 0.83 97.54 \\pm 0.62 65.75 \\pm 2.31 101.23 \\pm 0.22 100.69 \\pm 0.56 98.00 \\pm 1.99 93.32 \\pm 0.55"
+      },
+      {
+       "source": "S561",
+       "quote": "Table 10 reports the mean runtime for each benchmark and the arithmetic mean across the six benchmarks. MaLoRA’s aggregate mean runtime is 972.6 s, compared with 950.3 s for TA, an increase of 22.3 s or approximately 2.35\\% . Its aggregate mean runtime is lower than those of DARE-Linear, DARE-TIES, and TIES ( 980.2 – 991.0 s)."
+      },
+      {
+       "source": "S559",
+       "quote": "The timings measure merging and coefficient selection from trained adapters; adapter-training costs are reported separately in the hardware description."
+      }
+     ]
+    },
+    {
+     "heading": "正则预测有明确反例，不可把峰形当精确命中",
+     "kind": "reported",
+     "text": "在线性探针的正则扫描中，作者报告适中的正则优于端点，但最佳参数并非处处吻合。附录表中，微调类数为 5 时，ConvNeXt 的经验与理论正则分别为 0.000647 和 0.006709；CLIP 的差异也随类数变化。系数热图支持部分设置邻近经验最优，而不是所有模型和候选点完全一致。",
+     "evidence": [
+      {
+       "source": "S506",
+       "quote": "Figure 4 shows that LoRA’s performance exhibits a non-monotonic relationship with \\lambda , peaking at a moderate value. For ViT and ResNet, the theoretically predicted optimal \\lambda is within a factor of 1.8 of the best empirical choice for every \\bar{K} , and for ConvNeXt within a factor of 1.2 when \\bar{K}\\in\\{10,20\\} ; for CLIP, the empirical optimum is 1.8 – 4.4 times larger than predicted."
+      },
+      {
+       "source": "S511",
+       "quote": "Model \\bar{K}=5 \\bar{K}=10 \\bar{K}=20 ResNet-50 Emp: 0.005208 Thm: 0.007424 Emp: 0.003092 Thm: 0.004158 Emp: 0.002184 Thm: 0.002121 ViT-B/16 Emp: 0.001835 Thm: 0.003304 Emp: 0.002599 Thm: 0.002763 Emp: 0.001090 Thm: 0.001551 ConvNeXt Emp: 0.000647 Thm: 0.006709"
+      },
+      {
+       "source": "S94",
+       "quote": "As shown in Figure 1 , our predicted mixing coefficients closely match the grid-searched optima, confirming the practical accuracy of our merging theory."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "近正交附录是受控扰动，不是深网定理",
+     "kind": "reported",
+     "text": "作者明确把理论限制在类别平衡、任务几何近正交及训练集间隔。附录的推广约束 Gram 矩阵偏离和预训练 logits 在新样本上的残留；当这些扰动足够小，正交解能近似最大化合并后间隔，但并没有泛化或测试风险保证。类间余弦均值低不足以验证逐样本条件。",
+     "evidence": [
+      {
+       "source": "S103",
+       "quote": "Limitations and future work. First, our analysis relies on simplifying assumptions, most notably near-orthogonal task structure (Assumption 2.1 ) and balanced class sizes in the fine-tuning data. These assumptions enable a sharp closed-form characterization, but they also limit the scope of the theory. An important direction for future work is to relax them and study LoRA under more general data distributions and pre-training conditions."
+      },
+      {
+       "source": "S103",
+       "quote": "Third, our theory characterizes margins on the training datasets; establishing corresponding generalization or test-risk guarantees requires further analysis."
+      },
+      {
+       "source": "S215",
+       "quote": "such that whenever \\delta\\!:=\\!(\\bar{K}n-1)\\,\\epsilon_{1}\\!\\leq\\!\\delta_{0} and \\|S\\|_{F}\\!\\leq\\!s_{0} ,"
+      },
+      {
+       "source": "S363",
+       "quote": "Thus \\bm{\\alpha}^{\\ast} remains optimal up to an additive O(E) error in achieved margin, and all margins converge uniformly to their strict-orthogonal reference values as E\\to 0 ."
+      }
+     ]
+    },
+    {
+     "heading": "平均间隔可能掩盖小类损失",
+     "kind": "proposal",
+     "text": "应另报被非正均值排除的适配器比例、最差域和最差类的表现，并按同一划分做配对区间；尤其检验均值正常、低分位却为负的输入。主结果不能隔离平均间隔代理、置零策略和全局尺度各自贡献，宜各自固定其余因素再做对照。",
+     "evidence": [
+      {
+       "source": "S89",
+       "quote": "When a task has non-positive average margin \\bar{C}_{i} , the corresponding coefficient would be negative and no longer consistent with the regime motivated by the theorem. Algorithm 1 therefore drops such tasks by setting their coefficients to zero. We also tune a global scaling factor s^{\\ast} on a held-out validation set"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "用条件检验在多场地传感分类中何时合并",
+     "kind": "proposal",
+     "text": "待验证：用传感器故障、遮挡或信号质量的共享标签，在同一冻结骨干上按站点训练适配器。按站点及时间隔离验证和测试；固定数据量、秩、训练步数和验证搜索预算，比较同一组适配器的均匀合并、TA、MaLoRA 与独立单站适配器。交付最差场地宏平均 F1、旧域召回变化、合并耗时及种子配对区间。",
+     "evidence": []
+    },
+    {
+     "heading": "同时记录均值、尾部和适配器冲突",
+     "kind": "proposal",
+     "text": "待验证：在验证特征上报告类别内和类别间余弦分布的上分位数，而不只记录均值。按相关程度与标签失衡分层，以同预算比较平均间隔和稳健低分位数；若低间隔任务加权后最差域不升反降，或置零造成稀有类召回下滑，就否定该条件下直接复制规则的假设。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S2.E4.m1",
+   "refs": [
+    "M1"
+   ],
+   "mathml": "<mrow><mrow><mrow><mrow><mi>C</mi><mo>⁡</mo><mrow><mo>(</mo><mi>W</mi><mo>,</mo><mi>𝒟</mi><mo>)</mo></mrow></mrow><mo>:=</mo><mrow><msub><mi>min</mi><mrow><mrow><mo>(</mo><mi>𝒙</mi><mo>,</mo><mi>𝒚</mi><mo>)</mo></mrow><mo>∈</mo><mi>𝒟</mi></mrow></msub><mo>⁡</mo><mrow><munder><mi>min</mi><mrow><mrow><mi>k</mi><mo>≠</mo><mi>c</mi></mrow><mo>,</mo><mrow><msub><mi>y</mi><mi>c</mi></msub><mo>=</mo><mn>1</mn></mrow></mrow></munder><mo>⁡</mo><mrow><mo>(</mo><mrow><mrow><msubsup><mi>𝒘</mi><mi>c</mi><mo>⊤</mo></msubsup><mo>​</mo><mi>𝒙</mi></mrow><mo>−</mo><mrow><msubsup><mi>𝒘</mi><mi>k</mi><mo>⊤</mo></msubsup><mo>​</mo><mi>𝒙</mi></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>,</mo><mtext>with</mtext><mspace width=\"1em\"></mspace><mrow><mi>W</mi><mo>=</mo><msup><mrow><mo>[</mo><mrow><msub><mi>𝒘</mi><mn>1</mn></msub><mo>;</mo><mi mathvariant=\"normal\">…</mi><mo>;</mo><msub><mi>𝒘</mi><mi>K</mi></msub></mrow><mo>]</mo></mrow><mo>⊤</mo></msup></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "\\displaystyle\\textstyle C(W;\\mathcal{D}):=\\min_{(\\bm{x},\\bm{y})\\in\\mathcal{D}}\\;\\min\\limits_{k\\neq c,y_{c}=1}\\left(\\bm{w}_{c}^{\\top}\\bm{x}-\\bm{w}_{k}^{\\top}\\bm{x}\\right),\\quad\\text{with}\\quad W=[\\bm{w}_{1};\\dots;\\bm{w}_{K}]^{\\top}.",
+   "title": "先按样本找最近竞争类，再对数据取最差",
+   "meaning": "该式定义未归一化间隔。教学例：真类得分 4、其他最高得分 3，间隔为 1；另一样本间隔为 −0.5，全数据最小值为 −0.5，说明至少一个样本被更高错误得分压过。",
+   "caution": "理论的 γ 还除以整个矩阵的 Frobenius 范数；实用规则用平均的未归一化差值，不可混用。",
+   "symbols": [
+    {
+     "symbol": "W、wₖ",
+     "text": "分类矩阵的形状是 K×d，第 k 行对应一类。"
+    },
+    {
+     "symbol": "x、y",
+     "text": "d 维特征；K 维独热标签，真实类 c 满足 y_c=1。"
+    },
+    {
+     "symbol": "C(W;𝒟)",
+     "text": "整个数据集最小的真类与竞争类得分差。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S2.E5.m1",
+   "refs": [
+    "M2"
+   ],
+   "mathml": "<mrow><mrow><mrow><msub><mi>min</mi><mrow><mi>B</mi><mo>,</mo><mi>A</mi></mrow></msub><mo>⁡</mo><mrow><mi>L</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><msub><mi>W</mi><mi>pre</mi></msub><mo>+</mo><mrow><mi>B</mi><mo>​</mo><mi>A</mi></mrow></mrow><mo>,</mo><msub><mi>𝒟</mi><mi>ft</mi></msub><mo>)</mo></mrow></mrow></mrow><mo>+</mo><mrow><mfrac><mi>λ</mi><mn>2</mn></mfrac><mo>​</mo><mrow><mo>(</mo><mrow><msubsup><mrow><mo>‖</mo><mi>B</mi><mo>‖</mo></mrow><mi>F</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mrow><mo>‖</mo><mi>A</mi><mo>‖</mo></mrow><mi>F</mi><mn>2</mn></msubsup></mrow><mo>)</mo></mrow></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "\\displaystyle\\textstyle\\min_{B,A}\\;L(W_{\\mathrm{pre}}+BA;\\mathcal{D}_{\\mathrm{ft}})+\\frac{\\lambda}{2}(\\|B\\|_{F}^{2}+\\|A\\|_{F}^{2}).",
+   "title": "冻结原分类器，惩罚两个低秩因子",
+   "meaning": "只训练 B、A。教学例：若交叉熵为 0.4、两因子范数平方分别为 1、3，取 λ=0.2，则正则项是 0.4，总目标为 0.8。",
+   "caution": "因子层面的显式平方惩罚不是直接对 BA 作同样的 Frobenius 惩罚；AdamW 权重衰减只是在动机中类比。",
+   "symbols": [
+    {
+     "symbol": "Wpre",
+     "text": "冻结基准分类矩阵，K×d。"
+    },
+    {
+     "symbol": "B、A",
+     "text": "K×r 和 r×d 矩阵，乘积与冻结矩阵同形。"
+    },
+    {
+     "symbol": "λ、L",
+     "text": "正则强度与微调样本上平均交叉熵。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S3.E13.m1",
+   "refs": [
+    "M3"
+   ],
+   "mathml": "<mrow><mrow><mrow><mrow><mi>Adapt</mi><mo>⁡</mo><mrow><mo>(</mo><mi>λ</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>γ</mi><mrow><mi>ft</mi><mo>,</mo><mi>λ</mi></mrow></msub><mo>​</mo><mfrac><msub><mi mathvariant=\"normal\">Θ</mi><mi>λ</mi></msub><msqrt><mrow><msubsup><mi mathvariant=\"normal\">Θ</mi><mi>λ</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>ρ</mi><mi>pre</mi><mn>2</mn></msubsup></mrow></msqrt></mfrac></mrow></mrow><mo>,</mo><mrow><mrow><mi>Forget</mi><mo>⁡</mo><mrow><mo>(</mo><mi>λ</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>γ</mi><mi>pre</mi></msub><mo>​</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mfrac><msub><mi>ρ</mi><mi>pre</mi></msub><msqrt><mrow><msubsup><mi mathvariant=\"normal\">Θ</mi><mi>λ</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>ρ</mi><mi>pre</mi><mn>2</mn></msubsup></mrow></msqrt></mfrac></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "\\displaystyle\\mathrm{Adapt}(\\lambda)\\!=\\!\\gamma_{\\mathrm{ft,\\lambda}}\\,\\frac{\\Theta_{\\lambda}}{\\sqrt{\\Theta_{\\lambda}^{2}+\\rho_{\\mathrm{pre}}^{2}}}\\,,\\quad\\mathrm{Forget}(\\lambda)=\\gamma_{\\mathrm{pre}}\\biggl(1-\\frac{\\rho_{\\mathrm{pre}}}{\\sqrt{\\Theta_{\\lambda}^{2}+\\rho_{\\mathrm{pre}}^{2}}}\\biggr)\\,.",
+   "title": "适配增益与旧间隔缩水共用同一个分母",
+   "meaning": "严格正交的教学例：旧权重范数为 4、增量为 3、两分量各自归一化间隔均为 0.5，共同范数为 5。适配增益为 0.3，遗忘量为 0.1；旧间隔从 0.5 变 0.4，并未出现同等准确率差。",
+   "caution": "主文公式按严格正交同类集合讲解；非正交时除了分母改变，分子也受到跨任务残留影响。",
+   "symbols": [
+    {
+     "symbol": "Θλ、ρpre",
+     "text": "低秩乘积与预训练权重的 Frobenius 范数。"
+    },
+    {
+     "symbol": "γft,λ、γpre",
+     "text": "两个权重分量在各自任务上的归一化间隔。"
+    },
+    {
+     "symbol": "Adapt、Forget",
+     "text": "相对各自基准间隔的增加或下降。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S3.E15.m1",
+   "refs": [
+    "M4"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>γ</mi><mo>⁡</mo><mrow><mo>(</mo><msubsup><mi>W</mi><mi>LoRA</mi><mi>λ</mi></msubsup><mo>,</mo><mrow><msub><mi>𝒟</mi><mi>pre</mi></msub><mo>∪</mo><msub><mi>𝒟</mi><mi>ft</mi></msub></mrow><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mi>min</mi><mo>⁡</mo><mrow><mo>{</mo><mrow><mrow><msub><mi>γ</mi><mi>pre</mi></msub><mo>−</mo><mrow><mi>Forget</mi><mo>⁡</mo><mrow><mo>(</mo><mi>λ</mi><mo>)</mo></mrow></mrow></mrow><mo>,</mo><mrow><mi>Adapt</mi><mo>⁡</mo><mrow><mo>(</mo><mi>λ</mi><mo>)</mo></mrow></mrow></mrow><mo>}</mo></mrow></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "\\displaystyle\\gamma(W_{\\mathrm{LoRA}}^{\\lambda};\\mathcal{D}_{\\mathrm{pre}}\\cup\\mathcal{D}_{\\mathrm{ft}})=\\min\\bigl\\{\\gamma_{\\mathrm{pre}}-\\mathrm{Forget}(\\lambda),\\mathrm{Adapt}(\\lambda)\\bigr\\}\\,.",
+   "title": "最大化联合数据中更小的那个间隔",
+   "meaning": "教学例：若旧间隔 0.5、遗忘量 0.1，适配增益 0.3，联合间隔是 min(0.4, 0.3)=0.3；把旧间隔继续拉高却不改善新任务，联合指标不会再升。",
+   "caution": "并集最小值不是把两份数据准确率平均；不能由此断言真实部署的最佳正则也在同一点。",
+   "symbols": [
+    {
+     "symbol": "𝒟pre、𝒟ft",
+     "text": "预训练与微调数据。"
+    },
+    {
+     "symbol": "γpre − Forget",
+     "text": "适配后旧任务间隔。"
+    },
+    {
+     "symbol": "Adapt",
+     "text": "严格正交时等于适配后新任务间隔，因为基准模型在新任务上的间隔为零。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文 · S3.E17.m1",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mrow><mrow><mrow><mrow><msub><mi>W</mi><mi>LoRA</mi></msub><mo>​</mo><mrow><mo>(</mo><mi>𝜶</mi><mo>)</mo></mrow></mrow><mo>:=</mo><mrow><msub><mi>W</mi><mi>pre</mi></msub><mo>+</mo><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></msubsup><mrow><msub><mi>α</mi><mi>i</mi></msub><mo>​</mo><msubsup><mi>B</mi><mi>i</mi><mo>∗</mo></msubsup><mo>​</mo><msubsup><mi>A</mi><mi>i</mi><mo>∗</mo></msubsup></mrow></mrow></mrow></mrow><mo>,</mo><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><mi mathvariant=\"normal\">…</mi><mo>,</mo><mrow><msub><mi>α</mi><mi>T</mi></msub><mo>≥</mo><mn>0</mn></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\displaystyle\\textstyle W_{\\mathrm{LoRA}}(\\bm{\\alpha})\\;:=\\;W_{\\mathrm{pre}}\\;+\\;\\sum_{i=1}^{T}\\alpha_{i}\\,B_{i}^{\\ast}A_{i}^{\\ast},\\qquad\\alpha_{1},\\dots,\\alpha_{T}\\geq 0,",
+   "title": "在权重空间相加，而非在两个因子上分别平均",
+   "meaning": "教学例：若旧模型未归一化间隔为 2，两个增量的本任务间隔为 1 与 4，则理论系数为 2 与 0.5；乘回以后两任务间隔分子均为 2，再除以合并模型的同一范数。",
+   "caution": "理论需非零且具有正间隔的增量；系数取零的任务并无严格正间隔保证。实用方法另做平均间隔筛选与尺度校准。",
+   "symbols": [
+    {
+     "symbol": "αᵢ",
+     "text": "第 i 个增量的非负混合系数，无量纲，不要求和为一。"
+    },
+    {
+     "symbol": "Bᵢ*Aᵢ*",
+     "text": "独立训练的任务低秩乘积，和基准权重同形。"
+    },
+    {
+     "symbol": "T",
+     "text": "参与合并的微调任务数。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 3,
+   "reference": "F3",
+   "section": "experiments",
+   "src": "assets/deep-reading/2611.14397/original-fig-3.png",
+   "width": 6466,
+   "height": 5344,
+   "caption": "Figure 3: Feature correlation analysis across different pretrained models.",
+   "title": "近正交动机：先区分类内与类间",
+   "alt": "CIFAR-100 的四种冻结骨干特征余弦相似度矩阵，颜色共用以零为中心的发散色标。",
+   "caution": "这是近正交参考几何的经验动机；均值接近零可能是正负抵消，既不能约束最坏样本相关，也不能证明旧任务权重与每个新样本正交。",
+   "reading_steps": [
+    {
+     "title": "先辨认坐标与色标",
+     "text": "横纵轴都是细类索引，右侧色标为无量纲余弦，值从负到正；这不是模型准确率图。四个面板依次是 ResNet、ViT、CLIP 与 ConvNeXt 的特征。"
+    },
+    {
+     "title": "对比对角线与非对角线",
+     "text": "对角线是同类不同样本的平均相似度，不是样本和自己的相似度；其暖色比背景明显。不少非对角格接近白色，但仍有相似度较显眼的类对。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "b552f634c3891e94099fb52f5145c6e72161ea400d44ec13835e87e9f9cc17a0"
+  },
+  {
+   "id": "original-figure-b",
+   "number": 1,
+   "reference": "F1",
+   "section": "results",
+   "src": "assets/deep-reading/2611.14397/original-fig-1.png",
+   "width": 10835,
+   "height": 2847,
+   "caption": "Figure 1: Merged-model accuracy across architectures. Each panel shows the accuracy of the merged model evaluated on the combined dataset, across a 50\\times 50 grid of mixing coefficients (\\alpha_{1},\\alpha_{2})\\in(0,1)^{2} . For each architecture, the red star indicates the theoretically predicted optimal coefficients from Theorem 3.3 , while the red triangle marks the empirically optimal coefficients.",
+   "title": "两套混合系数在准确率地形上的位置",
+   "alt": "四种骨干的双适配器准确率热图，红星为理论点，红三角为网格搜索点，共用右侧准确率色标。",
+   "caution": "这是冻结特征的线性探针，不等同于多域深网基线表。只扫描规定的有限网格，且颜色不能精读为准确率差、统计显著性或全局最优保证。",
+   "reading_steps": [
+    {
+     "title": "横轴先读 α₂，纵轴再读 α₁",
+     "text": "横纵轴都是无量纲混合权重；颜色为联合评估集的分类准确率百分比，图标题限定了微调类数。红星与红三角不是置信区间。"
+    },
+    {
+     "title": "同时比较位置与所在颜色区域",
+     "text": "ConvNeXt 星与三角几乎叠合；ResNet 的横向位置更分开，而两点仍落在较亮区域。CLIP 的点主要沿纵轴拉开，提示格点最优与理论点可不完全相同。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "5fc41fee42c9e6fd0070a6dbb9aa557ab42b372d6792bb9986db4bdc4da5925b"
+  },
+  {
+   "id": "original-figure-c",
+   "number": 4,
+   "reference": "F4",
+   "section": "results",
+   "src": "assets/deep-reading/2611.14397/original-fig-4.png",
+   "width": 10833,
+   "height": 2979,
+   "caption": "Figure 4: Accuracy of the fine-tuned model across varying regularization levels for four different pre-trained models. Each line represents a fine-tuning task, indicated by color. Stars highlight the best-performing regularization value for each task. Vertical dashed lines indicate the theoretically predicted optimal regularization parameter for each setting. Alignment between the star and the dashed line of the same color reflects how well our theory predicts the empirically optimal regularization level.",
+   "title": "同一星号色和虚线色必须配对",
+   "alt": "四种骨干的准确率随正则强度变化，颜色表示参与微调的类数；实线上的星为经验最佳，竖虚线为理论预测。",
+   "caution": "峰形支持强度有折中，不支持所有骨干能用同一常数直接从理论读出经验峰。附录没有把这些线性探针曲线当作测试风险证明。",
+   "reading_steps": [
+    {
+     "title": "先看横轴的对数刻度",
+     "text": "横轴是正则强度，等间距表示倍率不是加法；纵轴为分类准确率，面板纵轴起点不同。同色曲线、星和虚线对应同一微调任务规模。"
+    },
+    {
+     "title": "分开看峰值形态与预测位置",
+     "text": "多个面板先升后降，但 ConvNeXt 的蓝星与蓝虚线有明显横向错位；CLIP 的蓝、橙星也明显在同色虚线右边。精确差距回附录表，不用图上像素读数。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "19a7d9903f817302885ece0d0cdc1a61eb8323912dc26c23be3910bba6d5398f"
+  }
+ ],
+ "original_figure_credit": "Ziqing Xu、Hancheng Min、Lachlan Ewen MacDonald、Salma Tarmoun、Enrique Mallada、Weijie Su、Rene Vidal",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T05:17:19Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "9bde2156f6456a90b2322a92de4c504013912e3e212df7b0686054cbb8089129",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill",
+  "source_html_sha256": "39765ce52cc64367b85efab4504f956c766c873eae9bb0e3ccebac2b91dab4c6",
+  "license_evidence_url": "https://arxiv.org/abs/2611.14397v1"
+ },
+ "copyright_note": "CC BY 4.0；展示的三张原图从固定版 PDF 完整无损提取，未裁剪、重绘或加注，不上传 PDF 或全文。",
+ "source_type": "licensed_arxiv_pdf"
+}

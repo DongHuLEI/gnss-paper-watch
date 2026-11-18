@@ -1,4 +1,4 @@
-"""Allowlist for complete, unaltered image objects from licensed arXiv PDFs."""
+"""Allowlist for complete, unaltered figures from licensed arXiv PDFs."""
 
 import hashlib
 import re
@@ -9,7 +9,7 @@ LICENSES = {
     "by": ("CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/"),
     "by-nc-nd": ("CC BY-NC-ND 4.0", "https://creativecommons.org/licenses/by-nc-nd/4.0/"),
 }
-# Each entry binds the official version and license to reviewed image objects only.
+# Each entry binds the official version and license to individually verified complete figures.
 # Figure rows: PDF page, extension, natural width, natural height, asset SHA-256.
 APPROVED = {
     ("2606.29644", "v1"): (
@@ -30,7 +30,25 @@ APPROVED = {
             7: (14, "png", 1600, 2000, "cdd663bf59f4a37b3ac9983b4bba970a5baa79e629cf95d64695d879b5adcac6"),
         },
     ),
+    ("2611.14250", "v1"): (
+        "by-nc-nd", "63ee1f6183a0d5b49ee962af940adef4593fd1f2a94b230c214f4ff52c454f9b", 6,
+        "Paolo Tosi、Ossi Kaltiokallio、Marcus Henninger、Silvio Mandelli、Mikko Valkama",
+        {
+            2: (3, "png", 1476, 684, "8e44f4d79d4a3985dc79254b1493324d18ca1debaff60da230cad6274c4e95dd"),
+            4: (6, "png", 1416, 840, "3f5fef4b90dd16cbc5e3b6550f9d7d20677e6c45c8c20bfa13161c2291628042"),
+        },
+    ),
+    ("2611.14397", "v1"): (
+        "by", "9bde2156f6456a90b2322a92de4c504013912e3e212df7b0686054cbb8089129", 61,
+        "Ziqing Xu、Hancheng Min、Lachlan Ewen MacDonald、Salma Tarmoun、Enrique Mallada、Weijie Su、Rene Vidal",
+        {
+            1: (9, "png", 10835, 2847, "5fc41fee42c9e6fd0070a6dbb9aa557ab42b372d6792bb9986db4bdc4da5925b"),
+            3: (50, "png", 6466, 5344, "b552f634c3891e94099fb52f5145c6e72161ea400d44ec13835e87e9f9cc17a0"),
+            4: (50, "png", 10833, 2979, "19a7d9903f817302885ece0d0cdc1a61eb8323912dc26c23be3910bba6d5398f"),
+        },
+    ),
 }
+FIGURE_REGION_RENDERS = {("2611.14250", "v1", 2), ("2611.14250", "v1", 4)}
 
 
 def is_pdf(data):
@@ -81,7 +99,9 @@ def validate_source(data):
 def validate_image(data, item, root, figures=None):
     number = item["number"]
     page, extension, width, height, sha = (figures if figures is not None else validate_source(data))[number]
-    if (item["src"] != asset_path(data, number, extension)
+    if (item.get("rendering") != figure_rendering(data, number)
+            or any(type(item[k]) is not int or not 1 <= item[k] <= 12000 for k in ("width", "height"))
+            or item["src"] != asset_path(data, number, extension)
             or (item["width"], item["height"]) != (width, height)
             or item.get("modified") is not False or item.get("asset_sha256") != sha
             or data["references"][item["reference"]]["anchor"] != "page=%d" % page
@@ -90,6 +110,12 @@ def validate_image(data, item, root, figures=None):
     asset = root / item["src"]
     if not asset.is_file() or hashlib.sha256(asset.read_bytes()).hexdigest() != sha:
         raise ValueError("licensed PDF original figure hash mismatch: " + str(asset))
+
+
+def figure_rendering(data, number):
+    if (data["paper_id"], data["source_version"], number) in FIGURE_REGION_RENDERS:
+        return "complete_figure_pdf_region"
+    return None
 
 
 def license_credit(data):

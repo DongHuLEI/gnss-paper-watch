@@ -95,7 +95,7 @@ def load_deep_reads(directory):
                 from paper_source import image_url
                 if image_url(data["source_url"], original["src"]) != original["src"]:
                     raise ValueError("original figure must link to the versioned arXiv image")
-            if any(type(original[key]) is not int or not 1 <= original[key] <= 10000 for key in ("width", "height")):
+            if pdf_figures is None and any(type(original[key]) is not int or not 1 <= original[key] <= 10000 for key in ("width", "height")):
                 raise ValueError("invalid original figure dimensions")
             if not original["alt"].strip() or not original["reading_steps"] or not data.get("original_figure_credit", "").strip():
                 raise ValueError("original figure requires description, commentary and credit")
@@ -168,7 +168,8 @@ def original_figure(data, reference):
     )
     if local:
         name, url, purpose = licensed_figures.license_credit(data)
-        credit += '<p class="dr-image-credit">许可：<a rel="license" href="%s">%s</a>%s。完整保留图像像素；PNG 为无损导出，网页只等比例缩放显示。未裁剪、重绘或加注。</p>' % (esc(url), esc(name), esc(purpose))
+        export = "完整原图区域按 PDF 原样栅格化为 PNG，保留图内坐标、图例及颜色；未重绘、重标或加注。" if licensed_figures.figure_rendering(data, item["number"]) else "完整保留图像像素；PNG 为无损导出，网页只等比例缩放显示。未裁剪、重绘或加注。"
+        credit += '<p class="dr-image-credit">许可：<a rel="license" href="%s">%s</a>%s。%s</p>' % (esc(url), esc(name), esc(purpose), esc(export))
     return '<figure class="dr-figure dr-original-figure" id="%s"><div class="dr-figure-heading"><strong>原文 Fig.%s / %s</strong><button class="icon-button" type="button" data-expand-figure hidden>放大原图</button></div>%s%s<figcaption>%s%s%s</figcaption></figure>' % (
         esc(item["id"]), item["number"], esc(item["title"]), graphic, steps, esc(item["caption"]), credit, refs(data, [reference]),
     )
