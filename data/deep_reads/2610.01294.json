@@ -1,0 +1,843 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2610.01294",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2610.01294v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "移动设备中的 GNSS 欺骗：影响与对策综述",
+ "dek": "综述以智能手机的可用观测为约束，梳理欺骗对 PVT 的影响、ASC1–ASC3 对策分级，以及 AGC/C/N0、时相关、惯性、众包、多源与多频方法；结论是没有单一方法达到 ASC3，跨设备异质性与攻击假设仍是主要限制。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 DeepSeek 子代理读取 arXiv v1 HTML 正文、图注、表格及可提取公式后整理，并实际查看所展示原图；不是独立 DeepSeek API 账单任务，不计入其用量。本子代理已按 Skill 自查证据、公式、原图与页面；主会话仅核查提交与完成状态，文章仍待人工抽查。本次重点核对：综述与各被引论文的边界、手机可观测约束、ASC1–ASC3 分级的作者定义、不同设备/攻击假设不可合并为统一实测保证，以及 CC BY 4.0 许可。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S1": {
+   "label": "原文 · abstract1.1",
+   "anchor": "abstract1.1"
+  },
+  "S11": {
+   "label": "原文 · S1.SS1.p2.1",
+   "anchor": "S1.SS1.p2.1"
+  },
+  "S16": {
+   "label": "原文 · S1.SS2.p1.1",
+   "anchor": "S1.SS2.p1.1"
+  },
+  "S127": {
+   "label": "原文 · S5.SS1.p2.1",
+   "anchor": "S5.SS1.p2.1"
+  },
+  "S40": {
+   "label": "原文 · S2.SS2.p9.1",
+   "anchor": "S2.SS2.p9.1"
+  },
+  "S88": {
+   "label": "原文 · S4.SS2.p7.1",
+   "anchor": "S4.SS2.p7.1"
+  },
+  "S18": {
+   "label": "原文 · S1.SS2.p3.1",
+   "anchor": "S1.SS2.p3.1"
+  },
+  "S136": {
+   "label": "原文 · S5.SS2.p1.1",
+   "anchor": "S5.SS2.p1.1"
+  },
+  "S29": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S39": {
+   "label": "原文 · S2.SS2.p8.1",
+   "anchor": "S2.SS2.p8.1"
+  },
+  "S23": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S26": {
+   "label": "原文 · S2.SS1.p2.1",
+   "anchor": "S2.SS1.p2.1"
+  },
+  "S60": {
+   "label": "原文 · S3.I1.ix1.p1.1",
+   "anchor": "S3.I1.ix1.p1.1"
+  },
+  "S61": {
+   "label": "原文 · S3.I1.ix2.p1.1",
+   "anchor": "S3.I1.ix2.p1.1"
+  },
+  "S62": {
+   "label": "原文 · S3.I1.ix3.p1.1",
+   "anchor": "S3.I1.ix3.p1.1"
+  },
+  "S63": {
+   "label": "原文 · S3.SS2.p1.2",
+   "anchor": "S3.SS2.p1.2"
+  },
+  "S68": {
+   "label": "原文 · S3.SS3.p2.1",
+   "anchor": "S3.SS3.p2.1"
+  },
+  "S72": {
+   "label": "原文 · S4.p1.1",
+   "anchor": "S4.p1.1"
+  },
+  "S52": {
+   "label": "原文 · S3.SS1.p4.1",
+   "anchor": "S3.SS1.p4.1"
+  },
+  "S35": {
+   "label": "原文 · S2.SS2.p6.1",
+   "anchor": "S2.SS2.p6.1"
+  },
+  "S36": {
+   "label": "原文 · S2.SS2.p6.2",
+   "anchor": "S2.SS2.p6.2"
+  },
+  "S37": {
+   "label": "原文 · S2.SS2.p6.3",
+   "anchor": "S2.SS2.p6.3"
+  },
+  "S90": {
+   "label": "原文 · S4.SS3.p1.1",
+   "anchor": "S4.SS3.p1.1"
+  },
+  "S94": {
+   "label": "原文 · S4.SS3.p3.2",
+   "anchor": "S4.SS3.p3.2"
+  },
+  "S74": {
+   "label": "原文 · S4.SS1.p1.1",
+   "anchor": "S4.SS1.p1.1"
+  },
+  "S138": {
+   "label": "原文 · S6.p1.1",
+   "anchor": "S6.p1.1"
+  },
+  "S6": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S7": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S128": {
+   "label": "原文 · S5.SS1.p3.1",
+   "anchor": "S5.SS1.p3.1"
+  },
+  "S130": {
+   "label": "原文 · S5.SS1.p5.1",
+   "anchor": "S5.SS1.p5.1"
+  },
+  "S131": {
+   "label": "原文 · S5.SS1.p6.1",
+   "anchor": "S5.SS1.p6.1"
+  },
+  "S124": {
+   "label": "原文 · S5.SS1.p1.1",
+   "anchor": "S5.SS1.p1.1"
+  },
+  "S133": {
+   "label": "原文 · S5.SS1.p8.1",
+   "anchor": "S5.SS1.p8.1"
+  },
+  "S139": {
+   "label": "原文 · S6.p2.1",
+   "anchor": "S6.p2.1"
+  },
+  "S17": {
+   "label": "原文 · S1.SS2.p2.1",
+   "anchor": "S1.SS2.p2.1"
+  },
+  "S129": {
+   "label": "原文 · S5.SS1.p4.1",
+   "anchor": "S5.SS1.p4.1"
+  },
+  "S132": {
+   "label": "原文 · S5.SS1.p7.1",
+   "anchor": "S5.SS1.p7.1"
+  },
+  "M3": {
+   "label": "原公式 · S2.E3.m1",
+   "anchor": "S2.E3.m1"
+  },
+  "M4": {
+   "label": "原公式 · S2.E5.m1",
+   "anchor": "S2.E5.m1"
+  },
+  "M5": {
+   "label": "原公式 · S2.E6.m1",
+   "anchor": "S2.E6.m1"
+  },
+  "M7": {
+   "label": "原公式 · S4.E9.m1",
+   "anchor": "S4.E9.m1"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S1.F1"
+  },
+  "F5": {
+   "label": "Fig.5 · 原文图",
+   "anchor": "S4.F5"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "综述对象与核心问题",
+     "kind": "reported",
+     "text": "本文是面向智能手机的 GNSS 欺骗综述：说明手机接收机为何易受欺骗、欺骗如何影响 PVT，以及哪些检测/缓解方法能在手机可获得的观测上落地。作者强调现有综述多假设相关器输出、多频载波相位、高速 IQ 或受控射频前端，这些在商用手机上通常不可得。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "However, their hardware constraints and the lack of deep visibility into the GNSS receiver processing chain create significant hurdles for effective countermeasures."
+      },
+      {
+       "source": "S11",
+       "quote": "Prior reviews frequently discuss countermeasures assuming access to raw correlation outputs, multi-band carrier phase measurements, high-rate IQ samples, disciplined oscillators, or controlled RF front-ends, none of which are available on commodity smartphones [ 23 ] ."
+      },
+      {
+       "source": "S16",
+       "quote": "the first survey explicitly constrained to countermeasures that are realistically deployable on commercial smartphones"
+      }
+     ]
+    },
+    {
+     "heading": "关键结论与边界",
+     "kind": "interpretation",
+     "text": "作者的核心结论不是“某方法已解决手机欺骗”，而是：多数方法只能到 ASC1（检测到可能被欺骗），少数时相关/多频方法可到 ASC2（识别受影响的测量），没有综述中的方法达到 ASC3（剔除欺骗观测并恢复可信 PVT）。这个分级是作者提出的评估框架，不是各论文统一实测的排行榜。",
+     "evidence": [
+      {
+       "source": "S127",
+       "quote": "Most of the reviewed methods belong to ASC1: they can indicate that spoofing is likely present but cannot determine which measurements are compromised."
+      },
+      {
+       "source": "S127",
+       "quote": "Only temporal-correlation and multi-frequency methods reach ASC2 under the assumptions considered, because they can potentially identify correlated signals or isolate measurements received on an affected frequency."
+      },
+      {
+       "source": "S127",
+       "quote": "None of the reviewed method families currently reaches ASC3, which would require excluding spoofed observations and restoring a trusted PVT solution."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "既有综述的接收机假设",
+     "kind": "reported",
+     "text": "作者指出现有 GNSS 安全与反欺骗综述通常采取接收机无关视角，假设可以访问原始相关输出、多频载波相位、高速 IQ、高稳定度振荡器或受控射频前端；这些在商用手机上并非默认可得。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "Existing survey papers on GNSS security and spoofing countermeasures provide valuable taxonomies of threats and detection strategies [ 18 , 19 , 20 , 21 , 22 ] , yet they typically adopt a receiver-agnostic perspective that does not reflect the stringent constraints of mobile devices."
+      },
+      {
+       "source": "S11",
+       "quote": "Prior reviews frequently discuss countermeasures assuming access to raw correlation outputs, multi-band carrier phase measurements, high-rate IQ samples, disciplined oscillators, or controlled RF front-ends, none of which are available on commodity smartphones [ 23 ] ."
+      }
+     ]
+    },
+    {
+     "heading": "手机平台的特殊约束",
+     "kind": "reported",
+     "text": "手机通常只能通过 Android API 取得 AGC、载噪比、伪距、多普勒等有限观测，原始 IQ、相关器输出和多数芯片诊断不可得；不同厂商与固件对导航电文、AGC 符号和基线值的实现也不一致。这让接收机级方法不能直接下移到手机。",
+     "evidence": [
+      {
+       "source": "S40",
+       "quote": "At the time of writing, to the best of our knowledge, no commercially available smartphone chipset (nor publicly exposed API) allows access to raw digital signal samples, correlator outputs, or other lower-level intermediate observables found in dedicated GNSS receivers."
+      },
+      {
+       "source": "S88",
+       "quote": "Across the diverse Android ecosystem, the different implementations of GNSS chipsets and software produce disparate AGC outputs [ 32 ] ."
+      },
+      {
+       "source": "S11",
+       "quote": "including partial or absent exposure of navigation messages, coarse clock models, and manufacturer-restricted access to chipset diagnostics [ 24 ] ."
+      }
+     ]
+    },
+    {
+     "heading": "本文贡献",
+     "kind": "reported",
+     "text": "本文的贡献是把手机约束显式化：给出面向手机硬件的对策评估框架、按 ASC 分级比较已有方法，并提供作者称为首个公开的智能手机 over-the-air 欺骗数据集。它不是对某一攻击的实测保证，而是把不同论文的平台、攻击模型与防御假设放在同一张表里对照。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "the first survey explicitly constrained to countermeasures that are realistically deployable on commercial smartphones"
+      },
+      {
+       "source": "S18",
+       "quote": "Lastly, this article features a first-of-its-kind dataset of over-the-air GNSS spoofing of a number of smartphones."
+      },
+      {
+       "source": "S136",
+       "quote": "This first-of-its-kind dataset includes smartphone data recorded from over-the-air experiments in both benign and spoofed GNSS environments, allowing researchers to examine device behavior across distinct operational environments."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "接收机链路与可观测",
+     "kind": "reported",
+     "text": "论文先给出 GNSS 接收机的基本链路：天线与射频前端、AGC、ADC、捕获与跟踪、相关器、载噪比、伪距与多普勒，最后到 PVT。它用 tap point 说明信息量：原始采样、相关器与跟踪参数、PVT 与导航电文；手机通常只能拿到最后一层及部分 Android 原始测量。",
+     "evidence": [
+      {
+       "source": "S29",
+       "quote": "The combined RF satellite signal r(t) is received by an antenna which sends analog voltage values to an RF front end embedding an analog-to-digital converter (ADC)."
+      },
+      {
+       "source": "S39",
+       "quote": "Tap point 1 gives access to the raw digital samples that come from the ADC."
+      },
+      {
+       "source": "S40",
+       "quote": "At the time of writing, to the best of our knowledge, no commercially available smartphone chipset (nor publicly exposed API) allows access to raw digital signal samples, correlator outputs, or other lower-level intermediate observables found in dedicated GNSS receivers."
+      }
+     ]
+    },
+    {
+     "heading": "信号与欺骗叠加模型",
+     "kind": "reported",
+     "text": "无欺骗时，接收信号是各可见卫星信号加噪声；欺骗器发射与真实信号结构相同、但参数或导航电文被修改的信号，接收端看到合法与欺骗分量的叠加。这个模型是后续分类与检测的出发点。",
+     "evidence": [
+      {
+       "source": "S23",
+       "quote": "Under benign conditions, that is in the absence of spoofing signals, the received GNSS signal can be formulated as follows:"
+      },
+      {
+       "source": "S26",
+       "quote": "Spoofers will emit signals with the same structure as in ( 2 ) while modifying some or all elements in its parametric representation"
+      },
+      {
+       "source": "S26",
+       "quote": "The resulting received signal would then contain a combination of both legitimate and spoofed signals"
+      }
+     ]
+    },
+    {
+     "heading": "ASC 分级",
+     "kind": "reported",
+     "text": "作者按对策效果分三级：ASC1 检测是否存在欺骗分量，ASC2 识别哪些卫星或测量被欺骗，ASC3 剔除并恢复可信 PVT；三级是嵌套的，高级方法可隐含低级功能。这个分级把“检测到”与“能修复”分开。",
+     "evidence": [
+      {
+       "source": "S60",
+       "quote": "ASC1 . Detection of the conditions"
+      },
+      {
+       "source": "S61",
+       "quote": "ASC2 . Identification of the specific elements"
+      },
+      {
+       "source": "S62",
+       "quote": "ASC3 . Mitigation and restoration"
+      },
+      {
+       "source": "S63",
+       "quote": "The categories are a nested hierarchy with effectiveness increasing from ASC1 to ASC3"
+      }
+     ]
+    },
+    {
+     "heading": "对策家族",
+     "kind": "reported",
+     "text": "综述把通用对策按数据域分为硬件、相关前、相关后，并逐项标注手机可得性与局限；手机特定的家族包括 AGC 与载噪比、时相关、惯性、众包、多数据源和多频。Table II 的勾叉是作者对手机可用性的判断，不是各方法在统一实验中的性能排名。",
+     "evidence": [
+      {
+       "source": "S68",
+       "quote": "Table II summarizes common spoofing countermeasure methods employed along with their limitations."
+      },
+      {
+       "source": "S72",
+       "quote": "the primary classes of spoof countermeasure algorithms applied to smartphones: AGC & C/N_{0} -based methods, temporal correlation-based methods, inertial-based methods, crowdsource-based methods, multi-data source-based methods, and multi-frequency-based methods."
+      },
+      {
+       "source": "S68",
+       "quote": "Some of the assumptions made that discount techniques from being used in the smartphone case include requiring hardware not available on most smartphones, requiring the receiver is stationary, requiring the receiver follow a predetermined movement pattern, requiring processing of digitally signed signals, or access to the data tap points in the receiver processing chain unavailable in many smartphones."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "合法与欺骗分量的叠加",
+     "kind": "interpretation",
+     "text": "叠加式把接收信号写成合法分量、欺骗分量与噪声之和；欺骗分量沿用真实信号的结构，只改参数与可能的导航电文。它假设线性叠加，不描述接收机非线性、ADC 饱和或多径信道；欺骗分量也可能带假星历，但本文为简化只聚焦假观测。",
+     "evidence": [
+      {
+       "source": "S26",
+       "quote": "Spoofers will emit signals with the same structure as in ( 2 ) while modifying some or all elements in its parametric representation"
+      },
+      {
+       "source": "S26",
+       "quote": "The resulting received signal would then contain a combination of both legitimate and spoofed signals"
+      },
+      {
+       "source": "S52",
+       "quote": "by fabricating the data component in generated spoofed signals, a spoofer may induce, alongside fake observables, also a set of fake ephemerides"
+      }
+     ]
+    },
+    {
+     "heading": "跟踪与载噪比估计",
+     "kind": "interpretation",
+     "text": "跟踪式把相关器 I/Q 映射为码延迟、多普勒与载波相位估计，载噪比式把同一组 I/Q 映射为载噪比；两者都是接收机内部估计，具体函数随实现而异。欺骗与合法信号混合时，这些估计可能反映混合值，不能单独当作真值。",
+     "evidence": [
+      {
+       "source": "S35",
+       "quote": "These values are used to estimate the code delay and carrier shift and phase of each signal according to discriminator functions and filter loops; a process that can be generalized as"
+      },
+      {
+       "source": "S36",
+       "quote": "a carrier-to-noise-density ratio ( C/N_{0} ) estimate is obtained as"
+      },
+      {
+       "source": "S37",
+       "quote": "the estimates in ( 5 ) and ( 6 ) may reflect a mixture of spoofed and legitimate values."
+      }
+     ]
+    },
+    {
+     "heading": "共信道与时间相关",
+     "kind": "interpretation",
+     "text": "共信道式把单天线欺骗器的所有伪造信号与欺骗器噪声先相加，再经过同一条传播信道；因此各伪造信号共享信道失真，时相关高于真实卫星信号。这个假设支撑基于 Pearson 相关的检测，但对多天线或分布式欺骗器不一定成立。",
+     "evidence": [
+      {
+       "source": "S90",
+       "quote": "a single antenna spoofer emits all its satellite RF signals from a single emitting source."
+      },
+      {
+       "source": "S94",
+       "quote": "all spoofed signals share the same channel, inducing correlated distortions despite their individually assigned parameters"
+      },
+      {
+       "source": "S94",
+       "quote": "This results in the temporal correlations between the spoofed satellite signals being higher than the correlations in authentic satellite data."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "证据基础与异质性",
+     "kind": "reported",
+     "text": "本文不是单一控制实验，而是汇总多个独立研究组的射频测试、真实事件和作者自己的数据集；不同团队的设备、欺骗功率、轨迹差与是否预干扰都不同。作者明确说实验设置通常不一致，但高层结论常相同：手机易被欺骗，且难以仅凭历史或辅助数据抵抗突变。",
+     "evidence": [
+      {
+       "source": "S74",
+       "quote": "Numerous independent research groups have conducted RF testing to assess smartphone resiliency to spoofing [ 29 ] ."
+      },
+      {
+       "source": "S74",
+       "quote": "The researchers’ experiment setups are typically not identical, but the same high-level conclusion is often drawn: smartphones are susceptible to GNSS spoofing and exhibit limited resistance to abruptly changing their PVT solutions away from historic or complementary data."
+      },
+      {
+       "source": "S138",
+       "quote": "Many research groups across numerous independent tests have found significant susceptibility of smartphones to GNSS spoofing"
+      }
+     ]
+    },
+    {
+     "heading": "代表漏洞案例",
+     "kind": "reported",
+     "text": "文中列举了 2017 ION GNSS+ 模拟器误发射导致手机锁定错误时间、导航被诱导偏离目的地约 1 km、地理围栏被绕过、网约车里程被伪造等案例；还报告 3 台手机到 18 台手机的后续测试，后者把真假位置差从 144 km 缩到 12 km 并加入预干扰，观察到更高的欺骗成功率。这些是不同场景的案例，不能合并成一个统一的成功率。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "during the 2017 ION GNSS+ conference in Portland, a GNSS RF simulator that was not properly terminated resulted in numerous smartphones within about a 10 meter radius of the device lock on to the simulated GNSS signals and report the incorrect date or time [ 4 ] ."
+      },
+      {
+       "source": "S6",
+       "quote": "This was done in a way that the driver was unaware he was getting false position information and navigated as much as 1 km away from his desired destination."
+      },
+      {
+       "source": "S74",
+       "quote": "This study investigated a much wider set of smartphone devices testing 18 different devices instead of the first study’s original 3 devices. Furthermore, the spoofing scenario was adjusted to investigate the smartphones’ behavior to spoofing in a more trying environment. To this end, the authors reduced the position difference between the true and spoofed position from 144 km to 12 km."
+      },
+      {
+       "source": "S7",
+       "quote": "Trusted Places feature allows a user to configure their phone so that its security features are partially or fully disabled when the phone’s GNSS position solution is within some geofenced area. A malicious actor with physical access to someone’s phone and the ability to spoof their geofenced area could gain access to personal information in their phone without needing the correct pin or password [ 7 ] . Ride share drivers could spoof their phones location during a paid drive to trick their phone into detecting a longer drive than actually occurred artificially inflating fares for riders"
+      }
+     ]
+    },
+    {
+     "heading": "开放数据集",
+     "kind": "reported",
+     "text": "作者提供首个公开的智能手机 over-the-air 欺骗数据集，包含多款手机与芯片在 benign 与 spoofed 环境下的原始测量；正文说数据集细节在 Section V-B 与参考文献中，但本次提取的正文没有给出可直接访问的 URL。数据集的存在不等于已复现其检测结果。",
+     "evidence": [
+      {
+       "source": "S136",
+       "quote": "This first-of-its-kind dataset includes smartphone data recorded from over-the-air experiments in both benign and spoofed GNSS environments, allowing researchers to examine device behavior across distinct operational environments."
+      },
+      {
+       "source": "S18",
+       "quote": "Section V-B provides details of this unique dataset [ 28 , 29 ] , made available for researchers to test and validate their methods."
+      },
+      {
+       "source": "S136",
+       "quote": "By incorporating numerous smartphone models and chipsets, the dataset enables direct testing of developed countermeasure techniques against one of the most challenging aspects of the smartphone platform space: hardware and firmware heterogeneity."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "易感但设备与场景差异大",
+     "kind": "reported",
+     "text": "多项独立测试一致认为手机对欺骗敏感，但敏感程度由前端与芯片组合、欺骗功率、轨迹差、是否预干扰等共同决定；同一团队从 3 台到 18 台手机的后续测试就得到更高成功率。不能把某一机型的成功率外推为所有手机。",
+     "evidence": [
+      {
+       "source": "S74",
+       "quote": "the observed effects and the associated vulnerability are primarily determined by the particular combination of front-end assembly and chipset characterizing each smartphone architecture, as well as by the experimental conditions."
+      },
+      {
+       "source": "S74",
+       "quote": "This study investigated a much wider set of smartphone devices testing 18 different devices instead of the first study’s original 3 devices."
+      },
+      {
+       "source": "S138",
+       "quote": "Many research groups across numerous independent tests have found significant susceptibility of smartphones to GNSS spoofing"
+      }
+     ]
+    },
+    {
+     "heading": "ASC 分级与家族限制",
+     "kind": "reported",
+     "text": "按作者的 ASC 框架，多数方法只能检测（ASC1）；时相关和多频可识别受影响的测量（ASC2）；没有方法达到剔除并恢复可信 PVT 的 ASC3。AGC 与载噪比最成熟但受设备相关基线影响；惯性受消费级传感器漂移与多径影响；众包需要设备密度、通信与隐私。",
+     "evidence": [
+      {
+       "source": "S127",
+       "quote": "Most of the reviewed methods belong to ASC1: they can indicate that spoofing is likely present but cannot determine which measurements are compromised. Only temporal-correlation and multi-frequency methods reach ASC2 under the assumptions considered, because they can potentially identify correlated signals or isolate measurements received on an affected frequency. None of the reviewed method families currently reaches ASC3, which would require excluding spoofed observations and restoring a trusted PVT solution."
+      },
+      {
+       "source": "S128",
+       "quote": "Combined AGC and C/N_{0} monitoring is among the most mature and readily deployable approaches because it uses measurements available through Android APIs and requires limited computational resources. However, device-dependent AGC conventions, baseline values, and C/N_{0} estimation procedures make universal thresholds difficult to establish."
+      },
+      {
+       "source": "S130",
+       "quote": "Their effectiveness is nevertheless limited by consumer-grade sensor biases and drift, arbitrary device motion and orientation, and benign GNSS errors that may produce similar inconsistencies."
+      },
+      {
+       "source": "S131",
+       "quote": "Its deployment requires a sufficient density of contributing devices, reliable communications, measurement harmonization, and appropriate mechanisms addressing latency, privacy and device trustworthiness."
+      }
+     ]
+    },
+    {
+     "heading": "Table III 的成熟度与分层",
+     "kind": "reported",
+     "text": "Table III 按对策类别、限制与成熟度比较手机特定方法；作者强调成熟度是“实现与实验验证程度”，不是安全保证。最可信的路径是分层：功率/时域特征做快速告警，惯性/多源做 PVT 一致性，多频做信号识别，众包做空间确认与源定位。",
+     "evidence": [
+      {
+       "source": "S124",
+       "quote": "Table III provides a comparative assessment of the smartphone-specific countermeasure families reviewed in this section along three dimensions: the anti-spoofing capability they achieve, their principal limitations, and their technological maturity."
+      },
+      {
+       "source": "S133",
+       "quote": "The maturity levels in Table III should thus be interpreted as indicators of implementation and experimental validation, rather than as measures of complete security."
+      },
+      {
+       "source": "S133",
+       "quote": "The most credible technological path is consequently a layered architecture combining complementary and, as far as possible, independent evidence"
+      }
+     ]
+    },
+    {
+     "heading": "为什么没有统一实测保证",
+     "kind": "interpretation",
+     "text": "这些结论来自不同论文、不同手机、不同攻击假设；综述没有在同一套设备、攻击与指标下重跑所有方法。作者明确指出跨设备传感器异质性、AGC 符号与基线差异、假阳性环境和攻击者自适应都会改变结果，因此不能把各论文的“有效”拼成一个统一的实测保证。",
+     "evidence": [
+      {
+       "source": "S139",
+       "quote": "The most common challenge found in GNSS spoof detection across different methodologies is accommodating the diverse, heterogeneous sensors available across different models of phones."
+      },
+      {
+       "source": "S139",
+       "quote": "Each countermeasure method has shown promise at different levels of maturity and often by making different sets of assumptions about the scenario or sensor set."
+      },
+      {
+       "source": "S139",
+       "quote": "Future evaluations should compare these combinations across heterogeneous devices, realistic benign environments, and adaptive spoofing attacks using common metrics such as detection and false-alarm statistics, delay, residual PVT error, computational cost, and cross-device portability."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "综述范围与重点",
+     "kind": "reported",
+     "text": "范围限定在智能手机，重点 Android 因原始测量 API；作者也承认这是首个此类综述，文献覆盖到写作时为止。它不是对所有 GNSS 接收机或所有欺骗类型的系统评价，数据集也只覆盖其采集的设备与场景。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "the first survey explicitly constrained to countermeasures that are realistically deployable on commercial smartphones"
+      },
+      {
+       "source": "S17",
+       "quote": "A heavy focus is put on Android smartphones due to the aforementioned raw GNSS measurement API available on those devices."
+      },
+      {
+       "source": "S136",
+       "quote": "By incorporating numerous smartphone models and chipsets, the dataset enables direct testing of developed countermeasure techniques against one of the most challenging aspects of the smartphone platform space: hardware and firmware heterogeneity."
+      }
+     ]
+    },
+    {
+     "heading": "攻击假设与防御边界",
+     "kind": "interpretation",
+     "text": "方法有效性依赖攻击假设：单天线共信道、单频或单星座、欺骗功率足够强、接收机可拿到某些观测等。多天线、多频、多星座或自适应欺骗会削弱这些假设；手机平台又限制了对芯片内部的控制。综述因此给出的是条件性可行性与成熟度，不是普适防护承诺。",
+     "evidence": [
+      {
+       "source": "S129",
+       "quote": "Their effectiveness nevertheless depends on assumptions about the spatial structure of the attack and may decrease against more sophisticated transmitters."
+      },
+      {
+       "source": "S132",
+       "quote": "A coordinated multi-frequency and multi-constellation attack can remove this diversity; the method therefore raises the technical cost of spoofing but does not provide general immunity."
+      },
+      {
+       "source": "S127",
+       "quote": "successful application-level detection does not necessarily translate into platform-level protection."
+      }
+     ]
+    },
+    {
+     "heading": "代码、数据与复现",
+     "kind": "unknown",
+     "text": "本次读取的正文没有给出作者检测算法的代码仓库或可复现脚本；数据集虽称开放，但正文未给直接 URL。各被引论文的实现、阈值与实验数据也不在本综述中统一提供，因此不能声称复现或独立验证其检测率。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "建立跨设备欺骗检测基准",
+     "kind": "proposal",
+     "text": "建议建立跨设备基准：同一射频场景下至少 5 款手机、3 种芯片，分别采集 benign、jamming、spoofing、multipath 与混合场景，统一报告检测率、虚警率、检测延迟、PVT 残差、计算开销与跨设备迁移；按设备与采集日整组划分，避免同一设备泄漏。这个基准能检验作者所说“跨设备异质性”是否被方法真正解决。",
+     "evidence": []
+    },
+    {
+     "heading": "把检测接到平台级缓解",
+     "kind": "proposal",
+     "text": "第二个方向是把检测与平台级缓解连起来：在 Android 与芯片允许的接口内，设计“检测→隔离受影响卫星→用多频/惯性/网络观测重建 PVT”的流程，并以 ASC3 为目标报告恢复后的 PVT 误差、可用率与误隔离率；同时测试自适应多天线欺骗，明确哪些假设失效。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S2.E3.m1",
+   "refs": [
+    "M3"
+   ],
+   "mathml": "<mrow><mi>r</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo><munder><munder><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><msup><mi>ℐ</mi><mi>L</mi></msup></mrow></munder><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>,</mo><msub><mi>𝜽</mi><mi>i</mi></msub><mo>)</mo></mrow></mrow></mrow><mo>⏟</mo></munder><mrow><mtext>legitimate: </mtext><mi>x</mi><mo>(</mo><mi>t</mi><mo>;</mo><mi>𝜽</mi><mo>)</mo></mrow></munder><mo>+</mo><munder><munder><mrow><msup><mi>x</mi><mi>S</mi></msup><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>,</mo><msup><mi>𝜽</mi><mi>S</mi></msup><mo>)</mo></mrow></mrow><mo>⏟</mo></munder><mtext>spoofed</mtext></munder><mo>+</mo><mi>η</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow>",
+   "accessible": "r(t)=\\underbrace{\\sum_{i\\in\\mathcal{I}^{L}}x_{i}(t;\\bm{\\theta}_{i})}_{\\text{legitimate: }x(t;\\bm{\\theta})}+\\underbrace{x^{S}(t;\\bm{\\theta}^{S})}_{\\text{spoofed}}+\\eta(t)",
+   "title": "合法信号、欺骗信号与噪声的叠加",
+   "meaning": "把接收信号写成合法分量、欺骗分量与噪声之和；欺骗分量沿用真实信号结构，只改参数或导航电文。",
+   "caution": "假设线性叠加；不描述接收机非线性、ADC 饱和、多径信道或欺骗器的功放失真。欺骗分量也可能携带假星历，本文为简化主要分析假观测；不能把该式当作欺骗一定成功的条件。",
+   "symbols": [
+    {
+     "symbol": "r(t)",
+     "text": "接收信号"
+    },
+    {
+     "symbol": "x(t;θ)",
+     "text": "合法卫星信号之和，θ 为功率、码延迟、多普勒与载波相位参数"
+    },
+    {
+     "symbol": "x^S(t;θ^S)",
+     "text": "欺骗器发射的信号分量，参数由欺骗器控制"
+    },
+    {
+     "symbol": "η(t)",
+     "text": "加性白高斯噪声"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S2.E5.m1",
+   "refs": [
+    "M4"
+   ],
+   "mathml": "<mrow><mrow><mo>(</mo><msub><mover><mi>τ</mi><mo>^</mo></mover><mi>i</mi></msub><mo>,</mo><msub><mover><mi>f</mi><mo>^</mo></mover><msub><mi>D</mi><mi>i</mi></msub></msub><mo>,</mo><msub><mover><mi>ϕ</mi><mo>^</mo></mover><mi>i</mi></msub><mo>)</mo></mrow><mo>=</mo><mrow><mi>g</mi><mo>⁡</mo><mrow><mo>(</mo><msub><mi>𝐈</mi><mi>i</mi></msub><mo>,</mo><msub><mi>𝐐</mi><mi>i</mi></msub><mo>)</mo></mrow></mrow></mrow>",
+   "accessible": "(\\hat{\\tau}_{i},\\hat{f}_{D_{i}},\\hat{\\phi}_{i})=g(\\mathbf{I}_{i},\\mathbf{Q}_{i})",
+   "title": "由相关器输出估计码延迟、多普勒与相位",
+   "meaning": "把第 i 颗卫星的同相/正交相关器输出 I、Q 送入非线性函数 g，得到码延迟、载波多普勒与载波相位的跟踪估计。",
+   "caution": "g 的具体形式随 PLL/DLL、卡尔曼跟踪或快照算法而异；欺骗与合法信号混合时，估计可能反映混合值。该式不说明估计是否可信，也不包含多径或接收机非线性。",
+   "symbols": [
+    {
+     "symbol": "τ̂_i",
+     "text": "第 i 颗卫星的码延迟估计"
+    },
+    {
+     "symbol": "f̂_Di",
+     "text": "第 i 颗卫星的多普勒估计"
+    },
+    {
+     "symbol": "φ̂_i",
+     "text": "第 i 颗卫星的载波相位估计"
+    },
+    {
+     "symbol": "I_i, Q_i",
+     "text": "第 i 颗卫星的相关器输出向量"
+    },
+    {
+     "symbol": "g(·)",
+     "text": "随接收机实现而异的跟踪/判别函数"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S2.E6.m1",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mrow><mrow><mfrac><msub><mi>C</mi><mi>i</mi></msub><msub><mi>N</mi><mn>0</mn></msub></mfrac><mo>=</mo><mrow><mi>h</mi><mo>⁡</mo><mrow><mo>(</mo><msub><mi>𝐈</mi><mi>i</mi></msub><mo>,</mo><msub><mi>𝐐</mi><mi>i</mi></msub><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\frac{C_{i}}{N_{0}}=h(\\mathbf{I}_{i},\\mathbf{Q}_{i})\\ ,",
+   "title": "由相关器输出估计载噪比",
+   "meaning": "把同一组 I、Q 送入函数 h，得到第 i 颗卫星的载噪比 C_i/N0；C_i 可视为接收功率 P_i 的估计。",
+   "caution": "C/N0 估计依赖相关器间隔、积分时间与芯片实现；不同手机的基线值与估计方法不一致。它是功率类指标，不能单独区分欺骗、干扰、遮挡或多径。",
+   "symbols": [
+    {
+     "symbol": "C_i/N0",
+     "text": "第 i 颗卫星的载噪比估计"
+    },
+    {
+     "symbol": "h(·)",
+     "text": "随接收机实现而异的载噪比估计函数"
+    },
+    {
+     "symbol": "I_i, Q_i",
+     "text": "第 i 颗卫星的相关器输出向量"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S4.E9.m1",
+   "refs": [
+    "M7"
+   ],
+   "mathml": "<mrow><mrow><msup><mi>x</mi><mi>S</mi></msup><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>,</mo><msup><mi>𝜽</mi><mi>S</mi></msup><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mrow><mo>[</mo><mrow><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><msup><mi>ℐ</mi><mi>S</mi></msup></mrow></munder><mrow><msubsup><mi>x</mi><mi>j</mi><mi>S</mi></msubsup><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>,</mo><msubsup><mi>𝜽</mi><mi>j</mi><mi>S</mi></msubsup><mo>)</mo></mrow></mrow></mrow><mo>+</mo><mrow><msup><mi>η</mi><mi>S</mi></msup><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow></mrow><mo>]</mo></mrow><mo>∗</mo><msup><mi>h</mi><mi>S</mi></msup></mrow><mo>​</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow></mrow>",
+   "accessible": "x^{S}(t;\\bm{\\theta}^{S})=\\Bigg[\\sum_{j\\in\\mathcal{I}^{S}}x_{j}^{S}(t;\\bm{\\theta}_{j}^{S})+\\eta^{S}(t)\\Bigg]*h^{S}(t)",
+   "title": "单天线欺骗器的共信道模型",
+   "meaning": "把所有伪造卫星信号与欺骗器噪声先相加，再经过同一条传播信道 h^S(t)，因此各伪造信号共享信道失真。",
+   "caution": "该式假设单天线、单发射链路的欺骗器；多天线、分布式或中继式欺骗器可能不共享同一信道，基于时相关的检测会失效。它描述接收信号，不保证时相关检测的阈值或虚警率。",
+   "symbols": [
+    {
+     "symbol": "x^S(t;θ^S)",
+     "text": "到达接收端的欺骗信号总和"
+    },
+    {
+     "symbol": "x_j^S(t;θ_j^S)",
+     "text": "第 j 颗伪造卫星的信号"
+    },
+    {
+     "symbol": "η^S(t)",
+     "text": "欺骗器前端引入的噪声"
+    },
+    {
+     "symbol": "h^S(t)",
+     "text": "欺骗器到受害接收机的公共传播信道"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2610.01294v1/Figure1_overview_v2.png",
+   "width": 1600,
+   "height": 900,
+   "caption": "Fig. 1 : GNSS spoofing attacks on smartphones: a view on vulnerabilities, consequences, and detection opportunities. Subpanels illustrate representative impact domains, including (a) manipulation of position/velocity solutions in vehicular navigation systems, (b) timing perturbations affecting user devices and time-synchronized critical infrastructures, and (c) circumvention of application-level geofencing constraints through falsified location observables.",
+   "title": "手机 GNSS 欺骗：脆弱面、后果与检测机会",
+   "alt": "四个横向面板。左侧为智能手机接收 GNSS 星座信号并用于位置、速度与时间；第二面板为密集城市中大量手机遭受 GNSS 欺骗；第三面板给出三类易受影响应用：(a) 车辆导航被改写的轨迹，(b) 时间被扰动的通信与基础设施，(c) 地理围栏被绕过；右侧为接收机链路与对策，标出天线与前端、捕获、跟踪、观测计算、PVT 估计，并标有 Inaccessible in smartphones 与 Android 原始 GNSS 数据。",
+   "caution": "这是概念框架图，不是实测结果；没有给出检测率、虚警率或 PVT 误差。Inaccessible 标注不是对所有手机的逐项审计，Android 原始测量也不等于原始 IQ 或相关器输出。",
+   "reading_steps": [
+    {
+     "title": "先看四个面板的分工",
+     "text": "左二是攻击背景，第三面板是后果示例，右侧是检测/对策视角；先确认它不是一条实验流水线，而是综述框架图。"
+    },
+    {
+     "title": "再看三类应用",
+     "text": "(a) 是位置/速度被改写，(b) 是时间被扰动，(c) 是应用层地理围栏被绕过；三者对应不同的受害面，不能互相替代。"
+    },
+    {
+     "title": "最后看右侧链路与 Android API",
+     "text": "图把接收机阶段与可访问数据并列，说明手机能看到的多是后端观测；Inaccessible in smartphones 是示意性标注，具体可达性仍取决于芯片与固件。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 5,
+   "reference": "F5",
+   "section": "method",
+   "src": "https://arxiv.org/html/2610.01294v1/CNO_AGC_diagram_v2.png",
+   "width": 1600,
+   "height": 900,
+   "caption": "Fig. 5 : AGC vs. C/N_{0} signal parameters space along with conventional operating and critical regions.",
+   "title": "AGC 与 C/N0 的参数空间：正常、欺骗、干扰与遮挡",
+   "alt": "二维参数空间：横轴 AGC gain (dB) 向右增大，纵轴 C/N0 (dB-Hz) 向上增大。绿色 Nominal operations 位于中心；红色 (likely) Spoofing 位于左上；黄色 (likely) Jamming 位于左下；蓝色 (likely) Obstruction 位于右下。白点 t0 在 nominal 区，t0+δt 沿虚线箭头移入 spoofing 区；图中标出 sample signal AGC 与 sample signal C/N0 虚线。",
+   "caution": "这是概念分区图，不是实测 ROC；边界没有给出具体 dB 阈值。AGC 是总功率且设备相关，C/N0 估计也随芯片与固件变化；多径、遮挡和干扰可能让点落在边界附近，不能仅凭一次 t0→t0+δt 判定欺骗。",
+   "reading_steps": [
+    {
+     "title": "先读两个轴",
+     "text": "横轴是 AGC 增益，纵轴是载噪比；两个量都随设备和信号条件变化，不是固定物理常数。"
+    },
+    {
+     "title": "再看四个区域",
+     "text": "绿色是正常区，红色是可能的欺骗区，黄色是可能的干扰区，蓝色是可能的遮挡区；区域是概念分区，不是由统一阈值划出的判决边界。"
+    },
+    {
+     "title": "最后看 t0 到 t0+δt 的移动",
+     "text": "一个信号点从正常区移向欺骗区，示意 AGC 下降而 C/N0 上升的组合；单次移动不能证明欺骗，需要结合时间序列与其他观测。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Argo, Robert、Nardin, Andrea、Minetto, Alex、Closas, Pau",
+ "provenance": {
+  "provider": "DeepSeek 子代理",
+  "model": "deepseek/deepseek-flash（子代理）",
+  "generated_at": "2026-11-18T01:53:55Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "c4e7d69b3cf590478a8c8520836f48e76dc83c51aa89cc336bfd8c5297c3a62b",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。 本篇经 arXiv HTML 页脚核对为 CC BY 4.0（不是 arXiv 非独占许可）；CC BY 允许署名再利用，但本站仍只外链官方图源逐图评述，不镜像作者图片、PDF 或全文。"
+}

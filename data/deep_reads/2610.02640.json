@@ -1,0 +1,613 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2610.02640",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2610.02640v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "宽带 LEO 星座用于下一代导航：潜力、使能技术与挑战",
+ "dek": "综述比较宽带 LEO 与 GNSS 的链路、带宽和几何差异，归纳机会式、多源与 ICAN 三条路线，并用 Starlink PSS 子载波功率分配仿真说明多径抵抗与测距保持的权衡。星座带宽与几何潜力不等于实测 PPP 收益。",
+ "reading_minutes": 30,
+ "scope": "AI 辅助历史补读 · 待核验。本次由 DeepSeek 子代理读取 arXiv v1 HTML 正文、图注、表格及可提取公式后整理，并实际查看所展示原图；不是独立 DeepSeek API 账单任务，不计入其用量。本子代理已按 Skill 自查证据、公式、原图与页面；主会话仅核查提交与完成状态，文章仍待人工抽查。本次重点核对：综述与作者 Starlink PSS 仿真案例的边界、Table I 的星座参数口径、带宽可比参考波形不是运营 GNSS 信号、以及无编号公式时不补造公式。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S1": {
+   "label": "原文 · abstract1.1",
+   "anchor": "abstract1.1"
+  },
+  "S11": {
+   "label": "原文 · S2.p1.1",
+   "anchor": "S2.p1.1"
+  },
+  "S22": {
+   "label": "原文 · S2.SS3.p1.1",
+   "anchor": "S2.SS3.p1.1"
+  },
+  "S47": {
+   "label": "原文 · S5.p2.1",
+   "anchor": "S5.p2.1"
+  },
+  "S3": {
+   "label": "原文 · S1.p1.1",
+   "anchor": "S1.p1.1"
+  },
+  "S4": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S5": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S6": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S13": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S15": {
+   "label": "原文 · S2.SS1.p3.1",
+   "anchor": "S2.SS1.p3.1"
+  },
+  "S24": {
+   "label": "原文 · S2.SS3.p2.1",
+   "anchor": "S2.SS3.p2.1"
+  },
+  "S25": {
+   "label": "原文 · S2.SS3.p3.1",
+   "anchor": "S2.SS3.p3.1"
+  },
+  "S26": {
+   "label": "原文 · S2.SS3.p4.1",
+   "anchor": "S2.SS3.p4.1"
+  },
+  "S36": {
+   "label": "原文 · S3.SS3.p1.1",
+   "anchor": "S3.SS3.p1.1"
+  },
+  "S10": {
+   "label": "原文 · S2.T1.2",
+   "anchor": "S2.T1.2"
+  },
+  "S7": {
+   "label": "原文 · S1.p5.1",
+   "anchor": "S1.p5.1"
+  },
+  "S50": {
+   "label": "原文 · S5.p4.1",
+   "anchor": "S5.p4.1"
+  },
+  "S49": {
+   "label": "原文 · S5.p3.1",
+   "anchor": "S5.p3.1"
+  },
+  "S18": {
+   "label": "原文 · S2.SS2.p2.1",
+   "anchor": "S2.SS2.p2.1"
+  },
+  "S20": {
+   "label": "原文 · S2.SS2.p4.1",
+   "anchor": "S2.SS2.p4.1"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S2.F1"
+  },
+  "F2": {
+   "label": "Fig.2 · 原文图",
+   "anchor": "S3.F2"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "综述对象与三条技术路线",
+     "kind": "reported",
+     "text": "本文是综述而非单一算法论文：比较宽带 LEO 与 GNSS 的轨道、带宽与星座规模，归纳机会式导航、多源导航与 ICAN 三条技术路线，并讨论 GNSS 受挑战、多径主导和通导一体化三类场景。作者还用一个 Starlink PSS 子载波功率分配案例说明波形优化的潜力。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "This article provides a comprehensive overview of broadband LEO constellations for next-generation navigation, covering their fundamental characteristics, representative use cases, key enabling technologies, and open challenges."
+      },
+      {
+       "source": "S1",
+       "quote": "We then discussed the emerging use cases in GNSS-challenged, multipath-dominant, and integrated communication and navigation (ICAN) scenarios."
+      },
+      {
+       "source": "S11",
+       "quote": "This section first compares GNSS with representative LEO communication constellations, then summarizes the main advantages of broadband LEO for navigation, and finally introduces several technical routes of broadband LEO navigation."
+      },
+      {
+       "source": "S22",
+       "quote": "Current research on broadband LEO PNT mainly follows three technical routes: opportunistic navigation, multisource navigation, and ICAN design."
+      }
+     ]
+    },
+    {
+     "heading": "作者报告的主要潜力",
+     "kind": "reported",
+     "text": "作者把宽带 LEO 的潜在优势归为更强接收信号、更宽带宽、快速变化的几何与更大星座规模；同时强调通信波形、高动态与资源受限架构带来与 GNSS 不同的挑战。代表案例报告：优化 Starlink PSS 的子载波功率分配可在保持测距精度的同时改善多径抵抗。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "Compared with conventional global navigation satellite systems (GNSS), broadband LEO systems provide stronger received signals, wider bandwidths, rapidly varying satellite geometry, and larger constellation scales, offering new capabilities for positioning, navigation, and timing (PNT)."
+      },
+      {
+       "source": "S1",
+       "quote": "Meanwhile, their communication-oriented waveforms, high dynamics, and resource-constrained architectures introduce new challenges that are fundamentally different from those in GNSS."
+      },
+      {
+       "source": "S1",
+       "quote": "As a representative case study, the navigation-oriented optimization of the Starlink primary synchronization sequence demonstrates that subcarrier power allocation can improve multipath resistance while maintaining ranging accuracy."
+      }
+     ]
+    },
+    {
+     "heading": "综述潜力与仿真案例的边界",
+     "kind": "interpretation",
+     "text": "需要把综述判断与作者自己的仿真案例分开：星座带宽、信号强度和几何潜力是系统层面的机会，不等于已测得 PPP 收敛或定位精度收益；案例使用 240 MHz Starlink 设定与带宽可比的 BPSK/BOC 参考波形，作者明确说这些参考波形不代表实际运营 GNSS 信号。",
+     "evidence": [
+      {
+       "source": "S47",
+       "quote": "Following the reported Starlink signal structure [ 13 ] , the signal bandwidth is set to 240 MHz."
+      },
+      {
+       "source": "S47",
+       "quote": "These parameter settings are used to construct bandwidth-comparable reference waveforms rather than to represent specific operational GNSS signals."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "GNSS 的 MEO 链路弱点",
+     "kind": "reported",
+     "text": "作者把研究缺口的起点放在 GNSS 的 MEO 链路：传播距离长、到达终端信号弱，遇到遮挡、干扰、多径与欺骗时更脆弱，城市峡谷和室内尤其明显。这使传统 GNSS 在这些场景中的可用性与连续性受限。",
+     "evidence": [
+      {
+       "source": "S3",
+       "quote": "However, GNSS satellites are primarily deployed in medium Earth orbit (MEO), where the long propagation distance results in relatively weak received signals at the user terminal, reducing their robustness to blockage, interference, multipath, and spoofing."
+      },
+      {
+       "source": "S3",
+       "quote": "These limitations become particularly evident in urban canyons, indoor environments, and other GNSS-challenged scenarios."
+      }
+     ]
+    },
+    {
+     "heading": "LEO 的链路、带宽与几何机会",
+     "kind": "reported",
+     "text": "LEO 的较低轨道、较宽带宽和更大星座分别对应更强的接收信号、更细的时延分辨与更好的几何/冗余；但作者指出这些优势的兑现依赖波形、频谱、接收处理和卫星资源，宽带 LEO 导航仍有基础与实践问题需要系统研究。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "Stronger received signals can also improve the reliability of signal acquisition and tracking, especially when propagation losses or local interference degrade conventional navigation signals."
+      },
+      {
+       "source": "S5",
+       "quote": "A larger signal bandwidth can provide finer delay resolution and improve the potential ranging performance, while offering greater flexibility for navigation-oriented signal design."
+      },
+      {
+       "source": "S6",
+       "quote": "The authors in [ 6 ] analyzed the geometry of broadband LEO constellations and showed that their large number of satellites can substantially improve dilution of precision (DOP) performance compared with conventional navigation constellations."
+      },
+      {
+       "source": "S6",
+       "quote": "Despite these promising developments, several fundamental and practical aspects of broadband LEO navigation still require systematic investigation."
+      }
+     ]
+    },
+    {
+     "heading": "为什么需要系统梳理",
+     "kind": "interpretation",
+     "text": "因此本文的缺口不是“没有 LEO”，而是缺少把通信星座的波形、动态和资源约束统一到导航任务上的系统梳理；作者强调大多数 LEO 星座首先为连接设计，信号、授时与卫星状态信息不如 GNSS 标准化，并把 Iridium/Orbcomm 也纳入机会式/多源导航的讨论。",
+     "evidence": [
+      {
+       "source": "S13",
+       "quote": "In contrast, most LEO constellations are primarily designed for connectivity rather than navigation."
+      },
+      {
+       "source": "S15",
+       "quote": "Consequently, LEO systems generally provide less standardized signal, timing, and satellite state information than conventional GNSS."
+      },
+      {
+       "source": "S15",
+       "quote": "Although this article focuses on broadband LEO constellations, traditional LEO communication systems such as Iridium and Orbcomm are also included because of their relevance to opportunistic and multisource navigation."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "三条技术路线",
+     "kind": "reported",
+     "text": "作者把现有研究分为三条路线：机会式导航在接收端从现有通信下行提取同步、参考或导频结构；多源导航把 LEO 与 GNSS 或其他 PNT 源融合；ICAN 则从系统设计阶段把导航需求并入通信网络，联合信号、波束、卫星选择与资源调度。",
+     "evidence": [
+      {
+       "source": "S22",
+       "quote": "As illustrated in Fig. 1 , opportunistic navigation extracts navigation observables from existing communication downlinks at the receiver side, multisource navigation combines complementary measurements from different PNT sources, while ICAN incorporates navigation requirements directly into the design and operation of the communication network."
+      },
+      {
+       "source": "S24",
+       "quote": "This route directly exploits existing LEO communication signals for PNT without requiring modifications to the satellite system."
+      },
+      {
+       "source": "S25",
+       "quote": "LEO-based navigation can also be combined with other navigation sources rather than being used independently."
+      },
+      {
+       "source": "S26",
+       "quote": "A more cooperative route is to incorporate PNT requirements into broadband LEO communication systems from the design stage."
+      }
+     ]
+    },
+    {
+     "heading": "机会式与多源的分工",
+     "kind": "reported",
+     "text": "机会式路线不改卫星，依赖已知信号结构与卫星轨道/钟差信息，性能受信号知识可用性约束；多源路线利用 LEO 与 GNSS 在可用性、几何和测量类型上的互补，在 GNSS 受限环境中提供额外观测。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "Opportunistic navigation follows a similar receiver-side philosophy, with its performance depending strongly on signal knowledge and the availability of satellite orbit and clock information."
+      },
+      {
+       "source": "S25",
+       "quote": "Such fusion is particularly attractive in GNSS-challenged environments, where LEO measurements can provide additional positioning information when GNSS visibility or signal quality is degraded."
+      }
+     ]
+    },
+    {
+     "heading": "ICAN 的资源耦合",
+     "kind": "reported",
+     "text": "ICAN 把通信与导航放在同一资源池里联合设计，卫星选择、波束成形、功率与带宽都会产生通信—导航权衡；作者引用 LEO-ICAN 的联合卫星选择/波束优化，用速率与 GDOP 分别表征通信与导航性能。",
+     "evidence": [
+      {
+       "source": "S26",
+       "quote": "The resulting resource coupling creates tradeoffs between communication and navigation performance, requiring coordinated system design."
+      },
+      {
+       "source": "S36",
+       "quote": "In [ 12 ] , satellite selection and beamforming were jointly optimized for a LEO-ICAN network, with transmission rate and geometric dilution of precision (GDOP) used to characterize communication and navigation performance, respectively."
+      }
+     ]
+    },
+    {
+     "heading": "三条路线的成熟度不能等同",
+     "kind": "interpretation",
+     "text": "三条路线不是同一成熟度：机会式最依赖接收端信号知识与外部星历，多源融合依赖额外观测源与时空对齐，ICAN 需要网络侧配合；综述把它们并列，但没有给出统一的性能对比或同一场景的实测基准。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "Opportunistic navigation follows a similar receiver-side philosophy, with its performance depending strongly on signal knowledge and the availability of satellite orbit and clock information."
+      },
+      {
+       "source": "S25",
+       "quote": "This route therefore provides a flexible way to enhance navigation continuity and robustness by combining complementary satellite-based PNT sources."
+      },
+      {
+       "source": "S26",
+       "quote": "Such designs enable navigation to become an intrinsic capability of broadband LEO communication networks."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "本文没有可提取的编号公式",
+     "kind": "unknown",
+     "text": "本次固定版本的 source.equations 为空；正文以综述、框图、表格和案例仿真参数呈现，没有可安全提取的编号公式。按 Skill 要求，这里不补造公式，也不把文字关系写成数学式。",
+     "evidence": []
+    },
+    {
+     "heading": "定量内容集中在表格与仿真参数",
+     "kind": "interpretation",
+     "text": "没有公式不等于没有定量内容：Table I 比较轨道高度、代表性带宽和在轨卫星数，案例给出 240 MHz 信号、250 MHz 前端、1 ms 积分等仿真设置；但这些是星座/仿真参数，不是统一的信号模型、观测方程或误差协方差，不能据此复现定位解算。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "System Orbit Altitude Representative Bandwidth In-Orbit Satellites Primary Mission GPS MEO \\sim 20,200 km \\sim 2 MHz (L1 C/A) 31 operational PNT Starlink LEO \\sim 550 km \\sim 240 MHz \\sim 11,100 Broadband communication OneWeb LEO \\sim 1,200 km \\sim 230 MHz \\sim 650 Broadband communication Orbcomm LEO \\sim 700–750 km \\sim 4.8 kHz 58 in orbit (29 working) Messaging and IoT communication Iridium LEO \\sim 780 km \\sim 31.5 kHz 80 (66 operational + 14 spares) Voice and data communication"
+      },
+      {
+       "source": "S47",
+       "quote": "Following the reported Starlink signal structure [ 13 ] , the signal bandwidth is set to 240 MHz."
+      },
+      {
+       "source": "S47",
+       "quote": "The receiver front-end bandwidth is set to 250 MHz. The coherent integration time and loop noise bandwidth are 1 ms and 0.2 Hz, respectively, and the early-late correlator spacing is set to 0.1 chip."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "综述的证据基础",
+     "kind": "interpretation",
+     "text": "本文没有自建统一的外场实验，而是汇总公开研究、星座参数与代表性案例；比较维度包括轨道高度、带宽、卫星数量、信号结构、接收处理与资源调度。Table I 的星座数字是作者汇总，未说明统计日期，不能当作实时在轨清单。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "this article provides an overview of broadband LEO constellations for next-generation navigation"
+      },
+      {
+       "source": "S10",
+       "quote": "System Orbit Altitude Representative Bandwidth In-Orbit Satellites Primary Mission GPS MEO \\sim 20,200 km \\sim 2 MHz (L1 C/A) 31 operational PNT Starlink LEO \\sim 550 km \\sim 240 MHz \\sim 11,100 Broadband communication OneWeb LEO \\sim 1,200 km \\sim 230 MHz \\sim 650 Broadband communication Orbcomm LEO \\sim 700–750 km \\sim 4.8 kHz 58 in orbit (29 working) Messaging and IoT communication Iridium LEO \\sim 780 km \\sim 31.5 kHz 80 (66 operational + 14 spares) Voice and data communication"
+      },
+      {
+       "source": "S11",
+       "quote": "This section first compares GNSS with representative LEO communication constellations, then summarizes the main advantages of broadband LEO for navigation, and finally introduces several technical routes of broadband LEO navigation."
+      }
+     ]
+    },
+    {
+     "heading": "Starlink PSS 案例设置",
+     "kind": "reported",
+     "text": "案例按已报道的 Starlink 信号结构把带宽设为 240 MHz；为公平比较，构造 BPSK(120) 与 BOC(60,60) 两个带宽可比参考波形，前端带宽 250 MHz，相干积分 1 ms，环路噪声带宽 0.2 Hz，早迟相关器间隔 0.1 chip，多径/直射幅度比 -6 dB。作者明确这些参考波形不代表具体运营 GNSS 信号。",
+     "evidence": [
+      {
+       "source": "S47",
+       "quote": "Following the reported Starlink signal structure [ 13 ] , the signal bandwidth is set to 240 MHz."
+      },
+      {
+       "source": "S47",
+       "quote": "To provide a fair comparison with the 240 MHz Starlink signal, scaled BPSK(120) and BOC(60,60) waveforms are considered."
+      },
+      {
+       "source": "S47",
+       "quote": "The receiver front-end bandwidth is set to 250 MHz. The coherent integration time and loop noise bandwidth are 1 ms and 0.2 Hz, respectively, and the early-late correlator spacing is set to 0.1 chip."
+      },
+      {
+       "source": "S47",
+       "quote": "For the multipath evaluation, the amplitude ratio between the multipath and direct signals is set to -6 dB."
+      }
+     ]
+    },
+    {
+     "heading": "案例不是外场或 PPP 验证",
+     "kind": "interpretation",
+     "text": "案例评估的是 Gabor 带宽与多径误差包络，属于波形级仿真指标；它没有给出实测接收机、动态轨迹、PPP 收敛或定位精度，也没有把优化后的 PSS 作为已经部署的 Starlink 服务。作者说优化保持测距能力并改善多径抵抗，这个结论应限定在 240 MHz 设定与所采用的参考波形/前端条件下。",
+     "evidence": [
+      {
+       "source": "S50",
+       "quote": "Fig. 4 further evaluates the optimized waveform from the perspectives of ranging accuracy and multipath resistance."
+      },
+      {
+       "source": "S50",
+       "quote": "Nevertheless, at the 250 MHz receiver front-end bandwidth adopted in the simulation, the optimized PSS still maintains a larger Gabor bandwidth than the considered GNSS reference waveforms, indicating that its ranging advantage is largely preserved."
+      },
+      {
+       "source": "S47",
+       "quote": "Following the reported Starlink signal structure [ 13 ] , the signal bandwidth is set to 240 MHz."
+      },
+      {
+       "source": "S47",
+       "quote": "These parameter settings are used to construct bandwidth-comparable reference waveforms rather than to represent specific operational GNSS signals."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "Table I 的星座对比",
+     "kind": "reported",
+     "text": "Table I 把 GPS 与 Starlink、OneWeb、Orbcomm、Iridium 并列：GPS 在 MEO、L1 C/A 约 2 MHz、31 颗运营星；Starlink 约 550 km、约 240 MHz、约 11,100 颗；OneWeb 约 1,200 km、约 230 MHz、约 650 颗；Orbcomm 与 Iridium 则是 kHz 级窄带。这个表说明带宽与轨道差异巨大，但“在轨卫星数”是作者表中的数字，未给统计日期。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "System Orbit Altitude Representative Bandwidth In-Orbit Satellites Primary Mission GPS MEO \\sim 20,200 km \\sim 2 MHz (L1 C/A) 31 operational PNT Starlink LEO \\sim 550 km \\sim 240 MHz \\sim 11,100 Broadband communication OneWeb LEO \\sim 1,200 km \\sim 230 MHz \\sim 650 Broadband communication Orbcomm LEO \\sim 700–750 km \\sim 4.8 kHz 58 in orbit (29 working) Messaging and IoT communication Iridium LEO \\sim 780 km \\sim 31.5 kHz 80 (66 operational + 14 spares) Voice and data communication"
+      }
+     ]
+    },
+    {
+     "heading": "三条路线的代表性证据",
+     "kind": "reported",
+     "text": "机会式路线已有 Starlink 捕获/多普勒跟踪和多星座定位的实验报告；多源路线显示 LEO 可在 GNSS 可见星少或信号弱时提供辅助；ICAN 的联合卫星选择/波束优化展示通信速率与 GDOP 的权衡。作者把这些作为代表性证据，而不是同一数据集上的统一比较。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "In particular, the authors in [ 3 ] developed acquisition and Doppler-tracking methods for Starlink signals, and demonstrated the feasibility of positioning using multiple Starlink satellites."
+      },
+      {
+       "source": "S6",
+       "quote": "In [ 7 ] , the authors experimentally combined signals from Starlink, OneWeb, Orbcomm, and Iridium for stationary positioning and mobile navigation, demonstrating the benefit of using satellites distributed across different constellations, frequencies, and orbital configurations."
+      },
+      {
+       "source": "S25",
+       "quote": "The results showed that LEO satellites can provide useful positioning support when the number of visible GNSS satellites is limited or GNSS signals are weak [ 10 ] ."
+      },
+      {
+       "source": "S36",
+       "quote": "The results demonstrated the tradeoff between the two services and highlighted the need for coordinated resource allocation."
+      }
+     ]
+    },
+    {
+     "heading": "波形优化的仿真结果",
+     "kind": "reported",
+     "text": "优化后的子载波功率向中心集中、边缘降低，频谱过渡变平，自相关旁瓣被抑制；代价是 Gabor 带宽相对原始 PSS 略降，但在 250 MHz 前端下仍高于所比较的 GNSS 参考波形；多径误差包络在中等和长时延处明显减弱。作者把这解释为多径抵抗与测距精度之间的权衡。",
+     "evidence": [
+      {
+       "source": "S49",
+       "quote": "As shown in Fig. 3 , the original PSS adopts an approximately uniform power allocation across the occupied subcarriers, whereas the optimized allocation exhibits a smoother, center-weighted profile."
+      },
+      {
+       "source": "S49",
+       "quote": "This redistribution softens the sharp spectral transitions of the original signal and consequently suppresses the sidelobes of its autocorrelation function."
+      },
+      {
+       "source": "S50",
+       "quote": "Nevertheless, at the 250 MHz receiver front-end bandwidth adopted in the simulation, the optimized PSS still maintains a larger Gabor bandwidth than the considered GNSS reference waveforms, indicating that its ranging advantage is largely preserved."
+      }
+     ]
+    },
+    {
+     "heading": "结果能说明与不能说明",
+     "kind": "interpretation",
+     "text": "这些结果说明在作者设定的波形、前端与多径条件下，功率分配可以改变 Gabor 带宽与多径误差包络的权衡；它们不能说明实测 PPP 收敛、城市峡谷可用率、Starlink 在轨信号质量或跨接收机泛化。案例的参考波形是带宽可比的 BPSK/BOC，不是运营 GNSS 信号，因此“优于参考波形”不等于“优于实际 GNSS 服务”。",
+     "evidence": [
+      {
+       "source": "S47",
+       "quote": "These parameter settings are used to construct bandwidth-comparable reference waveforms rather than to represent specific operational GNSS signals."
+      },
+      {
+       "source": "S50",
+       "quote": "Overall, the optimization successfully improves multipath resistance while maintaining strong ranging performance."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "综述范围与证据分级",
+     "kind": "interpretation",
+     "text": "作者把范围限定在宽带 LEO 通信星座，兼收 Iridium/Orbcomm 的机会式/多源导航；没有给出系统性文献检索协议、纳入排除标准或证据分级，也没有覆盖所有 LEO 导航试验。Table I 的星座数字没有统计日期，不能当作实时清单。",
+     "evidence": [
+      {
+       "source": "S13",
+       "quote": "Starlink and OneWeb target broadband access, whereas Iridium and Orbcomm support narrower band voice, data, and messaging applications."
+      },
+      {
+       "source": "S15",
+       "quote": "Although this article focuses on broadband LEO constellations, traditional LEO communication systems such as Iridium and Orbcomm are also included because of their relevance to opportunistic and multisource navigation."
+      },
+      {
+       "source": "S10",
+       "quote": "System Orbit Altitude Representative Bandwidth In-Orbit Satellites Primary Mission GPS MEO \\sim 20,200 km \\sim 2 MHz (L1 C/A) 31 operational PNT Starlink LEO \\sim 550 km \\sim 240 MHz \\sim 11,100 Broadband communication OneWeb LEO \\sim 1,200 km \\sim 230 MHz \\sim 650 Broadband communication Orbcomm LEO \\sim 700–750 km \\sim 4.8 kHz 58 in orbit (29 working) Messaging and IoT communication Iridium LEO \\sim 780 km \\sim 31.5 kHz 80 (66 operational + 14 spares) Voice and data communication"
+      }
+     ]
+    },
+    {
+     "heading": "潜力指标不等于端到端收益",
+     "kind": "interpretation",
+     "text": "带宽、信号强度和几何是“潜力”指标：更宽带宽提供更细时延分辨，但实际测距增益还取决于波形、谱形、信噪比与接收处理；更大星座提供更好的几何机会，但 DOP 取决于轨道配置、可见星选择与使用方式。综述没有给出统一的 PPP/RTK 外场收益，因此不能把系统优势写成已实现的定位提升。",
+     "evidence": [
+      {
+       "source": "S18",
+       "quote": "However, the actual ranging gain also depends on the waveform, spectral shape, signal-to-noise ratio, and receiver processing, rather than bandwidth alone."
+      },
+      {
+       "source": "S20",
+       "quote": "However, the benefit depends on constellation geometry rather than satellite number alone."
+      },
+      {
+       "source": "S50",
+       "quote": "Overall, the optimization successfully improves multipath resistance while maintaining strong ranging performance."
+      }
+     ]
+    },
+    {
+     "heading": "代码、数据与复现入口",
+     "kind": "unknown",
+     "text": "本次读取的正文、表格、图注与结论没有给出代码仓库、原始数据或可复现脚本；案例的波形参数和优化流程也没有以可执行形式提供。因此代码与数据的复现入口记为 unknown，不能声称复现。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "把波形案例变成端到端定位实验",
+     "kind": "proposal",
+     "text": "建议在同一软件接收机中实现原始/优化 PSS 与 BPSK(120)/BOC(60,60) 参考波形，注入相同的多径与动态场景，先输出 Gabor 带宽、多径误差包络、捕获/跟踪门限，再接入真实或半实物的 PPP/RTK 解算，报告收敛时间、固定率、RMS 与可用率。只有端到端指标也改善，才能说波形优化对导航有用。",
+     "evidence": []
+    },
+    {
+     "heading": "跨星座与跨接收机的分组验证",
+     "kind": "proposal",
+     "text": "第二个实验是把 Starlink/OneWeb 与 GPS/北斗观测按采集日、接收机和天空遮挡条件整组划分，比较机会式、多源与 ICAN 三种路线的可用性、连续性和完整性；交付每类场景的可见星数、DOP、固定率、完好性告警与虚警率，并保留未参与训练的城市场景作为外部测试。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2610.02640v1/route.png",
+   "width": 1684,
+   "height": 1159,
+   "caption": "Figure 1: Technical routes for broadband LEO navigation.",
+   "title": "三条技术路线：机会式、多源与 ICAN",
+   "alt": "三列流程图。左列 Opportunistic Navigation：从 LEO 通信信号提取同步、参考信号结构和导频，得到伪距、多普勒率与载波等核心观测，再输出 PNT 解。中列 Multisource Navigation：把 LEO 的测距/多普勒/几何信息与 GNSS 常规测量送入融合滤波器/估计器，改善挑战环境下的鲁棒性、连续性与可用性。右列 ICAN Design：从精度、覆盖、可用性需求出发，联合设计信号、帧、卫星选择、资源调度与波束成形，形成集成宽带 LEO 网络并向终端提供通信与导航服务。",
+   "caution": "这是技术路线示意图，不是性能对比；箭头不表示因果增益或实测指标。ICAN 列是设计概念，未说明已部署系统；图中终端图标只表示服务对象，不能推出具体频段、带宽或定位精度。",
+   "reading_steps": [
+    {
+     "title": "先看三列标题",
+     "text": "三列分别对应机会式、多源与 ICAN；先确认它们是三种技术路线，而不是三个实验结果。"
+    },
+    {
+     "title": "再看每列的输入与输出",
+     "text": "左列从现有 LEO 通信下行提取观测；中列把 LEO 与 GNSS 测量送入融合器；右列从 PNT 需求反推通信网络设计。读图时把“输入是什么、输出是什么”逐一对应。"
+    },
+    {
+     "title": "最后看箭头与边界",
+     "text": "箭头表示设计流程或信息流，不表示性能增益大小；ICAN 列从需求到网络再到终端，说明它是系统级设计概念，不是单个接收机算法。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 2,
+   "reference": "F2",
+   "section": "experiments",
+   "src": "https://arxiv.org/html/2610.02640v1/usecase.png",
+   "width": 1600,
+   "height": 900,
+   "caption": "Figure 2: Illustration of representative use cases for broadband LEO navigation.",
+   "title": "三类使用场景：GNSS 受挑战、多径主导与 ICAN",
+   "alt": "左侧 GNSS 卫星信号被建筑遮挡，标有 GNSS Blockage and Degradation；中间 Broadband LEO Constellation 以直射路径和经建筑反射的 Reflected Path 到达地面用户；右侧标出 Rapid LEO Motion 的快速移动。下方依次标出 A Resilient PNT in GNSS-Challenged Environments、B Navigation in Multipath-Dominant Environments、C PNT Services in ICAN-Enabled Environments，并画有行人、汽车、救护车、无人机、海事终端等。",
+   "caution": "示意图把场景并列，不是外场试验；反射路径是挑战而非已实现的多径抑制证据；没有给出可见星数、DOP、C/N0 或定位误差，不能据此判断 LEO 在某一场景的可用率。",
+   "reading_steps": [
+    {
+     "title": "先看左侧的 GNSS 遮挡",
+     "text": "GNSS 信号在建筑处被标为阻断/退化，说明场景的起点是 GNSS 可用性不足；这不是说 LEO 已经替代 GNSS。"
+    },
+    {
+     "title": "再看中间的直射与反射",
+     "text": "LEO 信号既有 Direct Path 也有 Reflected Path；反射路径是多径挑战，不是天然优势。右侧的 Rapid LEO Motion 表示几何快速变化，可能带来观测多样性，也可能增加跟踪难度。"
+    },
+    {
+     "title": "最后看底部的三类场景",
+     "text": "A、B、C 分别对应抗挑战 PNT、多径环境导航和 ICAN 服务；图中把行人、车辆、无人机、海事终端并列，说明服务对象多样，但不提供各场景的定量性能。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Zhendong Li、Mingze Zhu、Jiahao Liu、Zhou Su、Dong Fu、Ruikang Zhong、Wen Chen",
+ "provenance": {
+  "provider": "DeepSeek 子代理",
+  "model": "deepseek/deepseek-flash（子代理）",
+  "generated_at": "2026-11-18T01:53:55Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "ee1fa8e6abf966c84bd45b3b269923de68d0d0ad666d544078d8431fb432e135",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。 本篇为 arXiv 永久非独占分发许可（perpetual non-exclusive license），不是 CC BY；本站只外链官方图源逐图评述，不镜像作者图片、PDF 或全文。"
+}
