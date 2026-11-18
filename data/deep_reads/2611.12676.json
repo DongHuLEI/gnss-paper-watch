@@ -1,0 +1,670 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.12676",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2611.12676v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "模拟示教如何帮助视觉—语言—动作模型：机械臂走棋实验",
+ "dek": "让低成本机械臂按格名移动国王，难点既在定位夹取，也在选出真正能闭环完成任务的检查点。模拟走子对比表明，学习率冷却影响检查点表现；真机部分结果在少量示教下支持模拟初始化。文章也划清了边界：离线低误差不等于成功，自采回放在此未带来稳定收益。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。本次由 GPT6.2sol 子代理直接核读固定版本 arXiv v1 HTML 正文及附录 A–H，并交叉核对官方 PDF、原始表格、图注与行内数学；实际查看 Fig.3、5、9。原文无独立陈列的关键算法公式，故不生成公式 SVG。本次不是独立 API 账单任务。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S1": {
+   "label": "原文 · abstract1.1",
+   "anchor": "abstract1.1"
+  },
+  "S14": {
+   "label": "原文 · S2.p1.1",
+   "anchor": "S2.p1.1"
+  },
+  "S6": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S8": {
+   "label": "原文 · S1.I1.i1.p1.1",
+   "anchor": "S1.I1.i1.p1.1"
+  },
+  "S9": {
+   "label": "原文 · S1.I1.i2.p1.1",
+   "anchor": "S1.I1.i2.p1.1"
+  },
+  "S4": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S21": {
+   "label": "原文 · S2.SS2.p2.1",
+   "anchor": "S2.SS2.p2.1"
+  },
+  "S22": {
+   "label": "原文 · S2.SS2.p3.1",
+   "anchor": "S2.SS2.p3.1"
+  },
+  "S61": {
+   "label": "原文 · S5.p2.1",
+   "anchor": "S5.p2.1"
+  },
+  "S16": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S19": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S66": {
+   "label": "原文 · A1.p1.1",
+   "anchor": "A1.p1.1"
+  },
+  "S69": {
+   "label": "原文 · A1.p3.1",
+   "anchor": "A1.p3.1"
+  },
+  "S24": {
+   "label": "原文 · S2.SS3.p1.1",
+   "anchor": "S2.SS3.p1.1"
+  },
+  "S50": {
+   "label": "原文 · S3.SS3.p2.1",
+   "anchor": "S3.SS3.p2.1"
+  },
+  "S52": {
+   "label": "原文 · S3.SS3.p4.1",
+   "anchor": "S3.SS3.p4.1"
+  },
+  "S79": {
+   "label": "原文 · A3.p1.1",
+   "anchor": "A3.p1.1"
+  },
+  "S42": {
+   "label": "原文 · S3.SS2.p2.1",
+   "anchor": "S3.SS2.p2.1"
+  },
+  "S44": {
+   "label": "原文 · S3.SS2.p3.1",
+   "anchor": "S3.SS2.p3.1"
+  },
+  "S87": {
+   "label": "原文 · A5.p2.1",
+   "anchor": "A5.p2.1"
+  },
+  "S47": {
+   "label": "原文 · S3.SS2.p5.1",
+   "anchor": "S3.SS2.p5.1"
+  },
+  "S89": {
+   "label": "原文 · A5.I1.i2.p1.1",
+   "anchor": "A5.I1.i2.p1.1"
+  },
+  "S30": {
+   "label": "原文 · S3.SS1.p2.1",
+   "anchor": "S3.SS1.p2.1"
+  },
+  "S31": {
+   "label": "原文 · S3.SS1.p3.1",
+   "anchor": "S3.SS1.p3.1"
+  },
+  "S35": {
+   "label": "原文 · S3.SS1.p6.1",
+   "anchor": "S3.SS1.p6.1"
+  },
+  "S32": {
+   "label": "原文 · S3.SS1.p4.1",
+   "anchor": "S3.SS1.p4.1"
+  },
+  "S51": {
+   "label": "原文 · S3.SS3.p3.1",
+   "anchor": "S3.SS3.p3.1"
+  },
+  "S105": {
+   "label": "原文 · A8.p1.1",
+   "anchor": "A8.p1.1"
+  },
+  "S101": {
+   "label": "原文 · A7.p1.1",
+   "anchor": "A7.p1.1"
+  },
+  "S74": {
+   "label": "原文 · A2.T1.2",
+   "anchor": "A2.T1.2"
+  },
+  "S33": {
+   "label": "原文 · S3.SS1.p5.1",
+   "anchor": "S3.SS1.p5.1"
+  },
+  "S36": {
+   "label": "原文 · S3.SS1.p7.1",
+   "anchor": "S3.SS1.p7.1"
+  },
+  "S37": {
+   "label": "原文 · S3.F6",
+   "anchor": "S3.F6"
+  },
+  "S53": {
+   "label": "原文 · S3.SS3.p5.1",
+   "anchor": "S3.SS3.p5.1"
+  },
+  "S76": {
+   "label": "原文 · A2.T2.2",
+   "anchor": "A2.T2.2"
+  },
+  "S45": {
+   "label": "原文 · S3.F9",
+   "anchor": "S3.F9"
+  },
+  "S94": {
+   "label": "原文 · A5.p4.1",
+   "anchor": "A5.p4.1"
+  },
+  "S95": {
+   "label": "原文 · A5.p5.1",
+   "anchor": "A5.p5.1"
+  },
+  "S99": {
+   "label": "原文 · A6.p1.1",
+   "anchor": "A6.p1.1"
+  },
+  "F3": {
+   "label": "Fig.3 · 原文图",
+   "anchor": "S2.F3"
+  },
+  "F5": {
+   "label": "Fig.5 · 原文图",
+   "anchor": "S3.F5"
+  },
+  "F9": {
+   "label": "Fig.9 · 原文图",
+   "anchor": "S3.F9"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "指令给的是格名，不是坐标",
+     "kind": "reported",
+     "text": "这项视觉—语言—动作（VLA）实验让 SO-101 机械臂根据格名，在其余位置为空的棋盘上把国王移到指定格再归位。策略须从图像辨认格子，再完成夹取、搬运和释放。作者在同一任务上研究示教量、训练步数和模型选择；能下整盘棋只是另做的演示，没纳入这组定量实验。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "In this task, an SO-101 arm moves a chess king between two squares that are given only by their names, such as e4 and a5."
+      },
+      {
+       "source": "S14",
+       "quote": "The task is to pick up the king from one square of an otherwise empty chess board, place it on another square and return to the ready pose (Fig. 1 ). The source and target squares are given only in the instruction. We study the task on a real robot arm and in its simulated counterpart."
+      },
+      {
+       "source": "S6",
+       "quote": "Beyond king moves, we also built a system on the same arm that plays full games with all pieces, but only as a demonstration, without evaluation or ablations."
+      }
+     ]
+    },
+    {
+     "heading": "闭环成功率能改变训练决策",
+     "kind": "reported",
+     "text": "模拟器既能供给带变化的示教，也让各策略在同一套评测上比较。作者发现，示教数和更新量都影响闭环成功率；未经学习率冷却的检查点与冷却成品不能直接等价，验证损失和开环动作误差也可能给出错误排序。真机结果仅支持局部结论：模拟预训练在少量真机示教下有帮助。",
+     "evidence": [
+      {
+       "source": "S8",
+       "quote": "In a simulated version of the task, we present quantitative experiments indicating that the success rate scales with both data and updates, that checkpoints must be compared after a learning-rate cool-down or stochastic weight averaging (SWA) [ 5 ] , and that validation loss and action error are unreliable for model selection (Section 3.1 )."
+      },
+      {
+       "source": "S9",
+       "quote": "On the real arm, partial results indicate that pretraining on simulated demonstrations helps when real data is scarce (Section 3.3 )."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "训练损失更便宜，却不是最终指标",
+     "kind": "reported",
+     "text": "作者遇到的难题不是如何定义监督标签，而是已训练的策略该不该部署：实机每次测试需人复位，少量试次的差别又难解释。离线模仿误差只衡量记录输入上的动作偏差，不能直接计入策略动作改变后续观测所造成的失误。论文以单任务、大规模重复闭环试次回应，未做全领域查新。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "A central challenge is that closed-loop task success, the quantity of interest, is expensive to measure. On a real robot, each trial takes minutes and requires a person to reset the scene. It is therefore tempting to rely on offline proxies such as validation loss or action error, or on a few dozen trials per setting. Our study complements the fine-tuning experiments reported with the VLA models themselves [ 1 , 2 , 3 ] and data-scaling studies of imitation learning [ 4 ] with a detailed look at a single task, where a simulator lets us evaluate every model on many trials."
+      }
+     ]
+    },
+    {
+     "heading": "仿真不是只提供更多相同轨迹",
+     "kind": "interpretation",
+     "text": "如果演示由总是沿同一路径的规划器产生，模仿策略就很少看到带误差的接近和补救。作者让脚本专家带着初始感知偏差、延迟与不同节奏行动，还可重试抓取；其轨迹与人类演示都呈散布，但真机人类搬运通常更直。路径差异提醒读者：模拟预训练给的是近似任务先验，不等于复刻了真机分布。",
+     "evidence": [
+      {
+       "source": "S21",
+       "quote": "A motion planner would execute every move identically, which neither resembles teleoperation nor gives enough variation for imitation learning. Our scripted expert therefore imitates the variability of a human operator. It reaches for a target with a perception error, observes the remaining error after a latency and corrects, and repeats this until the error is below a tolerance. Each episode samples its own tempo, errors, tolerances and grasp parameters, so paths and speeds differ between episodes (Fig. 2 )."
+      },
+      {
+       "source": "S22",
+       "quote": "The paths of the human operator on the real arm show a similar spread, although the operator’s carries are straighter. The fine-tuned policies vary less than both the expert and the operator, in simulation and on the real arm."
+      },
+      {
+       "source": "S61",
+       "quote": "The scripted expert is randomized but its similarity to human demonstrations is not rigorously measured."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先对齐两路视觉，再按指令定位",
+     "kind": "reported",
+     "text": "固定俯拍用于看棋盘，腕部摄像机沿夹爪观察近处，两路鱼眼图像都矫正到模拟器针孔相机的成像模型。MuJoCo 孪生体按实测棋盘姿态、扫描棋子和相机参数建模；印制连杆的柔顺性没有建模。真机与仿真的关节零点偏差由真机数据归一化处理，不要把预处理理解为消除了所有硬件差异。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "One camera is mounted on the wrist and looks along the gripper. The other is fixed above the board on a 3D-printed overhead mount (Fig. 3 ). Both have wide-angle fisheye lenses, and the policy sees their images rectified to the simulator’s pinhole model."
+      },
+      {
+       "source": "S19",
+       "quote": "The simulator is a MuJoCo [ 9 ] twin of the real setup. It reproduces the arm’s kinematics and servo dynamics, the measured pose of the board, the scanned king, and the poses and fields of view of the two cameras."
+      },
+      {
+       "source": "S66",
+       "quote": "It does not model the compliance of the printed links."
+      },
+      {
+       "source": "S69",
+       "quote": "The joint zeros of the real calibration differ from the simulator’s by a constant offset per joint, which normalization with the real dataset’s statistics absorbs."
+      }
+     ]
+    },
+    {
+     "heading": "动作块与阶段选择走两条输出路径",
+     "kind": "reported",
+     "text": "以 π0.5 为起点，动作专家采用流匹配并读取语言模型的输出。训练时微调动作专家与语言模型、冻结视觉编码器；阶段标记监督语言模型，并被动作专家读入。执行时输入还有当前阶段和六路关节位置：每次预测 50 个关节目标，以 15 Hz 执行前 10 个再规划，而不是一口气开环跑完整个动作块。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "We start from the \\pi_{0.5} model, which combines a vision-language model with a flow-matching action expert that attends to it. The model was not pretrained on the SO-101 arm. The policy receives the two camera views, the six joint positions, the instruction and the current stage. It outputs chunks of 50 joint targets at 15 Hz and executes 10 of them before planning again (Fig. 3 )."
+      },
+      {
+       "source": "S24",
+       "quote": "We fine-tune the action expert and the language model, 2.7 of the model’s 4.1 billion parameters, and keep the vision encoder frozen. The language model also learns to predict the current stage as one token (Fig. 1 ), and the action expert attends to that token (Appendix C )."
+      }
+     ]
+    },
+    {
+     "heading": "真机不拿示教标签作在线真值",
+     "kind": "reported",
+     "text": "示教的阶段标签来自记录轨迹，阶段定义与模拟器一致。部署时，策略自己比较当前阶段与下一阶段的得分，只有下一阶段连续胜出才推进。部署试次由策略自主执行：人只复位、记录最高里程碑。不要把阶段标记理解成操作者在线提示，也不要把阶段准确率当作完成整段操作的比例。",
+     "evidence": [
+      {
+       "source": "S50",
+       "quote": "The stage labels are detected from the recorded trace with the simulator’s own definitions."
+      },
+      {
+       "source": "S24",
+       "quote": "At test time the policy re-scores the current and the next stage once per action chunk and advances when the next one wins twice in a row."
+      },
+      {
+       "source": "S52",
+       "quote": "The policy runs each trial autonomously, at one third of the demonstrated tempo because of the inference latency in our deployment. A person resets the king and grades the highest milestone reached, with the same definitions of success and strict success as in simulation (Appendix H )."
+      },
+      {
+       "source": "S79",
+       "quote": "The stage accuracy is close to its final value after about 4k updates for every dataset size, long before the success rate rises (Fig. 11 )."
+      }
+     ]
+    },
+    {
+     "heading": "回放实验从基础权重另训，不是继续旧策略",
+     "kind": "reported",
+     "text": "作者以纯行为克隆策略采集带结果的回放，和原示教混合后，从基础权重另训模型，并与同更新量的纯示教基线比。除了只保留成功回放，还比较按整局成败贴标、按价值函数贴标、用不含当前回合的交叉拟合价值函数贴标。模拟教练则读取模拟器状态，接管后交还控制；这不是实机可直接观测的信号。",
+     "evidence": [
+      {
+       "source": "S42",
+       "quote": "We take the best behavior-cloning model of a dataset size (165k updates), run it on new moves from the collection distribution and record every trial with its graded outcome. A new policy is trained from the base model on the demonstrations plus the rollouts, on the same update ladder."
+      },
+      {
+       "source": "S44",
+       "quote": "We compare four variants. Filtered BC trains on the demonstrations plus the successful rollouts. RECAP-style advantage conditioning [ 6 ] labels every frame with a learned value function. A cross-fitted variant of it labels each half of the episodes with a value function that never saw it. Outcome labels mark every frame of a success as positive and every frame of a failure as negative."
+      },
+      {
+       "source": "S87",
+       "quote": "Variants. All variants train on the demonstrations plus the policy’s rollouts and are compared with behavior cloning on the demonstrations alone at the same number of updates."
+      },
+      {
+       "source": "S47",
+       "quote": "A monitor on the simulator’s state hands control to the scripted expert when a failure is imminent, and the expert re-grasps or places the king and returns control to the policy."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "固定版本无独立陈列的关键公式",
+     "kind": "interpretation",
+     "text": "核对了固定版本 HTML 与 PDF：原文有流匹配模型名、学习率和引导强度等行内记号，但没有独立陈列的动作损失、优化方程或采样更新式。这里不把外部 π0.5 论文的公式移植进来，也不把超参数重写成作者方程。实现本实验时，可直接据原文核对输入、动作块频率与阶段切换规则。",
+     "evidence": [
+      {
+       "source": "S24",
+       "quote": "We start from the \\pi_{0.5} model, which combines a vision-language model with a flow-matching action expert that attends to it. The model was not pretrained on the SO-101 arm. The policy receives the two camera views, the six joint positions, the instruction and the current stage. It outputs chunks of 50 joint targets at 15 Hz and executes 10 of them before planning again (Fig. 3 )."
+      },
+      {
+       "source": "S24",
+       "quote": "At test time the policy re-scores the current and the next stage once per action chunk and advances when the next one wins twice in a row."
+      }
+     ]
+    },
+    {
+     "heading": "优势标签按未来一秒的进展差定义",
+     "kind": "reported",
+     "text": "附录 E 用文字把一帧的优势定义成下一秒实际进展减去价值函数预期进展。阈值取全部训练帧（含示教）的优势分布第 30 百分位；仅超过阈值的回放帧记正，而示教帧无条件为正。成功回放帧有 72% 为正，失败回放中仍有 48% 为正，因此正标签不是整局成功的别名。",
+     "evidence": [
+      {
+       "source": "S89",
+       "quote": "A frame’s advantage is the progress made over the next second minus the progress the value function expects. The threshold is the 30th percentile of the advantages of all training frames, demonstrations included. Rollout frames above it are labeled positive, and every demonstration frame is labeled positive. This labels 72% of the frames of successful rollouts and 48% of those of failed rollouts positive."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "模拟训练：成功子集嵌套，检查点成对比较",
+     "kind": "reported",
+     "text": "同一批约 11.4k 个脚本专家回合里，93% 成功。行为克隆的嵌套训练集只取成功示教，从 100 到 10k 回合，另留 30 个成功回合作验证。每组共用恒定学习率主干并从各目标预算的 90% 处分支，在最后 10% 把学习率降到零。每个配置只训练一次；分支比较省去了为每种预算各训一条主干。",
+     "evidence": [
+      {
+       "source": "S30",
+       "quote": "Data. The simulated demonstration set holds about 11.4k expert episodes with the piece offset by up to 8 mm inside its square, of which 93% are successes. Training sets are nested subsets of the successes with n=100 , 316, 1,000, 3.2k and 10k episodes, and 30 further successes are held out for validation."
+      },
+      {
+       "source": "S31",
+       "quote": "For each dataset size, one constant-rate trunk keeps a checkpoint at 90% of every update budget, and a branch from each checkpoint cools the rate to zero over the remaining updates [ 10 , 11 ] . Each configuration is trained once."
+      },
+      {
+       "source": "S35",
+       "quote": "A branch continues its trunk checkpoint for the last 10% of the budget while the learning rate falls to zero (Fig. 5 )."
+      }
+     ]
+    },
+    {
+     "heading": "模拟评测：动作结果与训练随机性分开",
+     "kind": "reported",
+     "text": "各策略跑同一固定走子表的 1,000 次闭环试验，初始国王相对格中心最多偏 8 mm。普通成功要求棋子最终直立、中心在目标格且机械臂归位；严格成功还要求整个棋子底座在目标格内。Wilson 95% 区间反映这组试次的成功比例不确定性，不是跨训练种子的方差。",
+     "evidence": [
+      {
+       "source": "S32",
+       "quote": "Evaluation. Each model runs 1,000 closed-loop trials on a fixed schedule of moves, with the piece offset by up to 8 mm as in the data, and with real-time chunking [ 12 ] at deployment settings. A trial succeeds if the king ends standing with its center inside the target square and the arm is back at rest. Strict success also requires the king’s whole base to be inside the square. We report success rates with Wilson 95% intervals, which are about \\pm 3 points at 30–60%."
+      },
+      {
+       "source": "S31",
+       "quote": "For each dataset size, one constant-rate trunk keeps a checkpoint at 90% of every update budget, and a branch from each checkpoint cools the rate to zero over the remaining updates [ 10 , 11 ] . Each configuration is trained once."
+      }
+     ]
+    },
+    {
+     "heading": "真机测试：相同走子顺序和较容易的初态",
+     "kind": "reported",
+     "text": "真机遥操作 261 次，其中 259 次成功；训练对比采用嵌套的 32、128、256 条示教，分别从基座与模拟策略初始化。评测复用模拟器较容易序列的前 25 个走子，国王从各格中心起步，并因部署延迟以示教节奏的三分之一执行。只有设备布置错误才重做试次，失败不删。",
+     "evidence": [
+      {
+       "source": "S50",
+       "quote": "Data. One of the authors teleoperated 261 king moves with the leader arm, each starting and ending at the ready pose. The source and target squares were drawn at random, and the king was placed up to 8 mm off the center of its square, as in the simulated data. 259 of the moves are successes, and these form the real dataset, about half an hour of motion in total. The stage labels are detected from the recorded trace with the simulator’s own definitions."
+      },
+      {
+       "source": "S51",
+       "quote": "We fine-tune \\pi_{0.5} on nested random subsets of 32, 128 and 256 demonstrations, from two initializations."
+      },
+      {
+       "source": "S52",
+       "quote": "Evaluation. Every model runs the same 25 trials, the first 25 moves of the simulator’s easy schedule, with the king centered on its square. The policy runs each trial autonomously, at one third of the demonstrated tempo because of the inference latency in our deployment. A person resets the king and grades the highest milestone reached, with the same definitions of success and strict success as in simulation (Appendix H ). With 25 trials per model, we only interpret large differences."
+      },
+      {
+       "source": "S105",
+       "quote": "A failed trial is never discarded, and a trial is repeated only for a setup fault, such as the king placed on the wrong square. Every trial is recorded, whether it succeeds or not."
+      }
+     ]
+    },
+    {
+     "heading": "复现材料有入口，端到端训练成本未量化",
+     "kind": "unknown",
+     "text": "附录 G 列出代码 github.com/kripner/vla-chess 和 LeRobot 格式真机示教 huggingface.co/datasets/Kripi/so101-chess-king-moves-real；仿真示教可用环境和脚本专家重生。已读取来源没有给出各配置的 GPU 小时或实机端到端延迟分布；不要用训练步数或部署节奏替代这些成本。",
+     "evidence": [
+      {
+       "source": "S101",
+       "quote": "The real demonstrations are in the LeRobot format (Table 3 ). The simulated demonstrations can be regenerated with the released environment and scripted expert. The code is at https://github.com/kripner/vla-chess and the dataset at https://huggingface.co/datasets/Kripi/so101-chess-king-moves-real ."
+      },
+      {
+       "source": "S66",
+       "quote": "The follower and both cameras connect to a laptop that runs the control loop, and the policy is served from a remote GPU. The simulator uses the arm’s URDF and servo dynamics, the measured board pose, the king’s scanned profile, and the calibrated camera poses."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "冷却收益：同预算与同起点是两种比较",
+     "kind": "reported",
+     "text": "用 10k 示教，冷却模型在 165k 更新的模拟成功率是 60.2%，相同更新量的恒速主干为 48.9%，随机权重平均（SWA）为 57.0%。正文另报告分支起点只有 29%，摘要的最多 31 个百分点对应这种与较早起点的比较，不能当作同训练预算的增益。同一数据量继续训练至 237k 的冷却模型达 64.1%。",
+     "evidence": [
+      {
+       "source": "S74",
+       "quote": "60.2 \\pi_{0.5} , behavior cloning 10k 237k 64.1 constant rate, no cool-down 10k 165k 48.9 SWA, no cool-down 10k 165k 57.0"
+      },
+      {
+       "source": "S35",
+       "quote": "With 10k demonstrations, the branch ending at 165k updates reaches 60%, the constant-rate checkpoint it started from reaches 29%, and the trunk’s own checkpoint at 165k updates reaches 49%."
+      },
+      {
+       "source": "S1",
+       "quote": "Importantly, we find that a short learning-rate cool-down adds up to 31 points and is necessary for comparing checkpoints, and that validation loss and action error are unreliable for model selection."
+      },
+      {
+       "source": "S33",
+       "quote": "With 10k demonstrations it is still increasing at the largest budgets, from 60% at 165k updates to 64% at 237k."
+      }
+     ]
+    },
+    {
+     "heading": "离线动作误差相近，闭环成功却不同",
+     "kind": "reported",
+     "text": "约 79k 更新时，各训练集大小的恒速主干开环动作误差只在 22 至 24 mm 之间，而对应冷却策略的闭环成功率落在 8% 至 48%。只有 100 条示教时，验证损失最低的早期模型在闭环中还未成功。注意前一比较跨的是两类检查点：它挑战用恒速主干的离线指标替代部署验收，不等于对所有离线指标都做过反证。",
+     "evidence": [
+      {
+       "source": "S36",
+       "quote": "Offline metrics are unreliable for model selection. With 100 demonstrations the validation loss is lowest at about 2k updates and more than doubles by the end of training, while success increases from zero to 10% (Fig. 6 ). Selection by validation loss would therefore return a model with zero success. The open-loop action error does fall monotonically, but it does not discriminate between models. At about 79k updates the error is 22 to 24 mm for all five dataset sizes, while the success rate of the cooled-down models ranges from 8% to 48%."
+      },
+      {
+       "source": "S37",
+       "quote": "Figure 6: Validation loss (left) and open-loop action error (middle) of the constant-rate trunks, against the success rate of the cooled-down models (right). One curve per dataset size."
+      }
+     ]
+    },
+    {
+     "heading": "真机：同一格比较，不把未测当失败",
+     "kind": "reported",
+     "text": "128 条示教、45k 更新时，模拟初始化走成 18/25，基座初始化走成 2/25。在 32 条、2k 更新时是 7/25 对 0/25，基座虽触碰过棋子但没成功夹取。256 条示教时，已测预算上的模拟初始化成功 14 至 17 次，基座为 5 至 10 次。配对结果方向一致，但没测完的预算格不是失败，也不能从这些格子计算全网格均值。",
+     "evidence": [
+      {
+       "source": "S53",
+       "quote": "In all five evaluated pairs the sim-initialized policy is better, and with little real data the difference is large. With 128 demonstrations, the sim-initialized policy succeeds in 18 of 25 trials and the base-initialized policy succeeds in 2. With 32 demonstrations, the sim-initialized policy succeeds in 7 trials, while the base-initialized policy never grips the king. With 256 demonstrations the difference is smaller. Depending on the update budget, the sim-initialized policy succeeds in 14 to 17 trials and the base-initialized policy in 5 to 10 trials."
+      },
+      {
+       "source": "S76",
+       "quote": "Pretrained in simulation Base Demos Updates Touched Gripped Success Touched Gripped Success 32 2k 25 12 7 6 0 0 128 45k 25 24 18 15 8 2 256 15k 25 23 14 23 13 5 256 45k 25 22 14 23 17 10 256 75k 25 23 17 24 15 10"
+      },
+      {
+       "source": "S45",
+       "quote": "Figure 9: Partial results in the real setting, 25 trials per model. Left: policies initialized from the simulation policy. Right: policies initialized from the base \\pi_{0.5} model. Top: success rate (%) over demonstrations and updates, where a dash marks a model without a full evaluation. Bottom: share of trials that reach each milestone, per evaluated model."
+      }
+     ]
+    },
+    {
+     "heading": "回放的阴性结果有一个条件性例外",
+     "kind": "reported",
+     "text": "等更新量下，附录 E 的模拟 1K+1K 对比在 79k 更新时纯示教为 30%、优势条件模型为 30 至 31%、过滤行为克隆为 33%。自动教练的 RECAP 在困难序列为 35% 对 30%（配对 McNemar 检验，p<0.02），在容易序列反为 46% 对 50%。所以作者报告无稳定收益，不是说每个条件下都没有差异。",
+     "evidence": [
+      {
+       "source": "S94",
+       "quote": "At 79k updates in the 1K+1K round, behavior cloning reaches 30%, the three advantage-conditioned variants reach 30 to 31%, and filtered BC reaches 33% (Table 1 )."
+      },
+      {
+       "source": "S95",
+       "quote": "At 79k updates coached RECAP reaches 35% on the hard schedule, above behavior cloning (30%, paired McNemar test, p<0.02 ), but on the easy schedule it is below behavior cloning (46% against 50%)."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "作者承认：单任务、单次训练、真机样本小",
+     "kind": "reported",
+     "text": "作者将结论限于一种移动国王的任务与每设定单次训练，真机每模型仅 25 次试验。随机脚本的轨迹与人类演示的相似性未经严格量化；回放实验也没有复制原 RECAP 的优势条件预训练或人工纠正，不能用这些阴性结果否定完整的 RECAP 或所有从经验学习方法。",
+     "evidence": [
+      {
+       "source": "S61",
+       "quote": "Limitations. Our results come from one task and with a single training run per setting. The scripted expert is randomized but its similarity to human demonstrations is not rigorously measured. Our RECAP variants omit the original’s advantage-conditioned pretraining and human corrections. The statistical evidence from the real arm is limited, with 25 trials per model."
+      }
+     ]
+    },
+    {
+     "heading": "两个“预训练”问题不可互换",
+     "kind": "interpretation",
+     "text": "附录 F 在模拟 10k 示教时消融基座原有的机器人预训练；它不是真机比较里先学同一走棋任务的模拟预训练。原有机器人预训练在此单一数据规模未带来明显收益，不能解释其对小样本的作用。另外 π0 与 SmolVLA 采用各自默认配方，对比的是模型与配方组合，不是控制训练方案后的模型排名。",
+     "evidence": [
+      {
+       "source": "S99",
+       "quote": "Trained with the same recipe on 10k demonstrations, this model follows the same curve as \\pi_{0.5} and also reaches 60% at 165k updates (Fig. 15 ). This result is partial, since the ablation covers only the largest dataset size, and robot pretraining may matter with smaller datasets. Other model families, fine-tuned with their stock recipes, perform in the same range or better. At 165k updates, \\pi_{0} [ 1 ] reaches 78% and SmolVLA [ 3 ] reaches 55%. Their recipes differ from ours, so these numbers compare model and recipe together."
+      },
+      {
+       "source": "S51",
+       "quote": "We fine-tune \\pi_{0.5} on nested random subsets of 32, 128 and 256 demonstrations, from two initializations. Base is the released \\pi_{0.5} model. Pretrained in simulation is our \\pi_{0.5} simulation model trained on 10k demonstrations for 237k updates and cooled down (64% success in simulation)."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：把同一走子重复和换场地分开",
+     "kind": "proposal",
+     "text": "下一步可把评测分为原走子表、未见起终点组合和新几何布置，并在真机分别扰动棋子初位与相机标定。即便原图显示模拟初始化优势，也无法从固定摆位试次判断收益来自格名理解、稳定夹取还是镜头配准。建议分别报告触碰、夹稳、摆正及完成耗时，避免单一终点指标隐藏几何失配。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "把快指标只用于粗筛，再用同场景的闭环成绩选型",
+     "kind": "proposal",
+     "text": "可在小样本机械臂插接任务上复用这套评测：固定示教、架构和最终更新预算，对比末段降率、同区段权重平均和保持恒速，跨多个训练种子。先用验证动作误差粗筛，后在共享零件位姿表上闭环完成；保留另一套未见位姿作最终测试。交付检查点排序相关性、每种子的配对成功差、耗时及失败阶段；若闭环排序无改善或随种子反转，不采纳冷却作为选择标准。",
+     "evidence": []
+    },
+    {
+     "heading": "按失配来源检验少量真机示教是否真能省",
+     "kind": "proposal",
+     "text": "对同一总真机示教预算的基座初始化、仿真初始化分别扫少量示教档位；另追加域随机化对照，单独变化镜头参数、夹具柔顺性与接触摩擦。预先锁定目标成功率和试次预算，交付达到该目标所需示教数与配对区间，以及更换零件后插接失败的差值。若预训练收益只留在旧工位，就不要预估跨硬件节省。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 3,
+   "reference": "F3",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.12676v1/policy.png",
+   "width": 648,
+   "height": 193,
+   "caption": "Figure 3: Inputs and outputs of the policy at one frame of a real trial. The policy observes the two rectified camera images, the joint positions, the instruction and the current stage. It outputs a chunk of 50 joint targets and predicts whether to transition to the next stage.",
+   "title": "动作块只执行前段，阶段另行判别",
+   "alt": "左列是俯拍、腕部图像、关节位置、格名指令和 pick 状态；中间是 VLA；右边是多色关节目标曲线和 pick 到 transport 的阶段分类。",
+   "caution": "不能把蓝框中的单帧例子当作模块消融，也不能把 62% 读成抓取成功率；图不提供端到端部署时延。",
+   "reading_steps": [
+    {
+     "title": "先看左侧的互补输入",
+     "text": "上排两张图的视角不同：俯拍露出棋盘格，腕部靠近棋子和夹爪。下方关节位置、格名指令和 pick 阶段同样输入策略，图上没有直接输入目标格的世界坐标。"
+    },
+    {
+     "title": "再看右上角灰区与右下角分类",
+     "text": "右上横轴 step 走到 50，灰区只标出先执行的 10 步，多色曲线表示各个关节的目标；图没标出纵轴数值单位。右下 38%/62% 是这帧的阶段分类分数示例；正文还要求下一阶段连胜两次才推进。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 5,
+   "reference": "F5",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.12676v1/cooldown.svg",
+   "width": 510,
+   "height": 165,
+   "caption": "Figure 5: Constant-rate checkpoints against the cooled-down branches started from them.",
+   "title": "恒速主干与冷却分支的横坐标不同",
+   "alt": "同一百分比纵轴的五个面板按示教量递增排列，横轴是对数更新步数。实心圆和实线为冷却分支，空心圆和虚线为恒速主干。",
+   "caution": "不能从图上点的间距读线性训练成本，也不能把试次波动当训练重跑方差；单次训练下的对比不证明其他任务也有同样收益。",
+   "reading_steps": [
+    {
+     "title": "先认轴和两套标记",
+     "text": "五个面板从左到右示教量增大；横轴是对数更新步数，纵轴是模拟闭环成功率（%）。把实心圆当分支训练结束、空心圆当主干检查点，别把右侧面板空心曲线下凹误读为冷却停止生效。"
+    },
+    {
+     "title": "看最右面板，再用正文和表格核数",
+     "text": "10k 示教的大预算位置，冷却成品可和完成同样步数的主干比，也可和更早的分支起点比；后者会少算一段训练预算，因此差值更大。精确的 165k 同预算比较回到附录 B，图用来辨别曲线与方向。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 9,
+   "reference": "F9",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.12676v1/real.svg",
+   "width": 510,
+   "height": 230,
+   "caption": "Figure 9: Partial results in the real setting, 25 trials per model. Left: policies initialized from the simulation policy. Right: policies initialized from the base \\pi_{0.5} model. Top: success rate (%) over demonstrations and updates, where a dash marks a model without a full evaluation. Bottom: share of trials that reach each milestone, per evaluated model.",
+   "title": "先读已测网格，再找真机失败的环节",
+   "alt": "上排热图左为模拟初始化、右为基座初始化；下排两张蓝色折线图按触碰、夹取、抬起、带到目标、成功和严格成功分别给出试次比例。",
+   "caution": "不同连线点可能同时改变示教量和训练预算，不能据此读出单变量剂量曲线；同一试次可以达到多个里程碑，不应相加。",
+   "reading_steps": [
+    {
+     "title": "对照左右上排的同一格",
+     "text": "横轴是更新数、纵轴是示教数，数字是每模型 25 次试验的成功百分比。在 128 条、45k 更新处，左格 72 对右格 8；灰格短横表示尚未完整评测，右侧左下的 0 才是测得的零成功。"
+    },
+    {
+     "title": "再看下排的里程碑分解",
+     "text": "横轴是已测的示教量/更新数组合而不是等间隔训练过程。浅蓝触碰到深蓝成功逐级收紧，最深的虚线是整个底座落格的严格成功。比较 32 条、2k 的位置时，右图触碰线有值，夹取线为零，说明失败并非全部卡在定位接近。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Matěj Kripner、Milan Straka",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T04:45:21Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "75c06d11b7aaf97cdee52ba5104ed95adc6b47fa9d1fac932c2fb300a9306e93",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。此版本元数据标明 CC BY-SA 4.0。"
+}

@@ -459,17 +459,29 @@
   },
   "2611.12676": {
    "paper_id": "2611.12676",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T04:45:21Z",
+   "completed_at": "2026-11-18T04:45:21Z",
+   "source_sha256": "75c06d11b7aaf97cdee52ba5104ed95adc6b47fa9d1fac932c2fb300a9306e93",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.12806": {
    "paper_id": "2611.12806",
-   "status": "historical_backfill_pending",
+   "status": "source_unavailable",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T04:45:21Z",
+   "source_status": "versioned_pdf_read_html_404_no_standalone_official_figure_urls",
+   "source_version": "v1",
+   "source_url": "https://arxiv.org/html/2611.12806v1",
+   "source_pdf_url": "https://arxiv.org/pdf/2611.12806v1",
+   "source_pdf_sha256": "5f0c52f41165e1f370a7da775e0659e7d41a77f4333a8c835558300993e75ba3",
+   "source_detail": "v1 PDF 正文、附录 A–C、表图与公式已读；官方 v1 HTML 返回 404，TeX 源包内含论文原图但未提供符合合同的固定版本逐图链接。作者项目页不是 arXiv v1 逐图来源。不镜像、不标 complete。"
   },
   "2611.13528": {
    "paper_id": "2611.13528",
@@ -556,6 +568,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T04:33:29Z",
+ "updated_at": "2026-11-18T04:46:28Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
