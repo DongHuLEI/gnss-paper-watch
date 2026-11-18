@@ -1,0 +1,910 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2604.18379",
+ "source_version": "v3",
+ "source_url": "https://arxiv.org/html/2604.18379v3",
+ "checked_on": "2026-11-18",
+ "title_zh": "IonoDGNN：用星历构建未来视线图，预报电离层不规则体",
+ "dek": "在新加坡共址接收机的多 GNSS 观测上，以穿刺点动态图预报未来 2 小时各视线的 ROTI 事件概率。全时效汇总优于持续性，短时却不是一律占优；对新出现的视线，空间消息传递优于从邻居概率插值。原试验使用观测轨道，未验证真实告警或定位收益。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理读取固定版 arXiv v3 HTML 全部正文、致谢、数据可用性声明、表格、图注与行内公式；该 HTML 未列独立附录。本次实际查看所展示的官方原图，也查看了尺寸超限的 Fig. 2。本文不是独立 API 账单任务；未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S10": {
+   "label": "原文 · S1.p8.1",
+   "anchor": "S1.p8.1"
+  },
+  "S8": {
+   "label": "原文 · S1.p6.1",
+   "anchor": "S1.p6.1"
+  },
+  "S17": {
+   "label": "原文 · S2.SS1.p1.1",
+   "anchor": "S2.SS1.p1.1"
+  },
+  "S96": {
+   "label": "原文 · S4.SS4.p1.1",
+   "anchor": "S4.SS4.p1.1"
+  },
+  "S81": {
+   "label": "原文 · S4.SS1.p1.1",
+   "anchor": "S4.SS1.p1.1"
+  },
+  "S80": {
+   "label": "原文 · S4.T2.2",
+   "anchor": "S4.T2.2"
+  },
+  "S86": {
+   "label": "原文 · S4.SS2.p2.1",
+   "anchor": "S4.SS2.p2.1"
+  },
+  "S92": {
+   "label": "原文 · S4.SS3.p2.1",
+   "anchor": "S4.SS3.p2.1"
+  },
+  "S3": {
+   "label": "原文 · S1.p1.1",
+   "anchor": "S1.p1.1"
+  },
+  "S4": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S6": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S119": {
+   "label": "原文 · S5.SS1.p5.1",
+   "anchor": "S5.SS1.p5.1"
+  },
+  "S59": {
+   "label": "原文 · S3.SS4.p2.1",
+   "anchor": "S3.SS4.p2.1"
+  },
+  "S45": {
+   "label": "原文 · S3.I1.i2.p1.1",
+   "anchor": "S3.I1.i2.p1.1"
+  },
+  "S60": {
+   "label": "原文 · S3.SS4.p3.1",
+   "anchor": "S3.SS4.p3.1"
+  },
+  "S91": {
+   "label": "原文 · S4.SS3.p1.1",
+   "anchor": "S4.SS3.p1.1"
+  },
+  "S42": {
+   "label": "原文 · S3.SS1.p2.1",
+   "anchor": "S3.SS1.p2.1"
+  },
+  "S48": {
+   "label": "原文 · S3.SS2.p1.1",
+   "anchor": "S3.SS2.p1.1"
+  },
+  "S50": {
+   "label": "原文 · S3.SS2.p3.1",
+   "anchor": "S3.SS2.p3.1"
+  },
+  "S52": {
+   "label": "原文 · S3.SS3.p1.1",
+   "anchor": "S3.SS3.p1.1"
+  },
+  "S63": {
+   "label": "原文 · S3.I2.i1.p1.1",
+   "anchor": "S3.I2.i1.p1.1"
+  },
+  "S64": {
+   "label": "原文 · S3.I2.i2.p1.1",
+   "anchor": "S3.I2.i2.p1.1"
+  },
+  "S55": {
+   "label": "原文 · S3.SS3.p4.1",
+   "anchor": "S3.SS3.p4.1"
+  },
+  "S66": {
+   "label": "原文 · S3.SS6.p1.1",
+   "anchor": "S3.SS6.p1.1"
+  },
+  "S46": {
+   "label": "原文 · S3.SS1.p4.1",
+   "anchor": "S3.SS1.p4.1"
+  },
+  "S43": {
+   "label": "原文 · S3.SS1.p3.1",
+   "anchor": "S3.SS1.p3.1"
+  },
+  "S53": {
+   "label": "原文 · S3.SS3.p2.1",
+   "anchor": "S3.SS3.p2.1"
+  },
+  "S68": {
+   "label": "原文 · S3.SS7.p1.1",
+   "anchor": "S3.SS7.p1.1"
+  },
+  "S85": {
+   "label": "原文 · S4.SS2.p1.1",
+   "anchor": "S4.SS2.p1.1"
+  },
+  "S20": {
+   "label": "原文 · S2.SS2.p1.1",
+   "anchor": "S2.SS2.p1.1"
+  },
+  "S25": {
+   "label": "原文 · S2.SS3.p2.1",
+   "anchor": "S2.SS3.p2.1"
+  },
+  "S27": {
+   "label": "原文 · S2.I1.i1.p1.1",
+   "anchor": "S2.I1.i1.p1.1"
+  },
+  "S31": {
+   "label": "原文 · S2.SS3.p4.1",
+   "anchor": "S2.SS3.p4.1"
+  },
+  "S35": {
+   "label": "原文 · S2.SS4.p1.1",
+   "anchor": "S2.SS4.p1.1"
+  },
+  "S33": {
+   "label": "原文 · S2.T1.2",
+   "anchor": "S2.T1.2"
+  },
+  "S75": {
+   "label": "原文 · S3.I3.i5.p1.1",
+   "anchor": "S3.I3.i5.p1.1"
+  },
+  "S69": {
+   "label": "原文 · S3.SS7.p2.1",
+   "anchor": "S3.SS7.p2.1"
+  },
+  "S133": {
+   "label": "原文 · S6.p4.1",
+   "anchor": "S6.p4.1"
+  },
+  "S131": {
+   "label": "原文 · S6.p2.1",
+   "anchor": "S6.p2.1"
+  },
+  "S72": {
+   "label": "原文 · S3.I3.i2.p1.1",
+   "anchor": "S3.I3.i2.p1.1"
+  },
+  "S89": {
+   "label": "原文 · S4.T3.2",
+   "anchor": "S4.T3.2"
+  },
+  "S103": {
+   "label": "原文 · S4.SS5.p1.1",
+   "anchor": "S4.SS5.p1.1"
+  },
+  "S106": {
+   "label": "原文 · S4.SS5.p4.1",
+   "anchor": "S4.SS5.p4.1"
+  },
+  "S104": {
+   "label": "原文 · S4.SS5.p2.1",
+   "anchor": "S4.SS5.p2.1"
+  },
+  "S97": {
+   "label": "原文 · S4.SS4.p2.1",
+   "anchor": "S4.SS4.p2.1"
+  },
+  "S98": {
+   "label": "原文 · S4.SS4.p3.1",
+   "anchor": "S4.SS4.p3.1"
+  },
+  "S99": {
+   "label": "原文 · S4.SS4.p4.1",
+   "anchor": "S4.SS4.p4.1"
+  },
+  "S115": {
+   "label": "原文 · S5.SS1.p1.1",
+   "anchor": "S5.SS1.p1.1"
+  },
+  "S120": {
+   "label": "原文 · S5.SS1.p6.1",
+   "anchor": "S5.SS1.p6.1"
+  },
+  "S116": {
+   "label": "原文 · S5.SS1.p2.1",
+   "anchor": "S5.SS1.p2.1"
+  },
+  "M1": {
+   "label": "原公式 · S3.SS1.p3.m1",
+   "anchor": "S3.SS1.p3.m1"
+  },
+  "M2": {
+   "label": "原公式 · S3.SS2.p1.m1",
+   "anchor": "S3.SS2.p1.m1"
+  },
+  "M3": {
+   "label": "原公式 · S3.SS7.p1.m2",
+   "anchor": "S3.SS7.p1.m2"
+  },
+  "M4": {
+   "label": "原公式 · S3.SS7.p1.m8",
+   "anchor": "S3.SS7.p1.m8"
+  },
+  "M5": {
+   "label": "原公式 · S3.SS7.p1.m1",
+   "anchor": "S3.SS7.p1.m1"
+  },
+  "F6": {
+   "label": "Fig.6 · 原文图",
+   "anchor": "S4.F6"
+  },
+  "F3": {
+   "label": "Fig.3 · 原文图",
+   "anchor": "S4.F3"
+  },
+  "F7": {
+   "label": "Fig.7 · 原文图",
+   "anchor": "S4.F7"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "预报的是视线事件概率，不是连续电离层图",
+     "kind": "reported",
+     "text": "IonoDGNN 把每条活动的卫星—接收机视线（LoS）映射到电离层薄壳穿刺点（IPP）。在新加坡共址接收机的多星座数据上，任务以 5 分钟为节拍、最长提前 2 小时，输出每个未来节点是否处于经质控的 TEC 变化率指数（ROTI）事件中的概率。输出不是 ROTI 幅值，也不是定位误差。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "As a proof of concept, we apply the proposed approach to forecasting ROTI-defined irregularities at 5-minute cadence up to 2 hours ahead as binary per-node event prediction from multi-GNSS observations. The data configuration uses a zero-baseline receiver pair in Southeast Asia. We take advantage of this co-location to cross-validate detected events, yielding consistent labels for training and evaluation under realistic uncertainty."
+      },
+      {
+       "source": "S8",
+       "quote": "Our model, IonoDGNN (Ionospheric DGNN), operates directly on GNSS LoS observations where each node is an IPP carrying observation and ephemeris-derived features, and edges encode spatial relationships among simultaneous IPPs."
+      },
+      {
+       "source": "S17",
+       "quote": "The dataset uses multi-GNSS observations [ 32 ] from a receiver pair in Singapore: NTUS and SIN1. Both stations track five constellations (GPS, Galileo, BeiDou, QZSS, GLONASS) at 30-second sampling."
+      },
+      {
+       "source": "S96",
+       "quote": "These are different quantities: the model outputs the probability that a node is in the event state, whereas ROTI is the observed amplitude on which the segment labels are based (Section II-C )."
+      }
+     ]
+    },
+    {
+     "heading": "最重要的结果是远端时效与新视线",
+     "kind": "reported",
+     "text": "全测试节点、全提前量汇总，比持续性基线的技巧分数高；但短时持续性仍很强，不能用汇总覆盖短时交叉。另一项独立比较只看此前没有出现的视线：未来邻域传递历史背景优于从邻居输出概率插值的两种基线，就 Brier 技巧而言并不是把无历史节点自动判成安静。",
+     "evidence": [
+      {
+       "source": "S81",
+       "quote": "Table II summarizes forecasting performance on all test nodes across all lead times. IonoDGNN achieves the highest skill (BSS 0.552, ROC-AUC 0.971, PR-AUC 0.773). The full model detects 73% of event nodes (POD 0.727) with a CSI of 0.534, outperforming all ablations."
+      },
+      {
+       "source": "S80",
+       "quote": "Model BSS \\uparrow ROC-AUC \\uparrow PR-AUC \\uparrow POD \\uparrow FAR \\downarrow CSI \\uparrow IonoDGNN (full) 0.552 0.971 0.773 0.727 0.332 0.534 w/o conditioning 0.489 0.944 0.701 0.643 0.338 0.484 w/o graph 0.401 0.951 0.650 0.654 0.460 0.420 Persistence 0.360 0.833 0.490 0.609 0.276 0.494 w/o history 0.194 0.921 0.433 0.665 0.631 0.311"
+      },
+      {
+       "source": "S86",
+       "quote": "At short lead times ( < 20 min), persistence is very hard to beat, reflecting the strong temporal autocorrelation of the ionosphere [ 43 ] . IonoDGNN overtakes it by roughly 25 minutes in BSS and earlier ( \\sim 10 min) in PR-AUC"
+      },
+      {
+       "source": "S92",
+       "quote": "Table III shows that IonoDGNN retains most of its overall skill on these nodes (BSS 0.529, ROC-AUC 0.959, PR-AUC 0.614). It outperforms both interpolation baselines on every metric except POD, where IDW detects slightly more events (0.627 vs. 0.612) at the cost of a much higher FAR (0.510 vs. 0.424). The relative BSS improvements are 22% over ordinary kriging and 29% over IDW."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "固定网格和固定站点图没有记住观测怎样移动",
+     "kind": "reported",
+     "text": "作者把缺口放在采样结构而不是插值精度。格网产品适合表达大尺度场，却把稀疏的沿视线观测变成受假设影响的网格估计；等离子体泡等局地锐变可能被平滑。固定网格节点或固定接收机节点的图也没有跟着卫星升落而重构。这里转向保留原生视线，但这不是已做过等价格网基线的全面优越性检验。",
+     "evidence": [
+      {
+       "source": "S3",
+       "quote": "These products provide stable representations of large-scale ionospheric behavior, but they are not direct measurements. Their estimates depend on model assumptions, how sparse observations are turned into grid values, and availability of input observations [ 7 , 8 ] ."
+      },
+      {
+       "source": "S4",
+       "quote": "These structures evolve quickly and on small spatial scales. As a result, the gridding, smoothing, and time-averaging used in map data can weaken or distort the relevant features."
+      },
+      {
+       "source": "S6",
+       "quote": "Recent studies have introduced graph neural networks (GNNs) to ionospheric modeling. However, they operate on fixed grid nodes [ 21 , 3 , 22 ] or static station graphs [ 23 ] , leaving the underlying representation unchanged."
+      },
+      {
+       "source": "S119",
+       "quote": "Although the results demonstrate the feasibility of the change in data representation, the potential benefits of dynamic graphs need further testing. Isolating the contribution of the representation requires direct comparison against equivalent grid-based baselines with independent design choices [ 47 ] , which we leave to future work."
+      }
+     ]
+    },
+    {
+     "heading": "知道未来去哪里观测，不等于提前知道观测值",
+     "kind": "interpretation",
+     "text": "星历提供未来观测几何这个已知条件：卫星进入仰角掩膜后，视线虽然没有自身历史，仍然有位置、仰角和几何邻居可用于推断。这个赌注可以被证伪：如果未来几何或邻居信息没用，移除条件化或在无历史子集只做概率插值时，不应损失技巧。未来真实观测从未作为预测输入。",
+     "evidence": [
+      {
+       "source": "S59",
+       "quote": "Satellites that enter the elevation filter during the forecast horizon introduce no-history nodes. Since no identity information is used as input, the model cannot draw on satellite-specific representations. Without ephemeris conditioning, such nodes carry no input information and collapse to the learned output bias (Section IV-A )."
+      },
+      {
+       "source": "S45",
+       "quote": "Ephemeris-derived block ( \\mathbf{X}_{\\mathrm{eph}}^{t} ): IPP latitude/longitude (geographic and quasi-dipole magnetic), elevation angle, cyclical encodings of day of year and local solar time. Computable from ephemerides and time information, hence available in both windows; future graphs carry this block only, \\mathbf{X}_{V}^{\\tau}=[\\,\\mathbf{X}_{\\mathrm{eph}}^{\\tau}\\,] for \\tau>t ."
+      },
+      {
+       "source": "S60",
+       "quote": "Ephemeris conditioning addresses this by providing \\mathbf{x}_{\\mathrm{eph},v}^{t+k} and a well-defined neighborhood in \\mathcal{E}^{t+k} for every forecast node. As illustrated in Fig. 2 (c), the per-node history embedding \\mathbf{h}_{\\mathrm{hist}} produced by the history module is combined with the corresponding forecast-step node encoding through a fusion MLP."
+      },
+      {
+       "source": "S91",
+       "quote": "Both methods interpolate a no-history node from the model predictions at the surrounding history-observed nodes at the same forecast step."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "按时刻成图，再按身份对齐",
+     "kind": "reported",
+     "text": "同一时刻以穿刺点薄壳距离连接近邻；边含距离、地理与地磁坐标差、地方太阳时差及共址同星标志。每条视线用站点、星座和卫星身份对齐历史与未来，身份不进模型。历史存在、未来存在、标签合法和无历史是不同掩码，不能把填充位置当安静样本。",
+     "evidence": [
+      {
+       "source": "S42",
+       "quote": "At each snapshot, the edges carry the features \\mathbf{X}_{E}^{t} : geodetic distance, differences in geographic and geomagnetic coordinates, angular separation in local solar time, and a binary flag indicating whether two nodes share the same satellite across the zero-baseline pair."
+      },
+      {
+       "source": "S48",
+       "quote": "Node identities (station, constellation, satellite) are known and consistent across time."
+      },
+      {
+       "source": "S50",
+       "quote": "Node identities serve only for alignment, padding, and mask construction; they are never provided as input features. This batching procedure is tailored to our setting where per-timestep graphs are small (mean \\approx 26 nodes), so padding overhead is negligible."
+      },
+      {
+       "source": "S52",
+       "quote": "Four binary masks of shape \\{0,1\\}^{B\\times 24\\times N_{\\max}} are defined over the padded unified node axis to control what the model sees, how it learns, and what it predicts on. \\mathbf{M}_{\\mathrm{hist}} is indexed over the history timesteps, while \\mathbf{M}_{\\mathrm{pred}} , \\mathbf{M}_{\\mathrm{valid}} , and \\mathbf{M}_{\\mathrm{nohist}} are indexed over the forecast timesteps."
+      }
+     ]
+    },
+    {
+     "heading": "预测窗只走星历，不回灌未来真值",
+     "kind": "reported",
+     "text": "历史模块先在各时刻经节点编码和边偏置图注意力，再沿每条视线做掩码时序注意力，得历史嵌入。预测模块将星历编码与历史嵌入由融合网络合并，再跨未来图作空间、时间聚合，一次输出各时刻概率。无历史节点的自身历史嵌入退化成无观测信息的学习常量，但未来图可把有历史邻居的信息传给它。",
+     "evidence": [
+      {
+       "source": "S63",
+       "quote": "A spatial GNN, implemented as multi-head graph attention [ 40 ] with the edge features \\mathbf{X}_{E}^{\\tau} biasing the attention scores, then propagates information across that step’s graph. Temporal self-attention [ 41 ] with sinusoidal positional encoding, masked by \\mathbf{M}_{\\mathrm{hist}} , links the per-step embeddings of each node. The resulting per-node summary \\mathbf{h}_{\\mathrm{hist}} is then passed to the prediction module."
+      },
+      {
+       "source": "S64",
+       "quote": "At each forecast step, a node encoder embeds these features, a fusion MLP combines the embedding with \\mathbf{h}_{\\mathrm{hist}} , and a spatial GNN propagates information across the predicted graph. A second temporal attention, masked by \\mathbf{M}_{\\mathrm{pred}} , couples the embeddings across the forecast horizon, and a classification head yields the per-node, per-step disturbance probabilities \\mathbf{P}^{\\,t+1:t+24} ."
+      },
+      {
+       "source": "S60",
+       "quote": "Nodes flagged by \\mathbf{M}_{\\mathrm{nohist}} are excluded from history encoding by the history mask \\mathbf{M}_{\\mathrm{hist}} , so their \\mathbf{h}_{\\mathrm{hist}} reduces to a learned constant that carries no observational information. Their context is instead recovered through spatial message passing from neighboring IPPs that carry historical state."
+      }
+     ]
+    },
+    {
+     "heading": "训练时用标签筛梯度，推断不需要标签",
+     "kind": "reported",
+     "text": "作者在整个预测窗对合法标签做掩码交叉熵训练；未验证和无效节点不贡献梯度，推断仍可给它们概率。验证集 Brier 技巧分数决定最终检查点，特征缩放只用训练期统计。运行时需按预报时点准备历史观测和未来星历图，不应拿实际未来的信号质量掩码当成可用输入。",
+     "evidence": [
+      {
+       "source": "S55",
+       "quote": "\\mathbf{M}_{\\mathrm{valid}} marks nodes with confirmed labels from the quality-control procedure (Section II-C ). Unverified and invalid nodes receive predictions at inference but do not contribute gradients during training."
+      },
+      {
+       "source": "S66",
+       "quote": "The model minimizes cross-entropy over the prediction window, masked by \\mathbf{M}_{\\mathrm{valid}} . The checkpoint with the highest validation Brier Skill Score (BSS) is selected for testing. Training uses a cosine-annealing scheduler with warmup and the AdamW optimizer."
+      },
+      {
+       "source": "S46",
+       "quote": "All features are min–max normalized using training-period statistics."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "矩阵按列加特征，跨时刻按集合对齐",
+     "kind": "interpretation",
+     "text": "特征拼接式的分号表示同一批节点按特征列拼接，不是把两个时刻堆起来；未来窗只有星历块。统一索引式则是对整窗的视线身份求并集，某条视线只要出现过就有固定槽位，但该槽位能否传信、得分，取决于当时是否存在及相应掩码，而不是存在一个假节点。",
+     "evidence": [
+      {
+       "source": "S43",
+       "quote": "The node feature matrix splits column-wise into an observed and an ephemeris-derived block, \\mathbf{X}_{V}^{t}=[\\,\\mathbf{X}_{\\mathrm{obs}}^{t}\\,;\\,\\mathbf{X}_{\\mathrm{eph}}^{t}\\,] , with the following features:"
+      },
+      {
+       "source": "S45",
+       "quote": "Ephemeris-derived block ( \\mathbf{X}_{\\mathrm{eph}}^{t} ): IPP latitude/longitude (geographic and quasi-dipole magnetic), elevation angle, cyclical encodings of day of year and local solar time. Computable from ephemerides and time information, hence available in both windows; future graphs carry this block only, \\mathbf{X}_{V}^{\\tau}=[\\,\\mathbf{X}_{\\mathrm{eph}}^{\\tau}\\,] for \\tau>t ."
+      },
+      {
+       "source": "S48",
+       "quote": "Node identities (station, constellation, satellite) are known and consistent across time. For each sample, we construct a unified node index \\mathcal{V}_{\\cup}=\\bigcup_{\\tau=t-23}^{t+24}\\mathcal{V}^{\\tau} spanning both the history and prediction windows. Every identity in \\mathcal{V}_{\\cup} is assigned a fixed position v\\in\\{1,\\ldots,N_{\\cup}\\} , where N_{\\cup}=|\\mathcal{V}_{\\cup}| , into which per-timestep features and labels are written. Edge indices at each timestep are remapped accordingly."
+      },
+      {
+       "source": "S53",
+       "quote": "\\mathbf{M}_{\\mathrm{hist}}(b,\\tau,v)=1 indicates that node v exists at history timestep \\tau for sample b . It gates history feature encoding and history-time attention, ensuring that only input graph nodes contribute to the history context embedding."
+      }
+     ]
+    },
+    {
+     "heading": "先算概率误差，再相对气候参考归一化",
+     "kind": "interpretation",
+     "text": "Brier 分数把所有计分节点—提前量对的概率平方误差一起聚合。以原文给定的事件气候率计算参照后，Brier 技巧分数才说明相对气候参考的收益。它不等于相对持续性提升；分提前量的曲线与汇总表也不是同一个统计量。概率技巧不能单独证明校准，因此仍值得单看可靠性曲线。",
+     "evidence": [
+      {
+       "source": "S68",
+       "quote": "Our primary metric is the Brier Skill Score \\mathrm{BSS}=1-\\mathrm{BS}/\\mathrm{BS}_{\\mathrm{clim}} . Here, \\mathrm{BS}=\\frac{1}{n}\\sum_{j=1}^{n}(p_{j}-y_{j})^{2} is the Brier Score over all n scored node–lead-time pairs (p_{j},y_{j}) , with p_{j} the predicted disturbance probability from \\mathbf{P}^{\\,t+1:t+24} (Section III-E ) and y_{j}\\in\\{0,1\\} the corresponding label (Section II-C )."
+      },
+      {
+       "source": "S68",
+       "quote": "The reference \\mathrm{BS}_{\\mathrm{clim}}=\\bar{y}(1-\\bar{y}) is the climatological Brier Score, with \\bar{y}\\approx 0.07 the climatological event rate (Section II-D ). \\mathrm{BSS}=0 indicates no skill beyond climatology; \\mathrm{BSS}=1 indicates perfect forecasts."
+      },
+      {
+       "source": "S81",
+       "quote": "Table II summarizes forecasting performance on all test nodes across all lead times. IonoDGNN achieves the highest skill (BSS 0.552, ROC-AUC 0.971, PR-AUC 0.773). The full model detects 73% of event nodes (POD 0.727) with a CSI of 0.534, outperforming all ablations."
+      },
+      {
+       "source": "S85",
+       "quote": "Fig. 3 shows BSS and PR-AUC as a function of forecast lead time. IonoDGNN degrades most gracefully among models with access to history: at 120 minutes it retains BSS \\approx 0.40 and PR-AUC \\approx 0.62, while persistence falls to BSS \\approx 0.03 and PR-AUC \\approx 0.25, approaching climatological skill."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "用双站片段核验事件",
+     "kind": "reported",
+     "text": "新加坡 NTUS 与 SIN1 观测先由双频载波相位算出 ROTI，再降到建模时间率。标签不是历元幅值阈值：片段峰值低于 0.3 TECU/min 归为安静；同卫星双站候选片段重叠需覆盖较短片段至少 50% 才确认，确认后整段继承事件标签。不确定和仅一站异常的片段与安静分开。",
+     "evidence": [
+      {
+       "source": "S20",
+       "quote": "Per-satellite ROTI is derived from dual-frequency geometry-free carrier phase following the original definition of Pi et al. [ 1 ] . The geometry-free combination isolates the ionospheric delay. From this delay, relative slant total electron content (TEC), rate of TEC (ROT), and its 5-minute standard deviation, the ROT index (ROTI), are computed with a 30-second cadence."
+      },
+      {
+       "source": "S25",
+       "quote": "Segments whose peak ROTI falls below 0.3 TECU/min are reclassified as quiet. This value separates the bell-shaped quiet-time mode from the long-tailed event distribution on a log-scaled amplitude histogram. For segments whose peak exceeds this threshold, the peak is traced forward and backward to the nearest baseline condition, and all timesteps within this interval are labeled as event."
+      },
+      {
+       "source": "S27",
+       "quote": "Confirmed (+1): Both stations detect an event on the same satellite, and the temporal intersection of the two segments covers at least 50% of the shorter segment."
+      },
+      {
+       "source": "S31",
+       "quote": "Confirmation is a segment-level decision: once a segment is corroborated, every timestep within it inherits the event label, without requiring second-station coverage at each epoch."
+      }
+     ]
+    },
+    {
+     "heading": "时间外推、样本不均衡和对照口径",
+     "kind": "reported",
+     "text": "作者按时间切训练、验证和测试，在相邻集合间留超过 2 小时；表中测试节点计数 797,339，其中事件行占 6.7%，并含未验证或无效节点，不能把这行总数当实际计分对数。总体对照包括持续性、去星历条件化、去图和去历史；无历史持续性用气候率，空间插值取相同时效的模型邻居预测而非未来观测。",
+     "evidence": [
+      {
+       "source": "S35",
+       "quote": "Consecutive subsets are separated by gaps of more than 2 hours to prevent information leakage between subsets. In addition, split boundaries are placed so that each subset remains representative of the data distribution without breaking chronological order."
+      },
+      {
+       "source": "S33",
+       "quote": "Split Timesteps Nodes Event (%) Quiet (%) Unverified (%) Invalid (%) Train 120,471 3,097,829 266,022 (8.6) 2,764,013 (89.2) 65,773 (2.1) 2,021 (0.1) Val 22,280 570,575 59,911 (10.5) 497,118 (87.1) 13,207 (2.3) 339 (0.1) Test 30,369 797,339 53,590 (6.7) 706,190 (88.6) 34,243 (4.3) 3,316 (0.4)"
+      },
+      {
+       "source": "S75",
+       "quote": "Persistence: last observed label as the forecast; no-history nodes receive the climatological event rate."
+      },
+      {
+       "source": "S91",
+       "quote": "Both methods interpolate a no-history node from the model predictions at the surrounding history-observed nodes at the same forecast step."
+      }
+     ]
+    },
+    {
+     "heading": "训练选择与复现入口",
+     "kind": "reported",
+     "text": "训练用 AdamW、带热身的余弦退火，批量 64；作者扫近邻数，K 超过 14 后性能下降。评价覆盖 24 步（2 小时），包含不依赖决策阈值的概率/排序指标，以及在各模型 CSI 最优阈值下计算的命中、虚警、临界成功指数。原文链接给出数据、管线、训练模型和配置入口。",
+     "evidence": [
+      {
+       "source": "S66",
+       "quote": "The model minimizes cross-entropy over the prediction window, masked by \\mathbf{M}_{\\mathrm{valid}} . The checkpoint with the highest validation Brier Skill Score (BSS) is selected for testing. Training uses a cosine-annealing scheduler with warmup and the AdamW optimizer. At a fixed batch size of 64, the learning rate was selected via grid search and the neighbor count via a sweep over K ; performance degraded beyond K=14 . Full hyperparameter configurations are available in the model repository at https://github.com/Mert-chan/IonoDGNN/tree/master/source/exp_runs/ablation ."
+      },
+      {
+       "source": "S69",
+       "quote": "We additionally report area under the receiver operating characteristic curve (ROC-AUC) and area under the precision–recall curve (PR-AUC) as threshold-independent discrimination measures. PR-AUC is particularly informative under class imbalance [ 42 ] . Lastly, we report the probability of detection (POD), false alarm ratio (FAR), and critical success index (CSI) at the CSI-optimal decision threshold of each model. All metrics are computed over the full 24-step (2-hour) forecast window."
+      },
+      {
+       "source": "S133",
+       "quote": "The dataset, pipeline, and trained models are available at https://github.com/Mert-chan/IonoDGNN ."
+      }
+     ]
+    },
+    {
+     "heading": "计算成本和可部署阈值仍须另测",
+     "kind": "unknown",
+     "text": "已读来源解释小图的批内填充策略，但未说明端到端时延分布、训练墙钟、显存或同等预算重复训练的不确定性。原文写明在各模型 CSI 最优阈值下报告分类指标，却未在已读评估说明中明确阈值标定所用集合；因此不直接把这些指标当作冻结在线阈值后的效果。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "全窗、单时效和阈值代价分开",
+     "kind": "reported",
+     "text": "全测试节点及全时效汇总：完整模型 BSS 0.552、PR-AUC 0.773，持续性分别是 0.360 和 0.490，相对提高约 53% 和 58%。但持续性在各模型 CSI 最优阈值的口径下 FAR 更低（0.276 对 0.332）。单看 120 分钟，完整模型 BSS 约 0.40、PR-AUC 约 0.62；不要当成全窗平均。",
+     "evidence": [
+      {
+       "source": "S80",
+       "quote": "Model BSS \\uparrow ROC-AUC \\uparrow PR-AUC \\uparrow POD \\uparrow FAR \\downarrow CSI \\uparrow IonoDGNN (full) 0.552 0.971 0.773 0.727 0.332 0.534 w/o conditioning 0.489 0.944 0.701 0.643 0.338 0.484 w/o graph 0.401 0.951 0.650 0.654 0.460 0.420 Persistence 0.360 0.833 0.490 0.609 0.276 0.494 w/o history 0.194 0.921 0.433 0.665 0.631 0.311"
+      },
+      {
+       "source": "S81",
+       "quote": "Table II summarizes forecasting performance on all test nodes across all lead times. IonoDGNN achieves the highest skill (BSS 0.552, ROC-AUC 0.971, PR-AUC 0.773). The full model detects 73% of event nodes (POD 0.727) with a CSI of 0.534, outperforming all ablations."
+      },
+      {
+       "source": "S131",
+       "quote": "IonoDGNN achieves a BSS of 0.55 and PR-AUC of 0.77, corresponding to 53% and 58% relative gains over the persistence baseline."
+      },
+      {
+       "source": "S85",
+       "quote": "Fig. 3 shows BSS and PR-AUC as a function of forecast lead time. IonoDGNN degrades most gracefully among models with access to history: at 120 minutes it retains BSS \\approx 0.40 and PR-AUC \\approx 0.62, while persistence falls to BSS \\approx 0.03 and PR-AUC \\approx 0.25, approaching climatological skill."
+      }
+     ]
+    },
+    {
+     "heading": "消融和新出现视线分别回答什么",
+     "kind": "reported",
+     "text": "去条件化、去图、去历史的汇总 BSS 分别是 0.489、0.401、0.194，表明在作者的消融定义下历史影响最大，去条件化也同时去掉预测模块，不能只归因于单个星历特征。对无历史节点，模型 BSS 0.529，普通克里金 0.432、IDW 0.411；IDW 的 POD 略高但 FAR 也更高，三者的取舍不是同一指标。",
+     "evidence": [
+      {
+       "source": "S80",
+       "quote": "Model BSS \\uparrow ROC-AUC \\uparrow PR-AUC \\uparrow POD \\uparrow FAR \\downarrow CSI \\uparrow IonoDGNN (full) 0.552 0.971 0.773 0.727 0.332 0.534 w/o conditioning 0.489 0.944 0.701 0.643 0.338 0.484 w/o graph 0.401 0.951 0.650 0.654 0.460 0.420 Persistence 0.360 0.833 0.490 0.609 0.276 0.494 w/o history 0.194 0.921 0.433 0.665 0.631 0.311"
+      },
+      {
+       "source": "S72",
+       "quote": "w/o conditioning: history module only; predictions from the history embedding alone, no future graphs."
+      },
+      {
+       "source": "S89",
+       "quote": "Method BSS \\uparrow ROC-AUC \\uparrow PR-AUC \\uparrow POD \\uparrow FAR \\downarrow CSI \\uparrow IonoDGNN (full) 0.529 0.959 0.614 0.612 0.424 0.422 Ordinary kriging 0.432 0.953 0.550 0.574 0.488 0.371 IDW 0.411 0.954 0.561 0.627 0.510 0.380"
+      },
+      {
+       "source": "S92",
+       "quote": "It outperforms both interpolation baselines on every metric except POD, where IDW detects slightly more events (0.627 vs. 0.612) at the cost of a much higher FAR (0.510 vs. 0.424)."
+      }
+     ]
+    },
+    {
+     "heading": "模拟缺测能恢复到哪里",
+     "kind": "reported",
+     "text": "受控实验只移除历史观测特征、保留图和评估标签。历史观测缺失 90% 时，模型在缺测节点的 BSS 为 0.33，两个插值器约 0.27；缺失 100% 时模型 BSS 约为 0。真实单站故障则会移除整批历史节点，还会使缺少第二站核验的事件难以计分；模拟结果不是实际停机的验收。",
+     "evidence": [
+      {
+       "source": "S103",
+       "quote": "To simulate this, we zero \\mathbf{X}_{\\mathrm{obs}}^{\\tau} and set the corresponding entries of \\mathbf{M}_{\\mathrm{hist}} to zero for a fraction of history-window nodes, preserving the graph structure (Fig. 6 )."
+      },
+      {
+       "source": "S106",
+       "quote": "At every dropout level, IonoDGNN’s dropped-node predictions exceed both interpolation baselines, with the margin widening as coverage thins (BSS 0.33 vs. \\approx 0.27 for either interpolator at 90%)."
+      },
+      {
+       "source": "S106",
+       "quote": "At 100% dropout, no observed neighbors remain and dropped-node skill collapses (BSS \\approx 0, PR-AUC \\approx 0.19). This confirms that the recovery is driven by information propagated from observed nodes rather than a learned climatological prior."
+      },
+      {
+       "source": "S104",
+       "quote": "Note that Event 2 differs from this simulation as well: because graph construction instantiates nodes only for observed LoS, the SIN1 outage removed the affected nodes from the history graphs entirely"
+      }
+     ]
+    },
+    {
+     "heading": "用两个固定提前量的个例定位失误",
+     "kind": "reported",
+     "text": "正常覆盖与稀疏覆盖个例均用 +60 分钟提前量，前者增长期预报与观测事件计数一起上升，衰减期漏报积累；后者未抓住突然起始，只在起始进入历史窗后才反应。两图上方概率与下方观测 ROTI 不是同一色标或物理量；而真实断档的事件计分仅覆盖此前已确认的片段。",
+     "evidence": [
+      {
+       "source": "S96",
+       "quote": "To examine how the model captures the spatiotemporal evolution of irregularities, we analyze two contrasting events from the test set at a fixed +60 min lead time (12 steps): a strong post-sunset event under normal observation coverage (Fig. 4 ) and an event under sparse coverage (Fig. 5 )."
+      },
+      {
+       "source": "S97",
+       "quote": "During onset and growth (20:15–21:30 LT), the predicted and observed event counts climb together."
+      },
+      {
+       "source": "S98",
+       "quote": "Unlike in Event 1, the model misses the onset entirely. Event 2 combines an abrupt onset with no apparent precursor in the observables and a history window reduced to single-station graphs. Predictions therefore arise only reactively, once the onset itself enters the history window."
+      },
+      {
+       "source": "S99",
+       "quote": "Event 2 exposes an evaluation limit: events detected during an outage cannot be cross-confirmed, so forecast skill over the outage period can be scored only on the segments confirmed before it. Quantifying prediction under coverage loss therefore requires a controlled experiment in which every node retains its label, which Section IV-E provides."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "作者自述：单区域、非运行星历、未比等价格网",
+     "kind": "reported",
+     "text": "证据集中于共址双站的赤道区域，测试中没有已确认事件与主要磁暴同时发生，真实缺测时标签本身也会减少。作者明确说用的是观测轨道而不是实时预报轨道，并把与等价格网设计的直接对照留待后续。因此不能把此项回放成绩外推到跨区域磁暴、常规单站运行或线上告警。",
+     "evidence": [
+      {
+       "source": "S115",
+       "quote": "The dataset is limited in both spatial and temporal coverage, which constrains the range of events available for training and testing. The setup comprises two co-located stations in a single equatorial region across {\\sim}2 years of Solar Cycle 25. While this period includes frequent post-sunset activity, no confirmed test events coincide with major geomagnetic storms, leaving storm-driven irregularities untested."
+      },
+      {
+       "source": "S120",
+       "quote": "Lastly, our implementation uses observed rather than predicted orbits and is therefore not yet designed for operational use."
+      },
+      {
+       "source": "S119",
+       "quote": "Although the results demonstrate the feasibility of the change in data representation, the potential benefits of dynamic graphs need further testing. Isolating the contribution of the representation requires direct comparison against equivalent grid-based baselines with independent design choices [ 47 ] , which we leave to future work."
+      },
+      {
+       "source": "S116",
+       "quote": "This constraint also leaves single-station performance outside the scope of the present study."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：一致性究竟来自共址还是可迁移的物理结构",
+     "kind": "proposal",
+     "text": "在非共址网络中，用独立闪烁仪或可追溯外部标签给异常定性，再按事件、站间距离和整站中断分层比较；只看未验证片段得高概率，不能证明这些片段确为物理扰动。对同一测试集按事件日重采样给置信区间，并冻结阈值后再看可靠性、漏报与衰减期虚警的变化。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "先在中国低纬站网做发布时点回放",
+     "kind": "proposal",
+     "text": "预注册同一历史特征、相同训练预算与按站和日期留出的测试集，用截至起报时真实可获得的超快预测星历，比较持续性、去未来图、几何近邻图和磁坐标邻域图；另用观测轨道回放作诊断上限而不是部署基线。交付按提前量与无历史子群的 BSS、PR-AUC、可靠性图、按事件区块置信区间及端到端时延；若增益仅见于事后轨道，不支持部署价值。",
+     "evidence": []
+    },
+    {
+     "heading": "用独立定位日志检验 ROTI 技巧能否转成收益",
+     "kind": "proposal",
+     "text": "在同一 PPP/PPP-AR 解算器上，比较不干预、固定门限和以视线事件概率作软降权，冻结筛选与校准规则。对普通夜间、扰动夜间与整站热区断档分报定位误差高分位、失锁或重收敛时间、固定率与可用率；若减少误差的同时显著牺牲几何与可用率，或缺测子群不具备外部真值，就不能把 ROTI 技巧直接转为定位收益。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S3.SS1.p3.m1",
+   "refs": [
+    "M1"
+   ],
+   "mathml": "<mrow><msubsup><mi>𝐗</mi><mi>V</mi><mi>t</mi></msubsup><mo>=</mo><mrow><mo>[</mo><mrow><msubsup><mi>𝐗</mi><mi>obs</mi><mi>t</mi></msubsup><mo>;</mo><msubsup><mi>𝐗</mi><mi>eph</mi><mi>t</mi></msubsup></mrow><mo>]</mo></mrow></mrow>",
+   "accessible": "\\mathbf{X}_{V}^{t}=[\\,\\mathbf{X}_{\\mathrm{obs}}^{t}\\,;\\,\\mathbf{X}_{\\mathrm{eph}}^{t}\\,]",
+   "title": "让同一节点的观测与星历并排",
+   "meaning": "按列拼接而不换节点次序。教学例：同一行的观测块有两个已缩放值 0.2、0.8，星历块只有 0.4，历史拼成长度为三的一行；该位置在未来输入只有星历列 0.4。",
+   "caution": "各列物理单位不相同，按训练集统计缩放；不要把未来观测列补进预测编码器。",
+   "symbols": [
+    {
+     "symbol": "X_V^t",
+     "text": "时间 t 的节点特征矩阵，每行一条活动视线。"
+    },
+    {
+     "symbol": "X_obs^t",
+     "text": "每节点观测特征块，仅供历史模块。"
+    },
+    {
+     "symbol": "X_eph^t",
+     "text": "同一节点次序的星历与时间特征块。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S3.SS2.p1.m1",
+   "refs": [
+    "M2"
+   ],
+   "mathml": "<mrow><msub><mi>𝒱</mi><mo>∪</mo></msub><mo>=</mo><mrow><msubsup><mo>⋃</mo><mrow><mi>τ</mi><mo>=</mo><mrow><mi>t</mi><mo>−</mo><mn>23</mn></mrow></mrow><mrow><mi>t</mi><mo>+</mo><mn>24</mn></mrow></msubsup><msup><mi>𝒱</mi><mi>τ</mi></msup></mrow></mrow>",
+   "accessible": "\\mathcal{V}_{\\cup}=\\bigcup_{\\tau=t-23}^{t+24}\\mathcal{V}^{\\tau}",
+   "title": "历史到未来共享同一个身份索引",
+   "meaning": "把整窗出现过的节点身份做集合并集。教学例：历史只出现甲与乙，未来快照只出现乙与丙，并集有甲、乙、丙三个槽位；丙在历史槽位无观测，未来仍可成为真实节点。",
+   "caution": "索引用于张量对齐、掩码和重映射边；不是特征。不能给填充槽添假邻边。",
+   "symbols": [
+    {
+     "symbol": "𝒱∪",
+     "text": "一个样本内全窗节点身份集合。"
+    },
+    {
+     "symbol": "𝒱^τ",
+     "text": "该时刻的活动视线集合，身份跨时刻对应。"
+    },
+    {
+     "symbol": "t；τ",
+     "text": "预报起点与快照索引；相邻时刻间隔 5 分钟。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S3.SS7.p1.m2",
+   "refs": [
+    "M3"
+   ],
+   "mathml": "<mrow><mi>BS</mi><mo>=</mo><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mo>​</mo><mrow><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msup><mrow><mo>(</mo><mrow><msub><mi>p</mi><mi>j</mi></msub><mo>−</mo><msub><mi>y</mi><mi>j</mi></msub></mrow><mo>)</mo></mrow><mn>2</mn></msup></mrow></mrow></mrow>",
+   "accessible": "\\mathrm{BS}=\\frac{1}{n}\\sum_{j=1}^{n}(p_{j}-y_{j})^{2}",
+   "title": "累计每个有效预测对的概率误差",
+   "meaning": "合成教学例：事件的预测为 0.8、安静的为 0.2，两对平方误差各为 0.04，平均仍为 0.04。它是概率误差，单位不是 TECU/min。",
+   "caution": "先以可计分标签筛选，不用硬判定结果或当时 ROTI 幅值替代概率；只评特定提前量时必须重新筛样本。",
+   "symbols": [
+    {
+     "symbol": "n",
+     "text": "参与计分的节点—提前量对数。"
+    },
+    {
+     "symbol": "pⱼ；yⱼ",
+     "text": "对 j 的事件预测概率和二元质控标签。"
+    },
+    {
+     "symbol": "BS",
+     "text": "样本上平均平方概率误差，无量纲。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S3.SS7.p1.m8",
+   "refs": [
+    "M4"
+   ],
+   "mathml": "<mrow><msub><mi>BS</mi><mi>clim</mi></msub><mo>=</mo><mrow><mover><mi>y</mi><mo>¯</mo></mover><mo>​</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mover><mi>y</mi><mo>¯</mo></mover></mrow><mo>)</mo></mrow></mrow></mrow>",
+   "accessible": "\\mathrm{BS}_{\\mathrm{clim}}=\\bar{y}(1-\\bar{y})",
+   "title": "写清气候参考分数",
+   "meaning": "合成教学例沿用事件、安静各一对，令参考事件率为 0.5，按原公式得气候参考 BS 为 0.25；这是为了便算，不是论文的新加坡事件率。",
+   "caution": "与正式报告比较时要固定并披露气候参考事件率及聚合定义；跨区不能无说明地沿用参考。",
+   "symbols": [
+    {
+     "symbol": "ȳ",
+     "text": "参考事件率，无量纲。"
+    },
+    {
+     "symbol": "BS_clim",
+     "text": "作者定义的气候参考 Brier 分数。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-e",
+   "number": "原文 · S3.SS7.p1.m1",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mrow><mi>BSS</mi><mo>=</mo><mrow><mn>1</mn><mo>−</mo><mrow><mi>BS</mi><mo>/</mo><msub><mi>BS</mi><mi>clim</mi></msub></mrow></mrow></mrow>",
+   "accessible": "\\mathrm{BSS}=1-\\mathrm{BS}/\\mathrm{BS}_{\\mathrm{clim}}",
+   "title": "将误差换成相对气候技巧",
+   "meaning": "延续合成教学例，0.04 除以 0.25 得 0.16，最后从 1 减去该比率得到技巧 0.84；它不是相对持续性的百分比增益。",
+   "caution": "参照分母不能为零；正值优于所用气候参考，负值劣于参考。跨测试子集应交代分母是否相同。",
+   "symbols": [
+    {
+     "symbol": "BSS",
+     "text": "Brier 技巧分数，无量纲，完美预测为 1。"
+    },
+    {
+     "symbol": "BS；BS_clim",
+     "text": "实际概率误差与气候参考误差。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 6,
+   "reference": "F6",
+   "section": "method",
+   "src": "https://arxiv.org/html/2604.18379v3/pics/coverage_dropout_schematic.png",
+   "width": 3090,
+   "height": 765,
+   "caption": "Fig. 6: Coverage-dropout simulation. In the historical graphs, randomly selected nodes (red outlines) have their observed features \\mathbf{X}^{\\tau}_{\\mathrm{obs}} zeroed and masked out, while their ephemeris-derived features \\mathbf{X}^{\\tau}_{\\mathrm{eph}} , positions, and K -NN edges are preserved. In the future graphs, retained nodes (hatched green), dropped nodes (yellow), and no-history nodes (red diamonds) are evaluated separately. Blue arrows indicate interpolation (IDW, kriging) of a dropped node from observed neighbors.",
+   "title": "保留图边，只模拟删去节点的历史观测",
+   "alt": "左边历史图有红圈提示随机选中的节点；右边未来图以斜纹绿圆、黄圆和红菱形分别示意保留、缺测和无历史，蓝箭头为插值。",
+   "caution": "这是受控缺测实验的处理图，不是实际故障的节点地图。红菱形从来没在历史窗出现，不参加该缺测恢复实验的计分；蓝箭头不是模型的注意力权重。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "左侧从历史首帧看到起报帧：红圈只标被抽中的节点，图里的黑边和节点位置还在，红叉覆盖的是观测块而非星历块。"
+    },
+    {
+     "title": "对照两边",
+     "text": "再看右侧未来窗口，黄圆对应历史观测被撤掉的视线，条纹绿圆有历史观测，红菱形无自身历史；两侧标的都是 24 个 5 分钟快照。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "只在右端看蓝箭头：它们画的是插值基线从保留节点到缺测节点的方向。这个对照不把缺测节点从几何图中删除。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 3,
+   "reference": "F3",
+   "section": "results",
+   "src": "https://arxiv.org/html/2604.18379v3/pics/lead_time_degradation.png",
+   "width": 3834,
+   "height": 1650,
+   "caption": "Fig. 3: Forecast skill as a function of lead time for all model variants. (a) Brier Skill Score. (b) Precision–recall AUC.",
+   "title": "比较同一提前量，再找模型交叉",
+   "alt": "同一组图例下，左图纵轴为 BSS，右图为 PR-AUC，水平轴均为提前分钟；紫圆表示全模型，红菱形虚线表示持续性。",
+   "caution": "两个纵轴指标不同、范围也不同；不要按跨面板线的视觉高度计算提升，或将最右端点当全时效统计。精确数字以表 II 和 IV-B 正文为准。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "顺着横轴的提前分钟，在两幅图分别比较红色持续性与紫色全模型；左图起点附近红线高于紫线，之后红线快速下滑。"
+    },
+    {
+     "title": "对照两边",
+     "text": "比较右图同两条线，交叉明显更早；再沿紫色全模型与蓝方块的去条件化线往右走，越过短时效后分离更容易看见。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "橙三角去历史曲线两幅图均近似平坦；可看出无历史观测的变体不像持续性一样快速衰减，不说明它对所有时效更好。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 7,
+   "reference": "F7",
+   "section": "results",
+   "src": "https://arxiv.org/html/2604.18379v3/pics/coverage_dropout_analysis.png",
+   "width": 3270,
+   "height": 1371,
+   "caption": "Fig. 7: BSS and PR-AUC as a function of the fraction of history observations dropped, evaluated separately for retained and dropped nodes, with IDW and kriging interpolation of the dropped nodes as baselines.",
+   "title": "历史缺测与恢复：两个子群不能混比",
+   "alt": "横轴是历史观测缺失百分比，左图 BSS、右图 PR-AUC；深紫圆为模型保留节点，浅紫方块为模型缺测节点，绿色和橙色三角为两种缺测插值。",
+   "caution": "插值器在完全缺失处没有邻居可插，不能把图上没有点当零分。靠近全缺失时模型也失去历史消息；本实验不代表分布式台网整站中断。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "先看横轴是删历史观测比例而不是预报时效。读一个中等删失比例时，先区分深紫保留子群和浅紫缺测子群。"
+    },
+    {
+     "title": "对照两边",
+     "text": "公平比较恢复时只把浅紫方块与绿三角 IDW、橙三角克里金横向对应；两条插值曲线大部分几乎贴合。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "沿浅紫方块看最右端，两指标在那里陡降；深紫和插值没有该端点。这个形状与没有留下可用历史邻居一致。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Mert Can Turkmen、Eng Leong Tan、Yee Hui Lee",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T04:15:22Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "e7f755778e9fe34bbf0e18932c9c332843bd6ac57d96b2666fdd61262505ef13",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。 v3 首页注记原稿已被 IEEE Transactions on Geoscience and Remote Sensing 接收（DOI: 10.1109/TGRS.2026.3745099），并保留 IEEE 的复制与重用许可声明；本站只引用 arXiv 的外部原图。Fig. 2 的官方 PNG 为 12416 × 7861 像素，超出本站原图上限，故不嵌入且不对该图另造缩图；可从原文读取。此处展示同文的缺测设计图 Fig. 6 及两张结果图。"
+}

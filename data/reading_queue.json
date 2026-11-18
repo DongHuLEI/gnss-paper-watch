@@ -87,17 +87,27 @@
   },
   "2604.18379": {
    "paper_id": "2604.18379",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T04:15:22Z",
+   "completed_at": "2026-11-18T04:15:22Z",
+   "source_sha256": "e7f755778e9fe34bbf0e18932c9c332843bd6ac57d96b2666fdd61262505ef13",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2606.29644": {
    "paper_id": "2606.29644",
-   "status": "historical_backfill_pending",
+   "status": "source_unavailable",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T04:15:22Z",
+   "source_status": "versioned_pdf_read_html_404_no_standalone_official_figure_urls",
+   "source_version": "v1",
+   "source_pdf_url": "https://arxiv.org/pdf/2606.29644v1",
+   "source_pdf_sha256": "40a8406d70ace911ce3e0bcc82e53f28c297061d147d9bc166b51aefaebefc26"
   },
   "2608.08831": {
    "paper_id": "2608.08831",
@@ -536,6 +546,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T03:55:43Z",
+ "updated_at": "2026-11-18T04:15:22Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
