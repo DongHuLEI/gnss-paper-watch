@@ -757,11 +757,11 @@
   },
   "2611.18389": {
    "paper_id": "2611.18389",
-   "status": "original_figure_rights_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
    "origin": "historical_backfill",
-   "source_status": "versioned_full_text_read_original_figure_reuse_not_confirmed",
+   "source_status": "versioned_html_with_live_official_original_figures",
    "source_version": "v1",
    "source_url": "https://arxiv.org/html/2611.18389v1",
    "source_sha256": "15e63d20b615fe629f7f588a898ef7c7689515c61bc883d9cc90afa56f7ef38c",
@@ -773,9 +773,10 @@
    "model": "passion8/gpt-6.2-sol（子代理）",
    "generation_mode": "assistant_backfill",
    "human_reviewed": false,
-   "checked_at": "2026-11-18T06:52:48Z"
+   "checked_at": "2026-11-18T07:24:30Z",
+   "completed_at": "2026-11-18T07:24:30Z"
   }
  },
- "updated_at": "2026-11-18T07:03:38Z",
+ "updated_at": "2026-11-18T07:24:30Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
