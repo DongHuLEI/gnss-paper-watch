@@ -1,0 +1,793 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.08577",
+ "source_version": "v3",
+ "source_url": "https://arxiv.org/html/2611.08577v3",
+ "checked_on": "2026-11-18",
+ "title_zh": "Meituan-Robotics-0：桌面操作的视觉–语言–动作模型",
+ "dek": "桌面操作不仅要学会动作，还要在自身出错后恢复，并记住观测窗口以外的任务事实。本文用同锚点的 Rollback 正负片段训练控制策略，再用独立事件记忆支持检索和恢复；两项主张分别由实机对照与定性演示支持。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。由 GPT6.2sol 子代理直接核读，本次不是独立 API 账单任务。核读 arXiv v3 官方 HTML 全文、附录 A–C、图表、算法与公式，并对照 24 页同版官方 PDF；实际查看 Fig. 6、8、11。未运行作者代码，未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S1": {
+   "label": "原文 · abstract1.1",
+   "anchor": "abstract1.1"
+  },
+  "S39": {
+   "label": "原文 · S3.SS1.p1.1",
+   "anchor": "S3.SS1.p1.1"
+  },
+  "S8": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S111": {
+   "label": "原文 · S5.SS2.SSS2.p3.1",
+   "anchor": "S5.SS2.SSS2.p3.1"
+  },
+  "S113": {
+   "label": "原文 · S5.SS2.SSS3.p1.1",
+   "anchor": "S5.SS2.SSS3.p1.1"
+  },
+  "S4": {
+   "label": "原文 · S1.p1.1",
+   "anchor": "S1.p1.1"
+  },
+  "S7": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S74": {
+   "label": "原文 · S4.SS2.p1.1",
+   "anchor": "S4.SS2.p1.1"
+  },
+  "S57": {
+   "label": "原文 · S3.SS2.SSS3.p3.1",
+   "anchor": "S3.SS2.SSS3.p3.1"
+  },
+  "S172": {
+   "label": "原文 · A3.SS3.SSS0.Px1.p1.1",
+   "anchor": "A3.SS3.SSS0.Px1.p1.1"
+  },
+  "S173": {
+   "label": "原文 · A3.SS3.SSS0.Px1.p2.1",
+   "anchor": "A3.SS3.SSS0.Px1.p2.1"
+  },
+  "S25": {
+   "label": "原文 · S2.SS2.SSS1.p4.1",
+   "anchor": "S2.SS2.SSS1.p4.1"
+  },
+  "S26": {
+   "label": "原文 · S2.SS2.SSS1.p5.1",
+   "anchor": "S2.SS2.SSS1.p5.1"
+  },
+  "S40": {
+   "label": "原文 · S3.SS1.p2.1",
+   "anchor": "S3.SS1.p2.1"
+  },
+  "S41": {
+   "label": "原文 · S3.SS1.p3.1",
+   "anchor": "S3.SS1.p3.1"
+  },
+  "S146": {
+   "label": "原文 · A3.SS1.p2.1",
+   "anchor": "A3.SS1.p2.1"
+  },
+  "S149": {
+   "label": "原文 · A3.SS2.SSS0.Px1.p1.1",
+   "anchor": "A3.SS2.SSS0.Px1.p1.1"
+  },
+  "S175": {
+   "label": "原文 · A3.SS3.SSS0.Px3.p1.1",
+   "anchor": "A3.SS3.SSS0.Px3.p1.1"
+  },
+  "S64": {
+   "label": "原文 · S4.F7",
+   "anchor": "S4.F7"
+  },
+  "S68": {
+   "label": "原文 · S4.SS1.p4.1",
+   "anchor": "S4.SS1.p4.1"
+  },
+  "S78": {
+   "label": "原文 · S4.SS2.p5.1",
+   "anchor": "S4.SS2.p5.1"
+  },
+  "S79": {
+   "label": "原文 · S4.SS2.p6.1",
+   "anchor": "S4.SS2.p6.1"
+  },
+  "S33": {
+   "label": "原文 · S2.SS2.SSS1.p9.1",
+   "anchor": "S2.SS2.SSS1.p9.1"
+  },
+  "S50": {
+   "label": "原文 · S3.SS2.SSS2.p2.1",
+   "anchor": "S3.SS2.SSS2.p2.1"
+  },
+  "S52": {
+   "label": "原文 · S3.SS2.SSS2.p3.2",
+   "anchor": "S3.SS2.SSS2.p3.2"
+  },
+  "S66": {
+   "label": "原文 · S4.SS1.p1.1",
+   "anchor": "S4.SS1.p1.1"
+  },
+  "S176": {
+   "label": "原文 · A3.SS3.SSS0.Px3.p1.2",
+   "anchor": "A3.SS3.SSS0.Px3.p1.2"
+  },
+  "S82": {
+   "label": "原文 · S5.T3",
+   "anchor": "S5.T3"
+  },
+  "S85": {
+   "label": "原文 · S5.SS1.SSS0.Px1.p1.1",
+   "anchor": "S5.SS1.SSS0.Px1.p1.1"
+  },
+  "S87": {
+   "label": "原文 · S5.SS1.SSS0.Px2.p1.1",
+   "anchor": "S5.SS1.SSS0.Px2.p1.1"
+  },
+  "S89": {
+   "label": "原文 · S5.T4",
+   "anchor": "S5.T4"
+  },
+  "S95": {
+   "label": "原文 · S5.SS2.SSS1.p1.1",
+   "anchor": "S5.SS2.SSS1.p1.1"
+  },
+  "S98": {
+   "label": "原文 · S5.I1.i3.p1.1",
+   "anchor": "S5.I1.i3.p1.1"
+  },
+  "S99": {
+   "label": "原文 · S5.SS2.SSS1.p2.1",
+   "anchor": "S5.SS2.SSS1.p2.1"
+  },
+  "S102": {
+   "label": "原文 · S5.T5",
+   "anchor": "S5.T5"
+  },
+  "S47": {
+   "label": "原文 · S3.SS2.SSS1.p3.1",
+   "anchor": "S3.SS2.SSS1.p3.1"
+  },
+  "S53": {
+   "label": "原文 · S3.SS2.SSS2.p4.1",
+   "anchor": "S3.SS2.SSS2.p4.1"
+  },
+  "S139": {
+   "label": "原文 · A2.T6.2",
+   "anchor": "A2.T6.2"
+  },
+  "S170": {
+   "label": "原文 · A3.T7.2",
+   "anchor": "A3.T7.2"
+  },
+  "S86": {
+   "label": "原文 · S5.SS1.SSS0.Px1.p2.1",
+   "anchor": "S5.SS1.SSS0.Px1.p2.1"
+  },
+  "S83": {
+   "label": "原文 · S5.T3.4.1",
+   "anchor": "S5.T3.4.1"
+  },
+  "S88": {
+   "label": "原文 · S5.SS1.SSS0.Px2.p2.1",
+   "anchor": "S5.SS1.SSS0.Px2.p2.1"
+  },
+  "S104": {
+   "label": "原文 · S5.SS2.SSS1.p4.1",
+   "anchor": "S5.SS2.SSS1.p4.1"
+  },
+  "S143": {
+   "label": "原文 · A3.p1.1",
+   "anchor": "A3.p1.1"
+  },
+  "S12": {
+   "label": "原文 · S2.T1.4.1",
+   "anchor": "S2.T1.4.1"
+  },
+  "S17": {
+   "label": "原文 · S2.SS1.p2.1",
+   "anchor": "S2.SS1.p2.1"
+  },
+  "S116": {
+   "label": "原文 · S5.SS2.SSS3.p3.1",
+   "anchor": "S5.SS2.SSS3.p3.1"
+  },
+  "S118": {
+   "label": "原文 · S5.SS2.SSS3.p4.1",
+   "anchor": "S5.SS2.SSS3.p4.1"
+  },
+  "M3": {
+   "label": "原公式 · S3.E6.m1",
+   "anchor": "S3.E6.m1"
+  },
+  "M5": {
+   "label": "原公式 · S4.E8.m1",
+   "anchor": "S4.E8.m1"
+  },
+  "M19": {
+   "label": "原公式 · A3.E23.m1",
+   "anchor": "A3.E23.m1"
+  },
+  "F6": {
+   "label": "Fig.6 · 原文图",
+   "anchor": "S3.F6"
+  },
+  "F8": {
+   "label": "Fig.8 · 原文图",
+   "anchor": "S4.F8"
+  },
+  "F11": {
+   "label": "Fig.11 · 原文图",
+   "anchor": "S5.F11"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "低层输出动作块，高层维护任务状态",
+     "kind": "reported",
+     "text": "Meituan-Robotics-0（MR0）针对底座固定的桌面操作。低层视觉–语言–动作（VLA）策略用多视角图像、指令和本体状态生成动作块；高层 Agent 另存事件，用事件影响的任务状态决定何时启动规划。这不是在底层控制网络里直接加一个跨任务记忆。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "We present Meituan-Robotics-0 (MR0), a vision-language-action foundation model and embodied-agent system for stationary-base desktop manipulation."
+      },
+      {
+       "source": "S39",
+       "quote": "MR0 formulates low-level desktop manipulation as reactive action-chunk prediction from the current observation. At this level, the policy maintains no temporal history and conditions only on the inputs available at the current decision step. Given multi-view observations o_{t}=\\{I_{t}^{(c)}\\}_{c=1}^{C} , language instruction l , and proprioceptive state s_{t} at time t , MR0 predicts an H -step action chunk"
+      },
+      {
+       "source": "S8",
+       "quote": "The VLA policy does not explicitly maintain task state across subtasks. MR0 therefore adds an event-driven embodied agent Huo et al. (2026) ; Li et al. (2026b) ; Zhang et al. (2026b) to retain relevant context, track task progress, and revise plans as conditions change."
+      }
+     ]
+    },
+    {
+     "heading": "最值得复查的实机证据与 Agent 证据不是一回事",
+     "kind": "reported",
+     "text": "在网线插入的单项对比中，使用完整 Rollback 数据的 CFG-DAgger 得到 0.70 成功率（SR）和 0.90 进度分数（PS），数值来自同一任务的策略实验。跨任务检索和恢复暂停任务属于另外的定性 Agent 展示，不是前两项实机指标的来源。",
+     "evidence": [
+      {
+       "source": "S111",
+       "quote": "With the full Rollback dataset, CFG-DAgger reaches 0.70 SR and 0.90 PS, compared with 0.60 SR and 0.67 PS for RECAP."
+      },
+      {
+       "source": "S113",
+       "quote": "The policy experiments measure execution within a single task, but do not test whether the system can recover information that has disappeared from the current observation or preserve an objective across an interruption. We therefore conduct two controlled qualitative deployments: cross-task event retrieval and condition-aware task resumption."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "示范轨迹多，也未必教会策略从自己的错误状态恢复",
+     "kind": "reported",
+     "text": "作者把问题拆成异构数据动作语义不一致、成功示范缺乏错误恢复、当前观测窗口不含历史任务事实。采用统一末端执行器（EEF）坐标和分阶段训练解决前两项的一部分，任务事件则交给独立记忆层处理。这里是作者的设计动机，不是对整个领域的查新结论。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "Even after data alignment, policies trained primarily on successful demonstrations receive little guidance for recovering from the error states induced by their own closed-loop behavior. Moreover, a reactive policy conditioned only on the current observation cannot preserve task information once it leaves the observation window. A practical desktop-manipulation system must therefore connect aligned heterogeneous data, robust real-world policy learning, and persistent task-level memory."
+      },
+      {
+       "source": "S7",
+       "quote": "A shared multimodal backbone is first paired with a discrete action head and pre-trained jointly on vision-language data and tokenized robot actions. Continuous mid-training then introduces an MMDiT Esser et al. (2024) action head and optimizes flow matching over a unified end-effector representation, transferring the pre-trained features to fine-grained control across single-arm and bimanual embodiments."
+      },
+      {
+       "source": "S74",
+       "quote": "The chunk merger stabilizes local policy execution but does not preserve information across subtasks or determine when a high-level plan should change. The embodied agent addresses these requirements through explicit task state, persistent event memory, and event-triggered planning."
+      }
+     ]
+    },
+    {
+     "heading": "替换前后都存，比只存成功纠正多出一条监督线索",
+     "kind": "interpretation",
+     "text": "关键对照是同一个历史锚点后的两条轨迹：策略被替换的动作段和人类纠正段。标签是局部“被替换”或“纠正”，不是整个任务必败或必胜的标签，也不要求两条路径逐帧对齐；若环境不可恢复到锚点，作者退回标准 HIL，只留下正例。",
+     "evidence": [
+      {
+       "source": "S57",
+       "quote": "We introduce Rollback to pair replaced policy segments with human corrections from a shared anchor. An operator pauses execution near failure, selects an earlier recorded state, returns the robot to it using action history, and supplies a corrective continuation."
+      },
+      {
+       "source": "S172",
+       "quote": "In Figure 6 , each pair (\\tau^{-},\\tau^{+}) shares an anchor but may diverge afterward; no frame-wise alignment is required. If the scene cannot be restored to an anchor, collection falls back to standard HIL and contributes only positive data."
+      },
+      {
+       "source": "S173",
+       "quote": "Labels describe local segments, independent of episode outcomes."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先获得语义与动作先验，再换连续动作头",
+     "kind": "reported",
+     "text": "清洗轨迹时共同裁剪视频、状态和动作，并检查记录能否通过运动学一致性。预训练用 FAST 把动作通过时域余弦变换及字节对编码变成可和语言共同自回归预测的 token；中训练复用视觉语言骨干，换 MMDiT 连续头，以关节状态导出的本体 token 与观测特征为条件做 flow matching。",
+     "evidence": [
+      {
+       "source": "S25",
+       "quote": "The persistence window prevents brief low-speed motions from being classified as idle. We trim only static runs connected to an episode boundary, preserving deliberate pauses during task execution. The corresponding video, state, and action intervals are removed jointly to maintain temporal synchronization."
+      },
+      {
+       "source": "S26",
+       "quote": "Kinematic-consistency filtering. For each embodiment, we reconstruct the end-effector position from the recorded joints using the corresponding URDF and compare it with the logged EEF position in a common frame. Samples exceeding an embodiment-specific error threshold are masked, and trajectories with persistent violations are discarded."
+      },
+      {
+       "source": "S40",
+       "quote": "During pre-training, FAST ( Pertsch et al., 2025 ) applies a discrete cosine transform along the temporal axis and compresses the resulting coefficients with byte-pair encoding. The encoded action chunks share the backbone vocabulary and are predicted by the same autoregressive token head used for text."
+      },
+      {
+       "source": "S41",
+       "quote": "For mid-training and all downstream stages, MR0 replaces the discrete interface with a continuous MMDiT action head ( Esser et al., 2024 ; Black et al., 2024 ) . As illustrated in Figure 5 , the head jointly processes an observation stream containing projected backbone features and a proprioceptive-state token, and an action stream containing a noisy action chunk. Joint self-attention exchanges information between the two streams, while the flow timestep modulates block normalization through AdaLN."
+      }
+     ]
+    },
+    {
+     "heading": "同一回滚池，区分如何选择监督数据与如何用它",
+     "kind": "reported",
+     "text": "人控介入（HIL）的正样本可用于 HG-DAgger；RECAP 用恢复出的成功和失败轨迹训练价值网络，再从成功轨迹训练带优势条件的策略；CFG-DAgger 直接用纠正和被替换片段做正负条件。后者训练时也学无条件分支，但推断以同初始噪声分别生成正、负完整动作块后再融合。",
+     "evidence": [
+      {
+       "source": "S146",
+       "quote": "Only the human-controlled corrections \\tau^{+} from successful episodes are retained (the samples with g_{t}=1 ), whether collected through standard HIL or Rollback. Across rounds, these corrections accumulate with the demonstrations to form the cumulative supervised dataset for training the next policy."
+      },
+      {
+       "source": "S149",
+       "quote": "For each Rollback episode, we reconstruct full trajectories from the autonomous prefix preceding the anchor ( Figure 6 ): the corrected continuation \\tau^{+} gives a successful trajectory (\\text{prefix}+\\tau^{+}) , and a replaced branch \\tau^{-} , which terminates at the intervention, gives a failed one (\\text{prefix}+\\tau^{-}) . Value learning uses the demonstrations together with both trajectory types, while policy training retains only the successful trajectories. The procedure is summarized in Algorithm 2 ."
+      },
+      {
+       "source": "S173",
+       "quote": "Unlike RECAP, CFG-DAgger uses these local segments directly, without the autonomous prefix: the positive data are the demonstrations and the human corrections \\tau^{+} (label I=1 ), and the negative data are the replaced segments \\tau^{-} (label I=0 ). Labels describe local segments, independent of episode outcomes."
+      },
+      {
+       "source": "S175",
+       "quote": "At inference, we denoise a positive prediction \\mathbf{a}_{+} ( I=1 ) and a negative prediction \\mathbf{a}_{-} ( I=0 ) from the same initial noise, then combine the completed action chunks once in action space:"
+      }
+     ]
+    },
+    {
+     "heading": "部署时分开处理动作延迟和任务记忆",
+     "kind": "reported",
+     "text": "执行器后台预测动作块，控制端继续消费缓冲命令；新块抵达后先截去过期指令，再对齐重叠段并平滑过渡。与此同时 Monitor 从短窗口提取结构化描述，Memory Manager 保留历史事件，触发信号才让 Planner 判断继续、推进、等待或修订；动作平滑本身不解决任务记忆。",
+     "evidence": [
+      {
+       "source": "S64",
+       "quote": "Figure 7: Asynchronous action-chunk merging. Predictions made stale during inference are removed from the chunk; the aligned overlap is blended with the residual buffer, and the suffix is appended for continuous execution."
+      },
+      {
+       "source": "S68",
+       "quote": "Here K_{\\mathrm{lat}} is a step-domain cap, set as K_{\\mathrm{lat}}\\approx\\lceil f_{c}\\hat{\\tau}_{\\mathrm{e2e}}\\rceil , where \\hat{\\tau}_{\\mathrm{e2e}} is the delay from observation capture to insertion of the processed chunk into the buffer, including communication, policy inference, post-processing, and inverse kinematics."
+      },
+      {
+       "source": "S78",
+       "quote": "Memory insertion is independent of planner activation: routine observations can be recorded with z_{t}=0 , while subtask completion, execution failure, and changes in task preconditions set z_{t}=1 ."
+      },
+      {
+       "source": "S79",
+       "quote": "The resulting decision may preserve the active subtask, advance to the next one, wait for a temporarily unsatisfied precondition, or invoke \\mathcal{P}_{\\mathrm{plan}} to regenerate the remaining sequence."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "动作维度对齐的是物理含义，不只是张量长度",
+     "kind": "interpretation",
+     "text": "末端位置是肩中心系下的绝对位置，不是相邻帧的位移；转动和夹爪闭合量与位置一起预测。中训练把生成动作的误差转成速度误差，掩码再让填充通道不参与训练。若移植到不同机器人，误差首先可能来自坐标系或通道语义未对齐，而非模型容量。",
+     "evidence": [
+      {
+       "source": "S33",
+       "quote": "The rotation and translation blocks of {}^{\\mathrm{SC}}T_{\\mathrm{EEF},t}^{(i)} provide the canonical orientation and metric absolute position target, respectively; the translation is not a temporal displacement."
+      },
+      {
+       "source": "S50",
+       "quote": "Continuous action objective. We train the MMDiT head with the JiT clean-sample parameterization ( Li and He, 2025 ) . Following flow matching ( Lipman et al., 2023 ) , a clean chunk a_{0} is perturbed into a noisy sample a_{\\tau} , from which the head predicts \\hat{a}_{0} rather than velocity directly. Prediction and target are converted to velocity form using a shared clamped denominator d_{\\tau} with t_{\\epsilon}=0.05 , and the model is optimized by mean squared error."
+      },
+      {
+       "source": "S52",
+       "quote": "where \\ell_{h,j} is the element-wise JiT loss. Padded channels produce no gradient. For a downstream embodiment with a different action width, only the dimension-dependent projections are reinitialized."
+      }
+     ]
+    },
+    {
+     "heading": "别把两种白盒插值混为一谈",
+     "kind": "interpretation",
+     "text": "异步缓冲内的线性权重用于对齐新旧可执行命令；CFG-DAgger 的引导则对同一观测下的正负条件动作块进行外推。这些操作位于不同的部署层级，并不改写训练过程的 flow matching；动作外推效果还依赖底层执行约束和具体任务。",
+     "evidence": [
+      {
+       "source": "S64",
+       "quote": "Figure 7: Asynchronous action-chunk merging. Predictions made stale during inference are removed from the chunk; the aligned overlap is blended with the residual buffer, and the suffix is appended for continuous execution."
+      },
+      {
+       "source": "S66",
+       "quote": "Action chunks amortize policy inference over multiple control steps, but inference latency requires coordinating chunk generation with ongoing execution Black et al. (2025b) ; Black et al. (2025c) ; Zhao et al. (2023) . Our EVA-Client based stack Yang et al. (2026a) keeps control continuous by decoupling the two: a background policy thread predicts a chunk from the latest observation at target rate f_{\\pi} , while the control loop consumes one buffered command at rate f_{c} ."
+      },
+      {
+       "source": "S175",
+       "quote": "At inference, we denoise a positive prediction \\mathbf{a}_{+} ( I=1 ) and a negative prediction \\mathbf{a}_{-} ( I=0 ) from the same initial noise, then combine the completed action chunks once in action space:"
+      },
+      {
+       "source": "S176",
+       "quote": "We use \\gamma=1.25 , extrapolating from the positive prediction away from the negative prediction. The unconditional branch is used only during training."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "模拟评独立策略，RoboDojo 另有历史增强",
+     "kind": "reported",
+     "text": "RoboTwin 2.0 在 Clean 与 Randomized 两套场景分别测每任务 100 个回合，共 50 项任务；同时部署 Agent 的行为不进入此评估。RoboDojo 用初始场景参考图和运动历史增强了低层策略，表中该方法是三次评估种子等权平均，不是加上高级事件记忆的参数对照。",
+     "evidence": [
+      {
+       "source": "S82",
+       "quote": "Table 3: RoboTwin 2.0 results. Success rate (%) over 50 tasks and 100 episodes per task in each split. Overall is the mean of Clean and Randomized; “–” denotes an unreported result. Bold and underlining indicate the best and second-best results."
+      },
+      {
+       "source": "S85",
+       "quote": "Evaluation covers 100 episodes per task on each split, resulting in 5,000 episodes per split. We evaluate the VLA policy alone, without the agent system or RL post-training."
+      },
+      {
+       "source": "S87",
+       "quote": "We extend the base MR0 policy with an initial-scene reference and motion history to provide temporal context. The reference uses the first main-camera image, while a frozen CD-LAM encoder Wei et al. (2026) extracts latent actions from historical image pairs."
+      },
+      {
+       "source": "S89",
+       "quote": "Baseline results follow the official leaderboard; MR0 results are the equally weighted mean across three evaluation seeds. Generalization averages the standard and randomized settings."
+      }
+     ]
+    },
+    {
+     "heading": "实机必须区分对比对象与样本单位",
+     "kind": "reported",
+     "text": "每个比较内匹配初始条件，每任务自主测试 30 回合。PS 分别对应连续正确放块、折衣用时和插线里程碑，不是同一种物理量。表 5 的 Ethernet 行用于数据规模与 Rollback 对比，两种骨干的主对比另用了更大网线数据集；训练样本统计是有效 50 步动作块而非独立回合。",
+     "evidence": [
+      {
+       "source": "S95",
+       "quote": "Tasks and metrics. We evaluate three tasks covering semantic grounding, deformable-object manipulation, and precise bimanual control ( Figure 9 ). We report success rate (SR) and a task-specific progress score (PS):"
+      },
+      {
+       "source": "S98",
+       "quote": "Ethernet insertion. The robot grasps a cable, transfers it between arms, and aligns and inserts the connector into a port. Success requires full insertion; \\mathrm{PS}_{\\mathrm{ethernet}}=m/3 , where m counts completed milestones: grasping, handover, and insertion."
+      },
+      {
+       "source": "S99",
+       "quote": "Each policy is evaluated autonomously for 30 trials per task, with matched initial conditions and the same rollout protocol within each comparison. We average SR and PS over evaluation trials."
+      },
+      {
+       "source": "S102",
+       "quote": "Table 5: Real-world post-training data. Demo counts teleoperated demonstrations; HIL / Rollback counts correction episodes collected with each task’s mechanism. Training Samples counts valid 50-step action chunks after preprocessing. The Ethernet row applies to the HIL scaling and Rollback comparisons; the MR0 vs. \\pi_{0.5} comparison uses over 1,400 Ethernet episodes."
+      }
+     ]
+    },
+    {
+     "heading": "算力报告能对齐阶段，不能直接换算总成本",
+     "kind": "reported",
+     "text": "离散预训练报告在 256 张 GPU 上运行 500,000 步，中训练使用 128 张 GPU；论文区分预训练承接权重和新初始化的动作头。正文列出主页、代码、模型及数据入口，附录提供异步执行与价值训练参数。已读取来源不足以把全流程的各环节换算为统一训练成本。",
+     "evidence": [
+      {
+       "source": "S47",
+       "quote": "We train the backbone and extended action-token embeddings end to end for 500,000 steps on 256 GPUs using AdamW with cosine learning-rate decay. The resulting checkpoint initializes mid-training."
+      },
+      {
+       "source": "S53",
+       "quote": "In this stage, we train on 128 GPUs using AdamW with cosine learning-rate decay, applying a lower learning rate to the transferred backbone and a higher rate to the newly initialized action head."
+      },
+      {
+       "source": "S139",
+       "quote": "Quantity or option Value Role f_{c} 30\\,\\mathrm{Hz} Command-consumption and publication rate of the control loop. f_{\\pi} 3\\,\\mathrm{Hz} Target background prediction rate. H 50 Action horizon returned by the policy server. K_{\\mathrm{lat}} 4 Maximum number of leading commands removed from an incoming chunk. m_{\\min} 8 Minimum old-reference length used for short-buffer padding. Warm-up queries 2 Synchronous startup queries before the background loop begins."
+      },
+      {
+       "source": "S170",
+       "quote": "Value learning steps / batch size 6,000 / 256 Value peak learning rate 5\\times 10^{-5} Value warm-up steps 500 Value final learning rate 1\\times 10^{-6} Advantage horizon N / action horizon H 50 / 50 Advantage threshold \\epsilon Aggregated-data 70th percentile"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "模拟榜单：最高均值不等同于每个划分都最佳",
+     "kind": "reported",
+     "text": "RoboTwin 2.0 作者表中 MR0 的 Clean、Randomized、Overall 成功率分别为 93.2%、93.9%、93.6%，总体是两个划分均值；Clean 上表内 GalaxeaVLA 的 93.7% 更高。RoboDojo 上，历史增强 MR0 的 Avg. Score/SR 为 21.68/15.73%，是所比较 VLA 按平均 SR 排名第五，不是混排所有模型。",
+     "evidence": [
+      {
+       "source": "S82",
+       "quote": "Table 3: RoboTwin 2.0 results. Success rate (%) over 50 tasks and 100 episodes per task in each split. Overall is the mean of Clean and Randomized; “–” denotes an unreported result. Bold and underlining indicate the best and second-best results."
+      },
+      {
+       "source": "S86",
+       "quote": "As shown in Table 3 , Meituan-Robotics-0 achieves the highest overall success rate among the compared methods at 93.6%, with 93.2% on Clean and 93.9% on Randomized, a difference of 0.7 percentage points."
+      },
+      {
+       "source": "S83",
+       "quote": "GalaxeaVLA (G0.5) ( Liu et al., 2026 ) 93.7 92.8 93.3 Meituan-Robotics-0 93.2 93.9 93.6"
+      },
+      {
+       "source": "S88",
+       "quote": "With approximately 13.6k hours of embodied training data, the history-augmented MR0 achieves an average Score of 21.68 and an SR of 15.73%, ranking fifth by average success rate among the compared VLA models."
+      }
+     ]
+    },
+    {
+     "heading": "同一 Rollback 数据上，差异同时出现在完成率和进度",
+     "kind": "reported",
+     "text": "网线插入的三种算法用相同演示、相同回滚池，并从同一中训检查点重训。完整数据下，CFG-DAgger 的 0.70 SR、0.90 PS 高于 RECAP 的 0.60 SR、0.67 PS。附录写明每轮三法各贡献 50 条、共享新增 150 条；是同池训练比较，而非每条轨迹上的配对因果归因。",
+     "evidence": [
+      {
+       "source": "S104",
+       "quote": "On Ethernet insertion, we compare MR0 trained with HG-DAgger, RECAP, and CFG-DAgger using the same demonstrations and Rollback episodes. All three methods are trained from the same mid-training checkpoint, \\pi_{\\mathrm{mid}} ."
+      },
+      {
+       "source": "S111",
+       "quote": "Learning from Rollback pairs. CFG-DAgger achieves higher SR and PS than both baselines after each collection round ( Figure 11 ). With the full Rollback dataset, CFG-DAgger reaches 0.70 SR and 0.90 PS, compared with 0.60 SR and 0.67 PS for RECAP. CFG-DAgger uses direct segment labels from Rollback and requires neither value learning nor advantage labeling."
+      },
+      {
+       "source": "S143",
+       "quote": "For the Ethernet Rollback comparison ( Figure 11 ), In each round of the three rounds, each of the three methods contributes 50 episodes to a shared pool of 150 new Rollback episodes."
+      }
+     ]
+    },
+    {
+     "heading": "技能监督和 Agent 并未被同一组消融隔离",
+     "kind": "reported",
+     "text": "CALVIN 的受控选择试验用的是 StarVLA 配置，平均完成长度上，空间组里更高的是 3D Grounding 的 4.037；作者仍选 2D Grounding 以减少几何标注。Agent 的事件检索及前提恢复则是定性个例；不能从这两组结果推断所有组件单独对实机指标的因果贡献。",
+     "evidence": [
+      {
+       "source": "S12",
+       "quote": "Spatial localization + 2D Grounding 3.941 91.3% 83.7% 78.1% 73.2% 67.8% + 2D Pointing 3.806 90.8% 81.8% 74.8% 69.9% 63.3% + 3D Grounding 4.037 92.4% 85.3% 79.6% 75.7% 70.7% Action-related understanding"
+      },
+      {
+       "source": "S17",
+       "quote": "All variants use the same StarVLA ( StarVLA Community, 2026a ) configuration, are trained on environments A, B, and C, and are evaluated on environment D."
+      },
+      {
+       "source": "S17",
+       "quote": "For spatial localization, we choose 2D grounding because it avoids costly geometric annotations and scales more readily than 3D grounding."
+      },
+      {
+       "source": "S1",
+       "quote": "Qualitative agent deployments further demonstrate cross-task event retrieval and recovery from temporarily unsatisfied task conditions."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "原文范围：跨任务检索示例没有验证先前目标仍成立",
+     "kind": "reported",
+     "text": "钥匙在另一个任务执行中被移走，系统仍继续可行的螺丝刀子任务，之后凭事件找回钥匙。作者明确这一演示不是在检验此前已经满足的所有目标条件是否仍然成立；另一个等待案例只说明在目标物重新出现时可以恢复原目标。",
+     "evidence": [
+      {
+       "source": "S116",
+       "quote": "This case evaluates event retention and later retrieval, rather than the preservation of all previously satisfied goal conditions under external intervention."
+      },
+      {
+       "source": "S118",
+       "quote": "When the key returns, a recovery event triggers reassessment against the latest observation, after which the robot places the key and completes the original instruction."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：效果来自负数据，还是来自额外的推断采样",
+     "kind": "proposal",
+     "text": "固定对比时的回滚锚点、训练数据、训练预算和起始权重，分别去掉负段、去掉引导、或只保留双路采样预算；测同任务与新物体下的完成率、干预率、遇阻回退、GPU 时延。若优势只在双路算力加倍时出现，应缩小对负数据本身的归因。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "在有延迟的操作台上，单独验证缓冲更新机制",
+     "kind": "proposal",
+     "text": "从同一策略收集固定时间戳的动作块，在回放与安全台架注入同一组延迟和丢帧轨迹。对比立即覆盖、仅截过期动作、截断加融合，交付入队延迟分位数、缓冲下溢率、末端峰值跃变、轨迹误差与完成率。先验证局部平滑，别拿 Agent 成功率代替底层安全指标。",
+     "evidence": []
+    },
+    {
+     "heading": "用可控的目标物移动与遮挡验证事件记忆",
+     "kind": "proposal",
+     "text": "为固定底座机械臂建立任务集，控制物体移走、暂时遮挡、原处返回和换位置四种干扰；用相同低层策略比较无记忆、定频重规划和事件触发。统计有效恢复率、误唤醒次数、额外 Planner 请求、过期事件错误率，并按物体与会话隔离测试。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S3.E6.m1",
+   "refs": [
+    "M3"
+   ],
+   "mathml": "<mrow><mi>ℒ</mi><msub><mrow></mrow><mi>masked</mi></msub><mo>=</mo><mo>∑</mo><msub><mrow></mrow><mrow><mi>h</mi><mo>=</mo><mn>1</mn></mrow></msub><msup><mrow></mrow><mi>H</mi></msup><mo>∑</mo><msub><mrow></mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow></msub><msup><mrow></mrow><msub><mi>d</mi><mi>max</mi></msub></msup><mi>m</mi><msub><mrow></mrow><mi>j</mi></msub><mi mathvariant=\"normal\">ℓ</mi><msub><mrow></mrow><mrow><mi>h</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>/</mo><mi>H</mi><mo>∑</mo><msub><mrow></mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow></msub><msup><mrow></mrow><msub><mi>d</mi><mi>max</mi></msub></msup><mi>m</mi><msub><mrow></mrow><mi>j</mi></msub><mo>,</mo></mrow>",
+   "accessible": "\\mathcal{L}_{\\mathrm{masked}}=\\sum_{h=1}^{H}\\sum_{j=1}^{d_{\\max}}m_{j}\\ell_{h,j}\\;\\Big/\\;H\\sum_{j=1}^{d_{\\max}}m_{j},",
+   "title": "用掩码对真实动作通道取平均",
+   "meaning": "损失按每步有效通道，而不是整张动作块的固定宽度取平均。示例：两步各有两个有效通道，四项误差是 1、2、3、4，损失为 10 除以 4，也就是 2.5；占位通道不进分母。",
+   "caution": "掩码必须与机器人的末端通道顺序一致；至少要有一个有效通道。",
+   "symbols": [
+    {
+     "symbol": "H",
+     "text": "动作块步数"
+    },
+    {
+     "symbol": "d_max、j",
+     "text": "固定填充后的通道数、通道索引"
+    },
+    {
+     "symbol": "m[j]",
+     "text": "动作通道有效为 1，填充为 0"
+    },
+    {
+     "symbol": "loss[h,j]",
+     "text": "该元素的 JiT 速度误差项"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S4.E8.m1",
+   "refs": [
+    "M5"
+   ],
+   "mathml": "<mrow><mrow><mrow><msubsup><mi>q</mi><mi>i</mi><mi>fused</mi></msubsup><mo>=</mo><mrow><mrow><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><msub><mi>α</mi><mi>i</mi></msub></mrow><mo>)</mo></mrow><mo>​</mo><msubsup><mi>q</mi><mi>i</mi><mi>old</mi></msubsup></mrow><mo>+</mo><mrow><msub><mi>α</mi><mi>i</mi></msub><mo>​</mo><msubsup><mover><mi>q</mi><mo>¯</mo></mover><mi>i</mi><mi>new</mi></msubsup></mrow></mrow></mrow><mo>,</mo><mrow><msub><mi>α</mi><mi>i</mi></msub><mo>=</mo><mfrac><mi>i</mi><mrow><mi>max</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow><mo>,</mo><mn>1</mn><mo>)</mo></mrow></mrow></mfrac></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "q_{i}^{\\mathrm{fused}}=(1-\\alpha_{i})q_{i}^{\\mathrm{old}}+\\alpha_{i}\\bar{q}_{i}^{\\mathrm{new}},\\qquad\\alpha_{i}=\\frac{i}{\\max(L-1,1)}.",
+   "title": "在重叠时域从旧命令平滑切到新命令",
+   "meaning": "对齐以后，随重叠段索引增加新命令的权重。例：重叠三步时权重是 0、0.5、1，中间一拍若旧值是 4、新值是 6，则执行 5；首末各服从旧、新值。",
+   "caution": "重叠只有一拍时权重为零。先核对附录短缓冲填充和逆运动学的位置，不能跨表示直接平均。",
+   "symbols": [
+    {
+     "symbol": "i、L",
+     "text": "重叠索引与长度，单位为控制步"
+    },
+    {
+     "symbol": "q_old、q_new_aligned",
+     "text": "残余缓冲命令和去掉过期部分的新命令"
+    },
+    {
+     "symbol": "alpha[i]",
+     "text": "无量纲新命令权重"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · A3.E23.m1",
+   "refs": [
+    "M19"
+   ],
+   "mathml": "<mrow><mrow><msub><mi>𝐚</mi><mi>CFG</mi></msub><mo>=</mo><mrow><msub><mi>𝐚</mi><mo>−</mo></msub><mo>+</mo><mrow><mi>γ</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><msub><mi>𝐚</mi><mo>+</mo></msub><mo>−</mo><msub><mi>𝐚</mi><mo>−</mo></msub></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "\\mathbf{a}_{\\mathrm{CFG}}=\\mathbf{a}_{-}+\\gamma\\left(\\mathbf{a}_{+}-\\mathbf{a}_{-}\\right).",
+   "title": "以正负条件完整动作块做一次引导",
+   "meaning": "正负分支用同一起始噪声，各自解出完整动作块；这里只在末尾组合。用原文 γ=1.25 举标量例：正为 0.6、负为 0.2，输出是 0.2 加 1.25 倍的 0.4，即 0.7，落在正值另一侧。",
+   "caution": "不是每个去噪步都做引导；无条件分支只用于训练。外推的有效动作范围与安全性要另检验。",
+   "symbols": [
+    {
+     "symbol": "a_plus、a_minus",
+     "text": "各为 H 步的同表示动作块，分别以正、负条件生成"
+    },
+    {
+     "symbol": "γ",
+     "text": "无量纲引导强度"
+    },
+    {
+     "symbol": "a_CFG",
+     "text": "外推后的动作块，随后由执行器处理"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 6,
+   "reference": "F6",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.08577v3/sections/figures/rollback_replaced.png",
+   "width": 2172,
+   "height": 724,
+   "caption": "Figure 6: Rollback data collection. Dots mark the rollback anchors t_{1} and t_{2} . Wavy blue branches (1) and (2) are replaced policy segments ( \\tau^{-} , I=0 ); solid orange HIL segments are their human replacements ( \\tau^{+} , I=1 ), with corrected execution continuing toward (3). These conditions are used by CFG-DAgger. Gray segments denote other autonomous execution.",
+   "title": "从同一个锚点留下正、负轨迹",
+   "alt": "灰色自主执行轴上有两个锚点；波浪蓝线离开主轨，橙线代表人控替换。",
+   "caution": "图是采样协议说明，没有测量回到锚点的物理误差，也不是完整回合成功率图。",
+   "reading_steps": [
+    {
+     "title": "找深色圆点和两种分支",
+     "text": "t1、t2 分别标恢复到的锚点；蓝色波浪线存作 I=0，橙色人控替换作为 I=1，灰色是其他自主执行。"
+    },
+    {
+     "title": "沿橙色再回到灰线读",
+     "text": "修正后可继续自主执行并走向后续阶段；分支描述的是从共享事件点开始的不同动作，不是逐帧配准。"
+    }
+   ],
+   "asset_sha256": "94645448afea96a36d6485acccdf01650b69e76f929002572b8834c2b84ecc52"
+  },
+  {
+   "id": "original-figure-b",
+   "number": 8,
+   "reference": "F8",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.08577v3/agent_pipeline.png",
+   "width": 829,
+   "height": 420,
+   "caption": "Figure 8: Event-driven embodied-agent framework. The asynchronous agent loop converts visual observations into structured captions, consolidates them into events, and triggers the Planner when task-state reassessment is required; the active subtask conditions the high-frequency VLA control loop.",
+   "title": "事件何时影响控制指令",
+   "alt": "三层图上方是目标与技能，中间是异步 Agent，下方是快频 VLA 执行。",
+   "caution": "图例里的 Planner 动作是示意，不给出调用准确率；条件不满足时等待及恢复由正文与其他定性图展示。",
+   "reading_steps": [
+    {
+     "title": "先追底行闭环",
+     "text": "当前视觉观测与 Active Subtask 送入 VLA，输出动作；观测缓冲另向上提供历史片段，VLA 不是直接读全量事件库。"
+    },
+    {
+     "title": "再看中间的双向箭头",
+     "text": "Monitor 的结构化描述进入 Memory & Event；只有触发时才通知 Planner，后者可以检索历史事件，再更新已完成、活动和剩余任务。"
+    }
+   ],
+   "asset_sha256": "a3ddda44b0e14a2167b8b307ecec2350880b123533dd2053ddc1d7facffb0ac4"
+  },
+  {
+   "id": "original-figure-c",
+   "number": 11,
+   "reference": "F11",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.08577v3/cable-methods-labels-corrected.svg",
+   "width": 1028,
+   "height": 270,
+   "caption": "Figure 11: Ethernet insertion performance across Rollback collection rounds. The demonstration set is fixed. Each collection round adds the same number of Rollback episodes. Round 0 is a shared SFT reference.",
+   "title": "同一批回滚数据上的两项真实机器人指标",
+   "alt": "左为插线成功率、右为进度分数，三条曲线共用第零轮。",
+   "caution": "没有误差棒；不能把此图外推成其它操作的提升幅度，也不能与另一套主对比的网线数据直接对齐。",
+   "reading_steps": [
+    {
+     "title": "先区分两个纵轴",
+     "text": "左边是完整插入的成功率，右边是达成的插线里程碑进度；都以百分数画出但含义不同。横轴是累计数据轮次，第零轮用共享的 SFT。"
+    },
+    {
+     "title": "比较各轮离散点而非线段",
+     "text": "橙色 HG-DAgger 与绿色 RECAP 的左右排序不同；蓝紫色 CFG-DAgger 在每个采集轮次的两项点值都更高。曲线仅连接观察点，不是每轮中的连续测量。"
+    }
+   ],
+   "asset_sha256": "3351673eecacf54b50df9fdf869cbeedde537bf307f07cc3434d2e8db68b0750"
+  }
+ ],
+ "original_figure_credit": "Meituan Robotics Team、Caicheng Wang、Chen Zhao、Chengpeng Jin、Duo Xu、Fengjiao Chen、Guanglu Wan、Heqing Yang、Jia Wang、Jiacong Zhou、Jie Hu、Jiyuan Ru、Lingfeng Zhang、Linjiang Huang、Manyuan Zhang、Ningchu Liu、Shijie Zhou、Si Liu、Shuo Li、Tianyi Zhang、Xi Zhang、Xin Chen、Xuezhi Cao、Xunliang Cai、Yanbin Zeng、Yang Yang、Yang Yi、Yanli Tan、Yifu Xu、Yimeng Jia、Yuchen Tang、Yuchen Xie、Yuxiang Zheng、Zerwei Chng、Zilong Huang、Zipeng Ye、Ziyuan Qin、Ziqin Wang",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T06:08:10Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "d6fb77611097ffbcfc313b86f2f4f45e4968e71767738d46970e02f092b3c69c",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill",
+  "license_evidence_url": "https://arxiv.org/abs/2611.08577v3"
+ },
+ "copyright_note": "固定版本标注 CC BY 4.0。三幅作者原图直接通过 arXiv v3 官方端点展示，保留完整图件、自然尺寸、作者、英文图注和定位；本站不改图、不镜像 PDF 或全文。中文解说为本站整理。"
+}

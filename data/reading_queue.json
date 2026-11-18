@@ -418,17 +418,39 @@
   },
   "2611.08118": {
    "paper_id": "2611.08118",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:11:20Z",
+   "source_status": "versioned_pdf_cc_licensed_complete_original_figures",
+   "source_detail": "arXiv 固定 v1 官方 PDF 13 页与同版 HTML 已核读；CC BY-NC-ND 4.0，Fig. 1、6、11 的完整图件逐张核准并只作非商业转载。",
+   "source_url": "https://arxiv.org/pdf/2611.08118v1",
+   "source_version": "v1",
+   "completed_at": "2026-11-18T06:11:20Z",
+   "source_sha256": "8a2b4a3cdf7f2851c0f37efbe7ed5f35d4faf065dd1a5433824368643b150647",
+   "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2611.08118v1",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.08577": {
    "paper_id": "2611.08577",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:11:20Z",
+   "source_status": "versioned_html_cc_licensed_complete_original_figures",
+   "source_detail": "arXiv 固定 v3 官方 HTML 与 24 页同版 PDF 已核读（含附录 A–C）；CC BY 4.0，直接展示官方 Fig. 6、8、11。",
+   "source_url": "https://arxiv.org/html/2611.08577v3",
+   "source_version": "v3",
+   "completed_at": "2026-11-18T06:11:20Z",
+   "source_sha256": "d6fb77611097ffbcfc313b86f2f4f45e4968e71767738d46970e02f092b3c69c",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "license_evidence_url": "https://arxiv.org/abs/2611.08577v3",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill"
   },
   "2611.09003": {
    "paper_id": "2611.09003",
@@ -653,6 +675,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T06:05:16Z",
+ "updated_at": "2026-11-18T06:11:20Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
