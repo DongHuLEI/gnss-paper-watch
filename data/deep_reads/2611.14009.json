@@ -1,0 +1,798 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.14009",
+ "source_version": "v2",
+ "source_url": "https://arxiv.org/html/2611.14009v2",
+ "checked_on": "2026-11-18",
+ "title_zh": "CAMP-II：借用文件操作先验，让小模型学会跨上下文保留任务状态",
+ "dek": "上下文被替换时，让学生模型自己记录、查找并读回关键任务状态；冻结教师只给学生实际采样的 token 打分。文件接口的主要优势是学生更常写出可教的动作，教师也更常辨出哪条笔记有用。收益来自这组模型和任务，不能当成通用长程能力。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读固定版本 arXiv 官方 HTML，并交叉核对同版本 PDF；本次不是独立 API 账单任务。核读正文、附录 A–E、任务与轨迹示例、伪代码、表格、公式和图注，并实际看过所展示原图。未运行作者程序、未独立复现实验，也未经过人工审阅。",
+ "references": {
+  "S7": {
+   "label": "原文 · S1.p3.1",
+   "anchor": "S1.p3.1"
+  },
+  "S8": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S102": {
+   "label": "原文 · A1.SS2.SSS0.Px2.p2.1",
+   "anchor": "A1.SS2.SSS0.Px2.p2.1"
+  },
+  "S51": {
+   "label": "原文 · S6.SS2.SSS0.Px1.p1.1",
+   "anchor": "S6.SS2.SSS0.Px1.p1.1"
+  },
+  "S96": {
+   "label": "原文 · A1.SS1.SSS5.p3.1",
+   "anchor": "A1.SS1.SSS5.p3.1"
+  },
+  "S6": {
+   "label": "原文 · S1.p2.1",
+   "anchor": "S1.p2.1"
+  },
+  "S187": {
+   "label": "原文 · A2.SS2.p1.1",
+   "anchor": "A2.SS2.p1.1"
+  },
+  "S190": {
+   "label": "原文 · A2.SS2.p2.1",
+   "anchor": "A2.SS2.p2.1"
+  },
+  "S15": {
+   "label": "原文 · S2.SS0.SSS0.Px2.p1.1",
+   "anchor": "S2.SS0.SSS0.Px2.p1.1"
+  },
+  "S100": {
+   "label": "原文 · A1.SS2.SSS0.Px1.p2.1",
+   "anchor": "A1.SS2.SSS0.Px1.p2.1"
+  },
+  "S101": {
+   "label": "原文 · A1.SS2.SSS0.Px2.p1.1",
+   "anchor": "A1.SS2.SSS0.Px2.p1.1"
+  },
+  "S38": {
+   "label": "原文 · S5.p3.1",
+   "anchor": "S5.p3.1"
+  },
+  "S197": {
+   "label": "原文 · A3.SS1.p1.1",
+   "anchor": "A3.SS1.p1.1"
+  },
+  "S37": {
+   "label": "原文 · S5.p2.2",
+   "anchor": "S5.p2.2"
+  },
+  "S201": {
+   "label": "原文 · A3.SS2.p1.1",
+   "anchor": "A3.SS2.p1.1"
+  },
+  "S204": {
+   "label": "原文 · A3.SS2.SSS0.Px2.p1.2",
+   "anchor": "A3.SS2.SSS0.Px2.p1.2"
+  },
+  "S253": {
+   "label": "原文 · A5.SS0.SSS0.Px6.p1.1",
+   "anchor": "A5.SS0.SSS0.Px6.p1.1"
+  },
+  "S19": {
+   "label": "原文 · S3.p2.1",
+   "anchor": "S3.p2.1"
+  },
+  "S36": {
+   "label": "原文 · S5.p2.1",
+   "anchor": "S5.p2.1"
+  },
+  "S153": {
+   "label": "原文 · Thmdefinition1.p1.1",
+   "anchor": "Thmdefinition1.p1.1"
+  },
+  "S154": {
+   "label": "原文 · Thmdefinition1.p1.2",
+   "anchor": "Thmdefinition1.p1.2"
+  },
+  "S155": {
+   "label": "原文 · A2.SS1.p3.1",
+   "anchor": "A2.SS1.p3.1"
+  },
+  "S184": {
+   "label": "原文 · Thmremark2.p2.1",
+   "anchor": "Thmremark2.p2.1"
+  },
+  "S45": {
+   "label": "原文 · S6.SS1.SSS0.Px1.p1.1",
+   "anchor": "S6.SS1.SSS0.Px1.p1.1"
+  },
+  "S48": {
+   "label": "原文 · S6.SS1.SSS0.Px4.p1.1",
+   "anchor": "S6.SS1.SSS0.Px4.p1.1"
+  },
+  "S202": {
+   "label": "原文 · A3.SS2.SSS0.Px1.p1.1",
+   "anchor": "A3.SS2.SSS0.Px1.p1.1"
+  },
+  "S218": {
+   "label": "原文 · A3.SS4.p1.1",
+   "anchor": "A3.SS4.p1.1"
+  },
+  "S46": {
+   "label": "原文 · S6.SS1.SSS0.Px2.p1.1",
+   "anchor": "S6.SS1.SSS0.Px2.p1.1"
+  },
+  "S47": {
+   "label": "原文 · S6.SS1.SSS0.Px3.p1.1",
+   "anchor": "S6.SS1.SSS0.Px3.p1.1"
+  },
+  "S198": {
+   "label": "原文 · A3.SS1.p2.1",
+   "anchor": "A3.SS1.p2.1"
+  },
+  "S148": {
+   "label": "原文 · A1.SS5.p1.1",
+   "anchor": "A1.SS5.p1.1"
+  },
+  "S39": {
+   "label": "原文 · S5.T1.3",
+   "anchor": "S5.T1.3"
+  },
+  "S67": {
+   "label": "原文 · S7.p2.1",
+   "anchor": "S7.p2.1"
+  },
+  "S54": {
+   "label": "原文 · S6.SS2.SSS0.Px3.p1.1",
+   "anchor": "S6.SS2.SSS0.Px3.p1.1"
+  },
+  "S232": {
+   "label": "原文 · A4.SS3.p2.1",
+   "anchor": "A4.SS3.p2.1"
+  },
+  "S58": {
+   "label": "原文 · S6.F6",
+   "anchor": "S6.F6"
+  },
+  "S57": {
+   "label": "原文 · S6.SS2.SSS0.Px5.p1.1",
+   "anchor": "S6.SS2.SSS0.Px5.p1.1"
+  },
+  "S62": {
+   "label": "原文 · S6.SS2.SSS0.Px8.p1.1",
+   "anchor": "S6.SS2.SSS0.Px8.p1.1"
+  },
+  "S64": {
+   "label": "原文 · S6.T2.8",
+   "anchor": "S6.T2.8"
+  },
+  "S241": {
+   "label": "原文 · A4.T10.3",
+   "anchor": "A4.T10.3"
+  },
+  "S68": {
+   "label": "原文 · S7.SS0.SSS0.Px1.p1.1",
+   "anchor": "S7.SS0.SSS0.Px1.p1.1"
+  },
+  "S103": {
+   "label": "原文 · A1.SS2.SSS0.Px3.p1.1",
+   "anchor": "A1.SS2.SSS0.Px3.p1.1"
+  },
+  "S242": {
+   "label": "原文 · A4.T10",
+   "anchor": "A4.T10"
+  },
+  "M2": {
+   "label": "原公式 · S5.E3.m1",
+   "anchor": "S5.E3.m1"
+  },
+  "M3": {
+   "label": "原公式 · S5.E4.m1",
+   "anchor": "S5.E4.m1"
+  },
+  "M6": {
+   "label": "原公式 · A2.E7.m1",
+   "anchor": "A2.E7.m1"
+  },
+  "M8": {
+   "label": "原公式 · A2.E9.m1",
+   "anchor": "A2.E9.m1"
+  },
+  "F4": {
+   "label": "Fig.4 · 原文图",
+   "anchor": "S6.F4"
+  },
+  "F6": {
+   "label": "Fig.6 · 原文图",
+   "anchor": "S6.F6"
+  },
+  "F7": {
+   "label": "Fig.7 · 原文图",
+   "anchor": "S6.F7"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "先分清训练方法与训练环境",
+     "kind": "reported",
+     "text": "CAMG-II 是跨购物、代码修复、自动研究、企业知识工作和视觉网页开发的长程环境；CAMP-II 则用异步在策略蒸馏训练共享的一套学生策略。输入是当前可见的任务、工具观察与上下文，输出是任务响应及读写文件等操作；历史不会自动装回新窗口，继续行动靠学生主动取回信息。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "To study this question, we introduce Coding Agent Memory Gym II (CAMG-II) , a suite of long-horizon agentic-RL environments spanning Shop, Coding, AutoResearch, General, and Visual. Across all five environments, CAMG-II pairs each native task interface with ordinary Bash access and an episode-persistent workspace. Agents can therefore create, revise, search, and reuse files as memory throughout an episode."
+      },
+      {
+       "source": "S8",
+       "quote": "We also introduce Coding Agent Memory Post-Training II (CAMP-II) , which trains a single policy jointly across all five environments with fully asynchronous OPD to learn this file-based memory behavior directly from a frozen teacher with a prior for file operations. Task-reward training of file-based memory asks one question, whether the student’s pre-training prior makes the behavior reachable by exploration. Distillation asks two. The student has to emit meaningful memory operations, and the frozen teacher has to judge what those operations write."
+      },
+      {
+       "source": "S102",
+       "quote": "After a valid write, the environment replaces the active message history with the fixed task and tool instructions plus a neutral instruction naming the continuation path. It does not insert the file contents into the new context. The workspace remains mounted. The policy can recover selected information through a later ordinary file read."
+      }
+     ]
+    },
+    {
+     "heading": "主结果是任务面板上的平均分",
+     "kind": "reported",
+     "text": "CAMP-II 在研究面板的平均分 64.6，高于同样使用文件、但靠任务奖励训练的 CAMP-I 的 54.2；也好于作者列出的记忆学习基线；附录五个训练种子均值 64.9、标准差 0.5。这个平均并不是逐题同口径的成功率：Visual 项保留评分而非直接二值化。",
+     "evidence": [
+      {
+       "source": "S51",
+       "quote": "CAMP-II attains the highest average success rate, 64.6% versus 54.2% for CAMP-I, and the same comparison holds across five training seeds, where the five-domain mean is 64.9 with a standard deviation of 0.5 (Table 8 ),"
+      },
+      {
+       "source": "S96",
+       "quote": "The Visual column keeps the score itself, multiplied by 100 and averaged over the whole panel, with an episode that ends without a submission counting as zero."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "低覆盖和低质量教师信号是两个问题",
+     "kind": "reported",
+     "text": "专用协议不熟悉时，学生很少采样到有意义的记忆动作，教师很难直接指导没出现的动作；对出现但教师赋予更低概率的 token，负优势只会压低这一采样 token，并没有提供应替换成的笔记。作者因此把接口作为实验变量，而不是只调整蒸馏损失。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "However, this weakens the distillation on both sides: the teacher cannot give useful guidance on an interface it has never used, and the student samples too few meaningful memory actions for that guidance to take effect [ 13 ] . Moreover, unfamiliarity with the tool produces the negative-advantage problem: the teacher’s scores push the student away from the memory behavior being taught without indicating the behavior that should take its place, which leaves training unstable"
+      },
+      {
+       "source": "S187",
+       "quote": "The objective sets the estimator and the teacher is frozen. The one design variable left is the interface the supervision passes through. Supervision arrives only inside an intersection: the action must be one the student emits on its own and one whose consequence the teacher can judge."
+      }
+     ]
+    },
+    {
+     "heading": "借用熟悉动作，不等于行为已在预训练中学会",
+     "kind": "interpretation",
+     "text": "普通文件写入让学生与教师在同一种可执行操作上相遇；但何时记录、应保留哪条证据、何时读回仍是要学的策略。论文区分了只给冻结策略加外部存储的推理架构，与通过 token 监督改变任务策略；这不是对所有记忆框架的查新结论。",
+     "evidence": [
+      {
+       "source": "S190",
+       "quote": "What the intersection constrains is the action, not what is written. What to retain and what to recover, and when to do either, can all be behavior neither model has. The intersection is necessary but not sufficient: the chosen action must also leave state that persists beyond the active context and can be read back, which is why we do not supervise ordinary turns of dialogue."
+      },
+      {
+       "source": "S15",
+       "quote": "All four are inference-time layers: the agent queries a store that sits outside the weights, and the task policy itself is never trained for the memory behavior. CAMP-II trains the task policy itself, and its memory is kept in ordinary files that the teacher can read as well."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "跨窗口保留文件，旧对话不直接回填",
+     "kind": "reported",
+     "text": "每回合使用隔离的持久工作区。任务产物仍在，但只有指定记忆目录内的常规文件计入策略记忆。默认在边界前写有效的 CONTINUATION.md；切换后保留固定任务与工具指令并提示路径，不插入文件内容；读回是学生另行采样的动作，也占响应预算。其他记忆文件可按需组织。",
+     "evidence": [
+      {
+       "source": "S100",
+       "quote": "Each episode receives a fresh private workspace that remains mounted across policy responses and context replacement. Only regular files below .agent_memory/ count as policy memory."
+      },
+      {
+       "source": "S101",
+       "quote": "At that point, the policy must create or update .agent_memory/CONTINUATION.md through an ordinary filesystem response. This response consumes one action slot and is sampled and trained like every other policy response."
+      },
+      {
+       "source": "S102",
+       "quote": "After a valid write, the environment replaces the active message history with the fixed task and tool instructions plus a neutral instruction naming the continuation path. It does not insert the file contents into the new context. The workspace remains mounted. The policy can recover selected information through a later ordinary file read. It may also maintain other files under .agent_memory/ and refer to them from the continuation file."
+      }
+     ]
+    },
+    {
+     "heading": "教师只打分学生实际看见的前缀",
+     "kind": "reported",
+     "text": "生成侧用当时发布的学生权重执行任务，录下 token、当时可见的前缀和行为概率。冻结教师对相同前缀中学生已经采样的响应 token 打分，不替学生改写，也看不到私有标签、评分答案或学生未读取的工作区内容。完成的轨迹入队，学习侧异步更新学生后再发布。",
+     "evidence": [
+      {
+       "source": "S38",
+       "quote": "The prefix s_{i} is taken from the invocation the student actually produced: its visible context, token positions and causal mask [ 34 ] , including invocations after a context replacement, together with the read observations the student recorded."
+      },
+      {
+       "source": "S102",
+       "quote": "The distillation teacher scores the invocation the student actually produced, so private labels, hidden rubric answers, and unread workspace contents never enter it."
+      },
+      {
+       "source": "S197",
+       "quote": "Completed episodes enter a persistent queue, from which the learner assembles minibatches without waiting for the slowest episode of a batch (Algorithm 1 ). Each token retains the behavior log-probability recorded at generation, the denominator of the importance ratio in Eq. 4 . Weights are published to the replicas after every learner round."
+      }
+     ]
+    },
+    {
+     "heading": "训练对响应求梯度，部署时没有教师",
+     "kind": "reported",
+     "text": "写入、读文件的调用与普通任务响应共用监督；读回的内容是环境观察，不会被当作一次新的学生写入再蒸馏，指令和填充也被排除。主方法关闭任务奖励损失与学习到的 critic；测评判分不是学生训练时额外可见的答案，部署只运行更新后的学生策略。",
+     "evidence": [
+      {
+       "source": "S37",
+       "quote": "where \\mathcal{B}^{m} excludes instructions, observations and padding, and m indexes the memory interface in the controlled comparisons."
+      },
+      {
+       "source": "S201",
+       "quote": "A file read is itself a sampled action, so the contents it returns are observations and a write is not supervised a second time. There is no per-episode reweighting, so long episodes contribute proportionally more tokens."
+      },
+      {
+       "source": "S204",
+       "quote": "The pure-OPD realization disables the task-reward loss and the learned critic, so task-return statistics do not enter its actor gradient."
+      },
+      {
+       "source": "S253",
+       "quote": "The frozen teacher scores only what the student can see, and only the student remains afterwards."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "先看教师差值，再看异步校正",
+     "kind": "reported",
+     "text": "对数概率差比较冻结教师和当前学生在同一记录前缀下对同一 token 的偏好，差值本身停梯度。另一个比值比较当前学生与实际采样学生，它处理队列中的策略滞后。两者的分母来自不同时间的学生状态，不宜混用；实际训练还对信号和比值设数值保护。",
+     "evidence": [
+      {
+       "source": "S19",
+       "quote": "For a sampled token x at prefix s , let p_{\\theta}(x\\mid s) and q(x\\mid s) be its probabilities under the current student and frozen teacher. Sampling from the student makes the reverse-KL gradient a policy gradient whose per-token signal is the teacher–student log-ratio,"
+      },
+      {
+       "source": "S36",
+       "quote": "The rollout workers generate with the last published weights \\theta^{-} while the learner updates \\theta , so episodes from all five environments reach the learner after later weights are published. The update is corrected by the importance ratio \\rho_{i}=p_{\\theta,i}/\\mu_{i} , taken against the clipped value \\bar{\\rho}_{i}=\\operatorname{clip}(\\rho_{i},1-\\epsilon,1+\\epsilon) . Over the sampled response tokens \\mathcal{B}^{m} of an optimizer minibatch, the objective is"
+      },
+      {
+       "source": "S201",
+       "quote": "The objective rows instantiate Eq. 4 , with the clamps and the dual-clip bound as numerical safeguards."
+      }
+     ]
+    },
+    {
+     "heading": "附录的代价公式数的是监督出现次数",
+     "kind": "interpretation",
+     "text": "附录把一个固定前缀约成两个可选 token，定义有效 logit 步长并积分求平均收敛代价。稀有动作近似针对学生初始覆盖极低而教师目标与相对收缩固定的分支；它不是参数网络每轮的计算量，也不直接预测 GPU 时数或全词表训练收益。",
+     "evidence": [
+      {
+       "source": "S153",
+       "quote": "Fix one prefix s and reduce it to two tokens, u preferred by the teacher and y not. Write z=\\log\\frac{p_{\\theta}(u\\mid s)}{p_{\\theta}(y\\mid s)} for the student’s log-odds and z^{*} for the teacher’s, so Q=\\sigma(z)=p_{\\theta}(u\\mid s) with initial value Q_{0} and target Q^{*}=\\sigma(z^{*}) , and let"
+      },
+      {
+       "source": "S154",
+       "quote": "Let \\lambda be the effective logit step per supervised occurrence, let N count supervised occurrences of the prefix’s tokens, not optimizer steps, and call the token learned once z^{*}-z has closed to a fraction \\rho of u_{0} ."
+      },
+      {
+       "source": "S155",
+       "quote": "The derivation works at the level of this prefix’s logits, not its parameters: what the parameters couple across prefixes, together with repeated supervision within a round and the optimizer’s normalized step, is absorbed into \\lambda , which is not the learning rate. The result is a proportionality: it fixes which quantities sit in the numerator and which in the denominator, and \\lambda only scales it."
+      },
+      {
+       "source": "S184",
+       "quote": "a claim that it holds verbatim for every K would need that separation carried through, which we do not do here."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "训练次数、面板与计算成本",
+     "kind": "reported",
+     "text": "主设定每轮 64 个回合、100 个学习轮，合计 6,400 次回合暴露；五域配比均衡，暴露不是独立任务数。各域共享 128 条测试任务，总计 640 条。CAMP-II-4B 作者报约 250 GPU 小时、八张卡，分别承担学生学习、轨迹生成和教师服务；附录还提醒学习轮不等于一个优化小批步。",
+     "evidence": [
+      {
+       "source": "S45",
+       "quote": "All trainable methods use fresh Qwen3.5-4B and Qwen3.5-9B students [ 46 ] for 100 learner optimizer updates with 64 episodes per update, totaling 6,400 episodes per training run, under the equal mixture over Shop, Coding, AutoResearch, General, and Visual, trained with fully asynchronous OPD and no task rewards. Appendix C gives the remaining training details."
+      },
+      {
+       "source": "S48",
+       "quote": "Trainable methods are trained using the CAMG-II train split and evaluated using the CAMG-II test set, and all methods use the same 128 test tasks per domain, giving 640 tasks in total."
+      },
+      {
+       "source": "S202",
+       "quote": "Training CAMP-II-4B took about 250 GPU-hours on eight GPUs, four training the policy, two generating rollouts and two serving the frozen teacher, across the 100 learner rounds."
+      },
+      {
+       "source": "S218",
+       "quote": "An update denotes one learner round, not a single optimizer-minibatch step."
+      }
+     ]
+    },
+    {
+     "heading": "比较同为文件的奖励学习与不同记忆协议",
+     "kind": "reported",
+     "text": "CAMP-I 保持文件记忆、用任务奖励而不是教师；记忆协议基线包括 MemOPD、ACM、HELM 与 Hy-Memory，并明确列出 MemOPD 是否有监督冷启动、HELM 是否拆成控制器与推理模型。另有直接替换接口与仅掩蔽记忆 token 的对照，回答的问题不同于主榜比较。",
+     "evidence": [
+      {
+       "source": "S46",
+       "quote": "We compare against four trainable memory-learning systems: compact memory with invocation reconstruction for MemOPD [ 34 ] , context editing and retrieval of offloaded history for ACM [ 27 ] , a hierarchical memory with provenance and validity checks for HELM [ 30 ] , and a separate writer with a persistent bank for Hy-Memory [ 10 ] ."
+      },
+      {
+       "source": "S46",
+       "quote": "For HELM we report both the published architecture, which pairs a learned memory controller with a separate task reasoner, and a single-model adaptation in which one policy fills both roles. For MemOPD we report the recipe without and with the paper’s SFT cold start. As the task-reward reference, we additionally retrain the predecessor CAMP-I [ 37 ] , which keeps the same file memory and learns from task rewards instead of the teacher’s supervision."
+      },
+      {
+       "source": "S47",
+       "quote": "We compare CAMP-II with several variants to validate its components. The variant compaction keeps its memory through the compaction protocol instead of files. The variant memory tools keeps its memory through the six dedicated tool calls instead of files. The variant gradient masked removes the loss on the tokens the policy writes into memory and keeps it on the task-action and answer tokens."
+      }
+     ]
+    },
+    {
+     "heading": "五域等权，但判分和部署约束不同",
+     "kind": "reported",
+     "text": "Shop、Coding、AutoResearch 按任务是否成功统计，General 把评分规则化成接收或拒绝，Visual 则把原评分乘 100 后按整面板平均，未交付计零。外部基准只跑无网络子集。附录给出运行与预算规则、伪代码和逐回合示例，代码可用性声明仍写 camera-ready 阶段再发布。",
+     "evidence": [
+      {
+       "source": "S96",
+       "quote": "Shop, Coding and AutoResearch are task success rates over the held-out panels. General is a rate as well, but its success is a judge decision: the rubric is reduced to accept or reject before the episode is counted. The Visual column keeps the score itself, multiplied by 100 and averaged over the whole panel, with an episode that ends without a submission counting as zero."
+      },
+      {
+       "source": "S48",
+       "quote": "We measure external transfer on the network-free task subsets of Terminal-Bench 2.1 and SWE-Bench Pro V2 [ 39 , 7 ] ."
+      },
+      {
+       "source": "S198",
+       "quote": "Algorithm 1 lists the complete procedure, with the collection steps that the rollout replicas run and the learning steps that the queue feeds."
+      },
+      {
+       "source": "S148",
+       "quote": "Code will be released with the camera-ready version."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "2.97 倍是相对同一起点的增益倍数",
+     "kind": "reported",
+     "text": "以同一冻结学生的 45.3 为起点，CAMP-II 的 64.6 与 MemOPD 冷启动版的 51.8 分别减去这个共同起点；所得增益之比约为 2.97，而不是成功率乘以 2.97。主表的 Visual 40.2 也低于 CAMP-I 的 46.5，不能说每域都变好。",
+     "evidence": [
+      {
+       "source": "S39",
+       "quote": "Frozen control Qwen3.5-4B 77.3 27.3 46.1 39.8 36.0 45.3 Qwen3.5-9B"
+      },
+      {
+       "source": "S39",
+       "quote": "MemOPD (w/ SFT) 93.0 27.3 39.1 62.5 37.3 51.8"
+      },
+      {
+       "source": "S39",
+       "quote": "CAMP-I 85.2 32.0 38.3 68.8 46.5 54.2 CAMP-II 100.0 37.5 64.1 81.2 40.2 64.6"
+      },
+      {
+       "source": "S67",
+       "quote": "CAMP-II achieves 2.97 times the gain of the strongest OPD baseline on CAMG-II"
+      }
+     ]
+    },
+    {
+     "heading": "文件操作先验同时体现在两端",
+     "kind": "reported",
+     "text": "文件、专用工具、压缩中，学生记忆动作分别占所有动作 21.6%、7.8%、5.9%。独立的教师匹配笔记探针中，文件、压缩、专用工具的正确排序率分别为 76.5%、70.0%、63.8%；这些是同界面不同任务的笔记配对决策，同一上下文会被重复使用，不是独立同分布的任务成功率。",
+     "evidence": [
+      {
+       "source": "S54",
+       "quote": "They are 21.6\\% of all actions on the file interface, against 7.8\\% with the six dedicated tools and 5.9\\% under compaction (Fig. 3 b)."
+      },
+      {
+       "source": "S232",
+       "quote": "Over 200 pairs per interface, which give 400 decisions, the teacher is correct in 76.5% of decisions for the file interface, 70.0% for compaction and 63.8% for the memory tools (Fig. 13 a)."
+      },
+      {
+       "source": "S232",
+       "quote": "The decisions are also not independent, since every note is scored in both orders and each decision is made under one of the 47 contexts."
+      }
+     ]
+    },
+    {
+     "heading": "改记忆内容和改监督位置，分别检验不同环节",
+     "kind": "reported",
+     "text": "作者在首次上下文替换处从同一回合分叉，分别保留、换成别的回合记忆或清空；图中读的是购物得分。训练侧只遮掉写入内容的梯度，比随机遮同样多的 token 损失更大；等量随机遮蔽与完整模型是 63.3 对 64.6。两者是对记忆内容有用性的互补证据。",
+     "evidence": [
+      {
+       "source": "S58",
+       "quote": "Figure 6 : An episode’s later success is caused by the memory it wrote. We continue each episode three ways at its first context replacement, leaving the file memory intact, installing another episode’s memory, or emptying it, so the runs differ only in the memory that crosses the boundary."
+      },
+      {
+       "source": "S57",
+       "quote": "When we mask the loss on the tokens the policy writes into memory and keep it on the task-action and answer tokens, the gain from distillation largely disappears (Fig. 7 ). Masking the same number of tokens at random instead leaves it almost intact, at 63.3 against 64.6,"
+      }
+     ]
+    },
+    {
+     "heading": "外部迁移和取消强制写入各支撑一条结论",
+     "kind": "reported",
+     "text": "外部无网络子集上，4B 学生在 Terminal-Bench 2.1 从 23.1 到 30.0、在 SWE-Bench Pro V2 从 11.2 到 18.1，均提高 6.9 点。内部面板取消边界强制写入后，直接测既有策略是 62.6，同设定重训为 64.0；不能由此认定对各种未见工具和随意重启都稳健。",
+     "evidence": [
+      {
+       "source": "S48",
+       "quote": "We measure external transfer on the network-free task subsets of Terminal-Bench 2.1 and SWE-Bench Pro V2 [ 39 , 7 ] ."
+      },
+      {
+       "source": "S62",
+       "quote": "Both trained policies exceed the models they start from on both suites, the 4B policy by 6.9 points on each."
+      },
+      {
+       "source": "S64",
+       "quote": "Policy TB 2.1 SWE-Bench Pro V2 Avg. Qwen3.5-4B 23.1 11.2 17.1 Qwen3.5-9B 23.1 23.1 23.1 Qwen3.5-35B-A3B 33.8 27.4 30.6 CAMP-II-4B 30.0 18.1 24.1 CAMP-II-9B 38.0 30.1 34.1"
+      },
+      {
+       "source": "S241",
+       "quote": "without the requirement, as trained 100.0 35.9 61.7 78.1 37.5 62.6 without the requirement, retrained 100.0 36.7 62.5 80.5 40.2 64.0"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "单一教师，统计与外推都有明确边界",
+     "kind": "reported",
+     "text": "作者只试到 Qwen3.5-9B，冻结教师只有一个；更大规模或多教师没有测试。主实验记忆在回合末清除，不能用跨窗口成绩声称跨任务经验证据可长期积累。取消强制写入只移掉一条环境门控，未移掉共享工作区、工具格式等其它条件。",
+     "evidence": [
+      {
+       "source": "S68",
+       "quote": "The study covers students up to Qwen3.5-9B and a single frozen teacher. Whether the gains persist at larger scales or carry over to multi-teacher OPD remains untested."
+      },
+      {
+       "source": "S103",
+       "quote": "Episode termination removes the writable workspace and processes owned by that episode."
+      },
+      {
+       "source": "S242",
+       "quote": "Table 10: Removing the requirement to write at a boundary. Task success on the CAMG-II test set when the context is replaced whether or not a valid continuation write exists. The second row evaluates the trained CAMP-II-4B in that environment, the third trains the same recipe there."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：格式先验还是实际状态保真",
+     "kind": "proposal",
+     "text": "给不同接口提供等量可执行演示与等大小持久空间，采样固定数量的记忆动作，再遮掉同类内容来检验优势是否缩小。将重复使用的 prefix 或任务当成统计聚类单位；核对何时读回、是否读到过时信息、是否据此纠正了下一步，不把教师偏好或低困惑度直接当成记忆有效性。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "提案：离线 GNSS 质量诊断的可恢复实验",
+     "kind": "proposal",
+     "text": "构建固定长度的合成与公开 GNSS 质控任务：长流程内先确认异常卫星、时间系统与观测单位，再在上下文切换后选择正确的诊断或回归检查。只给隔离、离线、任务级工作区；比较不持久化、可写文件与等字节结构化状态三组，共用同一学生、判据、预算和时间切分。",
+     "evidence": []
+    },
+    {
+     "heading": "做成配对干预并交出失败分层",
+     "kind": "proposal",
+     "text": "在同一个上下文切换点分叉，保留、替换或清空诊断笔记但不改原始观测和中间产物。按夜间观测、数据缺口和强电离层扰动分层，分别报异常检出率、误剔除率、单位或时间系统混用率、恢复到下一次正确检查的调用数；以原任务作配对区间，并另测写错信息是否比缺失更有害。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S5.E3.m1",
+   "refs": [
+    "M2"
+   ],
+   "mathml": "<mrow><mrow><msubsup><mi>A</mi><mi>i</mi><mi>OPD</mi></msubsup><mo>=</mo><mrow><mpadded><mi>sg</mi></mpadded><mo>⁡</mo><mrow><mo>[</mo><mrow><mrow><mi>log</mi><mo>⁡</mo><msub><mi>q</mi><mi>i</mi></msub></mrow><mo>−</mo><mrow><mi>log</mi><mo>⁡</mo><msub><mi>p</mi><mrow><mi>θ</mi><mo>,</mo><mi>i</mi></mrow></msub></mrow></mrow><mo>]</mo></mrow></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "A_{i}^{\\mathrm{OPD}}=\\operatorname{sg}\\!\\left[\\log q_{i}-\\log p_{\\theta,i}\\right].",
+   "title": "式 3：教师与学生对同一采样 token 的对数概率差",
+   "meaning": "对同一可见前缀，教师比学生更偏好已采样 token，则差为正。例如教师概率 0.4、当前学生 0.2，分值是 ln 2，约 0.693 nats；它不是对整个动作正确性的奖励。",
+   "caution": "教师和学生必须在同一可见调用前缀上打分；负差值不包含应替换成什么内容。",
+   "symbols": [
+    {
+     "symbol": "qᵢ",
+     "text": "冻结教师在前缀下对 token i 的概率。"
+    },
+    {
+     "symbol": "pθ,ᵢ",
+     "text": "学习时当前学生对同一 token 的概率。"
+    },
+    {
+     "symbol": "sg",
+     "text": "停止梯度，差值作为权重而非一条直接反向传播路径。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S5.E4.m1",
+   "refs": [
+    "M3"
+   ],
+   "mathml": "<mrow><msubsup><mi>ℒ</mi><mi>OPD</mi><mi>m</mi></msubsup><mrow><mo>(</mo><mi>θ</mi><mo>)</mo></mrow><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mrow><mo>|</mo><msup><mi>ℬ</mi><mi>m</mi></msup><mo>|</mo></mrow></mfrac><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><msup><mi>ℬ</mi><mi>m</mi></msup></mrow></munder><mi>min</mi><mrow><mo>{</mo><msub><mi>ρ</mi><mi>i</mi></msub><msubsup><mi>A</mi><mi>i</mi><mi>OPD</mi></msubsup><mo>,</mo><msub><mover><mi>ρ</mi><mo>¯</mo></mover><mi>i</mi></msub><msubsup><mi>A</mi><mi>i</mi><mi>OPD</mi></msubsup><mo>}</mo></mrow><mo>,</mo></mrow>",
+   "accessible": "\\mathcal{L}_{\\mathrm{OPD}}^{m}(\\theta)=-\\frac{1}{|\\mathcal{B}^{m}|}\\sum_{i\\in\\mathcal{B}^{m}}\\min\\big\\{\\rho_{i}A_{i}^{\\mathrm{OPD}},\\;\\bar{\\rho}_{i}A_{i}^{\\mathrm{OPD}}\\big\\},",
+   "title": "式 4：裁剪当前权重与行为权重的比例",
+   "meaning": "使用行为概率作分母，把冲出区间的有利更新截住。教学示例：正优势约 0.693、比值 1.5、裁剪上界 1.2 时，取较小项 1.2×0.693≈0.832；若小批只这一 token，前面的负号令损失约为 −0.832。",
+   "caution": "这是论文中的主式，不包含附录另述的所有数值保护；不要把它换成逐回合平均，也不要把读回的观察算入响应损失。",
+   "symbols": [
+    {
+     "symbol": "ρᵢ、ρ̄ᵢ",
+     "text": "当前量除以轨迹记录的行为概率；后者是前者限幅版。"
+    },
+    {
+     "symbol": "Aᵢ",
+     "text": "已分离梯度的采样 token 优势。"
+    },
+    {
+     "symbol": "Bᵐ",
+     "text": "记忆接口 m 下小批中被监督的响应 token 集。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · A2.E7.m1",
+   "refs": [
+    "M6"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>N</mi><mo>=</mo><mrow><mfrac><mn>1</mn><mrow><mn>2</mn><mo>​</mo><mi>λ</mi></mrow></mfrac><mo>​</mo><mrow><msubsup><mo>∫</mo><mrow><mi>ρ</mi><mo>​</mo><msub><mi>u</mi><mn>0</mn></msub></mrow><msub><mi>u</mi><mn>0</mn></msub></msubsup><mfrac><mrow><mi>d</mi><mo>​</mo><mi>v</mi></mrow><mrow><mi>v</mi><mo>​</mo><mi>Q</mi><mo>​</mo><mrow><mo>(</mo><mi>v</mi><mo>)</mo></mrow><mo>​</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mrow><mi>Q</mi><mo>⁡</mo><mrow><mo>(</mo><mi>v</mi><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mfrac></mrow></mrow></mrow><mo>,</mo><mrow><mrow><mi>Q</mi><mo>⁡</mo><mrow><mo>(</mo><mi>v</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mi>σ</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><msup><mi>z</mi><mo>∗</mo></msup><mo>−</mo><mi>v</mi></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "N=\\frac{1}{2\\lambda}\\int_{\\rho u_{0}}^{u_{0}}\\frac{\\mathrm{d}v}{v\\,Q(v)\\,(1-Q(v))},\\qquad Q(v)=\\sigma(z^{*}-v),",
+   "title": "式 7：单前缀二元模型的平均收敛代价",
+   "meaning": "沿 logit 缺口从初始值到目标比例逐段积分。某一段学生覆盖越低，其监督机会越稀薄，该段对达到目标的代价贡献越重。附录表中初始概率 0.001、教师 0.5、缺口收缩至一半时，积分给 λN=82.7，稀有渐近式给 72.4。",
+   "caution": "单前缀、二 token、固定教师的平均漂移；这个积分不等于真实多词表的运行步数。",
+   "symbols": [
+    {
+     "symbol": "N",
+     "text": "监督前缀出现的次数，在均场连续近似中计算。"
+    },
+    {
+     "symbol": "λ",
+     "text": "有效 logit 步长，不是优化器的学习率。"
+    },
+    {
+     "symbol": "u₀、ρ、v",
+     "text": "初始 log-odds 缺口、还剩的相对比例与积分中的缺口。"
+    },
+    {
+     "symbol": "Q(v)、z*",
+     "text": "给定缺口时学生发出目标项的概率，与教师的固定 log-odds。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · A2.E9.m1",
+   "refs": [
+    "M8"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>N</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mrow><mi>o</mi><mo>⁡</mo><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow></mrow></mrow><mrow><mn>2</mn><mo>​</mo><mi>λ</mi><mo>​</mo><msub><mi>Q</mi><mn>0</mn></msub><mo>​</mo><msub><mi>u</mi><mn>0</mn></msub></mrow></mfrac></mrow><mo>,</mo><mrow><msub><mi>Q</mi><mn>0</mn></msub><mo>→</mo><mrow><mn>0</mn><mo>​</mo><mtext> with </mtext><mo>​</mo><msup><mi>Q</mi><mo>∗</mo></msup><mo>​</mo><mtext> and </mtext><mo>​</mo><mi>ρ</mi><mo>​</mo><mtext> fixed</mtext></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "N=\\frac{1+o(1)}{2\\lambda\\,Q_{0}\\,u_{0}},\\qquad Q_{0}\\to 0\\text{ with }Q^{*}\\text{ and }\\rho\\text{ fixed},",
+   "title": "式 9：稀有目标下的代价近似",
+   "meaning": "初始发出目标 token 的概率趋于零时，主导项取决于初始覆盖与 log-odds 差。可用原表反查近似何时失真：学生 0.001 而教师也仅 0.0012 时，附录积分给 λN=329.9，渐近值却是 2739.4。",
+   "caution": "需教师覆盖和目标相对收缩保持固定、初始学生极稀有等条件；接近教师时看积分或近恒覆盖分支，不把该缩放律外推成所有接口都成立。",
+   "symbols": [
+    {
+     "symbol": "Q₀、Q*",
+     "text": "学生初始覆盖概率与冻结教师的目标概率。"
+    },
+    {
+     "symbol": "u₀",
+     "text": "初始 log-odds 差，不是教师打分正确率。"
+    },
+    {
+     "symbol": "o(1)",
+     "text": "在所述极限下趋零的相对剩余项。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 4,
+   "reference": "F4",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.14009v2/visual_case_study.png",
+   "width": 840,
+   "height": 524,
+   "caption": "Figure 4 : A Visual episode continues from its own saved file. We follow one episode from a late training update on the fitness-product showcase task. In (a) the student writes down what is wrong with the page and how it will rewrite it, before its context is replaced. In (b) it lists the workspace afterwards and reads that note back. In (c) it delivers a page that carries the sections the note listed.",
+   "title": "用网页个例追踪一次写入、切换和读回",
+   "alt": "左上记录缺少 HTML 主体及重写计划，左下显示上下文切换后的查找与读回，右侧是继续开发后的网页。",
+   "caution": "单个训练后期案例，不是测试分布的平均值；截图也无法认证所有交互能工作。",
+   "reading_steps": [
+    {
+     "title": "按回合号读左边",
+     "text": "先看 (a) 第 32 回合记录的 CSS-only 与 NO HTML body markup；横线标第 33 回合替换。随后 (b) 先列工作区，再读笔记。保留下来的不是旧对话本身。"
+    },
+    {
+     "title": "到右侧核对任务产物",
+     "text": "(c) 的页面导航可看到产品、系列、比较等入口，与左侧列过的计划相呼应。它把任务产物与记忆内容的用途连起来，但图中不是完整评测记录。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 6,
+   "reference": "F6",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.14009v2/memory_intervention.svg",
+   "width": 293,
+   "height": 138,
+   "caption": "Figure 6 : An episode’s later success is caused by the memory it wrote. We continue each episode three ways at its first context replacement, leaving the file memory intact, installing another episode’s memory, or emptying it, so the runs differ only in the memory that crosses the boundary.",
+   "title": "同一首次替换点，换内容而不是换模型",
+   "alt": "横向排列保留、打乱替换和清空三类干预，纵轴为 purchase score；蓝、灰、红点依次下降。",
+   "caution": "图和附近正文未给图中样本数或误差条，三点不能量化总体不确定性；干预只检验该实验配置下内容的作用。",
+   "reading_steps": [
+    {
+     "title": "先辨认纵轴",
+     "text": "图标的是 purchase score。蓝点 intact 为 1.00，灰点 shuffled 为 0.67，红点 removed 为 0.45；它们不是五域百分比，也不是三个不同模型。"
+    },
+    {
+     "title": "按干预类型解释连线",
+     "text": "首段标 −0.33，第二段标 −0.22；供体来自其他回合，不等于只打乱同一笔记词序。折线只连接三个离散条件，不是随时间下降。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-c",
+   "number": 7,
+   "reference": "F7",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.14009v2/ablations.svg",
+   "width": 302,
+   "height": 156,
+   "caption": "Figure 7 : Each component of CAMP-II is necessary. On the CAMG-II test set we compare the mean success of CAMP-II with that of variants that (i) replace the file interface by compaction, (ii) replace the file interface by the dedicated memory tools, (iii) mask the loss on the memory tokens, and (iv) mask the same number of tokens at random. Every variant that touches the memory supervision loses most of the gain, and matching the masked budget does not.",
+   "title": "等量掩蔽对照区分位置和总训练量",
+   "alt": "横轴 mean success，纵向五种配置；完整与等量随机掩蔽长条明显长于替换接口和记忆梯度掩蔽。",
+   "caution": "图中没有按种子拆分或给误差条，不能用这些柱差证明每一项在所有模型、领域和预算上都必要。",
+   "reading_steps": [
+    {
+     "title": "横读完整模型和接口替换",
+     "text": "完整 CAMP-II 为 64.6，压缩与专用记忆工具各为 48.2；横轴是 CAMG-II 五域平均，其中 Visual 是评分而非通过率。"
+    },
+    {
+     "title": "把两个遮蔽条件放在一起",
+     "text": "只屏蔽写入记忆的监督为 47.3，等量随机遮蔽为 63.3。等量只控制掩蔽 token 数，不控制每个 token 的内容或梯度强度。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Lirui Luo、Kelong Mao、Xinwei Yang、Rongqing Li、Luyu Chen、Kieran Wong、Yudong Guo、Xinrui Wang、Jiayin Zhu、Pu Yao、Gu Simiu、Sulong Xu、Cong Fang",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T04:48:22Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "94ee2fa5ee0385ae51e57d251163db4ca202b22c92b59340238f33914f85a5ff",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。该版本标注的是 arXiv 非独占分发许可，并非 CC BY。"
+}
