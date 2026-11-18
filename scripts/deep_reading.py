@@ -168,7 +168,12 @@ def original_figure(data, reference):
     )
     if local:
         name, url, purpose = licensed_figures.license_credit(data)
-        export = "完整原图区域按 PDF 原样栅格化为 PNG，保留图内坐标、图例及颜色；未重绘、重标或加注。" if licensed_figures.figure_rendering(data, item["number"]) else "完整保留图像像素；PNG 为无损导出，网页只等比例缩放显示。未裁剪、重绘或加注。"
+        rendering = licensed_figures.figure_rendering(data, item["number"])
+        export = "完整原图区域按 PDF 原样栅格化为 PNG，保留图内坐标、图例及颜色；未重绘、重标或加注。" if rendering == "complete_figure_pdf_region" else "完整保留图像像素；PNG 为无损导出，网页只等比例缩放显示。未裁剪、重绘或加注。"
+        if rendering == "complete_figure_pdf_svg":
+            export = "完整 PDF 图件转换为 SVG，保留内部位图的原始像素尺寸及矢量线条，未裁剪、重绘或加注。"
+        elif data["paper_id"] == "2611.12806":
+            export = "保留 PDF 图件的原始 JPEG 字节，仅在网页中等比例显示；未裁剪、重绘或加注。"
         credit += '<p class="dr-image-credit">许可：<a rel="license" href="%s">%s</a>%s。%s</p>' % (esc(url), esc(name), esc(purpose), esc(export))
     return '<figure class="dr-figure dr-original-figure" id="%s"><div class="dr-figure-heading"><strong>原文 Fig.%s / %s</strong><button class="icon-button" type="button" data-expand-figure hidden>放大原图</button></div>%s%s<figcaption>%s%s%s</figcaption></figure>' % (
         esc(item["id"]), item["number"], esc(item["title"]), graphic, steps, esc(item["caption"]), credit, refs(data, [reference]),

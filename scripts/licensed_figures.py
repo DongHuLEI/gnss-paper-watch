@@ -47,8 +47,24 @@ APPROVED = {
             4: (50, "png", 10833, 2979, "19a7d9903f817302885ece0d0cdc1a61eb8323912dc26c23be3910bba6d5398f"),
         },
     ),
+    ("2611.12806", "v1"): (
+        "by", "5f0c52f41165e1f370a7da775e0659e7d41a77f4333a8c835558300993e75ba3", 27,
+        "Bing Han、Yichuan Peng、Haoyu Dong、Yuanmeng Hu、Yongyi Jia、Fangjing Wang、Kecheng Zheng、Yiming Zhang、Yanhong Zeng、Xiaoqing Zhang、Chen Song、Rundong Zou、Anqi Dong、Yuan Guan、Ka Leong Cheng、Xing Zhu、Yujun Shen、Nan Xue、Wei Ning",
+        {
+            3: (5, "svg", 956, 395, "f81546c6fc2e6f4d109483aa92bbc4ad3072219ea11ddb0b1c68b6d4b39ecb8b"),
+            8: (11, "svg", 2973, 939, "2e6200c7ad1eae1ef1cd741ccf0fbf6924065512f1a08bd76d506655138aa17b"),
+            14: (21, "jpg", 1800, 201, "4f4a4aa9966e460af19a48e7adb38ad52a256fd10deae07cb71e550761b68840"),
+        },
+    ),
 }
 FIGURE_REGION_RENDERS = {("2611.14250", "v1", 2), ("2611.14250", "v1", 4)}
+
+FIGURE_FORM_SVGS = {("2611.12806", "v1", 3), ("2611.12806", "v1", 8)}
+CAPTION_SHA256 = {
+    ("2611.12806", "v1", 3): "28fd44d5b96b7470840ccb894c6d354df34cf8cd26e55393549589c79bba6321",
+    ("2611.12806", "v1", 8): "4c358cd9abe8722e019bd8c0ffd63d514ac0b2ae2a2a2b0cc2b3358290815958",
+    ("2611.12806", "v1", 14): "708b930fc95e76cdf9683879fc54946e8e6938dd0e805d442fda5b2a98075198",
+}
 
 
 def is_pdf(data):
@@ -99,6 +115,9 @@ def validate_source(data):
 def validate_image(data, item, root, figures=None):
     number = item["number"]
     page, extension, width, height, sha = (figures if figures is not None else validate_source(data))[number]
+    caption_hash = CAPTION_SHA256.get((data["paper_id"], data["source_version"], number))
+    if caption_hash and hashlib.sha256(item.get("caption", "").encode("utf-8")).hexdigest() != caption_hash:
+        raise ValueError("licensed PDF original caption hash mismatch")
     if (item.get("rendering") != figure_rendering(data, number)
             or any(type(item[k]) is not int or not 1 <= item[k] <= 12000 for k in ("width", "height"))
             or item["src"] != asset_path(data, number, extension)
@@ -113,6 +132,8 @@ def validate_image(data, item, root, figures=None):
 
 
 def figure_rendering(data, number):
+    if (data["paper_id"], data["source_version"], number) in FIGURE_FORM_SVGS:
+        return "complete_figure_pdf_svg"
     if (data["paper_id"], data["source_version"], number) in FIGURE_REGION_RENDERS:
         return "complete_figure_pdf_region"
     return None

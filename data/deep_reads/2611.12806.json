@@ -1,0 +1,652 @@
+{
+ "format": "paper-deep-reading-v1",
+ "source_type": "licensed_arxiv_pdf",
+ "paper_id": "2611.12806",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/pdf/2611.12806v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "LingBot-Touch：何时该混合触觉数据，何时该保留同类数据",
+ "dek": "同一个冻结触觉编码器能在未见过的磁触觉手上支持探针与策略，但任务读出仍要训练。固定本传感器数据再加其他来源，多数探针改善；固定总时数后改为混合训练，空间精度反而常有损失。读懂这组反转，比只看平均成功率更能指导采集。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读，不是独立 API 账单任务。覆盖 arXiv v1 PDF 全 27 页、正文、附录 A–C、图表和参考文献；对照同版 TeX 的公式与图件。未经过人工审稿；未运行作者代码，未独立复现实验。",
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "跨硬件复用的是触觉编码器，不是整套机器人策略",
+     "text": "LingBot-Touch 把三类指尖触觉的时间序列变成共享 token。原文汇总 4,983 小时、464,431 段交互、约 1.33 十亿帧。编码器在预训练后冻结；见过的 Sharpa Wave 和未见过的 XHand1 要各自训练下游读出。这里的迁移是新传感器不用更新编码器参数，不是未经任务训练就能让新手完成动作。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "our multi-source tactile dataset comprises 4,983 hours of recordings, 464,431 interaction episodes, and approximately 1.33 billion frames from piezoresistive, magnetic, and visuotactile tactile sensors."
+      },
+      {
+       "source": "S8",
+       "quote": "No tokenizer or encoder parameters are updated to accommodate the new sensor."
+      },
+      {
+       "source": "S21",
+       "quote": "Sharpa Wave and XHand1 probes are trained separately."
+      }
+     ]
+    },
+    {
+     "kind": "interpretation",
+     "heading": "最值得读的是两种触觉数据预算得到相反结果",
+     "text": "给本传感器有限的样本再补其他来源，往往提高力和动态读出；固定总时数后改用混合语料，空间精度反而通常下降。因而把各种传感器的数据先汇集起来，并不等同于让每种传感器的每项指标都最好。诉求若是跨设备复用与诉求若是单设备定位精度，数据配比可能要不同。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "Force and dynamics transfer across transducers, so hours from another sensor substitute for a sensor’s own when those are scarce."
+      },
+      {
+       "source": "S11",
+       "quote": "Spatial precision depends on seeing a sensor’s own layout at its own resolution, so at a fixed budget pooling costs some of it, in exchange for one encoder that serves three sensor families."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "同一个接触事件，各传感器却记录成不同的张量",
+     "text": "电阻阵列、磁场变化或凝胶形变不是可逐元素替换的输入：通道语义、采样频率与指尖测点布局不同。作者的切入点是相同接触可能有共同结构；对齐观测位置后，让骨干学习共有变化，而不是要求各硬件原始读数一致。这是作者设定的问题，不是全领域查新结论。",
+     "evidence": [
+      {
+       "source": "S3",
+       "quote": "These technologies observe shared properties of physical contact through different measurement mechanisms, producing signals that vary in channel semantics, spatial resolution, sampling rate, and sensing layout."
+      }
+     ]
+    },
+    {
+     "kind": "interpretation",
+     "heading": "先问掩码留下了什么，再问网络能预测什么",
+     "text": "没有逐帧力或接触位置标注时，低损失未必意味着编码器读懂了接触：手未触物时，大量通道本就近零；若少数活跃点恰好全被遮挡，预测器连这次接触是否发生的直接证据都没有。论文先降低这一训练风险，再用力、接触位置和控制任务检验特征是否有用。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "Annotations stop at the episode-level category. No clip carries labels of force, contact location, or contact timing."
+      },
+      {
+       "source": "S7",
+       "quote": "a large share of clips present the predictor with a context that contains no contact at all, while its targets, computed from the full clip, do."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "保留测点，不把不同网格硬挤进同一像素表",
+     "text": "把指尖测点按设备模板旋转后再缩放和平移，并按各传感器固定通道响应范围归一化。每个 taxel 的相邻帧由该传感家族的 tokenizer 打包；共享 Haptic Transformer 的注意力通过 RoPE 看到时间、手指和空间地址。因而换布局仍需要提供几何与校准，但不用给每个新型号另学一张位置表。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "The address enters the model only through rotary position embeddings (RoPE) applied to attention queries and keys, with each of the five axes acting on its own slice of the head dimension."
+      },
+      {
+       "source": "S6",
+       "quote": "signal amplitudes are normalized by fixed channel response bounds associated with each sensor’s measure- ment range"
+      }
+     ]
+    },
+    {
+     "kind": "reported",
+     "heading": "目标支路见全片段，部署时不再遮挡或预测缺失 token",
+     "text": "预训练将同一空间 mask 延展到整个片段，上支路只看可见位置，下支路看完整输入并生成停止梯度的目标，由滑动平均（EMA）更新。mask 在首 300 个优化步骤从 40% 升至 80%，之后固定。下游直接冻结 EMA tokenizer 和骨干，用其多层特征供 probe 与策略读出，不把训练时的完整目标支路误当成部署时额外观测。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "it increases linearly from 40% to80% over the first 300 optimizer steps and stays fixed thereafter."
+      },
+      {
+       "source": "S7",
+       "quote": "The target tokenizers and encoder are updated exclusively through an EMA of their online counterparts. For downstream tasks, we freeze the pretrained EMA target tokenizers and encoder."
+      },
+      {
+       "source": "S5",
+       "quote": "A target encoder processes the complete clip, and a predictor must map the context encoder’s output to the target encoder’s output at every position, masked or visible."
+      }
+     ]
+    },
+    {
+     "kind": "interpretation",
+     "heading": "路由接口有直接消融；坐标对齐和可见项并非同等有证据",
+     "text": "Sharpa Wave 的单因素消融中，分组接口胜过全共享接口、位置扰动有帮助，但在该实验设置下加可见位置损失近乎中性；不是所有画在架构图上的模块都被证实同样必要。已读来源没有在留出传感器上做一整套等预算组件消融，不能把跨型号收益全归给任一部件。",
+     "evidence": [
+      {
+       "source": "S14",
+       "quote": "Grouped tokenizers with group-routed predictor interfaces beat fully shared interfaces on all five metrics"
+      },
+      {
+       "source": "S14",
+       "quote": "Adding the context loss to the target loss is close to neutral: three metrics improve slightly and two degrade slightly."
+      },
+      {
+       "source": "S13",
+       "quote": "All variants use a Tiny encoder pretrained for 100 epochs on the 1K-hour subset, so absolute numbers sit below those of the full models and only comparisons within a block are meaningful."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "公式先处理地址，再处理学习目标",
+     "text": "坐标变换定义可比较的位置；位置抖动只替换送给位置编码的地址，不改变响应序列或同一测点跨窗口的对应。损失再分别对遮挡和可见位置的潜表示算误差。下面卡片里的手算是示例，不是论文测量值；没有把归一化坐标或潜变量误差换算成牛顿。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "we align the fingertip with a canonical orientation, then scale and translate it into a shared finger-local coordinate frame with a unit-radius reference geometry"
+      },
+      {
+       "source": "S8",
+       "quote": "The response sequence and its temporal correspondence are untouched; only the positional encoding sees a nearby but different layout."
+      },
+      {
+       "source": "S7",
+       "quote": "The context loss aligns predictions at visible positions with targets computed from the complete clip, encouraging the preservation of observed contact information."
+      }
+     ]
+    },
+    {
+     "kind": "interpretation",
+     "heading": "遮挡项与可见项分开取平均，不按 token 总数挤占权重",
+     "text": "两项先除各自 token 数和拼接后的通道数，再给可见项乘权；若 mask 比例改变，不能直接用两个集合未归一化的误差和代替。目标支路停止反传；当一组没有有效位置时必须处理分母，已读论文在该式旁未说明这一边界的实现。",
+     "evidence": [
+      {
+       "source": "S7",
+       "quote": "where Dis the concatenated feature dimension, sgdenotes stop-gradient, and λ= 0.5 ."
+      },
+      {
+       "source": "S7",
+       "quote": "Gradients update the online tokenizers, HaT, and predictor, including the learnable mask tokens parameterized by ϕ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "力、位置、面积和视频匹配并非同一类标签",
+     "text": "probe 用冻结编码器的多层特征，每种手分开训练读出；未来力的输入还有测得的当前及未来关节位置、末帧力，标签为未来力幅值相对末帧的变化，因此不能理解成单凭触觉预测。以力恢复为例，附录 A 的训练与测试时长分别是 2.492 小时和 0.361 小时；共享训练表为每次 100 epochs、8 张 GPU。",
+     "evidence": [
+      {
+       "source": "S20",
+       "quote": "2.492 0.361 Force magnitude MAE (N) Contact center estimation"
+      },
+      {
+       "source": "S21",
+       "quote": "Measured current/future joint positions and last force magnitude; state/fusion widths 64/64."
+      },
+      {
+       "source": "S9",
+       "quote": "Future force labels represent per-finger changes in force magnitude at each of the next four frames relative to the final history frame."
+      },
+      {
+       "source": "S21",
+       "quote": "Training epochs / GPUs per run 100 / 8 Learning-rate schedule / warm-up Constant / none Task-specific settings"
+      }
+     ]
+    },
+    {
+     "kind": "reported",
+     "heading": "真机比较与模拟比较各有独立对照",
+     "text": "真机比较无触觉、原始触觉、冻结触觉 token，配置使用相同示范；原文称通常每任务 200 段、需要双手的任务 500 段，并以每任务 20 次连续试验评估。模拟则用几何穿透深度生成触觉观测，在同一任务内保持奖励、动作空间和随机化一致，对比无触觉、二值、原信号、随策略训练的 CNN 和预训练特征。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "All three see the same demonstrations, 200 episodes per task and 500 for tasks that need both hands, and each is evaluated over 20 consecutive trials per task."
+      },
+      {
+       "source": "S24",
+       "quote": "Within each manipulation task, all observation configurations are evaluated under the same reinforcement learning framework, with consistent action spaces, reward functions, environment randomization, and task-specific training settings."
+      }
+     ]
+    },
+    {
+     "kind": "unknown",
+     "heading": "复现实验需要再确认哪些接口与成本",
+     "text": "作者在 PDF 首页给出项目页、推断代码和 checkpoint 入口，本文没有运行作者代码。已读取的来源未说明足以独立核查的预训练总 GPU 小时、预处理和端到端策略延迟、分组去重或选点日志；参数增量不是运行延迟，也不能从时长表推定对象和采集会话级的训练测试隔离。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "混合训练：先分清是加数据还是替换数据",
+     "text": "HaT-Tiny 的 Fig. 8 不是两次相同预算比较。保留本类时数、加入其他来源时，八个传感器—任务组合有七个改善，例外是视觉触觉的接触中心（0.41 到 0.68 mm，越小越好）。把单源与混合都限制在 1,000 小时后，单源在八组中赢七组，但视觉触觉未来力这一组仍是混合更好。",
+     "evidence": [
+      {
+       "source": "S11",
+       "quote": "while the multi-source model sees those same hours plus 441 hours of piezoresistive data, 1,000 hours in all. The multi-source model improves on seven of the eight sensor-task pairs (Fig. 8, top)."
+      },
+      {
+       "source": "S11",
+       "quote": "while contact-center error rises from 0.41 to 0.68 mm."
+      },
+      {
+       "source": "S11",
+       "quote": "Now the single-source model wins on its own sensor on seven of eight pairs:"
+      },
+      {
+       "source": "S11",
+       "quote": "where the multi-source model is in fact better for visuotactile (1.49 versus 1.67 N)."
+      }
+     ]
+    },
+    {
+     "kind": "reported",
+     "heading": "未见磁触觉：测到迁移，但不等于任务零样本",
+     "text": "冻结的 Small 在 XHand1 探针上，接触中心误差 0.16 mm、触觉找视频的 前五召回 47.1%；有新传感器适配器的 FTP-1 为 5.89 mm 和 6.0%。这比较的是有监督读出下的特征，并非两套同输入完全等预算的预训练：FTP-1 按探针拟合适配器，XHand1 输入粒度也有差异。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "N, 0.16 mm, 0.43 points, and 1.45 N on the four physical tasks and 47.1% retrieval recall. FTP-1 fitted with an XHand1-specific adapter reaches 3.72 N, 5.89 mm, 4.39 points, 2.00 N, and 6.0%."
+      },
+      {
+       "source": "S9",
+       "quote": "Each adapter is jointly trained with its probe head for 100 epochs on the corresponding downstream training split."
+      },
+      {
+       "source": "S8",
+       "quote": "In our experiments, we spatially downsample these observations to 96 taxels per finger"
+      }
+     ]
+    },
+    {
+     "kind": "reported",
+     "heading": "真机结果按任务汇总，不是单次演示的成功概率",
+     "text": "按正文跨 26 项任务的平均值，LingBot-VLA 是 48.3% 到 73.1%，Diffusion Policy 是 21.6% 到 35.6%；主结果表这组使用预训练 4K 小时的 Tiny，不是另一个五任务全量实验。提升非普遍：有 9 个组合低于原始触觉，5 个低于无触觉。模拟等权任务平均为 69.0%，对比随策略训练的 CNN 45.6% 和无触觉 21.4%；这不是实机结果。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "Averaged over the 26 tasks, LingBot-Touch tokens raise the success rate of Diffusion Policy from 21.6% to 35.6%, of π0.5from 48.1% to 69.9%, of LingBot-VLA from 48.3% to 73.1%"
+      },
+      {
+       "source": "S16",
+       "quote": "from a frozen LingBot-Touch encoder (Ours). We use the HaT-Tiny variant of LingBot-Touch , pretrained on 4K hours of data."
+      },
+      {
+       "source": "S16",
+       "quote": "it falls below the raw-signal configuration in 9 of the 104 pairs, five of them for Diffusion Policy, and below the original policy in 5."
+      },
+      {
+       "source": "S17",
+       "quote": "Averaged equally over tasks, success reaches 69.0%, against 45.6% for CNN features trained with the policy, 38.5% for the raw signal, 30.3% for binary contact, and 21.4% with no touch."
+      }
+     ]
+    },
+    {
+     "kind": "interpretation",
+     "heading": "重建损失和探针表现不能画等号",
+     "text": "信号重建基线的训练损失与潜空间目标不可直接比较。论文在相同数据、匹配模型容量和超参的对照里，用冻结探针而非损失高度比较表示质量。小模型随数据增加并非普遍更好：规模图上 Tiny 的检索在最大语料设置下下降；这与重建模型的对照是不同实验。",
+     "evidence": [
+      {
+       "source": "S12",
+       "quote": "Because the three losses live in different spaces, we compare the representations only through probing."
+      },
+      {
+       "source": "S12",
+       "quote": "MAE each use 5.46M parameters, matching LingBot-Touch with the HaT-Tiny backbone."
+      },
+      {
+       "source": "S10",
+       "quote": "Tiny saturates at about 4K hours and loses retrieval recall at 5K."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "kind": "reported",
+     "heading": "新型号通过，不代表所有新物理机制都通过",
+     "text": "XHand1 留出了磁触觉型号，磁触觉家族已见过，而且接入需要该设备的离线指尖位置与响应范围。电容式传感器未入预训练，手掌和指腹以外的接触在布局中也代表不足。论文结果应限定在已验证的硬件条件和任务，而不是外推到任意采样率、任意手或全手触觉。",
+     "evidence": [
+      {
+       "source": "S8",
+       "quote": "XHand1 uses magnetic fingertip sensors of a model absent from the pretraining dataset"
+      },
+      {
+       "source": "S19",
+       "quote": "Capacitive sensors are currently absent from pretraining because the capacitive recordings available to us did not meet our quality requirements."
+      },
+      {
+       "source": "S19",
+       "quote": "the canonical geometry and pretraining layouts focus on the fingertips, leaving contacts on the palm and elsewhere along the fingers underrepresented."
+      }
+     ]
+    },
+    {
+     "kind": "interpretation",
+     "heading": "附录的试次评分和正文的 success rate 不宜强行合并",
+     "text": "正文称每任务 20 次试验，附录 B 明列子步骤积分或序数量表；主结果表的 Sharpa Wave 翻页行出现 3.75% 等非五个百分点步长的分数。不可把这些百分数倒推为完整成功次数，比较时沿用论文表的报告指标，保留试次与计分聚合的歧义。模拟曲线的阴影是三个种子平滑曲线的标准差，并非真机试次的置信区间。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "Success rates are reported in percent over 20 trials per task."
+      },
+      {
+       "source": "S16",
+       "quote": "Sharpa WaveSingle-page turning 3.75 21.25 30.00"
+      },
+      {
+       "source": "S21",
+       "quote": "Numbers in parentheses denote points; allocations are additive unless an ordinal scale is stated, in which case the highest level reached determines the score."
+      },
+      {
+       "source": "S17",
+       "quote": "mean episode return over three seeds; bands show one standard deviation across the smoothed per-seed curves."
+      }
+     ]
+    },
+    {
+     "kind": "proposal",
+     "heading": "可见位置没有增益时，还值得为其付出训练预算吗？",
+     "text": "进一步追问：只变化可见位置损失权重，锁定输入、掩码计划、训练步数和各策略读出后，在独立设备和留出任务上比较，不经测试集选择权重。论文的光学手消融不是这个跨设备独立检验；无法从现有结果断定该损失对所有部署都不起作用。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "kind": "proposal",
+     "heading": "留出整型号，把固定总量和固定同源量拆成两套实验",
+     "text": "未验证建议：在独立触觉抓持台架，按传感器型号和采集会话分组，整型号留出。对固定总小时的混合与单源，以及保留本源时数后补另源分别做配对比较。统一示范、训练步数、读出容量与几何对齐流程；保留预注册留出比例，不按测试表现调整数据配比。",
+     "evidence": []
+    },
+    {
+     "kind": "proposal",
+     "heading": "交付误差、任务完成率和时延，避免平均后掩盖退化",
+     "text": "在同一任务报多种子的力 MAE、接触中心距离误差、真正完成分杯的二元成功率及其区间，部分动作积分另外汇报；再测含读出和控制的端到端延迟。在接触区域变窄或采样缺口增大时分层展示误差，判断收益是否以空间精度或控制时延为代价。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-canonical",
+   "number": "原文式（1）",
+   "refs": [
+    "M1"
+   ],
+   "title": "把离线测点几何变成共用坐标",
+   "accessible": "p_i = α p̃_i + b",
+   "mathml": "<mrow><msub><mi mathvariant=\"bold\">p</mi><mi>i</mi></msub><mo>=</mo><mi>α</mi><msub><mover><mi mathvariant=\"bold\">p</mi><mo>~</mo></mover><mi>i</mi></msub><mo>+</mo><mi mathvariant=\"bold\">b</mi></mrow>",
+   "meaning": "要让相同指尖部位在不同布局中有可比较的位置。手算示例：若方向已对齐的坐标是 (2, 4, 0) mm，参考半径为 2 mm、原点在 (2, 0, 0) mm，则 α=0.5 1/mm、b=(−1, 0, 0)，输出 p_i=(0, 2, 0)，无量纲。",
+   "caution": "示例只演示缩放和平移，不代表任一设备的真实标定。参数按设备和手指模板离线确定，跨时间窗复用；这并不会把不同通道物理含义变成相同。",
+   "symbols": [
+    {
+     "symbol": "p_tilde_i；p_i",
+     "text": "方向对齐后的三维位置；变换后的无量纲三维坐标。"
+    },
+    {
+     "symbol": "α；b",
+     "text": "正标量缩放与三维平移向量；若输入用 mm，α 的单位为 1/mm。"
+    }
+   ]
+  },
+  {
+   "id": "eq-masked-loss",
+   "number": "原文式（4）",
+   "refs": [
+    "M4"
+   ],
+   "title": "让遮挡与可见位置分别对齐完整目标",
+   "accessible": "L = (1/(|M|D)) Σ_{i∈M} ‖ẑ_i − sg(z̄_i)‖₁ + (λ/(|C|D)) Σ_{i∈C} ‖ẑ_i − sg(z̄_i)‖₁",
+   "mathml": "<mrow><mi>ℒ</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mrow><mo>|</mo><mi>ℳ</mi><mo>|</mo></mrow><mi>D</mi></mrow></mfrac><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>ℳ</mi></mrow></munder><msub><mrow><mo>‖</mo><msub><mover><mi mathvariant=\"bold\">z</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><mi>sg</mi><mo>(</mo><msub><mover><mi mathvariant=\"bold\">z</mi><mo>¯</mo></mover><mi>i</mi></msub><mo>)</mo><mo>‖</mo></mrow><mn>1</mn></msub><mo>+</mo><mfrac><mi>λ</mi><mrow><mrow><mo>|</mo><mi>𝒞</mi><mo>|</mo></mrow><mi>D</mi></mrow></mfrac><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>𝒞</mi></mrow></munder><msub><mrow><mo>‖</mo><msub><mover><mi mathvariant=\"bold\">z</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><mi>sg</mi><mo>(</mo><msub><mover><mi mathvariant=\"bold\">z</mi><mo>¯</mo></mover><mi>i</mi></msub><mo>)</mo><mo>‖</mo></mrow><mn>1</mn></msub></mrow>",
+   "meaning": "手算示例：每组各一个 token，D=2。遮挡位置预测 (2,1)、目标 (0,2)，绝对误差和为 3，除以 2 得 1.5；可见位置预测 (1,3)、目标 (1,1)，误差和为 2，除以 2 得 1，再乘 λ=0.5 得 0.5；总损失为 2.0。",
+   "caution": "公式对整段按集合分别平均；目标的停止梯度仅阻断反传，仍参与前向差值；其 tokenizer 和编码器由 EMA 更新。手算用的是无量纲教学输入，不是测得的力，也不是论文的损失曲线。",
+   "symbols": [
+    {
+     "symbol": "M；C",
+     "text": "遮挡与可见 token 索引集合；竖线表示组内索引数。"
+    },
+    {
+     "symbol": "z_hat_i；z_bar_i",
+     "text": "位置 i 的预测与完整片段的目标，都是 D 维拼接特征。"
+    },
+    {
+     "symbol": "D；λ；sg",
+     "text": "D 为特征维数；λ=0.5 为可见项权重；sg 表示停止目标分支梯度。"
+    }
+   ]
+  },
+  {
+   "id": "eq-layout-jitter",
+   "number": "原文式（5）",
+   "refs": [
+    "M5"
+   ],
+   "title": "按局部测点间距限制抖动",
+   "accessible": "p′_i = p_i + δ_i, ‖δ_i‖₂ ≤ 0.5 d_i",
+   "mathml": "<mrow><msub><msup><mi mathvariant=\"bold\">p</mi><mo>′</mo></msup><mi>i</mi></msub><mo>=</mo><msub><mi mathvariant=\"bold\">p</mi><mi>i</mi></msub><mo>+</mo><msub><mi mathvariant=\"bold-italic\">δ</mi><mi>i</mi></msub><mo>,</mo><msub><mrow><mo>‖</mo><msub><mi mathvariant=\"bold-italic\">δ</mi><mi>i</mi></msub><mo>‖</mo></mrow><mn>2</mn></msub><mo>≤</mo><mn>0.5</mn><msub><mi>d</mi><mi>i</mi></msub></mrow>",
+   "meaning": "手算示例：p_i=(0.2,0,0)，最近有效测点的距离 d_i=0.2，则最大位移 0.1；若 δ_i=(0,0.06,0.08)，其欧氏长度为 √(0.0036+0.0064)=0.1，恰好达上限，新地址为 (0.2,0.06,0.08)。",
+   "caution": "扰动作用在归一化手指局部坐标，响应时间序列不重采样；同一片段中同一测点的扰动跨窗、跨 context/target 分支一致。不要从只给的上界推断采样分布。",
+   "symbols": [
+    {
+     "symbol": "p_i；p′_i",
+     "text": "扰动前后的三维归一化位置。"
+    },
+    {
+     "symbol": "δ_i；d_i",
+     "text": "三维位移；同手指最近其他有效 taxel 的距离，均用同一归一化坐标尺度。"
+    }
+   ]
+  }
+ ],
+ "references": {
+  "S5": {
+   "label": "原文 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "S8": {
+   "label": "原文 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S21": {
+   "label": "原文 · PDF 第 21 页",
+   "anchor": "page=21"
+  },
+  "S11": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S3": {
+   "label": "原文 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S7": {
+   "label": "原文 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "S6": {
+   "label": "原文 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "S14": {
+   "label": "原文 · PDF 第 14 页",
+   "anchor": "page=14"
+  },
+  "S13": {
+   "label": "原文 · PDF 第 13 页",
+   "anchor": "page=13"
+  },
+  "S20": {
+   "label": "原文 · PDF 第 20 页",
+   "anchor": "page=20"
+  },
+  "S9": {
+   "label": "原文 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S15": {
+   "label": "原文 · PDF 第 15 页",
+   "anchor": "page=15"
+  },
+  "S24": {
+   "label": "原文 · PDF 第 24 页",
+   "anchor": "page=24"
+  },
+  "S10": {
+   "label": "原文 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S16": {
+   "label": "原文 · PDF 第 16 页",
+   "anchor": "page=16"
+  },
+  "S17": {
+   "label": "原文 · PDF 第 17 页",
+   "anchor": "page=17"
+  },
+  "S12": {
+   "label": "原文 · PDF 第 12 页",
+   "anchor": "page=12"
+  },
+  "S19": {
+   "label": "原文 · PDF 第 19 页",
+   "anchor": "page=19"
+  },
+  "M1": {
+   "label": "原公式 · PDF 第 6 页",
+   "anchor": "page=6"
+  },
+  "M4": {
+   "label": "原公式 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "M5": {
+   "label": "原公式 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "F3": {
+   "label": "Fig.3 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "F8": {
+   "label": "Fig.8 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "F14": {
+   "label": "Fig.14 · PDF 第 21 页",
+   "anchor": "page=21"
+  }
+ },
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generation_mode": "assistant_backfill",
+  "generated_at": "2026-11-18T05:34:28Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "5f0c52f41165e1f370a7da775e0659e7d41a77f4333a8c835558300993e75ba3",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://arxiv.org/abs/2611.12806v1",
+  "format": "paper-deep-reading-v1"
+ },
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 3,
+   "reference": "F3",
+   "section": "method",
+   "src": "assets/deep-reading/2611.12806/original-fig-3.svg",
+   "width": 956,
+   "height": 395,
+   "caption": "Figure 3. Overview of LingBot-Touch. LingBot-Touch learns unified tactile representations through self-supervised prediction in latent space. Heterogeneous spatiotemporal signals from magnetic, piezoresistive, and visuotactile sensors are mapped to a canonical spherical space and incorporated into pretraining through weighted sampling. Modality-specific tokenizers convert these signals into tokens for a shared Transformer backbone equipped with 5D rotary positional embeddings (RoPE). The context encoder processes only visible tokens, and its outputs are concatenated with mask tokens before being passed to the corresponding modality-specific predictor. The target encoder processes the unmasked input, providing latent targets for the context loss on visible positions and the prediction loss on masked positions. Its parameters are updated through an Exponential Moving Average (EMA) of the context encoder, with gradients stopped through the target branch.",
+   "title": "先确认哪条支路能看见被盖住的测点",
+   "alt": "左侧三类触觉和球面指尖；中央 context、target 两条分支；右侧显示可见与遮挡两种损失。",
+   "modified": false,
+   "asset_sha256": "f81546c6fc2e6f4d109483aa92bbc4ad3072219ea11ddb0b1c68b6d4b39ecb8b",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "从左侧黄、紫、青三类来源看起；规范球面里的彩点是布局位置，不是三个力值刻度。顺着上下两条箭头看，tokenizer 按传感原理路由，Transformer 共享。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "看上支移除遮挡 token、预测器前补入 mask token；下支输入完整，红框分别对齐可见与遮挡位置，stop grad 与 EMA 不表示同一条反传路径。"
+    }
+   ],
+   "caution": "不能推出什么：这是训练示意，不提供任何下游成功率。图上的 Weighted Sampling 只标示抽样步骤；正文明确报告三类来源等概率抽样。",
+   "rendering": "complete_figure_pdf_svg"
+  },
+  {
+   "id": "original-figure-b",
+   "number": 8,
+   "reference": "F8",
+   "section": "results",
+   "src": "assets/deep-reading/2611.12806/original-fig-8.svg",
+   "width": 2973,
+   "height": 939,
+   "caption": "Figure 8. Single-source versus multi-source pretraining. Blue: probed on Sharpa Wave. Orange: probed on XHand1. Top: adding 441 hours of piezoresistive data and the other sensor’s data to a fixed 331 or 228 hours of a sensor’s own data improves seven of eight sensor-task pairs. Bottom: at a fixed 1,000-hour budget, a single-source model beats the three-source mixture on its own sensor on seven of eight pairs, by the widest margins on the spatial tasks. Bold marks the better of each pair. LingBot-Touch uses the HaT-Tiny backbone.",
+   "title": "上下排固定的是不同预算",
+   "alt": "两排各有数据配比和四个物理探针的误差条形图；蓝色对应 Sharpa Wave，橙色对应 XHand1。",
+   "modified": false,
+   "asset_sha256": "2e6200c7ad1eae1ef1cd741ccf0fbf6924065512f1a08bd76d506655138aa17b",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "先看左列的配比面板。上排是保留视觉触觉 331 小时或磁触觉 228 小时后加入其他来源；下排单源与混合分别都是 1,000 小时。同色较深的混合模型柱是跨两排重复使用的同一基准。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "只在同一传感器配对内看四列；误差均越低越好，但分别以牛顿、毫米、百分点和牛顿计，部分面板上下纵轴范围也不同。上排视觉触觉接触中心 0.41 到 0.68 mm 变差；下排视觉触觉未来力 1.49 对 1.67 N 是混合仍占优的一项。"
+    }
+   ],
+   "caution": "不能推出什么：图没有误差条，粗体只标配对较优；不同指标的柱高不能混算，也不能推出加数据或换配比对任意传感器都有效。",
+   "rendering": "complete_figure_pdf_svg"
+  },
+  {
+   "id": "original-figure-c",
+   "number": 14,
+   "reference": "F14",
+   "section": "experiments",
+   "src": "assets/deep-reading/2611.12806/original-fig-14.jpg",
+   "width": 1800,
+   "height": 201,
+   "caption": "Figure 14. Stacked cup separation (XHand1). The robot stabilizes the nested stack, grasps and separates the uppermost cup, and holds the separated cup independently.",
+   "title": "分杯的中途动作和终点，不能合成成功率",
+   "alt": "XHand1 双臂从固定杯叠、抓顶部蓝杯到拿走分离杯的五格连拍。",
+   "modified": false,
+   "asset_sha256": "4f4a4aa9966e460af19a48e7adb38ad52a256fd10deae07cb71e550761b68840",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "从左向右找固定杯叠的一只手，再看另一只手抓最上方蓝杯向上拉。末帧分离杯和剩余杯叠由两手分别控制。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "与附录 B 评分行并读：稳住杯叠、抓住顶杯、分离、保持 2 秒各算一步，还要求只分离一个、不损坏或扰动杯叠。图展示这些动作的顺序，没有时间轴可读。"
+    }
+   ],
+   "caution": "不能推出什么：五帧取样不能核对持续时长、触觉响应、条件对照、跨试次成功率或统计显著性；不能用一段成功演示替代汇总评价。"
+  }
+ ],
+ "original_figure_credit": "Bing Han、Yichuan Peng、Haoyu Dong、Yuanmeng Hu、Yongyi Jia、Fangjing Wang、Kecheng Zheng、Yiming Zhang、Yanhong Zeng、Xiaoqing Zhang、Chen Song、Rundong Zou、Anqi Dong、Yuan Guan、Ka Leong Cheng、Xing Zhu、Yujun Shen、Nan Xue、Wei Ning",
+ "copyright_note": "只转载本固定版本 CC BY 4.0 覆盖的指定原图及英文图注，不镜像论文 PDF 或全文。图后中文导读为独立评论，不代表作者认可本站或背书。"
+}
