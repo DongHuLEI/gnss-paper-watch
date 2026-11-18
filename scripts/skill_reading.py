@@ -1,5 +1,6 @@
 """Render the shared nine-chapter Skill output using the existing reading UI."""
 
+import licensed_figures
 from deep_reading import SECTIONS, equation_card, esc, layout, original_figure, refs
 
 LABELS = {"reported": "作者报告", "interpretation": "本站解释 · AI", "proposal": "研究建议 · 未验证", "unknown": "来源未说明"}
@@ -21,7 +22,11 @@ def render(data, abstract, issue_links):
             body = '<dl class="dr-source-meta"><div><dt>所读版本</dt><dd>arXiv:%s · %s</dd></div><div><dt>生成时间</dt><dd>%s</dd></div><div><dt>生成模型</dt><dd>%s</dd></div><div><dt>Skill 版本</dt><dd>%s · %s</dd></div><div><dt>核验边界</dt><dd>%s</dd></div></dl><p>%s</p><div class="dr-source-buttons"><a class="button" href="%s">版本化原文 ↗</a><a class="button" href="https://arxiv.org/abs/%s">元数据与许可 ↗</a></div><details class="dr-original-abstract"><summary>对照原始英文摘要</summary><div class="abstract" lang="en">%s</div></details><p class="dr-small">收录历史：%s</p>' % (
                 esc(data["paper_id"]), esc(data["source_version"]), esc(provenance["generated_at"]), esc(provenance["provider"] + " · " + provenance["model"]), esc(data["format"]), esc(provenance["skill_sha256"][:12]), esc(data["scope"]), esc(data["copyright_note"]), esc(data["source_url"]), esc(data["paper_id"]), esc(abstract), issue_links,
             )
-            body += '<p class="dr-small">原文许可：<a href="%s">查看本版本许可 ↗</a>；外部嵌入不等于任意转载授权。</p>' % esc(provenance["license_url"])
+            if licensed_figures.is_pdf(data):
+                name, url, purpose = licensed_figures.license_credit(data)
+                body += '<p class="dr-small">原文许可：<a rel="license" href="%s">%s</a>%s。<a href="%s">arXiv 固定版本许可记录 ↗</a></p>' % (esc(url), esc(name), esc(purpose), esc(provenance["license_evidence_url"]))
+            else:
+                body += '<p class="dr-small">原文许可：<a href="%s">查看本版本许可 ↗</a>；外部嵌入不等于任意转载授权。</p>' % esc(provenance["license_url"])
         else:
             section = next(item for item in data["sections"] if item["id"] == key)
             body = "".join(claim(data, item) for item in section["paragraphs"])

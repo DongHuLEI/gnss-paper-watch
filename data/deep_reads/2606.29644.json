@@ -1,0 +1,462 @@
+{
+ "format": "paper-deep-reading-v1",
+ "source_type": "licensed_arxiv_pdf",
+ "paper_id": "2606.29644",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/pdf/2606.29644v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "t-STEP：从高频 TEC 回归到不规则体诊断",
+ "dek": "模型直接预测垂直 TEC，再从相邻历元变化推导 ROTI。单个低纬台站的测试提供了不规则体形态保留的案例证据，但没有验证跨站迁移或 GPS 定位收益。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读，非独立 API 账单任务；未人工审核，未运行作者代码或独立复现实验。基于既有核读，覆盖 arXiv v1 的 40 页 PDF（正文、图表和参考文献）；另对照独立获取的同题出版方补充材料，不混用不同版本的图或数字。",
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "从高频 vTEC 输出派生不规则体诊断",
+     "kind": "reported",
+     "text": "作者面向巴西一个低纬 GPS 台站，用较密的时间采样输出垂直总电子含量，再把相邻时刻的变化转成 ROT，并在滑动窗口上算 ROTI。模型直接回归的是 vTEC，不是闪烁指数，也不是导航误差。",
+     "evidence": [
+      {
+       "source": "S2",
+       "quote": "This cadence allows for the derivation of TEC rate changes (ROT and ROTI) as diagnostic irregularity indicators."
+      },
+      {
+       "source": "S22",
+       "quote": "We must emphasize that vTEC is the only predicted parameter . ROTI is computed using the formulations in Eqs. 4 and 5 as a diagnostic indicator of model robustness ."
+      }
+     ]
+    },
+    {
+     "heading": "用决定系数理解“精度”",
+     "kind": "reported",
+     "text": "留出的高太阳活动年为 2015，作者报告整体 R² 为 0.91，MAE 为 4.38 TECU。决定系数描述回归解释的变异程度，不是两条曲线在每个采样时刻都吻合的比例，也不是事件检出率。",
+     "evidence": [
+      {
+       "source": "S2",
+       "quote": "(MAE=4.38 TECU) is observed over the high solar activity period (2015), demonstrating the model’s applicability for accurate TEC estimations."
+      },
+      {
+       "source": "S35",
+       "quote": "these predictions with metrics including R2 and concordance correlation s, where 0.91 and 0.95 overall accuracies were achieved ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "小时输出可能平滑掉有用的梯度",
+     "kind": "reported",
+     "text": "已有小时级 TEC 回归能跟踪总体背景，但作者的疑问是其输出粒度能否保留快速变化；若输出已经平滑，事后再算波动量也无从找回被抹掉的结构。论文试图用更密的采样保留结构，而不是新增一个独立的事件预测器。",
+     "evidence": [
+      {
+       "source": "S2",
+       "quote": "However, it is unclear whether these models could capture and preserve these TEC gradient irregularities within the predicted signals due to their output resolutions."
+      }
+     ]
+    },
+    {
+     "heading": "先拟合背景，再检验形态能否保留",
+     "kind": "interpretation",
+     "text": "作者选择把背景回归和事件诊断放在同一流程，但两者仍需独立评估：背景趋势拟合好，并不能推出相邻差分可靠；短时段的峰位、幅度和噪声比全年拟合分数更能说明这一点，特别是事件端点附近。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "As our approach is not direct, we gain impetus over th is dynamic nature by predicting the TEC directly, after which we later infer the irregularit y signatures from."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "先补齐电离层探测仪变量，再对齐观测",
+     "kind": "reported",
+     "text": "电离层探测仪的记录比 GPS 慢且有空缺。作者先对齐时间索引、用 XGBoost 重建电离层临界频率和层高，再将这些量作为有物理意义的协变量。重建量不是实测标签，也不代表把电离层方程直接写进损失。",
+     "evidence": [
+      {
+       "source": "S9",
+       "quote": "XGBoost inference models for foF2 and hmF2 to cover the missing data ."
+      },
+      {
+       "source": "S9",
+       "quote": "The foF2 and hmF2 would be used as physics constrain ts in the TEC model to guide irregularities occurrences."
+      }
+     ]
+    },
+    {
+     "heading": "主模型是梯度提升树，注意力循环网络是对照",
+     "kind": "reported",
+     "text": "训练阶段用 GPS 反演的 vTEC 作回归参考，回归输入结合时刻、穿刺点几何、电离层探测仪特征和空间天气条件。主体是 LightGBM；注意力版 LSTM 用于对照。推用时先检查每项输入的可用时间，不能把基于历史观测的重建直接称为严格提前量预报。",
+     "evidence": [
+      {
+       "source": "S10",
+       "quote": "retained ensembles were also consistent with findings in the literature. Ultimately , the matrix contained temporal covariates (year, time and Doy), satellite IPP information (Lat, Lon, Azimuth and elevation) , Ionosonde parameters (NmF2, hmF 2 and foF2) and space weather conditions (Kp, SymH, and Vx )."
+      },
+      {
+       "source": "S11",
+       "quote": "insight on the algorithm . This allows us to focus on the LightGBM as it has not been exploited in this area. More over, it is the main method adopted in this work due to its performance ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "先沿同一条链路做差，再除以时间间隔",
+     "kind": "reported",
+     "text": "ROT 比较同一颗可见卫星相邻历元上的垂直 TEC。实作时应保存卫星标识并检查缺历元；间隔换成分钟，差分量才可用 TECU 每分钟表示。跨卫星拼接或用固定间隔填缺测，会在不规则体检测中引入额外尖峰。",
+     "evidence": [
+      {
+       "source": "S8",
+       "quote": "The rate of TEC change (ROT) was calculated using Eq. 4. We identified an ionospheric irregularity following the formulation of (Pi et al. 1997)."
+      },
+      {
+       "source": "S8",
+       "quote": "where 𝑗 is the visible satellite within the receiver’s field of view, 𝑘 is the satellite epoch, TEC is the vertical total electron content and ⟨⟩ is the averaging operator ."
+      }
+     ]
+    },
+    {
+     "heading": "滑窗内关注离散程度，不是把差分再平滑",
+     "kind": "reported",
+     "text": "ROTI 是窗口内 ROT 的总体标准差，表达斜率变化的强弱而不是斜率方向；若 ROT 在窗中基本恒定，该指标趋近于零。原始 ROTI 不应为负，图中出现负值的高通分量并不是负的原始 ROTI。",
+     "evidence": [
+      {
+       "source": "S8",
+       "quote": "We adopted a sliding window of 5 minutes over ROT and computed the deviations for the values in the sequences to obtain ROTI."
+      },
+      {
+       "source": "S23",
+       "quote": "We must clarify that ROTI cannot be negative ; hence, both GPS and t -STEP have unconstrained minimums of 0 , except for the filtered signals ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "按年份留出测试而非随机混洗所有历元",
+     "kind": "reported",
+     "text": "作者将较早年份用于训练和验证，把 2015 年完整留作测试，避免直接用同一年相邻样本做最终对照。验证仍从训练期不同太阳活动阶段抽取；这不是跨站点或跨太阳活动周的迁移试验。",
+     "evidence": [
+      {
+       "source": "S13",
+       "quote": "testing and create a 6:1 year partition. Thus , 1 year (2015) was used for testing corresponding to about 3×106 whereas 6 years (2009 – 2014) was reserved for training and validation."
+      }
+     ]
+    },
+    {
+     "heading": "总量误差与短时形态分开对比",
+     "kind": "reported",
+     "text": "作者用 RMSE、MAE、决定系数与一致性相关系数看 TEC 数值，另用磁扰强度不同的个例检查 ROTI 形态；小时产品与 IRI 对照，细粒度主要看与 GPS 反演值及 LSTM 的差异。公开 PDF 有数据入口，未据此独立运行作者流程或重测计算成本。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "predictions and irregularity (ROTI) morphologies. For TEC and irregularity reconst ructions, we benchmark our model against the LSTM and the International Reference Ionosphere (IRI -2020) model for TEC predictions."
+      },
+      {
+       "source": "S16",
+       "quote": "We evaluated the model s using the root mean squared error (RMSE), mean absolute error (MAE), correlation coefficient (R2), concordance correlation coefficient (ρ𝑐𝑐𝑐) metrics."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "小时版 IRI 对照不可替代高频检验",
+     "kind": "reported",
+     "text": "对小时版，作者报告相对 IRI 的决定系数提升约 35%、MAE 下降约 57%、技巧分数约 54%。这些量来自小时级比较，不是较密的输出相对 IRI 的提高，也不能用来声称不规则体观测准确率有所提高。",
+     "evidence": [
+      {
+       "source": "S20",
+       "quote": "Similarly, the hourly variant outperfor med the IRI-2020 model , gaining ~35% in R2 accuracy , ~57% drop in MAE and a skill score of ~54%"
+      }
+     ]
+    },
+    {
+     "heading": "案例保留结构，不代表每个指标都更优",
+     "kind": "reported",
+     "text": "弱扰动个例的观测与预测都保留部分共同的日变化及 ROTI 聚集时段，作者也指出某些时段两者不一致。对注意力 LSTM 的相同条件比较支持部分形态差异，但不等于逐事件都能检出，也不是所有误差指标一律占优。",
+     "evidence": [
+      {
+       "source": "S23",
+       "quote": "Interestingly , both GPS and t -STEP TEC preserved consistent ROTI morphologies and timeliness (middle panels) ."
+      },
+      {
+       "source": "S35",
+       "quote": "On the contrary, these irregularities could not be captured clearly in the LSTM model implemented on the same datasets and under the same space weather conditions ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "作者报告的范围：单站与观测条件",
+     "kind": "reported",
+     "text": "这个结果只来自一个观测台站；跨经纬度、跨台站乃至不同太阳活动周都需要另外验证。作者把规模化作为后续方向，也把临近估计与事前预报的形态保真对比列为下一步，不应在这里合并成一个已测过的能力。",
+     "evidence": [
+      {
+       "source": "S35",
+       "quote": "It should be noted that the current implementation was limited to a single station."
+      },
+      {
+       "source": "S35",
+       "quote": "Another future direction would be to compare against transformer architectures and assess the ir irregularity preservation s across nowcast and forecast scenarios ."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：输入的时间可用性",
+     "kind": "proposal",
+     "text": "可重跑一组按固定预报起点冻结协变量的对照，逐项记录指数与探测仪产品的实际发布时间，把离线回填与可实时获得的替代估计分开，并按不同提前量同时报告 TEC 误差和 ROTI 的峰时偏差。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "把采样率选择变成可检验实验",
+     "kind": "proposal",
+     "text": "尚未验证：以一组保留高采样原始观测的异地测站为盲测集，固定高频 ROTI 的配对参考，用不同降采样频率重做回归与派生，再按地磁条件分层报告事件 F1、每小时误报量、峰时偏差和持续时间误差。",
+     "evidence": []
+    },
+    {
+     "heading": "分别交付信号告警和定位收益",
+     "kind": "proposal",
+     "text": "尚未验证：在同站同星同频的链路上，将派生 ROTI 告警与接收机闪烁指数对照；在其后单独对同一批记录跑固定配置的 PPP 解算，比较定位尾部误差与可用率，避免把信号层的变化误当定位层的提升。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-rot",
+   "number": "原文式 (4) · PDF 第 8 页",
+   "mathml": "<mrow><msubsup><mi>ROT</mi><mi>k</mi><mi>j</mi></msubsup><mo>=</mo><mfrac><mrow><msubsup><mi>TEC</mi><mi>k</mi><mi>j</mi></msubsup><mo>−</mo><msubsup><mi>TEC</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow><mi>j</mi></msubsup></mrow><mrow><msub><mi>t</mi><mi>k</mi></msub><mo>−</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></mfrac></mrow>",
+   "accessible": "ROT_k^j = (TEC_k^j − TEC_(k−1)^j) / (t_k − t_(k−1))",
+   "title": "沿单颗卫星链路计算 TEC 变化率",
+   "meaning": "用实际历元差做分母；vTEC 以 TECU 计、时间用分钟时，结果单位为 TECU/min。",
+   "symbols": [
+    {
+     "symbol": "j、k",
+     "text": "可见卫星标识和当前历元索引"
+    },
+    {
+     "symbol": "TEC",
+     "text": "垂直总电子含量"
+    },
+    {
+     "symbol": "t",
+     "text": "历元时间"
+    }
+   ],
+   "caution": "不要跨卫星或跨长缺口直接相减。",
+   "refs": [
+    "M1"
+   ]
+  },
+  {
+   "id": "eq-roti",
+   "number": "原文式 (5) · PDF 第 8 页",
+   "mathml": "<mrow><mi>ROTI</mi><mo>=</mo><msqrt><mrow><mo>⟨</mo><msup><mi>ROT</mi><mn>2</mn></msup><mo>⟩</mo><mo>−</mo><msup><mrow><mo>⟨</mo><mi>ROT</mi><mo>⟩</mo></mrow><mn>2</mn></msup></mrow></msqrt></mrow>",
+   "accessible": "ROTI = sqrt(⟨ROT²⟩ − ⟨ROT⟩²)",
+   "title": "用窗口内变化率的离散程度找短时扰动",
+   "meaning": "标准差单位与 ROT 相同。论文采用五分钟滑窗；窗口内的稳定斜率本身不会产生较强 ROTI。",
+   "symbols": [
+    {
+     "symbol": "⟨·⟩",
+     "text": "窗内平均"
+    },
+    {
+     "symbol": "ROT",
+     "text": "该链路的 TEC 变化率"
+    }
+   ],
+   "caution": "窗口端点和缺测处理需在评估时固定；不要把高通后的有符号曲线当原始 ROTI。",
+   "refs": [
+    "M2"
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 3,
+   "reference": "F3",
+   "section": "method",
+   "src": "assets/deep-reading/2606.29644/original-fig-3.png",
+   "width": 1208,
+   "height": 655,
+   "caption": "Fig. 3 Simplified architectural representation of t -STEP’s subsystems and routines .",
+   "title": "从三类输入读到 TEC 输出",
+   "alt": "从 RADAR、空间天气、GPS RINEX 三路输入，经重建、重采样、校正后进入 ML-TEC 模块。",
+   "caution": "不能推出什么：流程图不证明实时可用性，也不把观测计算的 vTEC 当成模型产出的定位结果。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "从左上看电离层探测仪，先重建 FoF2 与 HmF2；空间天气和 GPS 原始记录各走自己的预处理或计算，再在校正与时序对齐处汇合。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "从右侧 ML-TEC 模块顺着箭头看输出，并对照底部 GPS 计算路径。图展示数据流，不显示各特征是否在预报起点之前已经可取。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "78bdbf1a5cb3d4b5840973129f3805988a65ad73de0fea22c61de80351b12c8d"
+  },
+  {
+   "id": "original-figure-b",
+   "number": 6,
+   "reference": "F6",
+   "section": "results",
+   "src": "assets/deep-reading/2606.29644/original-fig-6.jpg",
+   "width": 1299,
+   "height": 711,
+   "caption": "Fig. 6 Comparison between GPS TEC and t-STEP TEC (top) , ionospheric irregularit y indicator ( ROTI) (middle) and geomagnetic indices ( Kp and S ymH) during a period of weak -to-negligible storm conditions (bottom panel)",
+   "title": "弱扰动个例：同时对齐 TEC 与 ROTI",
+   "alt": "GPS 观测与模型各列三排，分别为 vTEC、ROTI 和地磁背景。",
+   "caution": "不能推出什么：不要把黄色负值读成负 ROTI；该窗口不能给出普适检出率或定位误差。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "先对齐左右列的日期：左是 GPS、右是 t-STEP；顶排纵轴用 TECU，可先比日峰和夜谷出现时段，再比较峰形。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "中排蓝色是 ROTI，黄色是高通分量，纵轴是 TECU/min；底排红线与青柱分别看 SymH 与 Kp 各自的轴，它们描述双方共享的地磁背景。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "be3458117dc3ff761834535addfb205a9f90333a46126b0b7e53af5e2a3acb22"
+  },
+  {
+   "id": "original-figure-c",
+   "number": 7,
+   "reference": "F7",
+   "section": "results",
+   "src": "assets/deep-reading/2606.29644/original-fig-7.jpg",
+   "width": 1299,
+   "height": 711,
+   "caption": "Fig. 7 Same as Fig. 6 , except for a period of moderate -to-weak storm activity, indicated by the Kp and S ymH indices (bottom panel)",
+   "title": "中弱磁扰个例：日变化对上也会漏掉峰值",
+   "alt": "同样是 GPS 与 t-STEP 左右对照；弱到中等磁扰期间顶排的观测高峰高于预测。",
+   "caution": "不能推出什么：不能把这一时段的偏差归因于一个单一变量，也不能把个例外推成跨站表现。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "先看底排 Kp 和 SymH 的变化时段，再在左右顶排沿同一天比较 vTEC。与 Fig. 6 对照时纵轴上限不同，不能拿图片高度直接比幅度。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "沿中排日期轴比较蓝色 ROTI 的峰位、背景和峰形。部分增强时段可以对齐，但预测端背景和峰值并不都吻合。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "a3e1622f0a71b5d278b6484ebc71fde3ac567aa97ce31409c2831a5755fab02c"
+  }
+ ],
+ "original_figure_credit": "Stephen Tete、Carl Shneider、Maxime Cordy、Claudio Cesaroni、Andreas Hein、Vasily Petrov",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generation_mode": "assistant_backfill",
+  "generated_at": "2026-11-18T04:51:21Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "40a8406d70ace911ce3e0bcc82e53f28c297061d147d9bc166b51aefaebefc26",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://arxiv.org/abs/2606.29644v1",
+  "format": "paper-deep-reading-v1"
+ },
+ "copyright_note": "仅转载本版本获许可的完整原图及原始图注。有损图像保留 PDF 内的原始 JPEG 数据；PNG 无损导出完整图像对象，像素未改变。未发布论文 PDF、全文、译文或改绘图。作者不背书本站；独立中文评论与原始图注分开。",
+ "references": {
+  "S2": {
+   "label": "原文 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S22": {
+   "label": "原文 · PDF 第 22 页",
+   "anchor": "page=22"
+  },
+  "S35": {
+   "label": "原文 · PDF 第 35 页",
+   "anchor": "page=35"
+  },
+  "S15": {
+   "label": "原文 · PDF 第 15 页",
+   "anchor": "page=15"
+  },
+  "S9": {
+   "label": "原文 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S10": {
+   "label": "原文 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S11": {
+   "label": "原文 · PDF 第 11 页",
+   "anchor": "page=11"
+  },
+  "S8": {
+   "label": "原文 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S23": {
+   "label": "原文 · PDF 第 23 页",
+   "anchor": "page=23"
+  },
+  "S13": {
+   "label": "原文 · PDF 第 13 页",
+   "anchor": "page=13"
+  },
+  "S16": {
+   "label": "原文 · PDF 第 16 页",
+   "anchor": "page=16"
+  },
+  "S20": {
+   "label": "原文 · PDF 第 20 页",
+   "anchor": "page=20"
+  },
+  "M1": {
+   "label": "原公式 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "M2": {
+   "label": "原公式 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "F3": {
+   "label": "Fig.3 · PDF 第 15 页",
+   "anchor": "page=15"
+  },
+  "F6": {
+   "label": "Fig.6 · PDF 第 22 页",
+   "anchor": "page=22"
+  },
+  "F7": {
+   "label": "Fig.7 · PDF 第 24 页",
+   "anchor": "page=24"
+  }
+ }
+}

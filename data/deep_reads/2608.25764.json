@@ -1,0 +1,442 @@
+{
+ "format": "paper-deep-reading-v1",
+ "source_type": "licensed_arxiv_pdf",
+ "paper_id": "2608.25764",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/pdf/2608.25764v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "平静期南极 STEVE：光弧穿越附近的导航信号波动",
+ "dek": "南极一次地磁平静期的 STEVE，在部分卫星链路经过光弧附近时伴有相位和振幅波动。双站光学与接收记录支持这一次个案的时空对应，不能给出导航误差或失锁率。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读，非独立 API 账单任务；未人工审核，未运行作者代码或独立复现实验。核读 arXiv v1 PDF 第 1–33 页（正文、参考资料及附录 S1–S9）；未取得附录所列的四段视频，未据视频补写证据。",
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "平静的地磁背景不等于每条链路都平静",
+     "kind": "reported",
+     "text": "论文复盘南极的一次弱 STEVE：用全天空光学观测定位光弧，用两站高频接收记录看穿越附近的相位和振幅。证据是特定卫星信号链路的波动与光弧相遇在时空上相近，不是对船舶定位误差或失锁率的测量。",
+     "evidence": [
+      {
+       "source": "S1",
+       "quote": "coordinated optical observations and high -resolution (50 Hz) GNSS scintillation measurements from two Antarctic stations, we identify enhanced phase and amplitude scintillation coincident with inters ections between GNSS signal paths and the STEVE arc."
+      }
+     ]
+    },
+    {
+     "heading": "把全局指数和局地磁场一起看",
+     "kind": "reported",
+     "text": "作者不仅用 Kp 与环电流相关指数判断背景，也用附近磁力仪检查是否有明显局地磁场突增。即便全球和局地观测都没有显著地磁扰动，也不能用这些尺度的指标排除沿某条穿电离层路径的小尺度结构。",
+     "evidence": [
+      {
+       "source": "S16",
+       "quote": "Geomagnetic indices of the considered event on May 9, 2019, describe reasonably quiet conditions (Fig . 2). Ground - based measurements from magnetometers at SANAE IV and Neumayer III also show no significant local variations during the event, confirming at a local level the overall quiet geomagnetic conditions ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "从地磁活跃个案转向平静个案",
+     "kind": "reported",
+     "text": "作者的切入点是先前工作已将扰动期的 STEVE 不规则体与导航信号异常联系起来，但那不能回答平静背景下能否出现可测波动。这里补上的是平静背景下的一个存在性个案，而不是频率普查，也不是全领域的新颖性断言。",
+     "evidence": [
+      {
+       "source": "S2",
+       "quote": "While a previous study has linked STEVE -driven ionospheric irregularities to global navigation satellite systems (GNSS) disruptions during geomagnetically active periods [Chen et al., 2024 b], this work presents the first evidence of STEVE -induced scintillations under quiet geomagnetic conditions ( Kp ~2-)."
+      }
+     ]
+    },
+    {
+     "heading": "发现事件和测出事件是两步",
+     "kind": "interpretation",
+     "text": "如果只筛磁场变化或常规接收机摘要，这一天可能不会被纳入；先从全天空图像识别事件，再回看原始信号，能避免错过弱事件。代价是样本依赖能否看到光学弧和检验时是否有合适的卫星轨迹。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "If the initial analysis had been based on 1Hz scintillation receiver and magnetometer data, which show no disturbances (see Supported Information, Figure S1), such a day would have been excluded from the analysis. The advantage of visual analysis of the A ll-Sky Imager (ASI, see more information in the Methods section) data allowed us to identify this event"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "把相机和无线电观测放在同一薄层",
+     "kind": "reported",
+     "text": "先按星场标定全天空成像器，再试不同投影高度；把每条地面站—卫星视线的电离层穿刺点放在同一高度网格。Troll 的相机与接收机共址，比较投影前后相对位置较稳；非共址 SANAE IV 则要用高度敏感性来检查空间重合。",
+     "evidence": [
+      {
+       "source": "S4",
+       "quote": "The ASI orientation was calibrated by the stars, and each pixel was recalculated to the heights of the STEVE observation range (150 km, 170 km, 230 km, and 250"
+      },
+      {
+       "source": "S8",
+       "quote": "Since the GNSS receiver and the ASI at the Troll station are co -located, the relative position of the data sets"
+      }
+     ]
+    },
+    {
+     "heading": "图区分分钟配色和秒级时序",
+     "kind": "reported",
+     "text": "投影图用接收机提供的分钟级闪烁指数，并应用仰角掩膜；链路诊断则另用高采样相位算秒级量。相位在算指标前通过 Butterworth 高通去趋势。两种时间尺度用途不同，不能把地图点的颜色直接视作秒级峰值。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "To display the IPP on all -sky images, we used 1 -minute scintillation indices and a 20° elevation mask provided by rece ivers. In addition to it, we used 50 Hz dual -frequency phase measurements to calculate 1 -second scintillation indices, and we first focused on high - resolution measurements to see in detail the effect of STEVE on satellite signals."
+      },
+      {
+       "source": "S5",
+       "quote": "A 6th -order Butterworth high -pass filter with a cutoff frequency of 0.1 Hz was used to find the detrended raw carrier phase"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "电离层无关线性组合用来做机制诊断",
+     "kind": "reported",
+     "text": "两载频相位量按频率平方相加减，再除以平方差，目的是消去一阶电离层折射项。频率应使用同一单位，载波相位需换到相同的量纲；图里的组合以米展示。没有清楚残差不代表没有不规则体，也不直接等于定位解改善。",
+     "evidence": [
+      {
+       "source": "S5",
+       "quote": "where fL1 and fL2 are the carrier frequencies of the two signals, and 𝛷L1 and 𝛷L2 are the corresponding carrier phase measurements. This combination effectively removes the first - order ionospheric delay due to the refractive effects of the ionosphere, allowing us to isolate the higher -order effects and better understand the underlying scintillation processes as diffractive variations that are usually a sign of the presence of small -scale irregularities."
+      }
+     ]
+    },
+    {
+     "heading": "菲涅耳尺度是带几何假设的参照",
+     "kind": "reported",
+     "text": "讨论采用顶部通过的假设，以波长和高度估算菲涅耳尺度。频率越高、波长越短，在相同几何下估算的特征尺度也越小。它解释为何可以追问不同频段是否响应不同尺度，不是反演所得的真实湍流尺寸。",
+     "evidence": [
+      {
+       "source": "S17",
+       "quote": "Specifically, assuming an altitude h of 230 km for the STEVE phenomenon and an overhead propagation observational geometry, the Fresnel scales dF=(2𝜆h)0.5 for the three considered GNSS frequencies are: 296 m for L1 C/A, 335 m for L2C, and 342 m for L5"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "两台接收机不宜共用相同噪声解释",
+     "kind": "reported",
+     "text": "Troll 的 NovAtel 与 SANAE IV 的 Septentrio 可对照光弧附近多个星座的链路，作者从安静中纬数据估计后者的背景并设置较保守参照。比较两站图时不能用同一条噪声线或不同的纵轴范围来推断两站受到同等扰动。",
+     "evidence": [
+      {
+       "source": "S3",
+       "quote": "The Troll station (TRL) is also equipped with the NovAtel GPStation -6 multi - constellation and multi -frequency receiver for scintillation monitoring. From this device we use signals from GPS (L1CA and L5), GLONASS (L1CA and L2P), and Galileo (E1, E5a, and E5b) satellite systems, delivering raw observational data such as 50 Hz phase and amplitude measurements. In addition to that, we used data from the Septentrio PolaRx5S scintillation"
+      },
+      {
+       "source": "S3",
+       "quote": "The r easonable noise levels for PolaRx5S receiver were calculated based on data during the quiet conditions over the mid -latitude station in Ushuaia (ARG), showing noise levels for amplitude scintillation index S4 = 0.015 and for phase scintillation index 𝜎𝜙 = 0.015 rad. Therefore, the value for both indices 0.03 (as written in the manual for 𝜎𝜙) is a good excess approximation and is a quite good approximation for the GPStation6 receiver too."
+      }
+     ]
+    },
+    {
+     "heading": "数据入口不等于可运行的完整复现包",
+     "kind": "unknown",
+     "text": "PDF列出地面磁力仪资料、SANAE IV 闪烁数据库与 Troll 的 Zenodo 项；已读取的来源未说明可确认的端到端脚本、轨迹筛选实现与耗时，不应把本文的时间对照描述成已经独立复现。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "最值得对照的是同轨两种投影高度",
+     "kind": "reported",
+     "text": "SANAE IV 的 G08 退出光弧时，三频相位闪烁最大的时点为 23:47 UT；该峰与 170 km 投影更接近，230–250 km 则是作者对前缘的推测。这个判读取自不同薄层的时序比对，不是对发光层做了立体测高。",
+     "evidence": [
+      {
+       "source": "S12",
+       "quote": "Satellite SNA G08 (Fig. 6) is caught in the dynamic shift of the STEVE front, first encountering the leading edge of the equatorward moving front and then the poleward moving front, which effectively places the satellite in the region of this phenomenon."
+      },
+      {
+       "source": "S12",
+       "quote": "The maximum of 𝜎𝜙 for three frequencies was observed at 23:47 UT when the satellite exited the STEVE region. Notably, this phase scintillation index peak aligns better with the projection at 170 km (see SI Fig. S3), suggesting that the front edge of STEVE is located at hig her altitudes of 230 -250 km, while the trailing edge (or the dynamic progression of the phenomenon over time) descends to 170 -200 km."
+      }
+     ]
+    },
+    {
+     "heading": "相位更稳定地出现，幅度依赖链路和频率",
+     "kind": "reported",
+     "text": "展示的五条链路都有相位波动，但作者只在其中部分链路描述弱振幅波动。SANAE IV G08 的事件期振幅主要体现在较高频信号；不能把后来较低仰角窗口的大幅度变化再归到同一穿越，也不能把五例当成全部近弧卫星的检出率。",
+     "evidence": [
+      {
+       "source": "S9",
+       "quote": "All five satellites (SNA E26, SNA E18, SNA G08, TRL E31, TRL R13) in question experience variations in 𝜎𝜙 on all frequencies from 23:17 UT to 23:52 UT."
+      },
+      {
+       "source": "S10",
+       "quote": "Small variations in the amplitude scintillation index are observed on satellites SNA G08 (Fig. 6), TRL E31 (Fig. 7) and TRL R13 (Fig. 8). It is noteworthy that the S4 variations on G08 are present only on the L1CA frequency and begin a bit earlier than the 𝜎𝜙 and glow intensity peaks."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "没有干净的原位漂移和密度观测",
+     "kind": "reported",
+     "text": "作者附录排查了 Swarm 和 DMSP 的观测质量及覆盖，仍不能凭它们确定局部漂移速度、结构厚度或离散高度。主要证据来自地面 GNSS 信号及光学；折射、衍射和不稳定性名称不能当成实地量出的因果链。",
+     "evidence": [
+      {
+       "source": "S31",
+       "quote": "Therefore, there is no clean in situ satellite data based on which we could obtain information about the drift velocity or the thickness or location of SAID . Thus, the main data of the findings of this study are the data of scintillation receivers , the all -sky camera , and the all -sky imager ."
+      }
+     ]
+    },
+    {
+     "heading": "应该如何检验高度和机制",
+     "kind": "proposal",
+     "text": "可增加第二台相机的同步几何测高，对照预先定义的薄层高度集合并做盲比对；并在剔除低仰角和周跳后，以折射残差与局地电子密度梯度的盲对齐率、跨接收机一致率和高度差置信区间作为交付。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "测量低 ROTI 时的局地漏检",
+     "kind": "proposal",
+     "text": "尚未验证：用同一批高采样率记录配同址光学，将事件链路按穿越角与仰角分层，并选同站同星同频的无弧时段和弧外差异作为对照。盲评分钟指标与秒级指标的检出率、每小时误报、首报延迟及其按事件重采样的区间。",
+     "evidence": []
+    },
+    {
+     "heading": "不要用闪烁提升替代定位收益",
+     "kind": "proposal",
+     "text": "尚未验证：在固定产品、滤波设置及解算器下比较标准 PPP 与使用秒级质量标记的方案。保持参与卫星相同不变地重跑，再单独评估剔除策略的影响，交付东向、北向、天向误差尾部分位数、周跳率、可用率及恢复时间。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-iflc",
+   "number": "原文式 (1) · PDF 第 5 页",
+   "mathml": "<mrow><msub><mi>Φ</mi><mi>IFLC</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>Φ</mi><mi>L1</mi></msub><msubsup><mi>f</mi><mi>L1</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>Φ</mi><mi>L2</mi></msub><msubsup><mi>f</mi><mi>L2</mi><mn>2</mn></msubsup></mrow><mrow><msubsup><mi>f</mi><mi>L1</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>f</mi><mi>L2</mi><mn>2</mn></msubsup></mrow></mfrac></mrow>",
+   "accessible": "Φ_IFLC = (Φ_L1 f_L1² − Φ_L2 f_L2²)/(f_L1² − f_L2²)",
+   "title": "以双频组合消去一阶电离层项",
+   "meaning": "频率平方作为权重；分别把两个相位换成相同量纲，图中的组合以米展示。",
+   "symbols": [
+    {
+     "symbol": "f_L1、f_L2",
+     "text": "两个载频，使用一致的频率单位"
+    },
+    {
+     "symbol": "Φ_L1、Φ_L2",
+     "text": "相应载波相位观测量"
+    }
+   ],
+   "caution": "组合仍含其他误差与高阶项；残差弱不能被读成不存在不规则体。",
+   "refs": [
+    "M1"
+   ]
+  },
+  {
+   "id": "eq-fresnel",
+   "number": "原文行内式 · PDF 第 17 页",
+   "mathml": "<mrow><msub><mi>d</mi><mi>F</mi></msub><mo>=</mo><msup><mrow><mo>(</mo><mn>2</mn><mi>λ</mi><mi>h</mi><mo>)</mo></mrow><mn>0.5</mn></msup></mrow>",
+   "accessible": "d_F = (2 λ h)^(0.5)",
+   "title": "把穿越高度换成菲涅耳尺度参照",
+   "meaning": "在作者采用的顶部通过几何下，用波长与高度估计尺度；两个输入均用米时，尺度也用米表示。",
+   "symbols": [
+    {
+     "symbol": "λ",
+     "text": "电磁波波长"
+    },
+    {
+     "symbol": "h",
+     "text": "为顶部通过几何假定的高度"
+    },
+    {
+     "symbol": "d_F",
+     "text": "按本文定义的菲涅耳尺度"
+    }
+   ],
+   "caution": "这不是实测不规则体尺寸；斜向传播与高度不确定性须另分析。",
+   "refs": [
+    "M2"
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 2,
+   "reference": "F2",
+   "section": "experiments",
+   "src": "assets/deep-reading/2608.25764/original-fig-2.png",
+   "width": 1253,
+   "height": 1427,
+   "caption": "Figure 2. Geomagnetic activity and interplanetary magnetic field (IMF) conditions during May 06 -12, 2019. a) three -hourly Kp index. b) the interplanetary magnetic field components, c) the SYM -H index, and d) the Auroral Electrojet Indices AE/AL from the OMNI databa se. e) Magnetometer data from SANAE IV (SNA) and f) from the Neumayer III station (VNA) in HDZ sensor orientation where H presents horizontal intensity. The purple fill presents the time interval of STEVE observation.",
+   "title": "按时间窗认定平静背景",
+   "alt": "从全球指数、行星际磁场到南极两台站磁力仪的六幅观测对照，紫色标记事件时段。",
+   "caution": "不能推出什么：背景平静不意味着某条视线不存在局地不规则体。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "沿紫色事件带纵向读六排：上排 Kp，下面依次读 IMF、SYM-H 与 AE/AL；原图各轴量纲不同，后几排磁场或指数的轴标为 nT。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "对比事件带内的 SANAE IV、Neumayer III 磁力仪记录与右侧之后明显更大的扰动。紫色带不是所有信号链路的相交时段。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "5cbd1cb11b3b55e18f486676ff5af799844445c65141f4335cbba44e4b12f5b7"
+  },
+  {
+   "id": "original-figure-b",
+   "number": 6,
+   "reference": "F6",
+   "section": "results",
+   "src": "assets/deep-reading/2608.25764/original-fig-6.png",
+   "width": 1600,
+   "height": 2000,
+   "caption": "Figure 6. As Figure 4 but for GPS PRN G08 (8) with scintillation indexes 𝜎𝜙 and S4 calculated for L1CA (b and e), L2C (c and f), and L5 (d and g) signals.",
+   "title": "用同一时间轴对读光强与闪烁",
+   "alt": "SANAE IV 的 G08：光强、三频相位与振幅、仰角及双频电离层无关相位组合。",
+   "caution": "不能推出什么：后段低仰角与进入极光区需另解；不要把整个图最大振幅都归给 STEVE。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "沿同一 UT 对齐 (a) 光强和 (b–d) 三频相位闪烁；比 (a) 的峰与 (b–d) 的尖峰，并以附图 S3 的 170 km 重投影辨别。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "(e–g) 蓝线读右轴仰角，黑线读左轴 S4；(h) 为米制 IFLC。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "3b347c336e7ff5cc76a759ca6db52701ab30a1b488cdf2312098340fcc34cc6f"
+  },
+  {
+   "id": "original-figure-c",
+   "number": 7,
+   "reference": "F7",
+   "section": "results",
+   "src": "assets/deep-reading/2608.25764/original-fig-7.png",
+   "width": 1600,
+   "height": 2000,
+   "caption": "Figure 7. Same as Figure 4 but for Galileo PRN E31 (101) recorded by the NovAtel GPStation -6 receiver at the Troll station. Scintillation indexes 𝜎𝜙 and S4 were calculated for E1 (b and e), E5a (c and f), and E5b (d and g) signals.",
+   "title": "用另一台站对照相位与幅度",
+   "alt": "Troll 的 E31：各频相位尖峰与共址光学观测；下面另列幅度闪烁、仰角和 IFLC。",
+   "caution": "不能推出什么：这是共址接收机的一个示例，不能单独证明越高仰角越有闪烁风险。",
+   "reading_steps": [
+    {
+     "title": "先看哪里",
+     "text": "对齐 (a) 光强与 (b–d) 相位尖峰，认清图例 E1、E5a、E5b。"
+    },
+    {
+     "title": "能说明什么",
+     "text": "比较与 Fig. 6 时先看两站量程与噪声背景，不把相同像素高度当同幅值。"
+    }
+   ],
+   "modified": false,
+   "asset_sha256": "cdd663bf59f4a37b3ac9983b4bba970a5baa79e629cf95d64695d879b5adcac6"
+  }
+ ],
+ "original_figure_credit": "Daria Kotova、Luca Spogli、Yaqi Jin、Wojciech Miloch",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generation_mode": "assistant_backfill",
+  "generated_at": "2026-11-18T04:51:21Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "8ca5874caafca852b48d4c3699ff6d2a15681cb7e86c29c62add5123482bcab1",
+  "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "license_evidence_url": "https://arxiv.org/abs/2608.25764v1",
+  "format": "paper-deep-reading-v1",
+  "reuse_purpose": "noncommercial"
+ },
+ "copyright_note": "仅转载本版本获许可的完整原图及原始图注。有损图像保留 PDF 内的原始 JPEG 数据；PNG 无损导出完整图像对象，像素未改变。未发布论文 PDF、全文、译文或改绘图。作者不背书本站；独立中文评论与原始图注分开。 本站在免费、无广告的非商业研究导读中使用这些原图，不作改编或商用。",
+ "references": {
+  "S1": {
+   "label": "原文 · PDF 第 1 页",
+   "anchor": "page=1"
+  },
+  "S16": {
+   "label": "原文 · PDF 第 16 页",
+   "anchor": "page=16"
+  },
+  "S2": {
+   "label": "原文 · PDF 第 2 页",
+   "anchor": "page=2"
+  },
+  "S5": {
+   "label": "原文 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "S4": {
+   "label": "原文 · PDF 第 4 页",
+   "anchor": "page=4"
+  },
+  "S8": {
+   "label": "原文 · PDF 第 8 页",
+   "anchor": "page=8"
+  },
+  "S17": {
+   "label": "原文 · PDF 第 17 页",
+   "anchor": "page=17"
+  },
+  "S3": {
+   "label": "原文 · PDF 第 3 页",
+   "anchor": "page=3"
+  },
+  "S12": {
+   "label": "原文 · PDF 第 12 页",
+   "anchor": "page=12"
+  },
+  "S9": {
+   "label": "原文 · PDF 第 9 页",
+   "anchor": "page=9"
+  },
+  "S10": {
+   "label": "原文 · PDF 第 10 页",
+   "anchor": "page=10"
+  },
+  "S31": {
+   "label": "原文 · PDF 第 31 页",
+   "anchor": "page=31"
+  },
+  "M1": {
+   "label": "原公式 · PDF 第 5 页",
+   "anchor": "page=5"
+  },
+  "M2": {
+   "label": "原公式 · PDF 第 17 页",
+   "anchor": "page=17"
+  },
+  "F2": {
+   "label": "Fig.2 · PDF 第 7 页",
+   "anchor": "page=7"
+  },
+  "F6": {
+   "label": "Fig.6 · PDF 第 13 页",
+   "anchor": "page=13"
+  },
+  "F7": {
+   "label": "Fig.7 · PDF 第 14 页",
+   "anchor": "page=14"
+  }
+ }
+}

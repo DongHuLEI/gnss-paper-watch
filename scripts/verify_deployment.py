@@ -9,6 +9,7 @@ import urllib.parse
 import urllib.request
 
 from build_site import Site
+from licensed_figures import original_paths
 from radar_config import ROOT
 
 
@@ -62,6 +63,7 @@ def main():
         paths.extend("papers/%s/index.html" % site.catalogue[paper_id]["slug"] for paper_id in site.deep_reads)
         paths.extend(("assets/deep-reading.css", "assets/deep-reading.js", "assets/deep-reading/LICENSE.txt"))
         for data in site.deep_reads.values():
+            paths.extend(original_paths(data))
             for equation in data["equations"]:
                 paths.extend(equation_asset(data, equation, field) for field in ("mathml", "mathml_second") if equation.get(field))
     files = {name: (ROOT / name).read_bytes() for name in dict.fromkeys(paths)}

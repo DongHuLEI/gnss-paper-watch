@@ -8,6 +8,7 @@ import urllib.parse
 from html.parser import HTMLParser
 from pathlib import Path
 
+import licensed_figures
 from build_site import Site
 from deep_reading import equation_asset, validate_formula_asset
 from radar_config import ROOT
@@ -124,7 +125,7 @@ def check(root, public=False):
             if doc is None or not required.issubset(doc.ids):
                 errors.append("incomplete full-text reading overlay: " + paper["id"])
             if doc is not None:
-                expected = [(item["src"], str(item["width"]), str(item["height"]), item["alt"]) for item in originals]
+                expected = [(licensed_figures.image_href(paper["deep_read"], item), str(item["width"]), str(item["height"]), item["alt"]) for item in originals]
                 actual = [(item.get("src"), item.get("width"), item.get("height"), item.get("alt")) for item in doc.original_images]
                 if sorted(expected) != sorted(actual) or any(item.get("referrerpolicy") != "no-referrer" for item in doc.original_images):
                     errors.append("incomplete or mismatched original figures: " + paper["id"])
@@ -137,8 +138,16 @@ def check(root, public=False):
         if doc is None or set(doc.paper_ids) != expected:
             errors.append("topic is not all-history: " + key)
     if public:
+        raster_assets = set()
         formula_assets = set()
         for data in site.deep_reads.values():
+            raster_assets.update(licensed_figures.original_paths(data))
+            if licensed_figures.is_pdf(data):
+                for item in data["original_figures"]:
+                    try:
+                        licensed_figures.validate_image(data, item, root)
+                    except ValueError as error:
+                        errors.append(str(error))
             for equation in data["equations"]:
                 for field in ("mathml", "mathml_second"):
                     if equation.get(field):
@@ -149,7 +158,7 @@ def check(root, public=False):
             relative = path.relative_to(root).as_posix()
             if relative in formula_assets and path.suffix == ".svg":
                 validate_formula_asset(path)
-            if path.is_file() and path.name != ".nojekyll" and path.suffix not in (".html", ".css", ".js") and relative not in formula_assets:
+            if path.is_file() and path.name != ".nojekyll" and path.suffix not in (".html", ".css", ".js") and relative not in formula_assets and relative not in raster_assets:
                 errors.append("unexpected deployment file: " + relative)
     if errors:
         print("site validation failed:", file=sys.stderr)

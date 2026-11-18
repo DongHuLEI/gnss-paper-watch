@@ -56,7 +56,7 @@
     graphic.querySelector('[data-retry-original]').hidden = state !== 'error';
     graphic.querySelector('[data-image-message]').textContent = state === 'error'
       ? '原图暂未加载，可能是网络限制或图源暂时不可用。解说仍可阅读；可重试，或打开下方原图 / 原文链接。'
-      : '正在从 arXiv 加载原图… 若长时间未显示，可打开下方原图链接。';
+      : (graphic.hasAttribute('data-licensed-original') ? '正在加载本站授权转载的原图…' : '正在从 arXiv 加载原图…') + ' 若长时间未显示，可打开下方原图链接。';
     scheduleProgress();
   }
 

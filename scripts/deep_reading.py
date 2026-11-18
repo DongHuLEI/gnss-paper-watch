@@ -9,6 +9,8 @@ import re
 import urllib.parse
 import xml.etree.ElementTree as ET
 
+import licensed_figures
+
 MATH_TAGS = {"mrow", "mi", "mn", "mo", "mtext", "mfrac", "msub", "msup", "msubsup", "msqrt", "mover", "munder", "munderover", "mpadded", "mspace"}
 MATH_ATTRS = {"mathvariant", "width"}
 MATH_VARIANTS = {"normal", "bold", "italic", "bold-italic", "double-struck", "bold-fraktur", "script", "bold-script", "fraktur", "sans-serif", "bold-sans-serif", "sans-serif-italic", "sans-serif-bold-italic", "monospace"}
@@ -63,12 +65,18 @@ def load_deep_reads(directory):
         if data["paper_id"] != path.stem or data["paper_id"] in result or not re.fullmatch(r"\d{4}\.\d{4,5}", data["paper_id"]):
             raise ValueError("invalid deep-reading identity: " + str(path))
         source = urllib.parse.urlsplit(data["source_url"])
-        if source.scheme != "https" or source.netloc != "arxiv.org" or not re.fullmatch(r"/html/" + re.escape(data["paper_id"]) + r"v[1-9]\d*", source.path) or source.query or source.fragment:
+        pdf_figures = None
+        if licensed_figures.is_pdf(data):
+            pdf_figures = licensed_figures.validate_source(data)
+        elif "source_type" in data:
+            raise ValueError("unrecognized deep-reading source type")
+        elif source.scheme != "https" or source.netloc != "arxiv.org" or not re.fullmatch(r"/html/" + re.escape(data["paper_id"]) + r"v[1-9]\d*", source.path) or source.query or source.fragment:
             raise ValueError("invalid versioned deep-reading source")
         dt.datetime.strptime(data["checked_on"], "%Y-%m-%d")
-        for reference in data["references"].values():
-            if not re.fullmatch(r"[A-Za-z0-9_.:-]{1,160}", reference["anchor"]):
-                raise ValueError("invalid source anchor")
+        if pdf_figures is None:
+            for reference in data["references"].values():
+                if not re.fullmatch(r"[A-Za-z0-9_.:-]{1,160}", reference["anchor"]):
+                    raise ValueError("invalid source anchor")
         figure_ids, figure_refs = set(), set()
         for original in data.get("original_figures", []):
             if not re.fullmatch(r"original-[a-z-]+", original["id"]) or original["id"] in figure_ids:
@@ -78,12 +86,15 @@ def load_deep_reads(directory):
             number = original["number"]
             if reference not in data["references"] or reference in figure_refs or type(number) is not int or number < 1:
                 raise ValueError("invalid original figure reference")
-            if not data["references"][reference]["anchor"].endswith(".F%d" % number):
-                raise ValueError("original figure number does not match source anchor")
             figure_refs.add(reference)
-            from paper_source import image_url
-            if image_url(data["source_url"], original["src"]) != original["src"]:
-                raise ValueError("original figure must link to the versioned arXiv image")
+            if pdf_figures is not None:
+                licensed_figures.validate_image(data, original, directory.parent.parent, pdf_figures)
+            else:
+                if not data["references"][reference]["anchor"].endswith(".F%d" % number):
+                    raise ValueError("original figure number does not match source anchor")
+                from paper_source import image_url
+                if image_url(data["source_url"], original["src"]) != original["src"]:
+                    raise ValueError("original figure must link to the versioned arXiv image")
             if any(type(original[key]) is not int or not 1 <= original[key] <= 10000 for key in ("width", "height")):
                 raise ValueError("invalid original figure dimensions")
             if not original["alt"].strip() or not original["reading_steps"] or not data.get("original_figure_credit", "").strip():
@@ -140,17 +151,24 @@ def original_figure(data, reference):
     item = next((item for item in data.get("original_figures", []) if item["reference"] == reference), None)
     if item is None:
         return ""
+    src = licensed_figures.image_href(data, item)
+    local = licensed_figures.is_pdf(data)
     image = '<div class="dr-original-scroll" tabindex="0" role="region" aria-label="论文原图；放大后可切换原始尺寸并滚动查看"><a class="dr-original-link" href="%s" target="_blank" rel="noopener noreferrer" data-expand-original aria-label="放大原文 Fig.%s"><img data-original-image src="%s" width="%s" height="%s" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="%s"></a></div>' % (
-        esc(item["src"]), item["number"], esc(item["src"]), item["width"], item["height"], esc(item["alt"]),
+        esc(src), item["number"], esc(src), item["width"], item["height"], esc(item["alt"]),
     )
-    status = '<p class="dr-image-status" role="status"><span data-image-message>原图由 arXiv 加载；若未显示，可打开下方原图链接。</span><button type="button" class="icon-button" data-retry-original hidden>重新加载</button></p>'
-    graphic = '<div class="dr-graphic dr-original-graphic" data-original-graphic>%s%s<div class="dr-image-meta"><span>原文图 · 外部图源 · %s × %s px</span><a href="%s" target="_blank" rel="noopener noreferrer">打开原图 ↗</a></div></div>' % (
-        image, status, item["width"], item["height"], esc(item["src"]),
+    origin = "授权转载" if local else "外部图源"
+    message = "原图由本站加载" if local else "原图由 arXiv 加载"
+    status = '<p class="dr-image-status" role="status"><span data-image-message>%s；若未显示，可打开下方原图链接。</span><button type="button" class="icon-button" data-retry-original hidden>重新加载</button></p>' % message
+    graphic = '<div class="dr-graphic dr-original-graphic" data-original-graphic%s>%s%s<div class="dr-image-meta"><span>原文图 · %s · %s × %s px</span><a href="%s" target="_blank" rel="noopener noreferrer">打开原图 ↗</a></div></div>' % (
+        ' data-licensed-original' if local else "", image, status, origin, item["width"], item["height"], esc(src),
     )
     steps = '<div class="dr-read-figure"><h3>跟着原图读</h3><ol>' + ''.join('<li><strong>%s</strong><p>%s</p></li>' % (esc(step["title"]), esc(step["text"])) for step in item["reading_steps"]) + '</ol><p class="dr-caution">%s</p></div>' % esc(item["caution"])
     credit = '<div class="dr-image-credit">原图作者：%s。来源：arXiv:%s，%s。图后中文解说为本站整理，非作者原始图注。</div>' % (
         esc(data["original_figure_credit"]), esc(data["paper_id"]), esc(data["source_version"]),
     )
+    if local:
+        name, url, purpose = licensed_figures.license_credit(data)
+        credit += '<p class="dr-image-credit">许可：<a rel="license" href="%s">%s</a>%s。完整保留图像像素；PNG 为无损导出，网页只等比例缩放显示。未裁剪、重绘或加注。</p>' % (esc(url), esc(name), esc(purpose))
     return '<figure class="dr-figure dr-original-figure" id="%s"><div class="dr-figure-heading"><strong>原文 Fig.%s / %s</strong><button class="icon-button" type="button" data-expand-figure hidden>放大原图</button></div>%s%s<figcaption>%s%s%s</figcaption></figure>' % (
         esc(item["id"]), item["number"], esc(item["title"]), graphic, steps, esc(item["caption"]), credit, refs(data, [reference]),
     )

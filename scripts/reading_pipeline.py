@@ -22,6 +22,7 @@ STATUS_LABELS = {
     "formula_rendering_failed": "待处理：公式排版未通过检查", "invalid_key": "待处理：API 认证失败",
     "insufficient_balance": "待处理：API 余额不足", "verified_vision_model_required": "待处理：需使用已核对的视觉模型",
     "license_unverified": "待处理：未能确认原文许可", "source_equations_unavailable": "待处理：原文公式无法安全提取",
+    "original_figure_rights_pending": "待处理：固定版本已核读，但未取得本站转载原图的许可，仅保留原文入口",
     "run_time_limit": "待处理：本次运行时间不足，留待后续补跑", "disabled": "待处理：AI 已停用",
     "historical_backfill_pending": "待处理：历史论文正在按 Skill 补读，完成前日更已暂停",
 }
