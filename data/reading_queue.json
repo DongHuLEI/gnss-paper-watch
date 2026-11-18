@@ -720,10 +720,20 @@
   },
   "2611.16895": {
    "paper_id": "2611.16895",
-   "status": "historical_backfill_pending",
+   "status": "complete",
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
-   "origin": "historical_backfill"
+   "origin": "historical_backfill",
+   "checked_at": "2026-11-18T06:38:50Z",
+   "completed_at": "2026-11-18T06:38:50Z",
+   "source_status": "versioned_html_cc_licensed_complete_original_figures",
+   "source_url": "https://arxiv.org/html/2611.16895v1",
+   "source_version": "v1",
+   "license_evidence_url": "https://arxiv.org/abs/2611.16895v1",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "provider": "GPT6.2sol 子代理",
+   "generation_mode": "assistant_backfill",
+   "source_sha256": "089ad2f19c131092a334564af3f85bb682d92889848cfc98c4e3ac064e9aaa80"
   },
   "2611.17794": {
    "paper_id": "2611.17794",
@@ -740,6 +750,6 @@
    "origin": "historical_backfill"
   }
  },
- "updated_at": "2026-11-18T06:44:53Z",
+ "updated_at": "2026-11-18T06:48:24Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
