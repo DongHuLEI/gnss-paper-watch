@@ -211,11 +211,14 @@
    "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
    "queued_at": "2026-11-17T08:47:59Z",
    "origin": "historical_backfill",
-   "checked_at": "2026-11-18T05:35:14Z",
+   "checked_at": "2026-11-18T07:03:38Z",
    "source_sha256": "bfb63be06fb5cdf767007e51e68eaa5e5a9c7674b606eff65b1e778593fe07a0",
    "source_version": "v1",
    "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
-   "license_evidence_url": "https://arxiv.org/abs/2610.06759v1"
+   "license_evidence_url": "https://arxiv.org/abs/2610.06759v1",
+   "source_status": "versioned_arxiv_pdf_nonexclusive_publisher_proceedings_require_permission_by_default_no_figure_permission_verified",
+   "publisher_version_url": "https://doi.org/10.33012/2026.20817",
+   "rights_notice_url": "https://ion.org/gnss/upload/table-of-contents-complete.html"
   },
   "2610.10360": {
    "paper_id": "2610.10360",
@@ -773,6 +776,6 @@
    "checked_at": "2026-11-18T06:52:48Z"
   }
  },
- "updated_at": "2026-11-18T06:54:05Z",
+ "updated_at": "2026-11-18T07:03:38Z",
  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f"
 }
