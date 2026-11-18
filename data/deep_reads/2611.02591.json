@@ -1,0 +1,789 @@
+{
+ "format": "paper-deep-reading-v1",
+ "paper_id": "2611.02591",
+ "source_version": "v1",
+ "source_url": "https://arxiv.org/html/2611.02591v1",
+ "checked_on": "2026-11-18",
+ "title_zh": "GNSS 受限环境下的分布式声事件检测与定位：从阵列内时差到网关融合",
+ "dek": "这套面向野生动物保护的原型在节点端筛选冲击声、识别枪声并生成阵列内时差，网关融合多个节点的方向估计。分类是在独立音频流上评价，位置误差来自室外扬声器回放；坐标测量的不确定度只适用于进入定位链的事件，不计漏报。",
+ "reading_minutes": 30,
+ "scope": "AI 全文导读 · 待核验。GPT6.2sol 子代理直接核读固定版本 arXiv HTML；本次不是独立 API 账单任务。已读第 I–VI 节、脚注、表 I–VIII、图注及公式（含多行显示式）；该 HTML 未列独立附录。展示前实际查看 Fig. 1 与 Fig. 12 官方原图；定位指标按受控回放解释，不表述为实弹测量。未运行作者程序、未独立复现实验，也未经过人工审稿。",
+ "references": {
+  "S6": {
+   "label": "原文 · S1.p4.1",
+   "anchor": "S1.p4.1"
+  },
+  "S14": {
+   "label": "原文 · S1.I1.i2.p1.1",
+   "anchor": "S1.I1.i2.p1.1"
+  },
+  "S36": {
+   "label": "原文 · S2.SS2.p2.1",
+   "anchor": "S2.SS2.p2.1"
+  },
+  "S66": {
+   "label": "原文 · S4.p1.1",
+   "anchor": "S4.p1.1"
+  },
+  "S29": {
+   "label": "原文 · S2.SS1.p2.1",
+   "anchor": "S2.SS1.p2.1"
+  },
+  "S30": {
+   "label": "原文 · S2.SS1.p3.1",
+   "anchor": "S2.SS1.p3.1"
+  },
+  "S22": {
+   "label": "原文 · S2.p1.1",
+   "anchor": "S2.p1.1"
+  },
+  "S38": {
+   "label": "原文 · S3.p1.1",
+   "anchor": "S3.p1.1"
+  },
+  "S39": {
+   "label": "原文 · S3.p2.1",
+   "anchor": "S3.p2.1"
+  },
+  "S64": {
+   "label": "原文 · S3.SSx2.p4.1",
+   "anchor": "S3.SSx2.p4.1"
+  },
+  "S68": {
+   "label": "原文 · S4.SS1.p1.1",
+   "anchor": "S4.SS1.p1.1"
+  },
+  "S94": {
+   "label": "原文 · S4.SS2.p5.3",
+   "anchor": "S4.SS2.p5.3"
+  },
+  "S41": {
+   "label": "原文 · S3.SS1.p1.1",
+   "anchor": "S3.SS1.p1.1"
+  },
+  "S48": {
+   "label": "原文 · S3.SS2.p2.1",
+   "anchor": "S3.SS2.p2.1"
+  },
+  "S15": {
+   "label": "原文 · S1.I1.i3.p1.1",
+   "anchor": "S1.I1.i3.p1.1"
+  },
+  "S80": {
+   "label": "原文 · S4.SS1.p4.7",
+   "anchor": "S4.SS1.p4.7"
+  },
+  "S82": {
+   "label": "原文 · S4.SS1.p6.1",
+   "anchor": "S4.SS1.p6.1"
+  },
+  "S86": {
+   "label": "原文 · S4.SS2.p2.1",
+   "anchor": "S4.SS2.p2.1"
+  },
+  "S95": {
+   "label": "原文 · S4.SS2.p5.4",
+   "anchor": "S4.SS2.p5.4"
+  },
+  "S102": {
+   "label": "原文 · S4.SS2.p13.2",
+   "anchor": "S4.SS2.p13.2"
+  },
+  "S104": {
+   "label": "原文 · S4.SS3.p1.1",
+   "anchor": "S4.SS3.p1.1"
+  },
+  "S69": {
+   "label": "原文 · S4.SS1.p2.1",
+   "anchor": "S4.SS1.p2.1"
+  },
+  "S79": {
+   "label": "原文 · S4.SS1.p4.6",
+   "anchor": "S4.SS1.p4.6"
+  },
+  "S83": {
+   "label": "原文 · S4.SS1.p6.2",
+   "anchor": "S4.SS1.p6.2"
+  },
+  "S96": {
+   "label": "原文 · S4.SS2.p5.5",
+   "anchor": "S4.SS2.p5.5"
+  },
+  "S58": {
+   "label": "原文 · S3.SSx1.p3.1",
+   "anchor": "S3.SSx1.p3.1"
+  },
+  "S124": {
+   "label": "原文 · S5.SS2.p2.1",
+   "anchor": "S5.SS2.p2.1"
+  },
+  "S129": {
+   "label": "原文 · S5.SS3.p1.1",
+   "anchor": "S5.SS3.p1.1"
+  },
+  "S113": {
+   "label": "原文 · S5.p1.1",
+   "anchor": "S5.p1.1"
+  },
+  "S146": {
+   "label": "原文 · S5.SS3.SSS3.p1.1",
+   "anchor": "S5.SS3.SSS3.p1.1"
+  },
+  "S148": {
+   "label": "原文 · S5.SS3.SSS3.p2.1",
+   "anchor": "S5.SS3.SSS3.p2.1"
+  },
+  "S158": {
+   "label": "原文 · S5.SS5.p1.1",
+   "anchor": "S5.SS5.p1.1"
+  },
+  "S126": {
+   "label": "原文 · S5.T5.1",
+   "anchor": "S5.T5.1"
+  },
+  "S127": {
+   "label": "原文 · S5.T5.2",
+   "anchor": "S5.T5.2"
+  },
+  "S143": {
+   "label": "原文 · S5.T6",
+   "anchor": "S5.T6"
+  },
+  "S144": {
+   "label": "原文 · S5.T6.1.1",
+   "anchor": "S5.T6.1.1"
+  },
+  "S142": {
+   "label": "原文 · S5.SS3.SSS2.p3.1",
+   "anchor": "S5.SS3.SSS2.p3.1"
+  },
+  "S147": {
+   "label": "原文 · S5.F12",
+   "anchor": "S5.F12"
+  },
+  "S155": {
+   "label": "原文 · S5.T7",
+   "anchor": "S5.T7"
+  },
+  "S152": {
+   "label": "原文 · S5.SS4.p2.1",
+   "anchor": "S5.SS4.p2.1"
+  },
+  "S154": {
+   "label": "原文 · S5.SS4.p3.3",
+   "anchor": "S5.SS4.p3.3"
+  },
+  "S163": {
+   "label": "原文 · S5.SS5.p3.1",
+   "anchor": "S5.SS5.p3.1"
+  },
+  "M8": {
+   "label": "原公式 · S4.E8.m1",
+   "anchor": "S4.E8.m1"
+  },
+  "M11": {
+   "label": "原公式 · S4.E11.m1",
+   "anchor": "S4.E11.m1"
+  },
+  "M16": {
+   "label": "原公式 · S4.E20.m1",
+   "anchor": "S4.E20.m1"
+  },
+  "M18": {
+   "label": "原公式 · S4.E23.m1",
+   "anchor": "S4.E23.m1"
+  },
+  "F1": {
+   "label": "Fig.1 · 原文图",
+   "anchor": "S1.F1"
+  },
+  "F12": {
+   "label": "Fig.12 · 原文图",
+   "anchor": "S5.F12"
+  }
+ },
+ "sections": [
+  {
+   "id": "overview",
+   "paragraphs": [
+    {
+     "heading": "从连续监听到坐标，不是一张网一个分类器",
+     "kind": "reported",
+     "text": "原型面向保护区反盗猎监测。低成本 MEMS 麦克风阵列单元（MAU）持续在端侧监听，先用声音检测与回声抑制（SDES）筛候选，再用 TinyML 分类。通过的事件由增强广义互相关（eGCC）估计阵列内到达时差（TDoA），网关从各阵列观测推算到达角（AoA），之后以 SCO-EV 融合出全局位置。检测成功与坐标足够准确是两件事。",
+     "evidence": [
+      {
+       "source": "S6",
+       "quote": "Although there are several commercial products for acoustic localization [ 16 ] , they are expensive and inefficient to deploy in large areas [ 17 ] . In light of these challenges, this work presents a low-cost, energy-efficient, and scalable acoustic surveillance system for detecting and localizing gunshots in real-time, specifically tailored for deployment in large, complex environments such as wildlife reserves."
+      },
+      {
+       "source": "S14",
+       "quote": "Two-stage edge gunshot detection pipeline: We develop an energy-aware detection pipeline that combines a lightweight Sound Detection and Echo Suppression (SDES) front-end with a TinyML-based gunshot classifier (TinyGunDetect). The SDES stage filters out most irrelevant background activity before neural inference is triggered, which reduces unnecessary computation and makes continuous on-device monitoring feasible for resource-constrained platforms."
+      },
+      {
+       "source": "S36",
+       "quote": "If a gunshot is recognized, the local processor estimates the TDoA values using the proposed eGCC algorithm, described in Sec. IV-A . Upon receiving the TDoA values from the MAUs, the master processor estimates the source location using the proposed SCO-EV algorithm (see Sec. IV-B ). Finally, the estimated position is promptly reported to local authorities."
+      },
+      {
+       "source": "S66",
+       "quote": "In this section, we introduce the proposed localization framework, which consists of three stages. First, the eGCC algorithm computes the TDoA values. Next, the grouped TDoA values from each MAU are input into the modified SCO algorithm to estimate the AoA. Finally, these estimates are combined with the corresponding MAU positions, and the EV algorithm is applied to determine the precise location of the gunshot."
+      }
+     ]
+    },
+    {
+     "heading": "不持续依赖卫星授时，并非完全不使用 GNSS",
+     "kind": "reported",
+     "text": "同一 MAU 内的麦克风共享硬件时钟，输入网关的是阵内时差，不是不同阵列间的绝对到时。论文仍用 RTK-GPS 在布设时测定锚点坐标，也用它获得扬声器的实验真值；平台还需要参考方向。这里的 GNSS 受限能力应读成事件定位时不需要持续 GPS 授时，不是初设与验收都不需要已知参考。",
+     "evidence": [
+      {
+       "source": "S29",
+       "quote": "This is achieved using an RTK-GPS system powered by the multi-band u-blox ZED-F9P module [ 38 ] . Unlike ToA localization [ 17 ] , which requires continuous GPS timing when the target sound is detected, our system uses GPS only during initial deployment. This setup provides the global coordinates of the speaker (acting as the shooter) and the MAU centers. A compass is then used to identify north, designated as the Y -axis, and to establish a local Cartesian coordinate system for each MAU."
+      },
+      {
+       "source": "S30",
+       "quote": "This setup generates perfectly synchronized clock signals and avoids additional synchronization."
+      },
+      {
+       "source": "S22",
+       "quote": "The validated multichannel signals are then processed to generate TDoA values. The TDoA information is subsequently transmitted to the Gateway via the LoRa network."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gap",
+   "paragraphs": [
+    {
+     "heading": "长时间监测先是资源分配问题",
+     "kind": "reported",
+     "text": "在作者的应用动机里，无事件的时段远多于值得报警的片段，持续把原始音频送给神经分类器会浪费设备功耗，误触发也占用响应资源。做法是先用时域的便宜规则找候选，再用小分类器确认类别；作者没有把 MFCC 或卷积分类器本身当作算法创新。这是论文自述的设计取舍，不是对所有商用或学术方案的独立查新。",
+     "evidence": [
+      {
+       "source": "S38",
+       "quote": "During long-term automatic detection, acoustic events are infrequent, with most sounds being natural noise and irrelevant to the detection task. Therefore, continuously feeding all data to the gunshot detection model is energy-intensive. Moreover, false alarms from detections incur resource costs and may prevent poaching activities from being detected."
+      },
+      {
+       "source": "S39",
+       "quote": "To minimize power consumption, optimize computational efficiency, and maintain high detection accuracy, we propose a two-step detection algorithm. First, the SDES algorithm detects all types of acoustic impulse events, filtering for those with distinct patterns, such as high power. Next, only the audio data that passes the initial detection stage is processed by the gunshot detection model, TinyGunDetect, trained using TinyML."
+      },
+      {
+       "source": "S64",
+       "quote": "We do not claim algorithmic novelty for the MFCC or 1D CNN components; likewise, the CNN training procedure and Edge Impulse optimization are standard deployment steps rather than methodological contributions."
+      }
+     ]
+    },
+    {
+     "heading": "难点从跨阵列统一计时转移到阵内观测质量",
+     "kind": "interpretation",
+     "text": "阵内共享采样时钟与传输紧凑观测可简化跨节点的通信与同步要求，却把定位质量更多交给阵内互相关、阵列朝向标定和方向融合：阵内延迟偏差会流入角度估计，而阵列统一朝向偏差不会靠多路独立平均自然消失。读定位收益时，要问改的是时差、姿态还是后端。",
+     "evidence": [
+      {
+       "source": "S68",
+       "quote": "The proposed hardware architecture enables direct computation of time delays between microphones within each MAU, thereby reducing both synchronization errors and the energy required for data transmission. This design, however, necessitates local audio processing on the MAU itself."
+      },
+      {
+       "source": "S94",
+       "quote": "where the (j,\\ell) microphone block is [\\mathbf{Q}_{\\textrm{m}}]_{j\\ell}=\\mathbf{J}_{j}\\mathbf{Q}_{\\alpha}\\mathbf{J}_{\\ell}^{T} . Thus, \\mathbf{Q}_{\\textrm{m}} has units of m 2 and retains both within-microphone and cross-microphone correlations generated by the common platform rotation. Here, \\mathbf{Q}_{\\alpha} is obtained from the covariance of the post-calibration angular residuals. This revised problem can be solved using the SCO algorithm, as outlined in [ 28 ] , and can be expressed as"
+      },
+      {
+       "source": "S66",
+       "quote": "In this section, we introduce the proposed localization framework, which consists of three stages. First, the eGCC algorithm computes the TDoA values. Next, the grouped TDoA values from each MAU are input into the modified SCO algorithm to estimate the AoA. Finally, these estimates are combined with the corresponding MAU positions, and the EV algorithm is applied to determine the precise location of the gunshot."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "paragraphs": [
+    {
+     "heading": "端侧事件门控：特征流和定位流在分类后分开",
+     "kind": "reported",
+     "text": "SDES 在时域用滤波和分段能量找冲击候选，并通过相关性抑制重复回声触发。候选片段才提取梅尔频率倒谱系数（MFCC），送入 TinyGunDetect 卷积分类器；训练采用类别交叉熵，部署采用优化后的 TinyML 模型。分类不通过便回到监听，通过才处理用于定位的多通道片段；训练音频不参与在线坐标求解。",
+     "evidence": [
+      {
+       "source": "S41",
+       "quote": "We implement a low-complexity SDES technique to filter environmental noise and suppress echoes efficiently. The detection component includes a high-pass filter and signal power criteria, while the echo suppression component focuses on regions affected by potential echoes, leveraging correlation-based methods for effective suppression. Both components are designed to minimize computational demands by operating entirely in the time domain and relying on simple operations such as squaring values, computing the median, and applying an infinite impulse response (IIR) filter."
+      },
+      {
+       "source": "S48",
+       "quote": "MFCC features serve as input to the classifier, where a one-dimensional convolutional neural network (CNN) is employed for accurate classification of gunshot events."
+      },
+      {
+       "source": "S64",
+       "quote": "Finally, the CNN model was trained using the Adam optimizer with a learning rate of 0.0001, a batch size of 32, and 100 epochs, employing categorical cross-entropy as the loss function. The trained model was then uploaded to the Edge Impulse platform and further optimized using quantization, pruning, weight clustering, and weight sharing to generate a low-cost TinyML model [ 47 ] ."
+      },
+      {
+       "source": "S64",
+       "quote": "Instead, the classifier operates as a TinyML event gate: SDES limits inference to impulse candidates, and only recognized gunshots initiate local eGCC/TDoA processing and subsequent localization."
+      }
+     ]
+    },
+    {
+     "heading": "阵内 eGCC：不把每个频点和每帧都同等看待",
+     "kind": "reported",
+     "text": "eGCC 给互谱加入随信噪比变化的权重与相干可靠性修正，再由相关峰给出每帧的阵内时差；对事件附近的多个帧以功率汇合，并由各阵列把紧凑时差观测发给网关。功率加权是作者选的可靠性近似，不表示大功率帧必然是正确直达路径；定位后端接受的是测量而不是分类概率。",
+     "evidence": [
+      {
+       "source": "S15",
+       "quote": "Enhanced local TDoA estimation for acoustic events: We propose an enhanced GCC-based delay estimation method (eGCC) tailored for low-SNR and reverberant gunshot recordings. The method incorporates SNR-dependent spectral weighting, coherence-aware normalization, and power-weighted fusion across event-centered frames, improving the robustness of intra-array TDoA estimation while keeping the computation lightweight enough for edge execution."
+      },
+      {
+       "source": "S80",
+       "quote": "where \\mathcal{F}^{-1}\\{\\} denotes the inverse FFT. The time delay \\tau is then estimated by finding the peak of r_{01}(t) , which is"
+      },
+      {
+       "source": "S82",
+       "quote": "Scanning the frames that contain the detected segment, we have I different frames, each with its sound timestamp located in the k -th segment of the frame. Each pair of frames generates a TDoA value \\tau_{k} . The power-weighted average TDoA \\hat{\\tau} between the two microphones is expressed as"
+      },
+      {
+       "source": "S22",
+       "quote": "The validated multichannel signals are then processed to generate TDoA values. The TDoA information is subsequently transmitted to the Gateway via the LoRa network."
+      }
+     ]
+    },
+    {
+     "heading": "网关融合的是角度及不确定度，标定先于定位",
+     "kind": "reported",
+     "text": "SCO 利用本地阵列几何、距离差及其协方差，估计俯仰、方位与逆距离；EV 以锚点位置、角度及两者的不确定度为输入。错位标定（MC）用已知位置声源估整块平台的共同旋转，不为每只麦克风独立拟合坐标。标定后的重复残差用于估计协方差；实际监听不再为每个未知事件引入源位置真值。",
+     "evidence": [
+      {
+       "source": "S86",
+       "quote": "We first formulate a measurement model using modified polar representation (MPR) to determine the coordinate position of the sound source. For example, the position of the sound source \\mathbf{u}=[\\theta,\\phi,g]^{T} , where \\theta and \\phi are the elevation and azimuth angles, respectively, and g represents the inverse range from the sound source to the origin, which is defined as the center of the MAU."
+      },
+      {
+       "source": "S95",
+       "quote": "where \\mathbf{r}=C_{\\textrm{s}}\\cdot\\Delta t is the vector of range difference related to a reference microphone, C_{\\textrm{s}}\\approx 331+0.606T_{\\textrm{c}} m/s, denotes the sound velocity, and T_{\\textrm{c}} is the temperature of the air [ 50 ] . \\mathbf{s}=[s_{1},s_{2},...,s_{M}] represent the positions of the measurement microphone. The range-difference covariance is propagated from the TDoA covariance as"
+      },
+      {
+       "source": "S102",
+       "quote": "where \\sigma_{\\theta,k} and \\sigma_{\\phi,k} denote the standard deviations of the post-calibration elevation and azimuth residuals and c_{\\theta\\phi,k} is their covariance, all evaluated from repeated residual observations. Hence, \\mathbf{Q}_{\\textrm{a}} has units of rad 2 ; the inverse-range estimates are not used as angular variances."
+      },
+      {
+       "source": "S104",
+       "quote": "it does not estimate independent position corrections for individual microphones. The microphone coordinates are measured once in the rigid platform coordinate system and are held fixed. After deployment, uneven ground and compass-based north alignment can introduce two small platform rotations, denoted by (\\Delta\\theta,\\Delta\\phi) . MC estimates the corresponding calibration angles (\\theta_{\\textrm{c}},\\phi_{\\textrm{c}}) from a source at a known position and applies the same rigid rotation to every measured microphone coordinate, as illustrated in Fig. 5 ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "paragraphs": [
+    {
+     "heading": "相关峰的可靠性与帧间平均不是同一层加权",
+     "kind": "interpretation",
+     "text": "相干性与频点增益决定互谱中哪些频点应降权；事件窗内则对已经解出的帧时差做加权。前者在频域改变相关函数，后者在时域测量层汇合。二者都不是对最终坐标做平均，也不能保证相关峰来自直达声。若没有清晰的共模观测，不能把不同信号条件下的误差一概归入采样量化。",
+     "evidence": [
+      {
+       "source": "S69",
+       "quote": "In contrast to the widely adopted normalization factor \\beta , we introduce an SNR-dependent frequency weighting function G(f) to emphasize contributions based on magnitude. Additionally, a locally smoothed coherence- and energy-aware reliability regularizer R(f) is incorporated into the weighting function."
+      },
+      {
+       "source": "S79",
+       "quote": "where \\lambda=0.6 . Hence, R(f) remains close to one for coherent or high-energy frequency bins and increases the regularization only for low-coherence, low-energy bins. Similarly, S_{i}^{*} denotes the complex conjugate of S_{i} . After applying the enhanced normalization, the cross-correlation function r_{01}(t) is obtained by"
+      },
+      {
+       "source": "S83",
+       "quote": "This approach efficiently estimates the TDoA by focusing on relevant frames and using power-weighted averaging, improving both computational efficiency and delay estimation accuracy."
+      }
+     ]
+    },
+    {
+     "heading": "共享参考会在协方差里留下非对角项",
+     "kind": "interpretation",
+     "text": "以同一个参考通道做差，参考误差会同时进入多个时差；平台共转也同时移动多个麦克风。这两种相关性都不能只报独立方差。原文用声速把时差协方差变成距离差协方差，而 EV 用另一份角度协方差，来源是标定残差，不能从逆距离直接替代。",
+     "evidence": [
+      {
+       "source": "S96",
+       "quote": "For independent arrival-time errors with common standard deviation \\sigma_{t} and a shared reference microphone, \\mathbf{Q}_{\\Delta t}=\\sigma_{t}^{2}(\\mathbf{I}_{M-1}+\\mathbf{1}_{M-1}\\mathbf{1}_{M-1}^{T}) . Thus, \\mathbf{Q}_{\\Delta t} has units of s 2 and \\mathbf{Q}_{\\textrm{r}} has units of m 2 . In the experiments, \\sigma_{t} is estimated from repeated eGCC delay residuals, while the 48 -kHz sampling quantization provides the resolution lower bound."
+      },
+      {
+       "source": "S94",
+       "quote": "Thus, \\mathbf{Q}_{\\textrm{m}} has units of m 2 and retains both within-microphone and cross-microphone correlations generated by the common platform rotation."
+      },
+      {
+       "source": "S102",
+       "quote": "where \\sigma_{\\theta,k} and \\sigma_{\\phi,k} denote the standard deviations of the post-calibration elevation and azimuth residuals and c_{\\theta\\phi,k} is their covariance, all evaluated from repeated residual observations. Hence, \\mathbf{Q}_{\\textrm{a}} has units of rad 2 ; the inverse-range estimates are not used as angular variances."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "experiments",
+   "paragraphs": [
+    {
+     "heading": "先分原始录音，增强副本不跨训练与验证",
+     "kind": "reported",
+     "text": "模型开发先按原始录音分为 76% 训练和 24% 验证，再在原分区内增强。开发集约 600 段枪声和 4,400 段其他声；配置固定后，独立连续流测试包含 138 个枪声和 140 个非枪声事件。这个设计防止同一增强家族跨开发分区，但不能等同于跨地点、设备或录音来源都做了独立留组。",
+     "evidence": [
+      {
+       "source": "S58",
+       "quote": "The original recordings were first assigned to the model-development partitions (76% training and 24% validation) before augmentation. The four augmented derivatives of each recording were generated only within the partition of their parent recording; thus, no original recording or its augmented versions appeared in both partitions. The resulting model-development dataset contained approximately 600 gunshot segments and 4,400 segments for the ”other” category."
+      },
+      {
+       "source": "S124",
+       "quote": "After the model and post-processing configuration were fixed, final end-to-end testing was conducted on an independent set of continuous audio streams containing 138 gunshot and 140 non-gunshot events."
+      }
+     ]
+    },
+    {
+     "heading": "区分仿真时差、实测角度与回放位置",
+     "kind": "reported",
+     "text": "论文时差对比用仿真，角度用仿真和硬件测量，位置只用室外硬件采集。扬声器在已测点位回放录音，估计位置基于计算结果平均。对比包括加权 GCC-PHAT 系列的时差基线、使用原 SCO 和不同坐标求解器的位置基线，以及逐步加入 eGCC、MC、EV 的消融，不是把三层的指标放在同一分母下排名。",
+     "evidence": [
+      {
+       "source": "S129",
+       "quote": "Localization accuracy is evaluated across three aspects: delay, angle, and position estimation. Delay estimation is carried out through simulation, angle estimation is assessed using both simulation and experimental methods, and position estimation is evaluated based solely on experimental data."
+      },
+      {
+       "source": "S113",
+       "quote": "The high-fidelity speaker [ 52 ] , serving as the simulated gun, was placed at each test point, as depicted in Fig. 7 . 4 4 4 The playback experiments assess the multi-microphone acquisition and localization chain for muzzle-blast-dominated recordings under controlled excitation. They do not reproduce ballistic shockwaves, firearm directivity, or nonlinear source generation; live-fire validation is left for future work."
+      },
+      {
+       "source": "S146",
+       "quote": "The estimated positions are based on the average of the computed locations."
+      },
+      {
+       "source": "S148",
+       "quote": "The proposed method is compared with SUM-LSS [ 50 ] , Liu’s method [ 54 ] , SCO-BRPLE [ 55 ] , and SCO-MLE [ 56 ] ; the baseline methods use the original SCO-based AoA estimation [ 28 ] and their corresponding position solvers."
+      }
+     ]
+    },
+    {
+     "heading": "计时分开看，不把归一化吞吐当报警延迟",
+     "kind": "reported",
+     "text": "表 V 报端侧特征与分类总计约 45 ms／每秒音频，是对 3 s 推断窗耗时的线性归一化，不是触发到完整坐标返回的墙钟时间。表 VIII 则是 PC 上 MATLAB 实现的定位步骤计时，SCO-EV 分别为角估计 8.6 ms 和坐标估计 0.201 ms；不能将两表直接相加为端到端延迟，通信、候选窗等待和跨节点事件汇合仍需单测。",
+     "evidence": [
+      {
+       "source": "S124",
+       "quote": "The deployed Spresense implementation reports 90 ms for MFCC/DSP processing and 45 ms for classification over a 3-s inference window; the corresponding linearly normalized values are 30 ms, 15 ms, and 45 ms in total per 1 s of audio."
+      },
+      {
+       "source": "S158",
+       "quote": "The computational complexity of the different angle-position estimation methods was evaluated by testing the processing time using a MATLAB 2024b implementation, executed on a PC with an Intel i5-12600k processor and 32 GB of memory. As shown in Table VIII , the angle estimation stage accounts for the majority of the localization processing time: SCO-EV and SCO each require 8.6 ms, whereas SUM-LSS requires 7.2 ms."
+      },
+      {
+       "source": "S158",
+       "quote": "For source position estimation, SCO-EV and SCO-BRPLE each require 0.201 ms, while Liu’s method and SUM-LSS require 0.003 ms and 0.002 ms, respectively."
+      }
+     ]
+    },
+    {
+     "heading": "复现可从配置表核起，缺少可重跑的完整记录",
+     "kind": "unknown",
+     "text": "已读版本给出特征和系统配置、数据来源说明、标定与消融，但没有在文中找到冻结的连续流文件清单、事件级配对输出或完整端到端代码入口。即使能从文献追到部分音源，也不能据此判断留组泛化或复算每种基线的置信区间；本文导读没有运行这些实验。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "paragraphs": [
+    {
+     "heading": "独立流统计同时有漏报和误报",
+     "kind": "reported",
+     "text": "表 V 的混淆矩阵为真阳性 113、假阴性 25、假阳性 17、真阴性 123，报告准确率 84.9%、召回率 81.9%、F1 为 84.3%，MCC 为 0.70。它是固定配置下选定独立音频流的事件级汇总，不是每小时误报警率；表中事件正负数量接近，实际监测中事件基率不同，不能照搬阳性预测值。",
+     "evidence": [
+      {
+       "source": "S126",
+       "quote": "Actual / Predicted Gunshot Non-gunshot Gunshot 113 25 Non-gunshot 17 123"
+      },
+      {
+       "source": "S127",
+       "quote": "Metric ACC PRC RCL F1 MCC Proc. time Results 84.9% 86.9% 81.9% 84.3% 0.70 45 ms"
+      },
+      {
+       "source": "S124",
+       "quote": "After the model and post-processing configuration were fixed, final end-to-end testing was conducted on an independent set of continuous audio streams containing 138 gunshot and 140 non-gunshot events."
+      }
+     ]
+    },
+    {
+     "heading": "分步消融：标定是这一序列中最大的下降",
+     "kind": "reported",
+     "text": "表 VI 在 16,728 m² 下，传统 GCC–SCO–BRPLE 基线 RMSE 为 15.39 m，加 eGCC 后为 12.04 m，再加 MC 后为 6.40 m，换 EV 融合后为 5.83 m，相对起点下降 62.1%。这只是一条逐步比较路径：eGCC 组合了多项处理，后一项的收益也可能依赖前项，不能把差值解释为可在任意场景相加的独立贡献。",
+     "evidence": [
+      {
+       "source": "S143",
+       "quote": "TABLE VI: Component-wise ablation at a coverage area of 16{,}728~\\mathrm{m}^{2}"
+      },
+      {
+       "source": "S144",
+       "quote": "Configuration eGCC MC SCO-EV RMSE (m) Baseline (GCC) \\times \\times \\times 15.39 +eGCC \\checkmark \\times \\times 12.04 +MC \\checkmark \\checkmark \\times 6.40 Proposed \\checkmark \\checkmark \\checkmark 5.83"
+      },
+      {
+       "source": "S142",
+       "quote": "The baseline is a conventional GCC–SCO–BRPLE pipeline: conventional GCC without PHAT weighting estimates intra-array TDoAs, the original SCO estimates the AoA at each MAU, and BRPLE produces the source position. Thus, the baseline does not use EV fusion. The +eGCC and +MC configurations retain the same SCO–BRPLE localization backend, whereas the proposed configuration replaces BRPLE with EV fusion."
+      },
+      {
+       "source": "S142",
+       "quote": "Replacing conventional GCC without PHAT weighting with eGCC reduces the localization RMSE from 15.39 to 12.04 m. Adding MC further reduces it to 6.40 m, and the complete framework with SCO-EV fusion achieves 5.83 m, corresponding to an overall reduction of 62.1% from the baseline."
+      }
+     ]
+    },
+    {
+     "heading": "面积汇总与单面积改善不能互换",
+     "kind": "reported",
+     "text": "位置试验中，作者跨测试面积报告相对 SUM-LSS、SCO-BRPLE、SCO-MLE 和 Liu 方法的 RMSE 降幅，依次为 21.9%、15.1%、13.6%、54.5%；相对 SUM-LSS，在 16,728 和 25,595 m² 下分别为 21.1% 和 45.8%。图中误差棒是试次定位误差的标准差，不是 RMSE 差的显著性检验，也不是定位成功率。",
+     "evidence": [
+      {
+       "source": "S148",
+       "quote": "The proposed method achieves the best overall performance across the tested areas, reducing the RMSE by 21.9\\% , 15.1\\% , 13.6\\% , and 54.5\\% relative to SUM-LSS, SCO-BRPLE, SCO-MLE, and Liu’s method, respectively."
+      },
+      {
+       "source": "S148",
+       "quote": "The gain is more pronounced in the medium-scale deployments: compared with SUM-LSS, the RMSE reduction reaches 21.1\\% and 45.8\\% at 16{,}728 and 25{,}595~\\textrm{m}^{2}"
+      },
+      {
+       "source": "S147",
+       "quote": "Fig. 12: Average RMSE vs. the coverage area. Error bars are shown for all compared methods and indicate the SD of localization errors across repeated trials."
+      }
+     ]
+    },
+    {
+     "heading": "条件不确定度既不是 RMSE，也不算没定位的事件",
+     "kind": "interpretation",
+     "text": "表 VII 的 GUM 不确定度针对已经进入坐标求解链的测量；作者将重复观测波动、求解器模型差异和锚点坐标规格等并入预算。表中扩展不确定度不等于绝对位置准确度或覆盖区间的实测命中率，TinyML 未进求解器也不表示漏报没有代价。图中的重复试验误差标准差与这套不确定度预算不可互换。",
+     "evidence": [
+      {
+       "source": "S155",
+       "quote": "TABLE VII: Area-dependent GUM uncertainty results for the conditional coordinate-localization measurand."
+      },
+      {
+       "source": "S152",
+       "quote": "The epistemic Type-A term is u_{\\mathrm{e,A}}=0 m because the TinyML gate does not enter the coordinate solver. The epistemic Type-B term is u_{\\mathrm{e,B}}=0.165 m and is estimated from the BRPLE–EV model variation using a rectangular distribution. The aleatoric Type-A term is propagated from repeated localization errors, and its area-dependent values are reported in Table VII ."
+      },
+      {
+       "source": "S154",
+       "quote": "Here, t_{0.975,\\nu} denotes the 0.975 quantile of the Student- t distribution; its use for a two-sided 95% coverage interval follows Secs. G.3.4 and G.4.1 of the GUM [ 57 ] ."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "paragraphs": [
+    {
+     "heading": "回放能测采集与解算链，不能替代真实声源实验",
+     "kind": "reported",
+     "text": "作者的回放在室外真实设备上采集，但明确不再现实弹传播的激波、声源方向性和非线性声源生成，将实弹验证留给后续。文中也指出反射不能被互相关增强或回声触发抑制完全消除。分类和坐标结果都需要按这一实验条件理解，不能推广为真实环境中的端到端报警性能。",
+     "evidence": [
+      {
+       "source": "S113",
+       "quote": "The playback experiments assess the multi-microphone acquisition and localization chain for muzzle-blast-dominated recordings under controlled excitation. They do not reproduce ballistic shockwaves, firearm directivity, or nonlinear source generation; live-fire validation is left for future work."
+      },
+      {
+       "source": "S163",
+       "quote": "Reverberation can produce secondary correlation peaks and bias delay estimates. eGCC reduces unreliable frequency components, and SDES suppresses repeated echo triggers; however, neither eliminates multipath-induced TDoA bias. Reliable TDoA estimation may fail when strong reflections dominate the direct path."
+      }
+     ]
+    },
+    {
+     "heading": "本站追问：报出位置与没有位置，能否用同一流程评估？",
+     "kind": "proposal",
+     "text": "建议按原始记录、场景和日期留组，给所有真值事件记下是否报出坐标及拒报原因，再以同一试次同时报告单位时间误报、检测召回、可定位比例、位置误差分位和实测端到端分位延迟。把复测事件成组做区间估计，避免将多次回放或多个重叠帧当成独立场景。",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "transfer",
+   "paragraphs": [
+    {
+     "heading": "建议：用无害脉冲声验证共享参考的协方差",
+     "kind": "proposal",
+     "text": "在室内机器状态监测或施工传感测试中，用可重复的电子提示音和已测参考点采集数据。固定分类器、几何与训练预算，对比独立时差方差和共享参考协方差；按设备与日次留出，交付角度误差、坐标误差尾部与名义覆盖率—实测覆盖率图。若相关模型不改善覆盖，检查漂移、测距偏差或不满足独立到时误差假设。",
+     "evidence": []
+    },
+    {
+     "heading": "建议：固定边缘负载，测事件门控省了什么",
+     "kind": "proposal",
+     "text": "用机器启动声、继电器声等非武器事件建立长时连续流，固定节点、无线负载和模型，比较全时段分类与候选触发分类两条链。交付设备平均功率、传输字节量、每小时误报、召回与端到端延迟分位；若省电靠拒掉难样本换来，就不能判为有效迁移。",
+     "evidence": []
+    }
+   ]
+  }
+ ],
+ "equations": [
+  {
+   "id": "eq-source-a",
+   "number": "原文 · S4.E8.m1",
+   "refs": [
+    "M8"
+   ],
+   "mathml": "<mrow><mrow><mrow><mi>R</mi><mo>⁡</mo><mrow><mo>(</mo><mi>f</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mn>1</mn><mo>+</mo><mrow><mrow><mi>λ</mi><mo>⁡</mo><mrow><mo>[</mo><mrow><mn>1</mn><mo>−</mo><mrow><msub><mi>C</mi><mn>01</mn></msub><mo>​</mo><mrow><mo>(</mo><mi>f</mi><mo>)</mo></mrow></mrow></mrow><mo>]</mo></mrow></mrow><mo>​</mo><mrow><mo>[</mo><mrow><mn>1</mn><mo>−</mo><msqrt><mrow><msub><mi>G</mi><mn>0</mn></msub><mo>​</mo><mrow><mo>(</mo><mi>f</mi><mo>)</mo></mrow><mo>​</mo><msub><mi>G</mi><mn>1</mn></msub><mo>​</mo><mrow><mo>(</mo><mi>f</mi><mo>)</mo></mrow></mrow></msqrt></mrow><mo>]</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "R(f)=1+\\lambda\\left[1-C_{01}(f)\\right]\\left[1-\\sqrt{G_{0}(f)G_{1}(f)}\\right],",
+   "title": "相干性与增益一起进入频点正则",
+   "meaning": "只有相干性不高且两路信号增益都不足时，这个附加项才明显加大分母中的正则。若相干性为一，正则项退到一；这是读式示意，不是实测阈值。",
+   "caution": "频点正则影响峰的形成，不等于识别了直达声；仍应与其他谱权重以及回放条件对照阅读。",
+   "symbols": [
+    {
+     "symbol": "f",
+     "text": "频点对应频率，Hz。"
+    },
+    {
+     "symbol": "C₀₁(f)",
+     "text": "两路信号的幅值平方相干度，无量纲。"
+    },
+    {
+     "symbol": "G₀(f)、G₁(f)",
+     "text": "从两通道频点信噪比得到的无量纲增益。"
+    },
+    {
+     "symbol": "λ、R(f)",
+     "text": "正则强度与该频点的正则值。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-b",
+   "number": "原文 · S4.E11.m1",
+   "refs": [
+    "M11"
+   ],
+   "mathml": "<mrow><mrow><mover><mi>τ</mi><mo>^</mo></mover><mo>=</mo><mfrac><mrow><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>I</mi></msubsup><mrow><msub><mi>τ</mi><mi>k</mi></msub><mo>​</mo><mi>P</mi><mo>​</mo><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mrow></mrow><mrow><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>I</mi></msubsup><mrow><mi>P</mi><mo>⁡</mo><mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mrow></mrow></mfrac></mrow><mo>,</mo></mrow>",
+   "accessible": "\\hat{\\tau}=\\frac{\\sum_{k=1}^{I}\\tau_{k}P(k)}{\\sum_{k=1}^{I}P(k)},",
+   "title": "把多帧时差汇成一个观测",
+   "meaning": "每帧时差按其功率加权后除以总权重，结果仍为时间。若两帧有相同功率，示意时差 1 和 3 个采样间隔，则输出 2 个采样间隔。",
+   "caution": "功率不是概率或方差；若权重总和为零应有回退方案，同一事件的重叠帧也不能当独立测量。",
+   "symbols": [
+    {
+     "symbol": "τₖ",
+     "text": "第 k 个帧对的时差估计，秒或一致采样单位。"
+    },
+    {
+     "symbol": "P(k)",
+     "text": "第 k 帧的功率权重；分子和分母采用相同尺度。"
+    },
+    {
+     "symbol": "I",
+     "text": "参与汇合的帧数。"
+    },
+    {
+     "symbol": "τ̂",
+     "text": "融合后的同一阵内通道对时差。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-c",
+   "number": "原文 · S4.E20.m1",
+   "refs": [
+    "M16"
+   ],
+   "mathml": "<mrow><mrow><msub><mi>𝐐</mi><mtext>r</mtext></msub><mo>=</mo><mrow><msubsup><mi>C</mi><mtext>s</mtext><mn>2</mn></msubsup><mo>​</mo><msub><mi>𝐐</mi><mrow><mi mathvariant=\"normal\">Δ</mi><mo>​</mo><mi>t</mi></mrow></msub></mrow></mrow><mo>.</mo></mrow>",
+   "accessible": "\\mathbf{Q}_{\\textrm{r}}=C_{\\textrm{s}}^{2}\\mathbf{Q}_{\\Delta t}.",
+   "title": "从时间差协方差换到距离差协方差",
+   "meaning": "时差乘声速就是距离差，因此协方差要乘声速平方。例如用假设声速 300 m/s，1 μs 的标准差对应 0.3 mm 的距离差标准差；方差则是这一标准差的平方。",
+   "caution": "换单位不会抹掉共享参考带来的非对角元素，也不自动纳入声速自身因环境而变的误差。",
+   "symbols": [
+    {
+     "symbol": "QΔt",
+     "text": "阵内相对于同一参考通道的时差协方差，s²。"
+    },
+    {
+     "symbol": "Cₛ",
+     "text": "声速，m/s。"
+    },
+    {
+     "symbol": "Qᵣ",
+     "text": "距离差协方差，m²；维数与阵内时差向量一致。"
+    }
+   ]
+  },
+  {
+   "id": "eq-source-d",
+   "number": "原文 · S4.E23.m1",
+   "refs": [
+    "M18"
+   ],
+   "mathml": "<mrow><mrow><mover><mi>𝐮</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>E</mi><mo>​</mo><mi>V</mi><mo>​</mo><mrow><mo>(</mo><mi>𝐌</mi><mo>,</mo><mi mathvariant=\"normal\">Θ</mi><mo>,</mo><mi mathvariant=\"normal\">Φ</mi><mo>,</mo><msub><mi>𝐐</mi><mtext>a</mtext></msub><mo>,</mo><msub><mi>𝐐</mi><mtext>s</mtext></msub><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow>",
+   "accessible": "\\mathbf{\\hat{u}}=EV(\\mathbf{M},\\Theta,\\Phi,\\mathbf{Q}_{\\textrm{a}},\\mathbf{Q}_{\\textrm{s}}),",
+   "title": "EV 从各阵列方向和锚点坐标完成融合",
+   "meaning": "把多个阵列的中心、俯仰和方位交给同一求解接口，并携带角和锚点位置协方差。原式是接口声明而非展开的内部迭代，不能只从这一行计算出坐标结果。",
+   "caution": "角度方差来自重复标定残差，不是逆距离。不同的角噪声与几何条件可能给出完全不同的位置可靠度。",
+   "symbols": [
+    {
+     "symbol": "M",
+     "text": "各阵列中心坐标构成的向量，坐标以 m 表示。"
+    },
+    {
+     "symbol": "Θ、Φ",
+     "text": "各阵列俯仰角、方位角向量。"
+    },
+    {
+     "symbol": "Qₐ、Qₛ",
+     "text": "角协方差 rad² 与锚点坐标协方差 m²，不可互换。"
+    },
+    {
+     "symbol": "û",
+     "text": "正文在改进极坐标表达下的融合状态。"
+    }
+   ]
+  }
+ ],
+ "original_figures": [
+  {
+   "id": "original-figure-a",
+   "number": 1,
+   "reference": "F1",
+   "section": "method",
+   "src": "https://arxiv.org/html/2611.02591v1/framework1.jpg",
+   "width": 2453,
+   "height": 1579,
+   "caption": "Fig. 1: The proposed framework, where \\Delta t^{i} denotes the delay obtained from MAU- i .",
+   "title": "节点只发阵内时差，网关负责合并",
+   "alt": "原图红色声源，蓝实箭头指向各阵列单元，蓝色点线指向上方 LoRa 网关。",
+   "caution": "框架图不能用作覆盖半径、节点布置或实地传输可靠性证明；位置与方向仍需要测定。",
+   "reading_steps": [
+    {
+     "title": "先看实线与点线",
+     "text": "中间红点是声源，蓝色实箭头表示声传播到各 MAU；蓝点线标 LoRa，表示稀疏测量上传到 Gateway。两种连线是不同物理链路，不是同一种到达时间。"
+    },
+    {
+     "title": "再读每个 Δt 标注",
+     "text": "Δt 上标按阵列编号区分，表示当地阵列内相对时差，不是用不同 MAU 的包到达戳做声学时差。蓝方块表示传感单元，整图无地理坐标、长度比例或色标。"
+    }
+   ]
+  },
+  {
+   "id": "original-figure-b",
+   "number": 12,
+   "reference": "F12",
+   "section": "results",
+   "src": "https://arxiv.org/html/2611.02591v1/compare4_errorbar.jpg",
+   "width": 2375,
+   "height": 1688,
+   "caption": "Fig. 12: Average RMSE vs. the coverage area. Error bars are shown for all compared methods and indicate the SD of localization errors across repeated trials.",
+   "title": "坐标 RMSE 与重复试次离散度",
+   "alt": "作者画出覆盖面积对平均位置 RMSE 的关系，五种曲线在每组面积附近并列并带误差棒。",
+   "caution": "这张图只支持测试覆盖组内的回放定位比较，不给区域内每一点的精度保证，也不能展示漏报概率或真实事件的响应时间。",
+   "reading_steps": [
+    {
+     "title": "先把横轴乘数读全",
+     "text": "横轴为覆盖面积（m²，标有 ×10⁴），纵轴为平均 RMSE（m）。同组横向错开是为了显示不同方法的误差棒；红实圆 Proposed、蓝菱形 Liu、橙方 SUM+LSS、黄上三角 SCO+BRPLE、紫下三角 SCO+MLE。"
+    },
+    {
+     "title": "比较同组中心与离散度",
+     "text": "看同一面积内中心点与误差棒：中间组红曲线的中心低于其余对比，大面积红点与黄点很近。棒表示重复试次定位误差的标准差，不是 95% 置信区间；差值优先用正文报告，不从像素猜数。"
+    }
+   ]
+  }
+ ],
+ "original_figure_credit": "Dengke Wang、Bodhibrata Mukhopadhyay、Mohamed-Slim Alouini",
+ "provenance": {
+  "provider": "GPT6.2sol 子代理",
+  "model": "passion8/gpt-6.2-sol（子代理）",
+  "generated_at": "2026-11-18T03:30:24Z",
+  "human_reviewed": false,
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "source_sha256": "21ea305168ec7f72cb1eca032bddcbd276f0482e6fbeec92e85024e706e6d1e9",
+  "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "format": "paper-deep-reading-v1",
+  "generation_mode": "assistant_backfill"
+ },
+ "copyright_note": "原图来自固定版本的 arXiv 官方图源，作者及图注已保留；外部嵌入不自动授予转载权。本站不镜像作者图片、PDF 或全文，另行转载须核对许可。外部原图受读者网络条件影响；图后解说由 AI 生成，仍需回原文核验。该版本标注 arXiv 非独占分发许可，并非 CC BY。"
+}

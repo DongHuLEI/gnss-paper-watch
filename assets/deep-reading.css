@@ -148,6 +148,7 @@ html[data-theme="dark"] .dr-formula-image { filter: invert(1) hue-rotate(180deg)
 .dr-original-scroll { overflow: auto; max-width: 100%; overscroll-behavior: contain; background: #fff; border-radius: 4px; scrollbar-width: thin; }
 .dr-original-link { display: block; cursor: zoom-in; }
 .dr-original-scroll img { display: block; max-width: 100%; width: auto; height: auto; margin: 0 auto; background: #fff; }
+.dr-original-graphic:not([data-image-size="native"]) .dr-original-scroll img[src$=".svg"] { width: min(100%, 540px); object-fit: contain; }
 .dr-original-graphic[data-image-state="error"] .dr-original-scroll { display: none; }
 .dr-original-graphic .dr-image-status { font-size: 11px; line-height: 1.9; padding: 12px; margin: 10px 0; background: var(--soft); color: var(--muted); border-radius: 5px; }
 .dr-image-status button { margin: 8px 0 0; display: block; }
