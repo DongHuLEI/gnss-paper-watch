@@ -14,5 +14,13 @@
   "2611.12806", "2611.13528", "2611.14009", "2611.14250", "2611.14397",
   "2611.14683", "2611.15491", "2611.15717", "2611.16246", "2611.16856",
   "2611.16895", "2611.17794", "2611.18389"
- ]
+ ],
+ "approved_skips": {
+  "2609.36110": "original_figure_rights_unconfirmed",
+  "2610.06759": "original_figure_rights_unconfirmed",
+  "2610.20831": "outside_editorial_scope",
+  "2610.32259": "original_figure_rights_unconfirmed",
+  "2611.12671": "outside_editorial_scope",
+  "2611.16856": "original_figure_rights_unconfirmed"
+ }
 }

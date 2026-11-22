@@ -265,11 +265,13 @@ def main():
                         config["max_daily_papers"], existing=papers)
         papers = [item if "title_en" in item else make_paper(item) for item in selected]
     reading_status = {}
+    excluded = automation["skipped"]
     if client.config.get("full_reading_enabled"):
         from reading_pipeline import enrich_full_readings
-        reading_status = enrich_full_readings(papers, client, settings["research_profile"], editions, deadline=time.monotonic() + 18 * 60)
+        reading_status = enrich_full_readings(papers, client, settings["research_profile"], editions,
+                                              deadline=time.monotonic() + 18 * 60, excluded=excluded)
     else:
-        enrich(papers, client, settings["research_profile"], pages)
+        enrich([paper for paper in papers if paper["id"] not in excluded], client, settings["research_profile"], pages)
     previous = load_json(DATA / "status.json") if (DATA / "status.json").exists() else {}
     if retrieval["status"] == "already_checked" and previous.get("checked_date") == date_str:
         query_records = previous.get("queries", [])

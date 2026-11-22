@@ -24,7 +24,9 @@ STATUS_LABELS = {
     "license_unverified": "待处理：未能确认原文许可", "source_equations_unavailable": "待处理：原文公式无法安全提取",
     "original_figure_rights_pending": "待处理：固定版本已核读，但未取得本站转载原图的许可，仅保留原文入口",
     "run_time_limit": "待处理：本次运行时间不足，留待后续补跑", "disabled": "待处理：AI 已停用",
-    "historical_backfill_pending": "待处理：历史论文正在按 Skill 补读，完成前日更已暂停",
+    "historical_backfill_pending": "待处理：历史论文尚未完成精读",
+    "original_figure_rights_unconfirmed": "未确认原图使用权，保留原有条目及原文入口",
+    "outside_editorial_scope": "不在本站图文精读发布范围内，保留原有条目",
 }
 
 
@@ -54,7 +56,7 @@ def publish_reading(data, directory=DATA, assets_root=ROOT):
         write_json(directory / "deep_reads" / (data["paper_id"] + ".json"), data)
 
 
-def enrich_full_readings(papers, client, profile, editions, directory=DATA, deadline=None):
+def enrich_full_readings(papers, client, profile, editions, directory=DATA, deadline=None, excluded=()):
     body, digest = skill()
     queue_path = directory / "reading_queue.json"
     queue = load_json(queue_path) if queue_path.exists() else {"skill": "paper-deep-reading", "papers": {}}
@@ -68,8 +70,9 @@ def enrich_full_readings(papers, client, profile, editions, directory=DATA, dead
     for paper in papers:
         if paper.get("auto"):
             candidates[paper["id"]] = paper
+    eligible = (paper for identity, paper in candidates.items() if identity not in excluded)
     current = {paper["id"] for paper in papers}
-    ordered = sorted(candidates.values(), key=lambda item: (item["id"] not in current, -item.get("score", 0), item["date"]))
+    ordered = sorted(eligible, key=lambda item: (item["id"] not in current, -item.get("score", 0), item["date"]))
     completed = {path.stem for path in (directory / "deep_reads").glob("*.json")}
     throttled = False
     for paper in ordered:
@@ -114,5 +117,6 @@ def enrich_full_readings(papers, client, profile, editions, directory=DATA, dead
     queue["updated_at"] = utc_timestamp()
     queue["skill_sha256"] = digest
     write_json(queue_path, queue)
-    counts = Counter(item["status"] for item in queue["papers"].values() if item["paper_id"] not in completed or item["status"] == "complete")
+    counts = Counter(item["status"] for identity, item in queue["papers"].items()
+                     if identity not in excluded and (identity not in completed or item["status"] == "complete"))
     return {"skill": "paper-deep-reading", "skill_sha256": digest, "states": dict(counts), "pending": sum(count for state, count in counts.items() if state != "complete")}

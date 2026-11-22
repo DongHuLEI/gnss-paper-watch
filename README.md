@@ -42,7 +42,7 @@ AI 的结果引文须在来源中逐字匹配，结果中的数字须出现在�
 
 规范位于 `.agents/skills/paper-deep-reading/SKILL.md`。在本项目中可用 `/skill:paper-deep-reading` 调用；独立的 GitHub Actions 不依赖 CLI 自动发现，`DeepSeekClient.analyze_full_reading` 会直接读取同一文件正文并记录其 SHA-256。
 
-新条目使用九章图文精读流程：固定版本 HTML 全文与附录 → 官方原图实际视觉输入 → 结构化导读 → 逐字引文与数字检查 → 原始公式安全提取与 SVG 排版 → 全部通过才发布。仅摘要、来源不可用、预算不足或校验失败时保留条目，并写入 `data/reading_queue.json` 等待后续补跑；已有 PGFM 核读示范不自动覆盖。旧的摘要级解读不会因为开关或标签变化自动变成精读。本次按用户要求补齐全部历史论文，范围冻结在 `data/backfill.json`；必须逐篇完成，不以加入队列代替完成。
+新条目使用九章图文精读流程：固定版本 HTML 全文与附录 → 官方原图实际视觉输入 → 结构化导读 → 逐字引文与数字检查 → 原始公式安全提取与 SVG 排版 → 全部通过才发布。仅摘要、来源不可用、预算不足或校验失败时保留条目，并写入 `data/reading_queue.json` 等待后续补跑；已有 PGFM 核读示范不自动覆盖。旧的摘要级解读不会因为开关或标签变化自动变成精读。历史补读范围保留在 `data/backfill.json`；加入队列或获准跳过都不算精读完成。
 
 自动文章与示范使用相同的九章阅读界面、原图放大和打印，但标为 AI 全文导读、待核验；自动校验不能保证达到人工逐图核读的语义准确度。历史补读由当前 AI 会话直接读取原文、原图时，如实记录提供方、可确认的模型信息及 `assistant_backfill`，不冒称 DeepSeek API 生成或人工审核，不计入 DeepSeek 用量。没有版本化 HTML 时，历史补读只在固定版本 PDF 可核读、许可明确覆盖所选原图且完整通过验证的个案中发布。本站仅转载经逐张核对的完整图像，保留作者、英文图注、原文页码及许可，不镜像 PDF；没有转载权的仅保留原文链接及待处理状态。
 
@@ -50,9 +50,9 @@ AI 的结果引文须在来源中逐字匹配，结果中的数字须出现在�
 
 ## 每日更新
 
-当前 `data/settings.json` 中 `automation.enabled` 为 `false`：每日自动检索与付费生成暂停，先按 Skill 补齐 `data/backfill.json` 中的全部 58 篇历史论文。`scripts/automation_gate.py` 同时检查启用开关、历史精读及公式资产，未补齐时即使手动运行日更也不调用网络或模型；仅将论文加入待处理队列不算完成。
+`data/settings.json` 中的 `automation.enabled` 已开启。原历史清单保留 58 篇：52 篇已发布精读，另 6 篇经用户确认跳过并保留原有条目，不计为完成，也不参与自动补跑。例外逐篇记在 `data/backfill.json` 的 `approved_skips` 中。`scripts/automation_gate.py` 仍检查非例外的历史精读、Skill 版本和公式资产；如有其他未完成项，定时和手动日更均不执行付费检索或生成。
 
-补读完成并验收后才开启日更。`.github/workflows/daily.yml` 已将目标时间设为 UTC `0 0 * * *`，对应北京时间 **每天 08:00**。这表示任务触发时间，不是完成时间；GitHub Actions 可能延迟，检索、图文生成仍需时间。首页显示真实开关、补读进度和最近检索记录。
+`.github/workflows/daily.yml` 在 UTC `0 0 * * *` 运行，对应北京时间 **每天 08:00**。这是计划触发时间，不是完成时间；GitHub Actions 可能延迟，检索、图文生成也需要时间。首页显示真实开关、补读进度和最近检索记录。
 
 首次启用前，由仓库管理员在 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。不要新建示例工作流，本仓库已经有发布工作流。默认 `GITHUB_TOKEN` 不能代替管理员修改这个设置；工作流会在付费检索前检查，配置不正确时暂停，避免旧的分支发布覆盖新的部署包。
 
