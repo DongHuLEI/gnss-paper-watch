@@ -1,0 +1,20 @@
+{
+ "date": "2026-11-23",
+ "model": "deepseek-flash",
+ "requests": {
+  "chat": 0,
+  "search": 6,
+  "fetch": 0
+ },
+ "successes": {
+  "chat": 0,
+  "search": 6,
+  "fetch": 0
+ },
+ "input_tokens": 0,
+ "output_tokens": 0,
+ "accounted_tokens": 0,
+ "uncertain_reserved_tokens": 0,
+ "errors": [],
+ "updated": "2026-11-23T05:13:03Z"
+}

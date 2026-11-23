@@ -1,0 +1,468 @@
+{
+ "edition": {
+  "date": "2026-11-23",
+  "number": 14,
+  "title": "2026-11-23 · 研究日报",
+  "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+  "kicker": "DAILY RESEARCH",
+  "blurb": "本期 5 篇，0 篇图文全文导读、0 篇既有摘要级解读；自动导读仍待核验。",
+  "overview": [
+   "本期收录 5 篇，覆盖 电离层与空间天气、时空预测与科学 AI、模型训练与高效适配。",
+   "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+   "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
+  ],
+  "threads": [
+   {
+    "domain": "iono",
+    "title": "电离层与空间天气 · 1 篇",
+    "text": "The Ionospheric Cut-off as a Potential Radio Technosignature"
+   },
+   {
+    "domain": "ml",
+    "title": "时空预测与科学 AI · 2 篇",
+    "text": "Spatiotemporal Graph Neural Networks for Fault Detection and Structural Learning in Chemical Proces…"
+   },
+   {
+    "domain": "training",
+    "title": "模型训练与高效适配 · 2 篇",
+    "text": "SWIFT: Sample-Wise Instance Fine-Tuning of Time-Series Foundation Models for Forecasting"
+   }
+  ],
+  "stats": [
+   {
+    "value": "5",
+    "label": "本期论文"
+   },
+   {
+    "value": "0",
+    "label": "AI 解读"
+   },
+   {
+    "value": "3",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "6",
+    "label": "研究方向"
+   }
+  ],
+  "note": [
+   "来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+   "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+   "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
+  ],
+  "generated_at": "2026-11-23T05:17:25Z",
+  "retrieval_status": "partial",
+  "ai_status": "ready",
+  "full_readings": 0,
+  "reading_skill": "paper-deep-reading"
+ },
+ "papers": [
+  {
+   "id": "2611.26025",
+   "slug": "arxiv-2611.26025",
+   "domain": "iono",
+   "domains": [
+    "iono"
+   ],
+   "lenses": [],
+   "date": "2026-11-19",
+   "updated": "2026-11-19",
+   "score": 54,
+   "domain_scores": {
+    "iono": 54
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "The Ionospheric Cut-off as a Potential Radio Technosignature",
+   "title_en": "The Ionospheric Cut-off as a Potential Radio Technosignature",
+   "authors": [
+    "Michael A. Garrett"
+   ],
+   "cats": [
+    "astro-ph.EP",
+    "astro-ph.IM",
+    "physics.pop-ph"
+   ],
+   "tags": [
+    "ionosphere",
+    "ionospheric"
+   ],
+   "one_liner": "Radio emission generated on a planetary surface must cross the planet's ionosphere before escaping into space: below the local plasma frequency it is reflected back towards the su…",
+   "one_liner_en": "Radio emission generated on a planetary surface must cross the planet's ionosphere before escaping into space: below the local plasma frequency it is reflected back towards the su…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Radio emission generated on a planetary surface must cross the planet's ionosphere before escaping into space: below the local plasma frequency it is reflected back towards the surface. We investigate this process for broadband radio technosignatures (BRaTs) using a Chapman-layer description of photoionised atmospheres. The plasma frequency depends only weakly on stellar XUV irradiation, scaling as $Q_{\\infty}^{1/4}$, implying turnover frequencies of 5-40 MHz for most terrestrial habitable-zone planets, potentially rising towards 100 MHz in extreme environments. The basic signature is simple: the continuum of a surface-origin BRaT should be strongly suppressed below a characteristic frequency that can be estimated from the XUV output of the host star, at every orbital phase and for any viewing geometry. Oblique propagation, magnetic fields, and collisional absorption broaden the cut-off into a smooth escape function, $f_{\\mathrm{esc}}(ν,φ)$, where $φ$ is the orbital phase. Because the day-night ionisation pattern is anchored to the substellar point rather than to the rotating surface, disc integration adds a second, more discriminating signature: the half-escape frequency $ν_{1/2}$ varies predictably (by about 40-50 per cent over the orbit, depending on the angular emission pattern of the leakage) and remains locked to the orbital ephemeris. Finite atmospheric response times introduce modest phase lags but preserve the modulation. A low-frequency turnover alone is not unique to technology, but one that varies periodically with the orbital period would be difficult to reproduce through known astrophysical processes. Although observationally challenging, the ionospheric cut-off is a potential technosignature diagnostic and a novel probe of exoplanet ionospheres.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.26025",
+    "pdf": "https://arxiv.org/pdf/2611.26025"
+   },
+   "retrieved_at": "2026-11-23T05:16:13Z"
+  },
+  {
+   "id": "2611.27698",
+   "slug": "arxiv-2611.27698",
+   "domain": "ml",
+   "domains": [
+    "ml",
+    "training"
+   ],
+   "lenses": [
+    "physics"
+   ],
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "score": 76,
+   "domain_scores": {
+    "ml": 76,
+    "training": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Spatiotemporal Graph Neural Networks for Fault Detection and Structural Learning in Chemical Processes: Use Case on the Tennessee Eastman Process",
+   "title_en": "Spatiotemporal Graph Neural Networks for Fault Detection and Structural Learning in Chemical Processes: Use Case on the Tennessee Eastman Process",
+   "authors": [
+    "Rayane Ammar Khodja",
+    "Alexandre Voisin",
+    "Victor Costa",
+    "Fanny Casteran",
+    "Benoit Celse",
+    "Benoît Iung"
+   ],
+   "cats": [
+    "cs.AI",
+    "cs.LG"
+   ],
+   "tags": [
+    "neural network",
+    "graph neural",
+    "physics-informed",
+    "spatiotemporal"
+   ],
+   "one_liner": "Classical Fault Detection and Diagnosis (FDD) methods, including many data-driven approaches, assume a static normal operating space and interpret deviations from a fixed referenc…",
+   "one_liner_en": "Classical Fault Detection and Diagnosis (FDD) methods, including many data-driven approaches, assume a static normal operating space and interpret deviations from a fixed referenc…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Classical Fault Detection and Diagnosis (FDD) methods, including many data-driven approaches, assume a static normal operating space and interpret deviations from a fixed reference as fault indicators. When Operating Conditions (OCs) vary over time, this assumption breaks down: legitimate transitions trigger false alarms while moderate faults go undetected. We propose a spatiotemporal Graph Neural Network (GNN) framework that decomposes the normal operating space into OC-specific subspaces linked by transition functions, with a dual learning objective combining reconstruction loss and a Deep SVDD one-class term. It learns adjacency matrices through Graph Attention Networks (GATs) and integrates spatial modelling with temporal encoding to represent process dynamics under evolving OCs. This paper evaluates the framework's foundational components (fault detection, GATv2 spatial graph learning and temporal encoding) on the Tennessee Eastman Process (TEP) benchmark, training only on fault-free data. The architecture achieves competitive detection from reconstruction error alone, with similarity-based feature selection improving both accuracy and graph structure diversity. We then evaluate the physical interpretability of the learned attention matrices against 22 ground-truth sensor pairs derived from the TEP control structure and process topology. GATv2 attention fails to recover all known physical pairs across multiple hyperparameter configurations, suggesting a structural limitation of reconstruction-driven attention rather than a tuning issue. This challenges a common assumption in GNN-based FDD: that learned attention weights provide a basis for fault diagnosis and root-cause analysis. The architecture detects faults effectively, but the learned graph does not encode the physical topology needed for interpretable diagnosis, motivating physics-informed graph construction.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.27698",
+    "pdf": "https://arxiv.org/pdf/2611.27698"
+   },
+   "retrieved_at": "2026-11-23T05:16:13Z"
+  },
+  {
+   "id": "2611.17915",
+   "slug": "arxiv-2611.17915",
+   "domain": "training",
+   "domains": [
+    "training",
+    "ml"
+   ],
+   "lenses": [
+    "data-efficient"
+   ],
+   "date": "2026-11-13",
+   "updated": "2026-11-13",
+   "score": 54,
+   "domain_scores": {
+    "ml": 53,
+    "training": 54
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "SWIFT: Sample-Wise Instance Fine-Tuning of Time-Series Foundation Models for Forecasting",
+   "title_en": "SWIFT: Sample-Wise Instance Fine-Tuning of Time-Series Foundation Models for Forecasting",
+   "authors": [
+    "Yang Chen",
+    "Feifan Tian",
+    "Cong Wang",
+    "Cheng Feng",
+    "Wenbin Li",
+    "Yang Gao"
+   ],
+   "cats": [
+    "cs.AI"
+   ],
+   "tags": [
+    "fine-tuning",
+    "benchmark"
+   ],
+   "one_liner": "While current few-shot adaptation strategies for time series forecasting foundation models are predominantly dataset-centric, the necessity of obtaining an additional dataset for…",
+   "one_liner_en": "While current few-shot adaptation strategies for time series forecasting foundation models are predominantly dataset-centric, the necessity of obtaining an additional dataset for…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "While current few-shot adaptation strategies for time series forecasting foundation models are predominantly dataset-centric, the necessity of obtaining an additional dataset for the finetuning process poses a significant hurdle for adoption. To address this constraint, we propose Sample-Wise Instance Fine-Tuning (SWIFT), a novel forecasting adaptation framework that achieves fine-grained specialization by leveraging structural priors from the target instance's own history. This shift allows the fine-tuning process to be entirely transparent to the end-user, which significantly enhances the ease of adoption. To implement this framework, SWIFT synergizes Self-Retrieval for historical mining and Frequency-Aware Loss for spectral consistency, while employing Deviation-Aware Dynamic Fusion to balance adaptation with general knowledge preservation. Extensive experiments across four TSFM backbones and three long-history benchmark subsets validate SWIFT, yielding average MASE and WQL reductions of 6.41% and 4.83% across 24 combinations of four backbones and six Chronos Benchmark II datasets. To the best of our knowledge, SWIFT is the first framework to investigate sample-wise instance fine-tuning of time-series foundation models, specializing the model for an individual prediction window using only the corresponding forecasting sample's own observed history.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.17915",
+    "pdf": "https://arxiv.org/pdf/2611.17915"
+   },
+   "retrieved_at": "2026-11-23T05:16:13Z"
+  },
+  {
+   "id": "2611.27272",
+   "slug": "arxiv-2611.27272",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "uncertainty",
+    "physics"
+   ],
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "score": 76,
+   "domain_scores": {
+    "ml": 76
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Error-Corrected Physics-Informed Neural Operator for Optimal Control of Unmanned Aerial Vehicles under Uncertainty",
+   "title_en": "Error-Corrected Physics-Informed Neural Operator for Optimal Control of Unmanned Aerial Vehicles under Uncertainty",
+   "authors": [
+    "Oliver Lundqvist",
+    "Fabricio Oliveira"
+   ],
+   "cats": [
+    "math.OC",
+    "cs.LG",
+    "eess.SY"
+   ],
+   "tags": [
+    "prediction",
+    "uncertainty",
+    "physics-informed",
+    "neural operator"
+   ],
+   "one_liner": "We solve open-loop optimal control problems under parametric uncertainty using a physics-informed DeepONet that returns trajectories for all sampled scenarios in one evaluation. T…",
+   "one_liner_en": "We solve open-loop optimal control problems under parametric uncertainty using a physics-informed DeepONet that returns trajectories for all sampled scenarios in one evaluation. T…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "We solve open-loop optimal control problems under parametric uncertainty using a physics-informed DeepONet that returns trajectories for all sampled scenarios in one evaluation. Trained only on the residual at generic controls, the operator is reused across targets and horizons. Because a gradient-based optimizer exploits surrogate errors, we correct the prediction by one Newton step on the dynamics, computed for all scenarios and times by one parallel scan. The corrected state has a second-order error bounded by the residual alone, and the corrected cost is honest for every control up to the sampling error. On a fixed-wing UAV benchmark, the corrected operator matches the accuracy of a batched Adam solver and an Ipopt solver at equal sample size and is 8 times faster than the Adam solver on the same GPU at a few hundred scenarios and 15 times faster than Ipopt on a CPU.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.27272",
+    "pdf": "https://arxiv.org/pdf/2611.27272"
+   },
+   "retrieved_at": "2026-11-23T05:16:13Z"
+  },
+  {
+   "id": "2611.16424",
+   "slug": "arxiv-2611.16424",
+   "domain": "training",
+   "domains": [
+    "training",
+    "embodied"
+   ],
+   "lenses": [],
+   "date": "2026-11-12",
+   "updated": "2026-11-16",
+   "score": 53,
+   "domain_scores": {
+    "embodied": 38,
+    "training": 53
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "PhysCapBench: A Cross-Domain Benchmark for Physically Grounded Video Captioning",
+   "title_en": "PhysCapBench: A Cross-Domain Benchmark for Physically Grounded Video Captioning",
+   "authors": [
+    "Haofeng Wang",
+    "Xuanyi Liu",
+    "Pengcheng Wen",
+    "Ruiqi Li",
+    "Yuhao Zhang",
+    "Tiange Zhang",
+    "Boren Zheng",
+    "Siyu Tao",
+    "Danni Yu",
+    "Gan Lin",
+    "Haocheng Tang",
+    "Tianzizhe Guo",
+    "Mingyuan Su",
+    "Boyuan Chen",
+    "Zhongyuan Wang"
+   ],
+   "cats": [
+    "cs.CV",
+    "cs.AI"
+   ],
+   "tags": [
+    "fine-tuning",
+    "evaluation",
+    "benchmark"
+   ],
+   "one_liner": "Physical AI aims to learn transferable physical knowledge from real-world experience to understand, predict, and act in the physical world. Internet videos and embodied demonstrat…",
+   "one_liner_en": "Physical AI aims to learn transferable physical knowledge from real-world experience to understand, predict, and act in the physical world. Internet videos and embodied demonstrat…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Physical AI aims to learn transferable physical knowledge from real-world experience to understand, predict, and act in the physical world. Internet videos and embodied demonstrations provide complementary observations of motion, interaction, and state evolution. A foundational data challenge is to measure and preserve this physical information as training supervision. In video-language pretraining, captions express observed processes in language, yet a semantically correct description can omit the interactions and transitions that define those processes. Rich physical experience in video does not automatically translate into sufficient language supervision. This gap calls for a yardstick to assess annotation quality, compare captioning strategies, and guide training-data refinement. Motivated by our data construction for world-model pretraining, we introduce PhysCapBench, to our knowledge the first unified physical-caption benchmark spanning all three domains: third-person scenes, egocentric manipulation, and handheld-gripper demonstrations. It provides human-verified annotations for 1,500 video sequences and evaluates accuracy and coverage through seven physical dimensions. We examine downstream utility through video reconstruction and manipulation-policy fine-tuning. Physical captions reduce reconstruction LPIPS by 8.6-9.5% on third-person videos and 26.9-30.9% on egocentric videos relative to metadata captions. Training-instruction enrichment improves both PhysCapBench scores and policy success, including a 7.5-percentage-point gain for pi0.5 on a RoboTwin 2.0 subtask. PhysCapBench makes the physical content of language supervision inspectable and comparable, providing a cross-domain basis for its evaluation and improvement.",
+   "version": "v2",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.16424",
+    "pdf": "https://arxiv.org/pdf/2611.16424"
+   },
+   "retrieved_at": "2026-11-23T05:16:13Z"
+  }
+ ],
+ "discovery": [
+  {
+   "title": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion - Skip to main content",
+   "url": "https://arxiv.org/abs/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion ... GNSS pseudorange outliers severely disturb carrier-phase ambiguity resolution and positioning, particularly during signal blockages and recovery. ... Under continuous tracking ... the a-contrario baseline by 58.56%."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - License: arXiv",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "[16] proposes a robust iterated cubature Kalman filter to minimize the impact of GNSS outliers under NLOS and multipath conditions in GNSS/INS fusion. ... In this work, we use calibrated wheel measurements to support GNSS pseudorange screening when a Doppler reference is unavailable or insufficient."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 2 shows the motion errors and their confidence intervals, where the joint-covariance 95% intervals achieve mean pointwise covera...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "This paper presents a two-stage GNSS pseudorange outlier mitigation method for tightly coupled GNSS-RTK/INS/odometer navigation. ... - [4] Z. Shen, X. Li ... Li (2024) Advancing High-Precision Navigation: Leveraging Homogeneous Sensors in Tightly Coupled PPP-RTK/IMU Integration."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - 4i), leaving transverse scan orientation as the clearest angular association",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "provide dual-frequency carrier-phase observations at 1- or 30-s intervals for calculating ROTI (rate-of-TEC index) ... We therefore used detrended fluctuations to characterize amplitude response on each satellite signal, supplemented by ROTI from the dual-frequency carrier measurements Cesaroni et al."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "The rate-of-TEC index (ROTI) was calculated from dual-frequency carrier-phase observations over 1-min windows and mapped using within the same spatial cells (Fig. 2d). Elevated ROTI extended across a broader latitude range than"
+  },
+  {
+   "title": "Re(Visiting) Time Series Foundation Models in Finance",
+   "url": "https://arxiv.org/abs/2511.18578",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "Financial time series forecasting is vital for trading, portfolio optimization, and risk management but is challenged by noisy, nonstationary, and heterogeneous data. Time series foundation models (TSFMs), inspired by large language models, aim to learn transferable temporal representations. Whether pre-training on massive..."
+  },
+  {
+   "title": "Forecasting Realized Volatility with Time Series Foundation Models: A Comparison with Econometric Benchmarks",
+   "url": "https://arxiv.org/html/2607.05291v2",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "2.2 we introduce TSFMs and their architectures, and in Subsec. ... 2.1 Realized Volatility Modeling ... 2.2 Time Series Foundation Models ... TSFMs are instead pretrained on large corpora drawn from diverse domains (weather, energy, retail, transport) and forecast immediately via zero-shot inference."
+  },
+  {
+   "title": "Time Flies When You Parallelise: Pareto-efficient Time Series Foundation Models with Linear Recurrences - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.16934v1",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "The architecture supports probabilistic forecasting with past-only and future-known covariates, chunk-wise parallel-in-time training, and inference costs that scale linearly with sequence length. ... These results demonstrate that state-of-the-art multivariate zero-shot forecasting can be achieved without temporal self-attention or nonlinear state recurrences.100100"
+  },
+  {
+   "title": "When Do Foundation Models Pay Off? A Break-Even Analysis of Pretrained Time Series Forecasters - Dataset | Best FM | MASE | Best CL | MASE | n∗n^{*} | ntrn_{\\text{tr}} | τacf\\tau_{\\text{acf}} | HH | σr\\sigma_{r} | SS | Φ\\Phi ...",
+   "url": "https://arxiv.org/html/2607.04919v2",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "M4-Daily and Sunspot are non-monotonic ... No dataset breaks even at 10%. ### IV-B Model and Setting Analysis Zero-shot | LoRA FT ---|--- Model | MASE | kk | MASE | kk | Classical | MASE | kk ... IV-C Determinants of Break-Even (RQ2)"
+  },
+  {
+   "title": "Falsifiable Compositional Reasoning in Time Series Forecasting",
+   "url": "https://arxiv.org/html/2611.25388",
+   "date": "2026-11-18T16:00:00+00:00",
+   "snippet": "(2025) evaluated 16 deep and foundation forecasters on synthetic combinations of trend, periodic, and event functions ... (2026) also showed that zero-shot TSFMs can obtain low short-horizon MSE by repeating historical motifs while failing to capture underlying dynamical attractors.ℋobs\\mathcal{H}_{\\mathrm{obs}}"
+  },
+  {
+   "title": "Bridging vision-language reasoning and learned control for legged navigation in the wild",
+   "url": "https://arxiv.org/html/2611.25215",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "For example ... A fundamental characteristic of ROAM is that its common-sense reasoning is inherited from a pretrained VLM rather than learned onboard. ... and closed-source model weights, ROAM is deliberately designed as a model-agnostic framework. The gap between commercial and open-weight VLMs is closing ... As detailed in our supplementary VLM benchmark, current open-weight models already achieve highly competitive performance on zero-shot terrain classification. Although they currently trail leading commercial models in tasks requiring complex contextual grounding, such as precisely relating textual sign instructions to specific physical objects..."
+  },
+  {
+   "title": "Brina: Bottom-Referenced Inertial Navigation with AKAZE, a Sonar SLAM for Autonomous Marine Vehicles",
+   "url": "https://arxiv.org/html/2611.27817v1",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "which relates the unobserved elevation to the measured range and bearing and to the known sonar altitude.ψ\\psi If is known, (3) can therefore be solved for the elevation of each seabed feature. ... The ground projection therefore converts a sonar measurement, which is naturally expressed in slant range and bearing, into a metric position on the local seabed plane. Since the projected features are assumed static, differences between their"
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 𝐯o,km=𝐞y(1+sv)v^o,k,𝝎o,km=𝐞z(1+sω)ω^o,k,\\mathbf{v}_{o,k}^{m}=\\mathbf{e}_{y}(1+s_{v})\\hat{v}_{o,k},\\qquad\\bm{\\omega}_{o,k}^{m}=\\m...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "III-A Motion-based model Relative odometry has been used in GNSS consistency screening [23], and tight GNSS and IMU integration similarly leverages inertial propagation to bound state uncertainty during signal degradation [24]. We use calibrated IMU-odometer prediction to obtain the antenna positions and their uncertainty without including the GNSS observations being tested. Current prediction graph uses the state"
+  },
+  {
+   "title": "Pressure Drop: Gravity Vector Estimation from a Distributed Barometric Pressure Sensor Array",
+   "url": "https://arxiv.org/abs/2611.23120v1",
+   "date": "2026-11-16T16:00:00+00:00",
+   "snippet": "While gravity is often used in mobile robotics as a global constraint for Simultaneous Localization and Mapping (SLAM) algorithms, most estimation methods rely on indirect observation of the gravity vector. In this paper, we propose the use of altimeter measurements to directly observe the direction of the gravity vector."
+  },
+  {
+   "title": "Accord: Universal Online Metric Localization and Dense Mapping from one Camera and an IMU",
+   "url": "https://arxiv.org/abs/2611.25279",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "A VIO filter publishes metric poses, a depth foundation model conditioned on them predicts depth for short keyframe windows, and a factor graph fuses the resulting submaps. ... What is essential is the multi-view agreement (Accord), which is ... Context keyframes further improve depth prediction, and the resulting submaps are fused in a factor graph."
+  },
+  {
+   "title": "WEVO: World Model-Enabled VLA Optimization for Whole-Body Loco-ManipulationThanks: *Work done during an internship at Amazon. - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.25251v1",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "WEVO uses simulation to train the initial VLA and broaden the WM’s dynamics coverage. ... We build WEVO, to our knowledge the first WM-RL system for whole-body humanoid VLAs beyond fixed-base tabletop manipulation, coupling egocentric video generation with whole-body dynamics and dense progress rewards."
+  },
+  {
+   "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.08577v3",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "We further introduce Rollback, a collection mechanism that returns to a historical anchor to collect a human replacement while retaining the original policy segment. ... Constructed through a separate pipeline, the robot corpus combines RoboDesk, licensed real-robot data, and open simulation data for action learning across heterogeneous hardware."
+  },
+  {
+   "title": "CoachSI: Self-Improvement of Robot Policies with a Language Coach",
+   "url": "https://arxiv.org/html/2611.25529",
+   "date": "2026-11-18T16:00:00+00:00",
+   "snippet": "This design lets us measure what language alone contributes, on fixed stalled states of a WAM [49] and a VLA [55] in RoboCasa365 [39] and against the policy’s own successes at an equal data budget. ... A vision-language-action model (VLA) maps observations and language to actions without a video-prediction branch. We fine-tune the WAM..."
+  },
+  {
+   "title": "Awaken-HI: Scaling Humanoid Intelligence with Whole-Body Human Experience",
+   "url": "https://arxiv.org/html/2611.26420",
+   "date": "2026-11-18T16:00:00+00:00",
+   "snippet": "Human demonstrations are typically used in embodied learning to supervise perception, world modeling, and action learning. R3M [30] pretrains a visual encoder on egocentric human video so that manipulation policies ... We therefore train Awaken-HI on the original human motion together with the retargeted robot actions, learning motion priors directly from the demonstrations.λ0\\lambda_{0}"
+  },
+  {
+   "title": "Learning from Incomplete Actions: Interval Motion Supervision for Vision-Language-Action Policies",
+   "url": "https://arxiv.org/html/2611.27171v1",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "Using the inverse normalizer D^\\widehat{D}, one velocity evaluation gives𝒩L−1\\mathcal{N}_{L}^{-1} ... At deployment, the policy integrates the velocity field over ten Euler steps. On labeled paths,. Endpoint supervision constrains ... These estimates use the sampled training time, so composition needs no rollout through the ten-step sampler.xτ−τ(ϵ−a)=ax_{\\tau}-\\tau(\\epsilon-a)=a ... 3.4 One interval constraint across fixed windows The supervision interval can grow beyond the policy horizon while the action windows keep their original length. ... Supplementary Sec. B gives implementation details."
+  },
+  {
+   "title": "HOPD: Historical On-Policy Distillation for SAR MLLM Continual Learning",
+   "url": "https://arxiv.org/html/2611.25391",
+   "date": "2026-11-18T16:00:00+00:00",
+   "snippet": "HOPD achieves the highest JFR and JFA among all evaluated continual-learning methods, including Replay-SFT, MIR, and MR-LoRA (Tab. ... HOPD keeps deployment to one adapter, but its training-time archive grows with the number of sources. For longer streams, selective archive compression could reduce this maintenance overhead. The current visual augmentation operates on rendered intensity images, rather than modeling calibrated radar acquisition changes."
+  },
+  {
+   "title": "What Can a VLA Learn from the Agent That Calls It? Task-Level Experience Distillation for Embodied Navigation - Training objective.",
+   "url": "https://arxiv.org/html/2611.16246v3",
+   "date": "2026-11-16T16:00:00+00:00",
+   "snippet": "We fine-tune the VLA with LoRA [9]. ... LoRA adapts the attention and feed-forward layers. ... To cover states where the distilled VLA itself fails, we run it on training episodes and pick the ones where it ends far from the goal. ... It uses the same end-label rule and LoRA settings as H2E."
+  },
+  {
+   "title": "ProxySearch: Decoupled Inference-Time Scaling for Diffusion Models via Asymmetric Noise-Rank Transfer - B.4 Teacher RL post-training",
+   "url": "https://arxiv.org/html/2611.23929v1",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "It is the third-party distilled checkpoint tensorart/stable-diffusion-3.5-medium-turbo, run at step with guidance 11. ... with the FlowGRPO text-rendering LoRA (jieliu/SD3.5M-FlowGRPO-Text) ... Distillation contributes on the finer statistics."
+  },
+  {
+   "title": "Human or Synthetic? What a Fixed Budget Buys for Post-Training - A.3 Training Hyperparameters",
+   "url": "https://arxiv.org/html/2611.16895",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "A.5 Synthetic Data Generation Details ##### Helpfulness. Conversations are built incrementally to between 1–3 turns (matching the typical turn count in the Anthropic dataset) ... A.6 Data Cleaning and Quality Filtering Generated candidates and human-annotated sources are cleaned and filtered before training ... and dataset-specific domain restriction and deduplication for SHP, HelpSteer3 ... This mirrors the one-pair-per-post design of ... (§2.3) and guards against the same failure mode that motivates per-post capping for SHP..."
+  },
+  {
+   "title": "CAG-VLM: Fine-Tuning of a Large-Scale Model to Recognize Angiographic Images for Next-Generation Diagnostic Systems",
+   "url": "https://arxiv.org/abs/2505.04964v3",
+   "date": "2026-11-18T16:00:00+00:00",
+   "snippet": "We then fine-tune three open-source VLMs (PaliGemma2, Gemma3, and ConceptCLIP-enhanced Gemma3) via LoRA and evaluate them using VLScore and cardiologist review. Although PaliGemma2 w/LoRA attains the highest VLScore, Gemma3 w/LoRA achieves the top clinician rating (mean 7.20/10)..."
+  }
+ ]
+}

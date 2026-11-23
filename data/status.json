@@ -1,106 +1,75 @@
 {
- "checked_at": "2026-11-17T06:41:47Z",
- "checked_date": "2026-11-17",
- "retrieval_status": "failed",
- "retrieved_at": "2026-11-17T06:41:47Z",
+ "checked_at": "2026-11-23T05:17:25Z",
+ "checked_date": "2026-11-23",
+ "retrieval_status": "partial",
+ "retrieved_at": "2026-11-23T05:17:25Z",
  "queries": [
   {
    "domain": "gnss",
    "status": "failed",
    "returned": 0,
    "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "error": "TimeoutError: The read operation timed out"
   },
   {
    "domain": "iono",
    "status": "failed",
    "returned": 0,
    "accepted": 0,
-   "error": "TimeoutError: The read operation timed out"
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "ml",
-   "status": "failed",
-   "returned": 0,
-   "accepted": 0,
-   "error": "TimeoutError: The read operation timed out"
+   "status": "ok",
+   "returned": 60,
+   "accepted": 35
   },
   {
    "domain": "perception",
    "status": "failed",
    "returned": 0,
    "accepted": 0,
-   "error": "TimeoutError: The read operation timed out"
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "embodied",
    "status": "failed",
    "returned": 0,
    "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "training",
    "status": "failed",
    "returned": 0,
    "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   }
  ],
- "candidate_count": 0,
- "issue_date": "2026-11-17",
- "issue_papers": 8,
- "ai_summaries": 4,
+ "candidate_count": 35,
+ "issue_date": "2026-11-23",
+ "issue_papers": 5,
+ "ai_summaries": 0,
+ "full_readings": 0,
  "ai": {
-  "date": "2026-11-17",
+  "date": "2026-11-23",
   "model": "deepseek-flash",
   "requests": {
-   "chat": 10,
+   "chat": 0,
    "search": 6,
-   "fetch": 6
+   "fetch": 0
   },
   "successes": {
-   "chat": 10,
+   "chat": 0,
    "search": 6,
-   "fetch": 6
+   "fetch": 0
   },
-  "input_tokens": 35390,
-  "output_tokens": 8899,
-  "accounted_tokens": 44289,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "accounted_tokens": 0,
   "uncertain_reserved_tokens": 0,
-  "errors": [
-   {
-    "kind": "analysis",
-    "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-17T00:21:35Z"
-   },
-   {
-    "kind": "analysis",
-    "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-17T00:21:53Z"
-   },
-   {
-    "kind": "analysis",
-    "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-17T00:22:02Z"
-   },
-   {
-    "kind": "analysis",
-    "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-17T00:22:17Z"
-   },
-   {
-    "kind": "analysis",
-    "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-17T06:41:38Z"
-   },
-   {
-    "kind": "analysis",
-    "code": "invalid_or_ungrounded_output",
-    "at": "2026-11-17T06:41:47Z"
-   }
-  ],
-  "updated": "2026-11-17T06:41:47Z",
+  "errors": [],
+  "updated": "2026-11-23T05:13:03Z",
   "state": "ready",
   "limits": {
    "daily_paper_limit": 10,
@@ -109,6 +78,15 @@
    "daily_fetch_limit": 6
   }
  },
- "supplement_status": "not_needed",
- "result": "retrieval_failed"
+ "supplement_status": "metadata_verification_failed_HTTPError",
+ "full_reading": {
+  "skill": "paper-deep-reading",
+  "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
+  "states": {
+   "complete": 51,
+   "daily_token_limit": 5
+  },
+  "pending": 5
+ },
+ "result": "updated"
 }
