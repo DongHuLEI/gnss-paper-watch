@@ -1,8 +1,8 @@
 {
- "checked_at": "2026-11-23T05:17:25Z",
- "checked_date": "2026-11-23",
- "retrieval_status": "partial",
- "retrieved_at": "2026-11-23T05:17:25Z",
+ "checked_at": "2026-11-24T08:06:38Z",
+ "checked_date": "2026-11-24",
+ "retrieval_status": "failed",
+ "retrieved_at": "2026-11-24T08:06:38Z",
  "queries": [
   {
    "domain": "gnss",
@@ -20,16 +20,17 @@
   },
   {
    "domain": "ml",
-   "status": "ok",
-   "returned": 60,
-   "accepted": 35
+   "status": "failed",
+   "returned": 0,
+   "accepted": 0,
+   "error": "HTTPError: HTTP Error 429: Unknown Error"
   },
   {
    "domain": "perception",
    "status": "failed",
    "returned": 0,
    "accepted": 0,
-   "error": "HTTPError: HTTP Error 429: Unknown Error"
+   "error": "TimeoutError: The read operation timed out"
   },
   {
    "domain": "embodied",
@@ -46,13 +47,13 @@
    "error": "HTTPError: HTTP Error 429: Unknown Error"
   }
  ],
- "candidate_count": 35,
+ "candidate_count": 0,
  "issue_date": "2026-11-23",
- "issue_papers": 5,
+ "issue_papers": 0,
  "ai_summaries": 0,
  "full_readings": 0,
  "ai": {
-  "date": "2026-11-23",
+  "date": "2026-11-24",
   "model": "deepseek-flash",
   "requests": {
    "chat": 0,
@@ -69,7 +70,7 @@
   "accounted_tokens": 0,
   "uncertain_reserved_tokens": 0,
   "errors": [],
-  "updated": "2026-11-23T05:13:03Z",
+  "updated": "2026-11-24T08:03:12Z",
   "state": "ready",
   "limits": {
    "daily_paper_limit": 10,
@@ -88,5 +89,5 @@
   },
   "pending": 5
  },
- "result": "updated"
+ "result": "retrieval_failed"
 }
