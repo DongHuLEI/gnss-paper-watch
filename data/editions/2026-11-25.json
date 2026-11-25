@@ -1,0 +1,785 @@
+{
+ "edition": {
+  "date": "2026-11-25",
+  "number": 15,
+  "title": "2026-11-25 · 研究日报",
+  "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+  "kicker": "DAILY RESEARCH",
+  "blurb": "本期 11 篇，0 篇图文全文导读、0 篇既有摘要级解读；自动导读仍待核验。",
+  "overview": [
+   "本期收录 11 篇，覆盖 GNSS 高精度定位、电离层与空间天气、时空预测与科学 AI、工程感知与多源融合、具身智能与机器人、模型训练与高效适配。",
+   "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+   "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
+  ],
+  "threads": [
+   {
+    "domain": "gnss",
+    "title": "GNSS 高精度定位 · 1 篇",
+    "text": "CRISP: Sparse Risk-Calibrated Front-End Allocation and Fusion for Low-Resolution Snapshot GNSS Posi…"
+   },
+   {
+    "domain": "iono",
+    "title": "电离层与空间天气 · 2 篇",
+    "text": "Observing Earth's ionospheric irregularities from the Moon"
+   },
+   {
+    "domain": "ml",
+    "title": "时空预测与科学 AI · 2 篇",
+    "text": "Physics-Informed Deep Learning for Channel Prediction in Satellite-Mounted Metasurface Reflection C…"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知与多源融合 · 2 篇",
+    "text": "Facet-SLAM: Real-Time Triangle Splatting SLAM"
+   },
+   {
+    "domain": "embodied",
+    "title": "具身智能与机器人 · 2 篇",
+    "text": "DexWAC: A Unified World-Actor-Critic Model for Dexterous Robot Manipulation"
+   },
+   {
+    "domain": "training",
+    "title": "模型训练与高效适配 · 2 篇",
+    "text": "Two-Stage Post-Training for Flow-Based Embodied Foundation Models"
+   }
+  ],
+  "stats": [
+   {
+    "value": "11",
+    "label": "本期论文"
+   },
+   {
+    "value": "0",
+    "label": "AI 解读"
+   },
+   {
+    "value": "6",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "6",
+    "label": "研究方向"
+   }
+  ],
+  "note": [
+   "来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+   "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+   "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
+  ],
+  "generated_at": "2026-11-25T06:19:36Z",
+  "retrieval_status": "ok",
+  "ai_status": "ready",
+  "full_readings": 0,
+  "reading_skill": "paper-deep-reading"
+ },
+ "papers": [
+  {
+   "id": "2611.32307",
+   "slug": "arxiv-2611.32307",
+   "domain": "gnss",
+   "domains": [
+    "gnss",
+    "perception",
+    "training"
+   ],
+   "lenses": [
+    "uncertainty",
+    "edge"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 47,
+   "domain_scores": {
+    "gnss": 47,
+    "perception": 39,
+    "training": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "CRISP: Sparse Risk-Calibrated Front-End Allocation and Fusion for Low-Resolution Snapshot GNSS Positioning",
+   "title_en": "CRISP: Sparse Risk-Calibrated Front-End Allocation and Fusion for Low-Resolution Snapshot GNSS Positioning",
+   "authors": [
+    "Zhihan Zeng",
+    "Kaihe Wang",
+    "Zhongpei Zhang",
+    "Li-Ta Hsu"
+   ],
+   "cats": [
+    "eess.SP"
+   ],
+   "tags": [
+    "gnss positioning"
+   ],
+   "one_liner": "Low-resolution global navigation satellite system snapshot receivers face strong coupling among automatic gain control compression, coarse quantization, and waveform distortion fr…",
+   "one_liner_en": "Low-resolution global navigation satellite system snapshot receivers face strong coupling among automatic gain control compression, coarse quantization, and waveform distortion fr…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Low-resolution global navigation satellite system snapshot receivers face strong coupling among automatic gain control compression, coarse quantization, and waveform distortion from nonlinear interference mitigation. This paper presents Cross-Risk Interference-Resilient Snapshot Positioning, denoted CRISP, an aided single-snapshot architecture that allocates and fuses complementary pre-correlation processors over a bounded position-clock search region under a shared direct position estimation solve budget. On a pre-frozen baseband descriptor partition, offline calibration estimates uncentered second-order position-error cross moments and solves cardinality-constrained simplex programs along east, north, and up axes, retaining validation-screened multibranch combinations while assigning single matched processors elsewhere. An online reliability gate screens the same quantized snapshot to route unfamiliar waveforms toward single-branch protective operators. We characterize profiled contrast shifts after nonlinear suppression and derive a conditional finite-sample excess-risk bound across disjoint splits alongside an exact same-snapshot gating risk identity. Across 17 568 simulated 2-ms GPS L1 C/A trials, CRISP reduces core positioning root-mean-square error by 13.84%, > 100-m gross errors by 41.32%, and multi-geometry error by 12.23% over Snapshot-FD at 1.43 core and 1.51 overall solves per snapshot.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.32307",
+    "pdf": "https://arxiv.org/pdf/2611.32307"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.21062",
+   "slug": "arxiv-2611.21062",
+   "domain": "iono",
+   "domains": [
+    "iono"
+   ],
+   "lenses": [],
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "score": 61,
+   "domain_scores": {
+    "iono": 61
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Observing Earth's ionospheric irregularities from the Moon",
+   "title_en": "Observing Earth's ionospheric irregularities from the Moon",
+   "authors": [
+    "Rong Yang",
+    "Zhihong Li",
+    "Andrea Nardin",
+    "Alex Minetto",
+    "Fabio Dovis",
+    "Claudio Cesaroni",
+    "Luca Spogli",
+    "Lucilla Alfonsi",
+    "Xirui Miao",
+    "Yuquan Ma",
+    "Wei Gao",
+    "Li-Ta Hsu",
+    "Xingqun Zhan"
+   ],
+   "cats": [
+    "eess.SP",
+    "astro-ph.EP",
+    "physics.geo-ph"
+   ],
+   "tags": [
+    "ionosphere",
+    "ionospheric",
+    "gnss"
+   ],
+   "one_liner": "Radio signals that propagate through the Earth's ionosphere carry information about possible irregular plasma structures. Such irregularities manifest themselves as amplitude sign…",
+   "one_liner_en": "Radio signals that propagate through the Earth's ionosphere carry information about possible irregular plasma structures. Such irregularities manifest themselves as amplitude sign…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Radio signals that propagate through the Earth's ionosphere carry information about possible irregular plasma structures. Such irregularities manifest themselves as amplitude signatures that depend on the propagation and observation geometry [1, 2]. Conventional ground and low-Earth-orbit (LEO) measurements sample these effects close to Earth. Here we present a systematic characterization of terrestrial ionospheric irregularities using Global Navigation Satellite System (GNSS) amplitude observations from the lunar surface, at distances of approximately 356,000-398,000 km from Earth's surface [3]. Using nearly 93 h of 1-Hz lunar-surface observations of GPS L1/L5 and Galileo E1/E5a collected by the Lunar GNSS Receiver Experiment (LuGRE), we reconstruct the propagation and scanning geometry to characterize the spatiotemporal signatures of amplitude and phase fluctuations. At lunar distance, the Fresnel scale approaches its finite-source limit, extending the observations to a propagation regime beyond conventional near-Earth configurations. Detrended receiver-reported carrier-to-noise density ratios ($δC/N_0$) reveal pronounced polar amplitude fluctuations at both frequency bands, also visible in the original measurements. Within the regions and local times sampled, large fluctuations occur in about 30% of valid one-minute polar windows, compared with less than 5% in either the equatorial or mid-latitude band. These findings support using the lunar surface as a vantage point for studying Earth's polar ionospheric irregularities and testing how propagation and scanning relative to the magnetic field shape their amplitude signatures. Future lunar observations could extend this approach to long-term monitoring of Earth's ionospheric irregularities",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.21062",
+    "pdf": "https://arxiv.org/pdf/2611.21062"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.26068",
+   "slug": "arxiv-2611.26068",
+   "domain": "ml",
+   "domains": [
+    "ml",
+    "training"
+   ],
+   "lenses": [
+    "physics",
+    "edge"
+   ],
+   "date": "2026-11-19",
+   "updated": "2026-11-19",
+   "score": 76,
+   "domain_scores": {
+    "ml": 76,
+    "training": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Physics-Informed Deep Learning for Channel Prediction in Satellite-Mounted Metasurface Reflection Communication Networks",
+   "title_en": "Physics-Informed Deep Learning for Channel Prediction in Satellite-Mounted Metasurface Reflection Communication Networks",
+   "authors": [
+    "Aolin Sun",
+    "Ruihong Jiang",
+    "Jincong Mo",
+    "Yangbo Guo",
+    "Zhuangzhuang Cui"
+   ],
+   "cats": [
+    "cs.IT"
+   ],
+   "tags": [
+    "deep learning",
+    "neural network",
+    "prediction",
+    "physics-informed"
+   ],
+   "one_liner": "Satellite-mounted metasurfaces (MS) provide a low-power programmable paradigm for 6G satellite-terrestrial networks, effectively compensating for severe free-space path loss under…",
+   "one_liner_en": "Satellite-mounted metasurfaces (MS) provide a low-power programmable paradigm for 6G satellite-terrestrial networks, effectively compensating for severe free-space path loss under…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Satellite-mounted metasurfaces (MS) provide a low-power programmable paradigm for 6G satellite-terrestrial networks, effectively compensating for severe free-space path loss under stringent payload constraints. However, accurate channel prediction for such systems remains fundamentally challenging due to the coupling of dynamic orbital topology, stochastic user geometry, and hardware-imposed phase quantization. This paper proposes a physics-informed deep learning (PIDL) framework that embeds the physics of wireless communication, including monotonicity constraints and asymptotic decay properties, into a deep neural network for outage probability (OP)-aware channel prediction. We construct a realistic system model incorporating spherical user distribution, Spherical Poisson Point Process-based satellite constellation, and practical metasurface quantization. Simulation results demonstrate that the proposed framework achieves over 0.99 prediction accuracy with physically consistent outage trends under varying geometric configurations, constellation densities, and quantization resolutions.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.26068",
+    "pdf": "https://arxiv.org/pdf/2611.26068"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.23935",
+   "slug": "arxiv-2611.23935",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [
+    "edge"
+   ],
+   "date": "2026-11-18",
+   "updated": "2026-11-18",
+   "score": 69,
+   "domain_scores": {
+    "perception": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Facet-SLAM: Real-Time Triangle Splatting SLAM",
+   "title_en": "Facet-SLAM: Real-Time Triangle Splatting SLAM",
+   "authors": [
+    "Edward Beng Wai Tan",
+    "Siew-Kei Lam"
+   ],
+   "cats": [
+    "cs.RO",
+    "cs.CV"
+   ],
+   "tags": [
+    "slam",
+    "real-time",
+    "localization"
+   ],
+   "one_liner": "Dense SLAM systems based on 3D Gaussian splatting build maps that render photorealistically, but their surface geometry is poor, and obtaining a mesh requires extraction or fusion…",
+   "one_liner_en": "Dense SLAM systems based on 3D Gaussian splatting build maps that render photorealistically, but their surface geometry is poor, and obtaining a mesh requires extraction or fusion…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Dense SLAM systems based on 3D Gaussian splatting build maps that render photorealistically, but their surface geometry is poor, and obtaining a mesh requires extraction or fusion stages. Triangle splatting avoids this with surface primitives whose vertices can be triangulated directly into a connected mesh, yet SLAM with this representation has so far relied on photometric tracking, which is too slow for localization at sensor rate. We present Facet-SLAM, the first real-time triangle splatting SLAM system for RGB-D cameras. Fast geometric registration is the natural alternative, but it is not sufficient alone, since the mapper's optimization displaces triangles from the observed surface and makes them unreliable registration targets. We therefore separate the two roles: the tracker sets each triangle's centroid from fused depth and registers frames to these centroids by GICP, while the mapper is restricted to non-translating updates via a change of variables. Our system achieves competitive tracking accuracy at around 100 FPS on a desktop GPU and runs at sensor rate on a Jetson AGX Orin. Compared with the photometric approach, it is over 20 times faster, matches rendering quality, and improves surface accuracy, reducing the chamfer distance of the Delaunay mesh on Replica from 1.55 to 0.86 cm. We will release the implementation at https://github.com/edward62740/Facet-SLAM.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.23935",
+    "pdf": "https://arxiv.org/pdf/2611.23935"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.32654",
+   "slug": "arxiv-2611.32654",
+   "domain": "embodied",
+   "domains": [
+    "embodied"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 76,
+   "domain_scores": {
+    "embodied": 76
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "DexWAC: A Unified World-Actor-Critic Model for Dexterous Robot Manipulation",
+   "title_en": "DexWAC: A Unified World-Actor-Critic Model for Dexterous Robot Manipulation",
+   "authors": [
+    "Hongjia Liu",
+    "Dacheng Zhou",
+    "Minghao Fu",
+    "Chuanjun Guo",
+    "Tianze Wang",
+    "Qingtao Liu",
+    "He Wang",
+    "Li Yi"
+   ],
+   "cats": [
+    "cs.RO",
+    "cs.AI"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "world model",
+    "manipulation"
+   ],
+   "one_liner": "Robot demonstrations provide more than actions to imitate: they reveal how actions change the world and how those changes contribute to task success. Recent world-action models (W…",
+   "one_liner_en": "Robot demonstrations provide more than actions to imitate: they reveal how actions change the world and how those changes contribute to task success. Recent world-action models (W…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Robot demonstrations provide more than actions to imitate: they reveal how actions change the world and how those changes contribute to task success. Recent world-action models (WAMs) extend vision-language-action (VLA) models with the first signal by jointly predicting actions and future observations, yet this predictive ability serves only as an auxiliary loss for policy learning. Meanwhile, most policy improvement methods learn dynamics and values in separate models, increasing training overhead and limiting representation sharing between these complementary objectives. We introduce DexWAC, a unified world-actor-critic model that jointly learns an actor, an action-conditioned world model, and a bootstrapped critic in a single robot pretraining stage. Our key insight is that visual prediction encourages control-relevant features, while value supervision promotes task-relevant representations; together, they shape a representation suited to policy learning. Built on an image-editing backbone, DexWAC predicts, for each action chunk, the visual latent and proprioception at its endpoint together with its reward and continuation, so the world model alone efficiently yields complete imagined transitions without generating intermediate video frames. After adapting the world model and critic on real rollouts, we improve the pretrained actor through either PPO on imagined rollouts or critic-guided best-of-$N$ selection. DexWAC surpasses the large-scale pretrained VLA and WAM baselines in simulation and achieves 75% average success on two real-world tasks, compared with 45% for $π_{0.5}$. Its world model is more accurate and faster than video-based baselines, and ablations confirm that learning dynamics and value together improves the policy.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.32654",
+    "pdf": "https://arxiv.org/pdf/2611.32654"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.31850",
+   "slug": "arxiv-2611.31850",
+   "domain": "training",
+   "domains": [
+    "training",
+    "embodied"
+   ],
+   "lenses": [],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 83,
+   "domain_scores": {
+    "embodied": 54,
+    "training": 83
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Two-Stage Post-Training for Flow-Based Embodied Foundation Models",
+   "title_en": "Two-Stage Post-Training for Flow-Based Embodied Foundation Models",
+   "authors": [
+    "Jiaming Zhang",
+    "Yao Lyu",
+    "Haoning Wang",
+    "Yongjun Chen",
+    "Liping Zhang",
+    "Shengbo Eben Li"
+   ],
+   "cats": [
+    "cs.LG",
+    "cs.AI"
+   ],
+   "tags": [
+    "fine-tuning",
+    "sft",
+    "post-training",
+    "reinforcement learning",
+    "distillation"
+   ],
+   "one_liner": "Large-scale pretraining provides embodied models with general capabilities, but reliable task execution still requires post training. In multitask settings, supervised fine-tuning…",
+   "one_liner_en": "Large-scale pretraining provides embodied models with general capabilities, but reliable task execution still requires post training. In multitask settings, supervised fine-tuning…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Large-scale pretraining provides embodied models with general capabilities, but reliable task execution still requires post training. In multitask settings, supervised fine-tuning (SFT) faces distribution mismatch between training and deployment, whereas reinforcement learning (RL) is limited by sparse rewards and uneven learning progress across tasks. Multi-teacher on policy distillation (MOPD) consolidates expert capabilities through dense supervision on the model's own trajectories, but achieving performance beyond the teachers remains challenging. We propose a two-stage post training framework for flow-based embodied models, constructing distillation objectives from the velocity regression formulation of conditional flow matching. Stage 1 efficiently consolidates expert capabilities through MOPD. Stage 2 combines RL with teacher distillation that weights velocity errors according to the sampling noise, where distillation is restricted to failed trajectories to supplement sparse rewards with dense guidance without directly constraining successful behaviors. Experiments across multiple models and benchmarks show that the framework outperforms joint SFT and exceeds the corresponding teachers' aggregate success rates. Sample efficiency comparisons show higher success rates than direct RL with fewer environment interactions.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.31850",
+    "pdf": "https://arxiv.org/pdf/2611.31850"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.20379",
+   "slug": "arxiv-2611.20379",
+   "domain": "iono",
+   "domains": [
+    "iono"
+   ],
+   "lenses": [],
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "score": 61,
+   "domain_scores": {
+    "iono": 61
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Ionospheric bow waves during Starship Flight 14: coupling through vented propellant",
+   "title_en": "Ionospheric bow waves during Starship Flight 14: coupling through vented propellant",
+   "authors": [
+    "Juha Vierinen"
+   ],
+   "cats": [
+    "physics.space-ph"
+   ],
+   "tags": [
+    "ionospheric",
+    "total electron content",
+    "gnss"
+   ],
+   "one_liner": "Global Navigation Satellite System (GNSS) observations of Starship Flight 14 show clear bow-shaped waves in detrended total electron content (dTEC), including during motor-off coa…",
+   "one_liner_en": "Global Navigation Satellite System (GNSS) observations of Starship Flight 14 show clear bow-shaped waves in detrended total electron content (dTEC), including during motor-off coa…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Global Navigation Satellite System (GNSS) observations of Starship Flight 14 show clear bow-shaped waves in detrended total electron content (dTEC), including during motor-off coast. These observations raise a coupling problem because the spacecraft hull is small compared with the thermospheric molecular mean free path. Sustained visible release in flight video motivates the hypothesis that vented, unburned propellant supplies a much larger interaction region capable of producing a fluid response. We model gaseous methane and oxygen using the Stochastic Parallel Rarefied-gas Time-accurate Analyzer (SPARTA) for direct simulation Monte Carlo calculations at a combined release rate of 10 kg s$^{-1}$. The calculated collisional energy transfer extends over a region roughly 10 km across. We use this deposition pattern as a moving source of mass, momentum and total energy in a nonlinear neutral model coupled to a passive plasma response. The model produces a South American dTEC bow with broadly similar morphology and propagation speeds to the observations. Representative South American cuts have simulated root-mean-square (RMS) residuals of about 0.015 total electron content units (TECU), compared with observed values of 0.021--0.032 TECU; the North American response remains substantially weaker than observed. These results support collisional transfer of orbital momentum and energy by vented propellant as an explanation for the coast-phase waves. The release rate remains uncertain, and chemical contributions require further testing.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.20379",
+    "pdf": "https://arxiv.org/pdf/2611.20379"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.22455",
+   "slug": "arxiv-2611.22455",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "uncertainty",
+    "physics",
+    "edge"
+   ],
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "score": 76,
+   "domain_scores": {
+    "ml": 76
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "MARS: Feature-guided physics-informed deep learning for real-time battery health and lifetime prediction",
+   "title_en": "MARS: Feature-guided physics-informed deep learning for real-time battery health and lifetime prediction",
+   "authors": [
+    "Innocent Izabayo",
+    "Haiquan Zhao"
+   ],
+   "cats": [
+    "eess.SY"
+   ],
+   "tags": [
+    "deep learning",
+    "prediction",
+    "uncertainty",
+    "physics-informed"
+   ],
+   "one_liner": "Accurate and robust estimation of battery state-of-health (SOH) and remaining useful life (RUL) is essential for safe and cost-effective operation of electrified transportation sy…",
+   "one_liner_en": "Accurate and robust estimation of battery state-of-health (SOH) and remaining useful life (RUL) is essential for safe and cost-effective operation of electrified transportation sy…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Accurate and robust estimation of battery state-of-health (SOH) and remaining useful life (RUL) is essential for safe and cost-effective operation of electrified transportation systems, yet it remains challenging under operating variability, non-stationary aging, and non-Gaussian measurement disturbances. This paper proposes Multi-scale Adaptive Robust State Estimation (MARS), a multi-scale adaptive robust state-estimation framework that couples a dual-branch temporal encoder with an equivalent-circuit-model-constrained differentiable generalized-correntropy adaptive Kalman filter. The encoder disentangles fast intra-cycle voltage-current-temperature dynamics from slow inter-cycle degradation, and the fused degradation context adaptively parameterizes the cycle-level process covariance, measurement covariance, and correntropy bandwidth. Through the unrolled robust filtering recursion, MARS performs physics-consistent state propagation and generalized-correntropy-based innovation correction, while uncertainty decomposition and Monte Carlo dropout provide calibrated prediction intervals for SOH estimation and conditional RUL prediction. Experiments on the NASA and CALCE benchmarks demonstrate improved SOH accuracy, achieving mean absolute error/root mean square error values of 0.72%/0.92% and 0.63%/0.80%, respectively, together with competitive conditional RUL performance against representative data-driven and hybrid baselines. The resulting conditional-RUL prediction intervals achieve coverage probabilities of 100.00% and 99.24% on NASA and CALCE, respectively. Ablation, disturbance-sensitivity, near-end-of-life, and runtime analyses further verify the contribution of each module and the practical inference cost for online battery management.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.22455",
+    "pdf": "https://arxiv.org/pdf/2611.22455"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.32523",
+   "slug": "arxiv-2611.32523",
+   "domain": "perception",
+   "domains": [
+    "perception",
+    "embodied"
+   ],
+   "lenses": [
+    "data-efficient",
+    "sim2real",
+    "multimodal",
+    "edge"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 62,
+   "domain_scores": {
+    "perception": 62,
+    "embodied": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "AirLeg: A Robust and Accurate Self-Supervised Visual-Inertial-Leg SLAM System",
+   "title_en": "AirLeg: A Robust and Accurate Self-Supervised Visual-Inertial-Leg SLAM System",
+   "authors": [
+    "Kuan Xu",
+    "Tianxin Hu",
+    "Ruofei Bai",
+    "Ruimeng Liu",
+    "Yuefan Hao",
+    "Zeyu Jiang",
+    "Zitong Zhan",
+    "Shenghai Yuan",
+    "Chen Wang",
+    "Lihua Xie"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "slam",
+    "localization"
+   ],
+   "one_liner": "Visual-inertial-leg (VIL) state estimation offers cost-effective localization for legged robots, adding only a camera to the onboard IMU and joint encoders. However, learning-base…",
+   "one_liner_en": "Visual-inertial-leg (VIL) state estimation offers cost-effective localization for legged robots, adding only a camera to the onboard IMU and joint encoders. However, learning-base…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Visual-inertial-leg (VIL) state estimation offers cost-effective localization for legged robots, adding only a camera to the onboard IMU and joint encoders. However, learning-based leg odometry is limited by its supervision: networks trained in simulation suffer from the sim-to-real gap, while real-world labels require costly sensors or inherit the errors of visual estimates. To address this, we present AirLeg, a self-supervised VIL SLAM system in which vision and leg proprioception improve each other from training to deployment. We pre-train the leg odometry network in simulation and adapt it to the robot without ground truth through imperative learning, where multi-sensor bundle adjustment uses the leg odometry to refine the visual map, which in turn supervises the network. During deployment, the fused estimates adapt the network online. To improve both localization and this supervision, a dual-window estimator fuses vision, IMU, and leg odometry, relates loaded feet to the visually reconstructed terrain through a deformation-aware constraint, and weights the constraints by variance component estimation. AirLeg completes all 17 GrandTour sequences with the lowest average error (0.19 m) among 19 methods. On a low-cost quadruped, it achieves the lowest drift (0.6%) with only 0.5 h of unlabeled data, in real time on an embedded computer.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.32523",
+    "pdf": "https://arxiv.org/pdf/2611.32523"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.31488",
+   "slug": "arxiv-2611.31488",
+   "domain": "embodied",
+   "domains": [
+    "embodied"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-23",
+   "updated": "2026-11-23",
+   "score": 76,
+   "domain_scores": {
+    "embodied": 76
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Embodied Neuro-symbolic AI: Making Robot Behavior Auditable, Safe, and Scalable",
+   "title_en": "Embodied Neuro-symbolic AI: Making Robot Behavior Auditable, Safe, and Scalable",
+   "authors": [
+    "Ruwan Wickramarachchi",
+    "Jonathan Francis",
+    "Alessandro Oltramari"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "robot learning",
+    "embodied"
+   ],
+   "one_liner": "Current Vision-Language-Action (VLA) end-to-end systems have driven major progress in robot learning, yet they still face persistent barriers to dependable real-world deployment.…",
+   "one_liner_en": "Current Vision-Language-Action (VLA) end-to-end systems have driven major progress in robot learning, yet they still face persistent barriers to dependable real-world deployment.…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Current Vision-Language-Action (VLA) end-to-end systems have driven major progress in robot learning, yet they still face persistent barriers to dependable real-world deployment. In practice, these models often exhibit brittle generalization under distribution shift (i.e., novel objects, layouts, lighting, or contact conditions), limited physical and causal reasoning, and inconsistent fine-grained motor control. Critically, many VLA pipelines offer limited ways to express and audit what a robot must not do, making it difficult to provide assurance in safety-critical settings. These limitations constrain scalability, maintainability, and trust when robots move beyond controlled demonstrations. We propose Embodied Neuro-Symbolic (NeSy) AI: a deployment-oriented paradigm that integrates learned perception, planning and control with explicit, machine-readable background knowledge and formal constraints. By combining knowledge-guided perception, constraint-aware symbolic planning, and hybrid learning, Embodied NeSy AI enables robots to reason about their environment, adapt to new tasks, and provide auditable, machine-checkable compliance with safety and operational requirements, thus supporting scalable, trustworthy robot deployment.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.31488",
+    "pdf": "https://arxiv.org/pdf/2611.31488"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  },
+  {
+   "id": "2611.30997",
+   "slug": "arxiv-2611.30997",
+   "domain": "training",
+   "domains": [
+    "training",
+    "embodied"
+   ],
+   "lenses": [],
+   "date": "2026-11-23",
+   "updated": "2026-11-23",
+   "score": 75,
+   "domain_scores": {
+    "embodied": 39,
+    "training": 75
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Generalizing Agentic Robotics via Multi-Teacher On-Policy Distillation",
+   "title_en": "Generalizing Agentic Robotics via Multi-Teacher On-Policy Distillation",
+   "authors": [
+    "Xinxin Liu",
+    "Anh Dao",
+    "Wenrui Bao",
+    "Rafid Ahmed",
+    "Bingxin Xu",
+    "Ming Li",
+    "Chen Chen",
+    "Yuzhang Shang"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "fine-tuning",
+    "sft",
+    "post-training",
+    "reinforcement learning",
+    "distillation"
+   ],
+   "one_liner": "Building general-purpose robots is a central goal in robotics. Agentic robotics pursues this goal with planners that control robots through tool calls. However, existing methods e…",
+   "one_liner_en": "Building general-purpose robots is a central goal in robotics. Agentic robotics pursues this goal with planners that control robots through tool calls. However, existing methods e…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Building general-purpose robots is a central goal in robotics. Agentic robotics pursues this goal with planners that control robots through tool calls. However, existing methods either rely on proprietary models accessed through APIs, which incur high costs and latency, or post-train a planner with reinforcement learning (RL) in a single domain, requiring a separate specialist for each domain with incompatible tools. In large language model (LLM) post-training, multi-teacher on-policy distillation (MOPD) has been used to consolidate domain specialists into a single generalist. Yet whether MOPD can build a generalist planner for agentic robotics, how well it performs, and how it compares with other consolidation methods remain unexplored. In this paper, we systematically study these questions: we introduce Robo-MOPD, which trains a single student on closed-loop rollouts in simulation under token-level supervision from matching frozen specialists, and compare it with weight merging, off-policy specialist supervised fine-tuning (SFT), and multi-domain online RL. Experiments on LIBERO-PRO and RoboCasa365 show that a single 9B Robo-MOPD planner reaches 72.9% and 44.8% success (58.9% average), surpassing all consolidated baselines in average success and both 9B specialists on their respective benchmarks. Robo-MOPD excels on long-horizon tasks, outperforming multi-domain online RL by 13.0 percentage points on LIBERO-10.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.30997",
+    "pdf": "https://arxiv.org/pdf/2611.30997"
+   },
+   "retrieved_at": "2026-11-25T06:16:59Z"
+  }
+ ],
+ "discovery": [
+  {
+   "title": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion - Skip to main content",
+   "url": "https://arxiv.org/abs/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion ... GNSS pseudorange outliers severely disturb carrier-phase ambiguity resolution and positioning, particularly during signal blockages and recovery. ... Under continuous tracking ... the a-contrario baseline by 58.56%."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - License: arXiv",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "[16] proposes a robust iterated cubature Kalman filter to minimize the impact of GNSS outliers under NLOS and multipath conditions in GNSS/INS fusion. ... In this work, we use calibrated wheel measurements to support GNSS pseudorange screening when a Doppler reference is unavailable or insufficient."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 2 shows the motion errors and their confidence intervals, where the joint-covariance 95% intervals achieve mean pointwise covera...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "This paper presents a two-stage GNSS pseudorange outlier mitigation method for tightly coupled GNSS-RTK/INS/odometer navigation. ... - [4] Z. Shen, X. Li ... Li (2024) Advancing High-Precision Navigation: Leveraging Homogeneous Sensors in Tightly Coupled PPP-RTK/IMU Integration."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - 4i), leaving transverse scan orientation as the clearest angular association",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "provide dual-frequency carrier-phase observations at 1- or 30-s intervals for calculating ROTI (rate-of-TEC index) ... We therefore used detrended fluctuations to characterize amplitude response on each satellite signal, supplemented by ROTI from the dual-frequency carrier measurements Cesaroni et al."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "The rate-of-TEC index (ROTI) was calculated from dual-frequency carrier-phase observations over 1-min windows and mapped using within the same spatial cells (Fig. 2d). Elevated ROTI extended across a broader latitude range than"
+  },
+  {
+   "title": "Re(Visiting) Time Series Foundation Models in Finance",
+   "url": "https://arxiv.org/abs/2511.18578",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "Financial time series forecasting is vital for trading, portfolio optimization, and risk management but is challenged by noisy, nonstationary, and heterogeneous data. Time series foundation models (TSFMs), inspired by large language models, aim to learn transferable temporal representations. Whether pre-training on massive..."
+  },
+  {
+   "title": "Rethinking Universal Time Series Foundation Models from Unified Representations to Shared Dynamics (UniTFU)",
+   "url": "https://arxiv.org/html/2611.31921v1",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "2.2 Local Temporal Representation Learning for Time Series ... In this work, we introduce TFUs as reusable prototypes of recurring local dynamics and develop UniTFU. ... We propose UniTFU, a unified time series foundation model that enables cross-domain forecasting through reusable Time Series Foundation Units (TFUs), as illustrated in Fig. 2."
+  },
+  {
+   "title": "Forecasting Realized Volatility with Time Series Foundation Models: A Comparison with Econometric Benchmarks",
+   "url": "https://arxiv.org/html/2607.05291v2",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "2.2 we introduce TSFMs and their architectures, and in Subsec. ... 2.1 Realized Volatility Modeling ... 2.2 Time Series Foundation Models ... TSFMs are instead pretrained on large corpora drawn from diverse domains (weather, energy, retail, transport) and forecast immediately via zero-shot inference."
+  },
+  {
+   "title": "Time Series Foundation Models on the Edge",
+   "url": "https://arxiv.org/html/2611.30404",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "We conduct three experiments to evaluate whether a TSFM meets the three requirements of operational use: accuracy retained as the context expands, a forecast refresh that completes within the interval between arriving chunks, and latency and memory that stay bounded as the stream grows. ... We investigated whether leading TSFMs meet the three requirements of operational..."
+  },
+  {
+   "title": "Time Flies When You Parallelise: Pareto-efficient Time Series Foundation Models with Linear Recurrences - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.16934v1",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "The architecture supports probabilistic forecasting with past-only and future-known covariates, chunk-wise parallel-in-time training, and inference costs that scale linearly with sequence length. ... These results demonstrate that state-of-the-art multivariate zero-shot forecasting can be achieved without temporal self-attention or nonlinear state recurrences.100100"
+  },
+  {
+   "title": "Urban State Representation for Autonomous Mobility: A Survey of Multimodal Perception, Architectures, Datasets, and Benchmarks",
+   "url": "https://arxiv.org/html/2611.28129",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "Promising directions: Latency-aware fusion [74]; confidence-driven sharing [23] ... aerial and satellite [32... ... Occ3D [59] adds occupancy labels to nuScenes and Waymo. ... 150 scenes | 3 US cities | 2D/3D detection... ... BDD100K [82] | 2020 | C, G (dashcam) | 100k videos | NYC... ... segmentation, lanes, drivable area, tracking WOMD [13] | 2021 | Boxes, map | >>100k 20 s scenes | 6 US cities | Interactive motion forecasting Argoverse 2 [69] | 2021 | C..."
+  },
+  {
+   "title": "GeoFusion: An Uncertain Machine Learning Framework for Sensor Fusion",
+   "url": "https://arxiv.org/html/2611.29510v1",
+   "date": "2026-11-21T16:00:00+00:00",
+   "snippet": "a probability distribution over all plausible true locations, weighted ... derived empirically from the statistical structure of the Google ... the observations within each cluster are fused into a single position estimate using classic filter-based estimators ... The GeoFusion framework for cooperative GPS sensor fusion using uncertain object representations, designed to exceed single-phone positioning precision using naturally occurring GPS data and without requiring physical sensor upgrades."
+  },
+  {
+   "title": "Brina: Bottom-Referenced Inertial Navigation with AKAZE, a Sonar SLAM for Autonomous Marine Vehicles",
+   "url": "https://arxiv.org/html/2611.27817",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "which relates the unobserved elevation to the measured range and bearing and to the known sonar altitude.ψ\\psi If is known, (3) can therefore be solved for the elevation of each seabed feature. ... The ground projection therefore converts a sonar measurement, which is naturally expressed in slant range and bearing, into a metric position on the local seabed plane. Since the projected features are assumed static, differences between their"
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 𝐯o,km=𝐞y(1+sv)v^o,k,𝝎o,km=𝐞z(1+sω)ω^o,k,\\mathbf{v}_{o,k}^{m}=\\mathbf{e}_{y}(1+s_{v})\\hat{v}_{o,k},\\qquad\\bm{\\omega}_{o,k}^{m}=\\m...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "III-A Motion-based model Relative odometry has been used in GNSS consistency screening [23], and tight GNSS and IMU integration similarly leverages inertial propagation to bound state uncertainty during signal degradation [24]. We use calibrated IMU-odometer prediction to obtain the antenna positions and their uncertainty without including the GNSS observations being tested. Current prediction graph uses the state"
+  },
+  {
+   "title": "Perception-Aware Multi-UAV Implicit Coordination in the Wild",
+   "url": "https://arxiv.org/html/2603.08379v2",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "the density function ℬi=𝒮i∩𝒜i∩𝒞i\\mathcal{B}_{i}=\\mathcal{S}_{i}\\cap\\mathcal{A}_{i}\\cap\\mathcal{C}_{i} ... the i-th robot can navigate safely, provided that ψi(q)\\psi_{i}(q) ... to account for uncertainties and tracking errors.dud_{u} This behavior follows from the following observations. The setis convex and contains both the robot position 𝒲i\\mathcal{W}_{i} andpip_{i}."
+  },
+  {
+   "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.08577v3",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "We further introduce Rollback, a collection mechanism that returns to a historical anchor to collect a human replacement while retaining the original policy segment. ... Constructed through a separate pipeline, the robot corpus combines RoboDesk, licensed real-robot data, and open simulation data for action learning across heterogeneous hardware."
+  },
+  {
+   "title": "Learning from Incomplete Actions: Interval Motion Supervision for Vision-Language-Action Policies",
+   "url": "https://arxiv.org/html/2611.27171",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "Using the inverse normalizer D^\\widehat{D}, one velocity evaluation gives𝒩L−1\\mathcal{N}_{L}^{-1} ... At deployment, the policy integrates the velocity field over ten Euler steps. On labeled paths,. Endpoint supervision constrains ... These estimates use the sampled training time, so composition needs no rollout through the ten-step sampler.xτ−τ(ϵ−a)=ax_{\\tau}-\\tau(\\epsilon-a)=a ... 3.4 One interval constraint across fixed windows The supervision interval can grow beyond the policy horizon while the action windows keep their original length. ... Supplementary Sec. B gives implementation details."
+  },
+  {
+   "title": "JEPA-ICL: Progress-Aligned Latent Plans for In-Context Robotic Manipulation",
+   "url": "https://arxiv.org/html/2611.30516v1",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "3.1 Overview At time the policy observes camera images tt, an instruction oto_{t} and the proprioceptive state ℓ\\ell, and outputs a chunk of sts_{t} actions HH. As in VLA-JEPA [50], a vision-language model at:t+Ha_{t..."
+  },
+  {
+   "title": "ζ0\\zeta_{0}: A Framework for World Action Models with Joint Scene and Body Foresight in Humanoid Control",
+   "url": "https://arxiv.org/html/2611.29277v1",
+   "date": "2026-11-21T16:00:00+00:00",
+   "snippet": "is a framework that turns a base vision-language-action policy into a World Action Model by adding joint scene-and-body foresight, a causal prediction of how the scene and the robot’s body will change over a short future horizon. The base supplies the vision-language backbone, the state and action interfaces, and, where available, pretrained weights. It adds a shared ... action learning, dual-response transfer..."
+  },
+  {
+   "title": "CoT-WAM: Collaborative Training of Vision-Language Models and World-Action Models via Plan Latents - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.23803",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "2.3 Integrating VLMs with World Action Models Recent work incorporates VLM priors into WAMs through different conditioning interfaces. ... Our approach jointly optimizes the VLM and video predictor through a continuous interface supervised by task text and future visual observations, without additional external priors. ... We consider embodied policy learning from visual observations and language instructions."
+  },
+  {
+   "title": "What Can a VLA Learn from the Agent That Calls It? Task-Level Experience Distillation for Embodied Navigation - Training objective.",
+   "url": "https://arxiv.org/html/2611.16246v3",
+   "date": "2026-11-16T16:00:00+00:00",
+   "snippet": "We fine-tune the VLA with LoRA [9]. ... LoRA adapts the attention and feed-forward layers. ... To cover states where the distilled VLA itself fails, we run it on training episodes and pick the ones where it ends far from the goal. ... It uses the same end-label rule and LoRA settings as H2E."
+  },
+  {
+   "title": "ProxySearch: Decoupled Inference-Time Scaling for Diffusion Models via Asymmetric Noise-Rank Transfer - B.4 Teacher RL post-training",
+   "url": "https://arxiv.org/html/2611.23929v1",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "It is the third-party distilled checkpoint tensorart/stable-diffusion-3.5-medium-turbo, run at step with guidance 11. ... with the FlowGRPO text-rendering LoRA (jieliu/SD3.5M-FlowGRPO-Text) ... Distillation contributes on the finer statistics."
+  },
+  {
+   "title": "Human or Synthetic? What a Fixed Budget Buys for Post-Training - A.3 Training Hyperparameters",
+   "url": "https://arxiv.org/html/2611.16895",
+   "date": "2026-11-11T16:00:00+00:00",
+   "snippet": "A.5 Synthetic Data Generation Details ##### Helpfulness. Conversations are built incrementally to between 1–3 turns (matching the typical turn count in the Anthropic dataset) ... A.6 Data Cleaning and Quality Filtering Generated candidates and human-annotated sources are cleaned and filtered before training ... and dataset-specific domain restriction and deduplication for SHP, HelpSteer3 ... This mirrors the one-pair-per-post design of ... (§2.3) and guards against the same failure mode that motivates per-post capping for SHP..."
+  },
+  {
+   "title": "Make Position Uninformative: Exchangeable Self-Distillation Flattens the Lost-in-the-Middle Curve",
+   "url": "https://arxiv.org/html/2611.28638v1",
+   "date": "2026-11-20T16:00:00+00:00",
+   "snippet": "How does ExSD compare with existing methods? (Sec. ... 20 passages | Qwen 1.5B | 57.9 | 62.3 | +4.4∗ ... 20 passages | Qwen 14B | 77.3 | 82.4 | +5.1∗ ... 20 passages | Qwen 32B | 79.1 | 84.1 | +5.0∗ FLenQA† | Qwen 7B | 60.8 | 64.4 | +3.6∗ ... 47.45 | −-1.5∗ ... −-0.3 ... training distribution. ExSD transfers to key-value retrieval, SynthWiki and 30-document MDQA. ... first do not drop. The aggregation task of ZeroSCROLLS improves strongly. General ability is preserved."
+  },
+  {
+   "title": "LLM-Based Assistant for Dog Care Guidance",
+   "url": "https://arxiv.org/abs/2611.29286",
+   "date": "2026-11-21T16:00:00+00:00",
+   "snippet": "This study investigates whether domain grounding through Retrieval-Augmented Generation (RAG) and parameter-efficient fine-tuning using Low-Rank Adaptation (LoRA) can enhance the accuracy and reliability of pet care advice generated by large language models (LLMs)."
+  }
+ ]
+}
