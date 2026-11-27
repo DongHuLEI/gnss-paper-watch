@@ -1,0 +1,46 @@
+{
+ "date": "2026-11-27",
+ "model": "deepseek-flash",
+ "requests": {
+  "chat": 3,
+  "search": 6,
+  "fetch": 0
+ },
+ "successes": {
+  "chat": 1,
+  "search": 6,
+  "fetch": 0
+ },
+ "input_tokens": 8655,
+ "output_tokens": 6236,
+ "accounted_tokens": 14891,
+ "uncertain_reserved_tokens": 0,
+ "errors": [
+  {
+   "kind": "chat",
+   "code": "http_400",
+   "at": "2026-11-27T06:00:45Z"
+  },
+  {
+   "kind": "full_reading",
+   "code": "invalid_or_ungrounded_reading",
+   "at": "2026-11-27T06:00:45Z"
+  },
+  {
+   "kind": "chat",
+   "code": "http_400",
+   "at": "2026-11-27T06:00:50Z"
+  },
+  {
+   "kind": "full_reading",
+   "code": "invalid_or_ungrounded_reading",
+   "at": "2026-11-27T06:00:50Z"
+  },
+  {
+   "kind": "full_reading",
+   "code": "invalid_or_ungrounded_reading",
+   "at": "2026-11-27T06:01:39Z"
+  }
+ ],
+ "updated": "2026-11-27T06:01:39Z"
+}

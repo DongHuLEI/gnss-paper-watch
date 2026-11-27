@@ -1,8 +1,8 @@
 {
- "checked_at": "2026-11-26T06:14:14Z",
- "checked_date": "2026-11-26",
+ "checked_at": "2026-11-27T06:02:23Z",
+ "checked_date": "2026-11-27",
  "retrieval_status": "ok",
- "retrieved_at": "2026-11-26T06:14:14Z",
+ "retrieved_at": "2026-11-27T06:02:23Z",
  "queries": [
   {
    "domain": "gnss",
@@ -20,37 +20,37 @@
    "domain": "ml",
    "status": "ok",
    "returned": 60,
-   "accepted": 34
+   "accepted": 32
   },
   {
    "domain": "perception",
    "status": "ok",
-   "returned": 32,
-   "accepted": 18
+   "returned": 28,
+   "accepted": 13
   },
   {
    "domain": "embodied",
    "status": "ok",
    "returned": 60,
-   "accepted": 44
+   "accepted": 41
   },
   {
    "domain": "training",
    "status": "ok",
    "returned": 60,
-   "accepted": 38
+   "accepted": 36
   }
  ],
- "candidate_count": 129,
- "issue_date": "2026-11-26",
+ "candidate_count": 118,
+ "issue_date": "2026-11-27",
  "issue_papers": 8,
  "ai_summaries": 0,
  "full_readings": 0,
  "ai": {
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "model": "deepseek-flash",
   "requests": {
-   "chat": 1,
+   "chat": 3,
    "search": 6,
    "fetch": 0
   },
@@ -59,18 +59,38 @@
    "search": 6,
    "fetch": 0
   },
-  "input_tokens": 11311,
-  "output_tokens": 5945,
-  "accounted_tokens": 17256,
+  "input_tokens": 8655,
+  "output_tokens": 6236,
+  "accounted_tokens": 14891,
   "uncertain_reserved_tokens": 0,
   "errors": [
    {
+    "kind": "chat",
+    "code": "http_400",
+    "at": "2026-11-27T06:00:45Z"
+   },
+   {
     "kind": "full_reading",
     "code": "invalid_or_ungrounded_reading",
-    "at": "2026-11-26T06:12:22Z"
+    "at": "2026-11-27T06:00:45Z"
+   },
+   {
+    "kind": "chat",
+    "code": "http_400",
+    "at": "2026-11-27T06:00:50Z"
+   },
+   {
+    "kind": "full_reading",
+    "code": "invalid_or_ungrounded_reading",
+    "at": "2026-11-27T06:00:50Z"
+   },
+   {
+    "kind": "full_reading",
+    "code": "invalid_or_ungrounded_reading",
+    "at": "2026-11-27T06:01:39Z"
    }
   ],
-  "updated": "2026-11-26T06:12:22Z",
+  "updated": "2026-11-27T06:01:39Z",
   "state": "ready",
   "limits": {
    "daily_paper_limit": 10,
@@ -85,10 +105,11 @@
   "skill_sha256": "fa7c747c016058d5f0d7af532759ea948405941a99066007468520a452e6ea3f",
   "states": {
    "complete": 51,
-   "daily_token_limit": 20,
-   "source_unavailable": 4
+   "daily_token_limit": 26,
+   "source_unavailable": 5,
+   "invalid_or_ungrounded_reading": 1
   },
-  "pending": 24
+  "pending": 32
  },
  "result": "updated"
 }

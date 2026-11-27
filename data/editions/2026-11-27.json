@@ -1,0 +1,609 @@
+{
+ "edition": {
+  "date": "2026-11-27",
+  "number": 17,
+  "title": "2026-11-27 · 研究日报",
+  "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+  "kicker": "DAILY RESEARCH",
+  "blurb": "本期 8 篇，0 篇图文全文导读、0 篇既有摘要级解读；自动导读仍待核验。",
+  "overview": [
+   "本期收录 8 篇，覆盖 时空预测与科学 AI、工程感知与多源融合、具身智能与机器人、模型训练与高效适配。",
+   "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+   "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
+  ],
+  "threads": [
+   {
+    "domain": "ml",
+    "title": "时空预测与科学 AI · 2 篇",
+    "text": "SolarFilNet-V4: Multi-Scale Transformer Vision with Physics-Informed Adaptive Post-Processing for S…"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知与多源融合 · 2 篇",
+    "text": "sqrtVINS-Based 360 Visual-Inertial SLAM Systems: Hilti-Trimble SLAM Challenge 2026 Entry"
+   },
+   {
+    "domain": "embodied",
+    "title": "具身智能与机器人 · 2 篇",
+    "text": "One Patch, Many Policies: Object-Associated Physical Patch Attacks on Robotic Manipulation"
+   },
+   {
+    "domain": "training",
+    "title": "模型训练与高效适配 · 2 篇",
+    "text": "KiRA: Kronecker Input-Gated Rank Adaptation for Parameter-Efficient Fine-Tuning of Pretrained Models"
+   }
+  ],
+  "stats": [
+   {
+    "value": "8",
+    "label": "本期论文"
+   },
+   {
+    "value": "0",
+    "label": "AI 解读"
+   },
+   {
+    "value": "4",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "6",
+    "label": "研究方向"
+   }
+  ],
+  "note": [
+   "来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+   "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+   "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
+  ],
+  "generated_at": "2026-11-27T06:02:23Z",
+  "retrieval_status": "ok",
+  "ai_status": "ready",
+  "full_readings": 0,
+  "reading_skill": "paper-deep-reading"
+ },
+ "papers": [
+  {
+   "id": "2611.32193",
+   "slug": "arxiv-2611.32193",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "physics"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 62,
+   "domain_scores": {
+    "ml": 62
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "SolarFilNet-V4: Multi-Scale Transformer Vision with Physics-Informed Adaptive Post-Processing for Solar Filament Segmentation",
+   "title_en": "SolarFilNet-V4: Multi-Scale Transformer Vision with Physics-Informed Adaptive Post-Processing for Solar Filament Segmentation",
+   "authors": [
+    "Indra Agustian",
+    "Ruvita Faurina"
+   ],
+   "cats": [
+    "cs.CV",
+    "cs.AI"
+   ],
+   "tags": [
+    "transformer",
+    "physics-informed"
+   ],
+   "one_liner": "Solar filaments are cool, dense chromospheric plasma structures held by magnetic field lines above polarity inversion lines. Their destabilization triggers coronal mass ejections…",
+   "one_liner_en": "Solar filaments are cool, dense chromospheric plasma structures held by magnetic field lines above polarity inversion lines. Their destabilization triggers coronal mass ejections…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Solar filaments are cool, dense chromospheric plasma structures held by magnetic field lines above polarity inversion lines. Their destabilization triggers coronal mass ejections and severe space weather hazards. Segmenting individual filaments from ground-based GONG H-alpha observations (2048 x 2048 pixels) is challenging due to low contrast, turbulent fibrils, delicate barb structures, and annotator boundary variance. In this technical report, we describe SolarFilNet-V4, a targeted segmentation framework developed for the MAGFiLO 1.0 benchmark (Solar Filament Segmentation Challenge 2026). Our method couples a lightweight Pyramid Vision Transformer (PVT-v2-B1) backbone with anisotropic curvilinear strip convolutions (k=15) and dual-frequency feed-forward blocks (DFFN) to follow extended flux ropes while capturing thin central spines. A shallow full-resolution convolutional branch operating at 1024 x 1024 preserves high-frequency edge details and mitigates transformer downsampling. We train the network using multi-task supervision over masks, centerline spines, barb boundaries, and pixel-contrastive representations. At test time, we apply 8-fold dihedral test-time augmentation (D4), bilinearly upscale predictions to the native 2048 x 2048 grid, and apply an activity-adaptive post-processing routine that calibrates morphological joining parameters for quiet versus active solar disks. On the official benchmark, SolarFilNet-V4 achieves an out-of-fold validation Panoptic Quality of 0.4340 and a Public Leaderboard score of 0.380. The model contains 15.46M parameters and requires 224.34 GFLOPs per forward pass, reducing parameter count by 36.8% compared to standard ResNet-34 U-Net baselines.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.32193",
+    "pdf": "https://arxiv.org/pdf/2611.32193"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.20568",
+   "slug": "arxiv-2611.20568",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [],
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "score": 62,
+   "domain_scores": {
+    "perception": 62
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "sqrtVINS-Based 360 Visual-Inertial SLAM Systems: Hilti-Trimble SLAM Challenge 2026 Entry",
+   "title_en": "sqrtVINS-Based 360 Visual-Inertial SLAM Systems: Hilti-Trimble SLAM Challenge 2026 Entry",
+   "authors": [
+    "Jungwoo Lee",
+    "Hogyun Kim",
+    "Jiwon Choi",
+    "Jinyong Jeong",
+    "Younggun Cho"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "factor graph",
+    "slam"
+   ],
+   "one_liner": "This report describes our submission to the 2026 Hilti-Trimble SLAM Challenge. The system is a 360-camera visual-inertial pipeline that uses only the provided dual-fisheye image s…",
+   "one_liner_en": "This report describes our submission to the 2026 Hilti-Trimble SLAM Challenge. The system is a 360-camera visual-inertial pipeline that uses only the provided dual-fisheye image s…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "This report describes our submission to the 2026 Hilti-Trimble SLAM Challenge. The system is a 360-camera visual-inertial pipeline that uses only the provided dual-fisheye image streams and IMU measurements. First, raw images are preprocessed with low-light enhancement and static/dynamic masking, and then fed into a $\\sqrt{\\text{VINS}}$ frontend as the local odometry, with deep learning-based SuperPoint features, ELSED line segments, and LightGlue matching. The resulting trajectory is refined using a GTSAM-based backend that performs tightly-coupled factor graph optimization with SALAD global descriptor and visual bundle adjustment (BA). The backend performs local-to-global structureless BA, tightly regularized intrinsic and extrinsic refinement, and global scale adjustment supported by the known inter-camera baseline and cross-view constraints. The design targets long indoor sequences with dark regions, repetitive corridors, dynamic objects, and limited geometric parallax, while keeping the pipeline reproducible in the provided ROS2 workspace. Fig. 1 demonstrates that our proposed method aligns well with the floorplan across several indoor sequences.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.20568",
+    "pdf": "https://arxiv.org/pdf/2611.20568"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.34360",
+   "slug": "arxiv-2611.34360",
+   "domain": "embodied",
+   "domains": [
+    "embodied"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "score": 69,
+   "domain_scores": {
+    "embodied": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "One Patch, Many Policies: Object-Associated Physical Patch Attacks on Robotic Manipulation",
+   "title_en": "One Patch, Many Policies: Object-Associated Physical Patch Attacks on Robotic Manipulation",
+   "authors": [
+    "Yiqian Liu",
+    "Yuqi Lin",
+    "Hui Lu",
+    "Jiaming He",
+    "Qi Zhu",
+    "Deyi Ji",
+    "Bing Li",
+    "Kaizheng Wang",
+    "Zhiyuan Zha",
+    "Yi Yu"
+   ],
+   "cats": [
+    "cs.CV"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "manipulation"
+   ],
+   "one_liner": "Vision-Language-Action (VLA) and World Action Models (WAMs) are vulnerable to adversarial visual interference, motivating the study of universal and transferable physical patch at…",
+   "one_liner_en": "Vision-Language-Action (VLA) and World Action Models (WAMs) are vulnerable to adversarial visual interference, motivating the study of universal and transferable physical patch at…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Vision-Language-Action (VLA) and World Action Models (WAMs) are vulnerable to adversarial visual interference, motivating the study of universal and transferable physical patch attacks. We propose Object-Associated Patch Attack (OAPA), a universal and transferable physical patch framework that enables an attacker to select which task object's manipulation to disrupt through patch placement, without re-optimizing the patch. Our framework combines object-associated placement, differentiable physical compositing, and final action-expert representation divergence. Physical compositing accounts for perspective and occlusion across camera views, while representation divergence guides patch optimization using either relative RMS or cosine distance. Experimental results demonstrate strong attack transferability across task suites and policies, together with the ability to selectively disrupt manipulation of an attacker-chosen task object through patch placement.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.34360",
+    "pdf": "https://arxiv.org/pdf/2611.34360"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.33236",
+   "slug": "arxiv-2611.33236",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [
+    "data-efficient"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 69,
+   "domain_scores": {
+    "training": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "KiRA: Kronecker Input-Gated Rank Adaptation for Parameter-Efficient Fine-Tuning of Pretrained Models",
+   "title_en": "KiRA: Kronecker Input-Gated Rank Adaptation for Parameter-Efficient Fine-Tuning of Pretrained Models",
+   "authors": [
+    "Akil Ahmad Taki",
+    "Shaikh Anowarul Fattah"
+   ],
+   "cats": [
+    "cs.LG",
+    "cs.AI"
+   ],
+   "tags": [
+    "parameter-efficient",
+    "fine-tuning",
+    "pre-training"
+   ],
+   "one_liner": "Full fine-tuning of large pretrained models is expensive, and parameter-efficient fine-tuning (PEFT) is the standard alternative. Most PEFT methods use low-rank updates, whose ran…",
+   "one_liner_en": "Full fine-tuning of large pretrained models is expensive, and parameter-efficient fine-tuning (PEFT) is the standard alternative. Most PEFT methods use low-rank updates, whose ran…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Full fine-tuning of large pretrained models is expensive, and parameter-efficient fine-tuning (PEFT) is the standard alternative. Most PEFT methods use low-rank updates, whose rank lies far below that of full fine-tuning and is the same for every input. Input-adaptive variants vary the capacity per input but remain within the low-rank bottleneck, and whether a task benefits from input conditioning is not known before training. This paper introduces Kronecker input-gated rank adaptation (KiRA). Instead of the conventional low-rank product, the update $ΔW$ is the Kronecker product of a frozen random $p\\times p$ matrix $A$ and a trainable factor $M(x)$, which overcomes the rank ceiling: because rank is multiplicative under this product, $A$ multiplies the rank of $M(x)$ by $p$ without adding trainable parameters. The factor $M(x)$ is further decomposed as $B_1\\,\\mathrm{diag}(g(x))\\,B_2$, where the input gate $g(x)$, computed once per sample by a network shared across all adapted layers, adjusts the rank of the update to each input in steps of $p$. Where input conditioning is unnecessary, the gate is folded into $B_1$ at deployment. Because the gate changes the rank only in discrete steps, the benefit of input conditioning can be predicted before training from a few hundred labeled inputs. Across six medical imaging and language benchmarks, KiRA attains the highest mean score against five published baselines with 8.7--9.7 times fewer trainable parameters than low-rank adaptation, and the pre-training criterion agrees with the measured benefit of input conditioning on all six tasks.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.33236",
+    "pdf": "https://arxiv.org/pdf/2611.33236"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.31843",
+   "slug": "arxiv-2611.31843",
+   "domain": "ml",
+   "domains": [
+    "ml",
+    "embodied",
+    "training"
+   ],
+   "lenses": [
+    "uncertainty",
+    "physics"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 62,
+   "domain_scores": {
+    "ml": 62,
+    "embodied": 38,
+    "training": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Co-DRIS: Physics-Informed Predictive Belief and Variable-Impedance Learning for Reactive Catching under Coupled Uncertainty",
+   "title_en": "Co-DRIS: Physics-Informed Predictive Belief and Variable-Impedance Learning for Reactive Catching under Coupled Uncertainty",
+   "authors": [
+    "Yonglong Zhang"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "uncertainty",
+    "physics-informed"
+   ],
+   "one_liner": "Reactive robotic manipulation is acutely sensitive to simultaneous sensing noise, measurement dropouts, joint execution errors, and contact parameter variations. While single-fram…",
+   "one_liner_en": "Reactive robotic manipulation is acutely sensitive to simultaneous sensing noise, measurement dropouts, joint execution errors, and contact parameter variations. While single-fram…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Reactive robotic manipulation is acutely sensitive to simultaneous sensing noise, measurement dropouts, joint execution errors, and contact parameter variations. While single-frame frameworks like Domain-Randomized Instance Set (DRIS) achieve strong robustness under isolated uncertainties (86.4%), they degrade severely when perception and actuation uncertainties co-occur (27.6% across 10 coupled stress scenarios) due to memoryless encoding and fixed high-stiffness PD control. We propose Co-DRIS + SuperMimic, a perception-action co-design framework coupling: (i) an inertial world-frame physics-informed world model combining exact ballistic kinematics with a zero-initialized contact residual to roll forward missing observations and accelerate training via zero-cost counterfactual dropout consistency; (ii) an action-conditioned dual-stream causal GRU belief encoder resolving the denoising-vs-lag deadlock; and (iii) phase-aware variable-impedance soft-catching that transitions the 7-DoF Franka Research 3 arm into an overdamped regime (zeta/zeta0 ~ 2.26x) at the torque layer. Under unbiased 3-seed tail evaluation on unseen throws (15,360 throws/scenario), our method achieves 89.6 +/- 0.4% on standard benchmarks (+10.5% on 4-sigma noise to 70.5%) and 66.6 +/- 0.5% across 10 coupled/dropout stress scenarios (+39.0% over DRIS; +30.4% on 50% dropout). We further validate impedance decoupling, causal contact triggering under +0.65 s flight-time shifts, and cross-task transfer to steel-plate ping-pong bouncing (87.5% to 100.0%) and FR3+Hand catching (+8.4% under 4x noise with 6-13% lower peak impact force).",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.31843",
+    "pdf": "https://arxiv.org/pdf/2611.31843"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.19765",
+   "slug": "arxiv-2611.19765",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [],
+   "date": "2026-11-15",
+   "updated": "2026-11-15",
+   "score": 61,
+   "domain_scores": {
+    "perception": 61
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "M-CROSS: A Multisensor Simulation Dataset for SLAM across Water--Land Transitions",
+   "title_en": "M-CROSS: A Multisensor Simulation Dataset for SLAM across Water--Land Transitions",
+   "authors": [
+    "Yan Dong",
+    "Tianyi Wu",
+    "Junyu Yang",
+    "Shaoqiang Qiu",
+    "Zefeng Yan",
+    "Tao Zhang",
+    "Bin Han"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "slam",
+    "lidar",
+    "localization"
+   ],
+   "one_liner": "Water--land cross-domain robots require continuous localization across land, transition and underwater phases, where sensor characteristics and availability change abruptly. Exist…",
+   "one_liner_en": "Water--land cross-domain robots require continuous localization across land, transition and underwater phases, where sensor characteristics and availability change abruptly. Exist…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Water--land cross-domain robots require continuous localization across land, transition and underwater phases, where sensor characteristics and availability change abruptly. Existing datasets and conventional metrics are not designed to capture transition-induced degradation and failures. We present \\textbf{M-CROSS}, to the best of our knowledge, the first multisensor simulation dataset and benchmark for SLAM across continuous water--land transitions. It provides synchronized LiDAR, sonar, stereo camera, IMU, DVL, and depth measurements; 6DoF pose ground truth; sensor-wise medium-state annotations; and medium-dependent sensor degradation models. We establish a transition-aware protocol comprising the Trajectory Completion Rate (TCR), Piecewise Absolute Pose Error (PW-APE), Transition End Error (TEE), and Transition Survival Period (TSP), which measure trajectory completion, single-domain accuracy, transition-induced error, and localization survival under prolonged partial immersion, respectively. Experiments with 6 representative SLAM systems show that existing methods fail to maintain both localization accuracy and trajectory continuity across the full set of water--land transitions, exhibiting transition-induced drift, trajectory discontinuities, and tracking failures. M-CROSS is publicly available https://anonymous.4open.science/r/MCross-Dataset",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.19765",
+    "pdf": "https://arxiv.org/pdf/2611.19765"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.34287",
+   "slug": "arxiv-2611.34287",
+   "domain": "embodied",
+   "domains": [
+    "embodied",
+    "training"
+   ],
+   "lenses": [
+    "data-efficient",
+    "multimodal"
+   ],
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "score": 69,
+   "domain_scores": {
+    "embodied": 69,
+    "training": 46
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "DataForgeVLA: Fully Synthetic Manipulation Demonstrations for Vision-Language-Action Training",
+   "title_en": "DataForgeVLA: Fully Synthetic Manipulation Demonstrations for Vision-Language-Action Training",
+   "authors": [
+    "Sergei Kurchev",
+    "Iaroslav Kolomiets",
+    "Filipp Maksimov",
+    "Elizaveta Semenyakina",
+    "Miguel Altamirano Cabrera",
+    "Artem Lykov",
+    "Dzmitry Tsetserukou"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "manipulation"
+   ],
+   "one_liner": "We present a dataset of 340 fully synthetic manipulation demonstrations generated from real seed data for Vision-Language-Action (VLA) training. The corpus contains 32,340 frames…",
+   "one_liner_en": "We present a dataset of 340 fully synthetic manipulation demonstrations generated from real seed data for Vision-Language-Action (VLA) training. The corpus contains 32,340 frames…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "We present a dataset of 340 fully synthetic manipulation demonstrations generated from real seed data for Vision-Language-Action (VLA) training. The corpus contains 32,340 frames with synchronized RGB and actions across eight object categories, represented as LeRobot v2.1 episodes with H.264 video, per-frame robot states and pose-valued action labels, language task annotations, summary statistics and quality decisions. Each synthetic demonstration is produced without additional teleoperation: a LoRA-fine-tuned Cosmos-3 model generates a manipulation video, and RoboHaMeR recovers the corresponding robot trajectory from RGB. Quality screening accepted 300 of 340 episodes for policy fine-tuning. As preliminary evidence of feasibility, a pretrained GR00T N1.6 policy fine-tuned exclusively on the 300 accepted episodes reaches 16/20 (80%) real-world pick-and-place success on the Oreo-package task. A policy fine-tuned on 105 real teleoperated episodes achieved 18/20 (90%) under the same protocol. These results are based on one object and 20 trials per policy and are therefore reported as preliminary evidence rather than a general performance claim.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.34287",
+    "pdf": "https://arxiv.org/pdf/2611.34287"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  },
+  {
+   "id": "2611.33232",
+   "slug": "arxiv-2611.33232",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 69,
+   "domain_scores": {
+    "training": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "How Many Samples Is RL Worth? Best-of-N versus RL Post-Training for Text-to-Image Models",
+   "title_en": "How Many Samples Is RL Worth? Best-of-N versus RL Post-Training for Text-to-Image Models",
+   "authors": [
+    "Salil Bhatnagar"
+   ],
+   "cats": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+   ],
+   "tags": [
+    "post-training",
+    "reinforcement learning",
+    "benchmark"
+   ],
+   "one_liner": "Reinforcement learning (RL) on a reward that can be checked automatically has become a common last step in the training of text-to-image models. A simpler way to get more correct…",
+   "one_liner_en": "Reinforcement learning (RL) on a reward that can be checked automatically has become a common last step in the training of text-to-image models. A simpler way to get more correct…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Reinforcement learning (RL) on a reward that can be checked automatically has become a common last step in the training of text-to-image models. A simpler way to get more correct images is best-of-N: draw N images from the base model and keep the one that a picker prefers. We ask how many base model samples one RL sample is worth, and call this number the exchange rate. We measure it for Stable Diffusion 3.5 Medium and its public Flow-GRPO checkpoint on 398 new prompts in the style of GenEval, the benchmark behind the RL reward, with human labels on every prompt and two automatic judges other than the reward. The answer depends on the prompt. Four fifths of the prompts do not ask for a position (for example, one object left of another). On these, the base model catches up: best-of-16 with an off-the-shelf vision-language model (VLM) as the picker is about as good as one RL image. A person who looks through up to 3 base images finds a correct one as often as one RL image is correct. On the prompts that ask for a position, RL is far ahead: a person finds a correct image among 8 base images for only 52% of the prompts, against 92% for one RL image. Over all prompts, our primary test, which we fixed in advance, finds best-of-16 with the VLM picker 9.3 points behind one RL image when both automatic judges must pass an image. People see a smaller gap, 5.5 and 6.5 points in two checks. FLUX.1-dev shows a similar gap in the same test. RL also solves 20 prompts that the base model misses in 128 tries, and 1,024 tries recover half of them. The automatic judges are wrong in opposite directions: a detector-based judge like the reward, as used in our primary test, reports a larger gap than people see, and VLM judges report little or none. Comparisons of RL with best-of-N should therefore check the selected images by hand.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.33232",
+    "pdf": "https://arxiv.org/pdf/2611.33232"
+   },
+   "retrieved_at": "2026-11-27T05:59:52Z"
+  }
+ ],
+ "discovery": [
+  {
+   "title": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion - Skip to main content",
+   "url": "https://arxiv.org/abs/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion ... GNSS pseudorange outliers severely disturb carrier-phase ambiguity resolution and positioning, particularly during signal blockages and recovery. ... Under continuous tracking ... the a-contrario baseline by 58.56%."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - License: arXiv",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "[16] proposes a robust iterated cubature Kalman filter to minimize the impact of GNSS outliers under NLOS and multipath conditions in GNSS/INS fusion. ... In this work, we use calibrated wheel measurements to support GNSS pseudorange screening when a Doppler reference is unavailable or insufficient."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 2 shows the motion errors and their confidence intervals, where the joint-covariance 95% intervals achieve mean pointwise covera...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "This paper presents a two-stage GNSS pseudorange outlier mitigation method for tightly coupled GNSS-RTK/INS/odometer navigation. ... - [4] Z. Shen, X. Li ... Li (2024) Advancing High-Precision Navigation: Leveraging Homogeneous Sensors in Tightly Coupled PPP-RTK/IMU Integration."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - 4i), leaving transverse scan orientation as the clearest angular association",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "provide dual-frequency carrier-phase observations at 1- or 30-s intervals for calculating ROTI (rate-of-TEC index) ... We therefore used detrended fluctuations to characterize amplitude response on each satellite signal, supplemented by ROTI from the dual-frequency carrier measurements Cesaroni et al."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "The rate-of-TEC index (ROTI) was calculated from dual-frequency carrier-phase observations over 1-min windows and mapped using within the same spatial cells (Fig. 2d). Elevated ROTI extended across a broader latitude range than"
+  },
+  {
+   "title": "Popular Physics",
+   "url": "https://arxiv.org/list/physics.pop-ph/recent",
+   "date": "2026-11-25T16:00:00+00:00",
+   "snippet": "Title: Revisiting the Fermi Paradox ... - [3] arXiv:2611.26025 (cross-list from astro-ph.EP) [pdf, html ... The Ionospheric Cut-off as a Potential Radio Technosignature Michael A. Garrett (University of Manchester, Leiden Observatory and University of Malta) Comments: 16 pages..."
+  },
+  {
+   "title": "Tabby: An Open Pretraining Recipe for Time Series Foundation Models",
+   "url": "https://arxiv.org/html/2609.13956v3",
+   "date": "2026-11-24T16:00:00+00:00",
+   "snippet": "2026) is the model most closely related to Tabby, as both adopt a channel independent patch Transformer, masked reconstruction, long input contexts, and dense quantile prediction. ... In probabilistic forecasting, the model estimates a predictive distribution for each future value rather than producing only a single point estimate. Beyond forecasting ... Quantile Forecasting Objective ... Tabby is an encoder-only, non-autoregressive model that supports forecasting, classification, and anomaly detection. We use forecasting as the pretraining task..."
+  },
+  {
+   "title": "Rethinking Universal Time Series Foundation Models from Unified Representations to Shared Dynamics (UniTFU)",
+   "url": "https://arxiv.org/html/2611.31921v1",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "2.2 Local Temporal Representation Learning for Time Series ... In this work, we introduce TFUs as reusable prototypes of recurring local dynamics and develop UniTFU. ... We propose UniTFU, a unified time series foundation model that enables cross-domain forecasting through reusable Time Series Foundation Units (TFUs), as illustrated in Fig. 2."
+  },
+  {
+   "title": "Rethinking Universal Time Series Foundation Models from Unified Representations to Shared Dynamics (UniTFU)",
+   "url": "https://arxiv.org/abs/2611.31921v1",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "Time series foundation models (TSFMs) have attracted increasing attention in cross-domain forecasting. ... we propose Time Series Foundation Units (TFUs) as reusable building blocks discovered from multi-scale temporal segments ... Building on TFUs, we develop a unified time series foundation model (UniTFU) ... regularities across domains for forecasting."
+  },
+  {
+   "title": "Time Series Foundation Models on the Edge",
+   "url": "https://arxiv.org/html/2611.30404",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "We conduct three experiments to evaluate whether a TSFM meets the three requirements of operational use: accuracy retained as the context expands, a forecast refresh that completes within the interval between arriving chunks, and latency and memory that stay bounded as the stream grows. ... We investigated whether leading TSFMs meet the three requirements of operational..."
+  },
+  {
+   "title": "From Tables to Time: Extending TabPFN-v2 to time-series forecasting",
+   "url": "https://arxiv.org/html/2501.02945v5",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "Our approach to time-series forecasting is complementary to standard TSFMs ... we use TabPFN-v2 and reformulate forecasting ... Unlike most TSFMs—which are designed around autoregressive ... In this section, we present TabPFN-TS, a novel approach to using TabPFN-v2 for multi-step, univariate time-series forecasting."
+  },
+  {
+   "title": "Urban State Representation for Autonomous Mobility: A Survey of Multimodal Perception, Architectures, Datasets, and Benchmarks",
+   "url": "https://arxiv.org/html/2611.28129",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "Promising directions: Latency-aware fusion [74]; confidence-driven sharing [23] ... aerial and satellite [32... ... Occ3D [59] adds occupancy labels to nuScenes and Waymo. ... 150 scenes | 3 US cities | 2D/3D detection... ... BDD100K [82] | 2020 | C, G (dashcam) | 100k videos | NYC... ... segmentation, lanes, drivable area, tracking WOMD [13] | 2021 | Boxes, map | >>100k 20 s scenes | 6 US cities | Interactive motion forecasting Argoverse 2 [69] | 2021 | C..."
+  },
+  {
+   "title": "GeoFusion: An Uncertain Machine Learning Framework for Sensor Fusion",
+   "url": "https://arxiv.org/html/2611.29510v1",
+   "date": "2026-11-21T16:00:00+00:00",
+   "snippet": "a probability distribution over all plausible true locations, weighted ... derived empirically from the statistical structure of the Google ... the observations within each cluster are fused into a single position estimate using classic filter-based estimators ... The GeoFusion framework for cooperative GPS sensor fusion using uncertain object representations, designed to exceed single-phone positioning precision using naturally occurring GPS data and without requiring physical sensor upgrades."
+  },
+  {
+   "title": "Implementation and Software-in-the-Loop Evaluation of a Trans-Domain Digital Twin Architecture for Autonomous Guidance of the Phoenix VTOL UAV Without Online GNSS",
+   "url": "https://arxiv.org/html/2611.29158v1",
+   "date": "2026-11-21T16:00:00+00:00",
+   "snippet": "MicroMet uses timestamped atmospheric data, estimated position, and a digital elevation model (DEM)55 5 DEM (Digital Elevation Model) ... velocity, 𝐯gn\\mathbf{v}_{g}^{n} is wind in the NED66 6 NED (North–East–Down): A three-axis local coordinate system oriented toward north, east, and down, used to represent UAV position, velocity, and motion."
+  },
+  {
+   "title": "Urban State Representation for Autonomous Mobility: A Survey of Multimodal Perception, Architectures, Datasets, and Benchmarks",
+   "url": "https://arxiv.org/abs/2611.28129v1",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "Cities are sensed by many platforms at once: on-board cameras, LiDAR and radar on autonomous vehicles, roadside units at intersections, drones and satellites overhead, and the GNSS traces of millions of trips. ... (ii) organize sensing platforms, cross-view (ground-aerial) matching, fusion operators, 3D geometric foundation models..."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 𝐯o,km=𝐞y(1+sv)v^o,k,𝝎o,km=𝐞z(1+sω)ω^o,k,\\mathbf{v}_{o,k}^{m}=\\mathbf{e}_{y}(1+s_{v})\\hat{v}_{o,k},\\qquad\\bm{\\omega}_{o,k}^{m}=\\m...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "III-A Motion-based model Relative odometry has been used in GNSS consistency screening [23], and tight GNSS and IMU integration similarly leverages inertial propagation to bound state uncertainty during signal degradation [24]. We use calibrated IMU-odometer prediction to obtain the antenna positions and their uncertainty without including the GNSS observations being tested. Current prediction graph uses the state"
+  },
+  {
+   "title": "JEPA-ICL: Progress-Aligned Latent Plans for In-Context Robotic Manipulation",
+   "url": "https://arxiv.org/html/2611.30516v1",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "3.1 Overview At time the policy observes camera images tt, an instruction oto_{t} and the proprioceptive state ℓ\\ell, and outputs a chunk of sts_{t} actions HH. As in VLA-JEPA [50], a vision-language model at:t+Ha_{t..."
+  },
+  {
+   "title": "EgoStudy: How Does Scaling Egocentric Data Affect VLA and WAM Pretraining?",
+   "url": "https://arxiv.org/html/2611.30490v1",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "[9] Y. Guo, T. Lee, L. X. Shi, J. Chen, P. Liang, and C. Finn (2026) VLAW: iterative co-improvement of Vision-Language-Action policy and world model. arXiv preprint arXiv:2602.12063."
+  },
+  {
+   "title": "OVOGO: Offline Value-Guided On-Policy Generative Optimization for Flow-Based Vision-Language-Action Models",
+   "url": "https://arxiv.org/html/2611.30477v1",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "Recent studies have explored reinforcement learning (RL) as a post-training paradigm for improving pretrained vision-language-action models (VLAs). One line of work directly applies on-policy RL to VLAs by repeatedly collecting trajectories from the current policy and optimizing them with PPO Schulman et al. (2017)..."
+  },
+  {
+   "title": "OVOGO: Offline Value-Guided On-Policy Generative Optimization for Flow-Based Vision-Language-Action Models",
+   "url": "https://arxiv.org/abs/2611.30477v1",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "Offline Value-Guided On-Policy Generative Optimization for Flow-Based Vision-Language-Action Models ... Flow-based vision-language-action models can benefit from robot experience collected during deployment, but repeatedly acquiring new physical interactions for policy improvement is costly. ... We propose OVOGO, an offline reinforcement learning framework that realizes this separation for flow-based VLAs."
+  },
+  {
+   "title": "NF-VLA: A Normalizing-Flow Baseline for Vision-Language-Action Learning - License: arXiv",
+   "url": "https://arxiv.org/html/2611.20314v1",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "We present NF-VLA, an autoregressive-flow VLA baseline trained end to end with a single likelihood objective and using the learned density for both sampling and score-based action correction. ... Vision-language-action (VLA) models adapt pretrained vision–language representations to language-conditioned robot control."
+  },
+  {
+   "title": "What Can a VLA Learn from the Agent That Calls It? Task-Level Experience Distillation for Embodied Navigation - Training objective.",
+   "url": "https://arxiv.org/html/2611.16246v3",
+   "date": "2026-11-16T16:00:00+00:00",
+   "snippet": "We fine-tune the VLA with LoRA [9]. ... LoRA adapts the attention and feed-forward layers. ... To cover states where the distilled VLA itself fails, we run it on training episodes and pick the ones where it ends far from the goal. ... It uses the same end-label rule and LoRA settings as H2E."
+  },
+  {
+   "title": "WAM-Policy: World Action Models with On-Policy Distillation for Quadrupedal Loco-Manipulation - Equation 1 handles the first on any context; for the second, training contexts are drawn from a mixture of the two closed-loop d...",
+   "url": "https://arxiv.org/html/2611.24011",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "Time is the per-chunk sampling time of the two streams on an RTX 5070 Ti, without encoding the observations and with the LoRA update of each student merged (Sec. ... the specialist teachers add the LoRA update η=0.5\\eta=0.5 of Stage 2.1 to Δg\\Delta_{g}"
+  },
+  {
+   "title": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training - Baseline implementation.",
+   "url": "https://arxiv.org/html/2611.27376v1",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "To control for distillation data, we also train one LoRA adapter per domain on the same data used for the prompts and combine the adapters with TA or TIES. LoRA adapters train for 200 updates with the same data and batch order as the prompts, using rank 16..."
+  },
+  {
+   "title": "ProxySearch: Decoupled Inference-Time Scaling for Diffusion Models via Asymmetric Noise-Rank Transfer - B.4 Teacher RL post-training",
+   "url": "https://arxiv.org/html/2611.23929v1",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "It is the third-party distilled checkpoint tensorart/stable-diffusion-3.5-medium-turbo, run at step with guidance 11. ... with the FlowGRPO text-rendering LoRA (jieliu/SD3.5M-FlowGRPO-Text) ... Distillation contributes on the finer statistics."
+  },
+  {
+   "title": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training - Method | XSTest | TruthfulQA | BFCL | TriviaQA | BBEH | FinQA | Mean",
+   "url": "https://arxiv.org/html/2611.27376v1",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "With the same distillation data, merged LoRA adapters reach 65.50 with TA and 66.19 with TIES, below the 67.83 of composed soft prompts (Table 2). ... LoRA"
+  }
+ ]
+}
