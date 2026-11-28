@@ -1,0 +1,623 @@
+{
+ "edition": {
+  "date": "2026-11-28",
+  "number": 18,
+  "title": "2026-11-28 · 研究日报",
+  "subtitle": "GNSS 与电离层为主线，连接科学 AI、具身智能和模型训练。",
+  "kicker": "DAILY RESEARCH",
+  "blurb": "本期 8 篇，0 篇图文全文导读、0 篇既有摘要级解读；自动导读仍待核验。",
+  "overview": [
+   "本期收录 8 篇，覆盖 时空预测与科学 AI、工程感知与多源融合、具身智能与机器人、模型训练与高效适配。",
+   "AI 解读来自可核验的摘要或网页摘录，不等于人工审稿或全文精读；证据引用与迁移建议分开显示。",
+   "初筛分数只用于领域排序，不评价论文质量。没有新稿的领域不会用无关论文凑数。"
+  ],
+  "threads": [
+   {
+    "domain": "ml",
+    "title": "时空预测与科学 AI · 2 篇",
+    "text": "Physics-Informed Feature Representations and Pretrained Tabular Foundation Models for Generalizable…"
+   },
+   {
+    "domain": "perception",
+    "title": "工程感知与多源融合 · 2 篇",
+    "text": "CADENCE: Sensor-GroundedWorld-Consistent Gaussian SLAM for Collaborative Mobile Reconstruction"
+   },
+   {
+    "domain": "embodied",
+    "title": "具身智能与机器人 · 2 篇",
+    "text": "CamAct: Learning Robotic Manipulation from In-the-Wild Videos via Camera Motion"
+   },
+   {
+    "domain": "training",
+    "title": "模型训练与高效适配 · 2 篇",
+    "text": "Precision-Aware Learning Rate Transfer Across Block Count in LLM Post-Training"
+   }
+  ],
+  "stats": [
+   {
+    "value": "8",
+    "label": "本期论文"
+   },
+   {
+    "value": "0",
+    "label": "AI 解读"
+   },
+   {
+    "value": "4",
+    "label": "覆盖领域"
+   },
+   {
+    "value": "6",
+    "label": "研究方向"
+   }
+  ],
+  "note": [
+   "来源为 arXiv 元数据及标注过的公开网页，未向模型发送飞书原文或私有数据。",
+   "AI 提炼的事实要求有来源；自动校验不能替代人工核验。",
+   "每日提前触发并安排补跑；GitHub Actions 可能延迟，站点会显示实际检查时间。"
+  ],
+  "generated_at": "2026-11-28T05:43:11Z",
+  "retrieval_status": "ok",
+  "ai_status": "ready",
+  "full_readings": 0,
+  "reading_skill": "paper-deep-reading"
+ },
+ "papers": [
+  {
+   "id": "2611.26235",
+   "slug": "arxiv-2611.26235",
+   "domain": "ml",
+   "domains": [
+    "ml"
+   ],
+   "lenses": [
+    "physics",
+    "data-efficient"
+   ],
+   "date": "2026-11-19",
+   "updated": "2026-11-19",
+   "score": 62,
+   "domain_scores": {
+    "ml": 62
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Physics-Informed Feature Representations and Pretrained Tabular Foundation Models for Generalizable Melt Pool Geometry Prediction",
+   "title_en": "Physics-Informed Feature Representations and Pretrained Tabular Foundation Models for Generalizable Melt Pool Geometry Prediction",
+   "authors": [
+    "Rafid Enayet",
+    "Imtiaz Ahmed",
+    "Md Habibor Rahman"
+   ],
+   "cats": [
+    "cs.AI",
+    "cs.LG"
+   ],
+   "tags": [
+    "prediction",
+    "physics-informed"
+   ],
+   "one_liner": "Developing generalizable, data-efficient machine learning (ML) models for advanced manufacturing remains challenging because experimental datasets are limited and process-property…",
+   "one_liner_en": "Developing generalizable, data-efficient machine learning (ML) models for advanced manufacturing remains challenging because experimental datasets are limited and process-property…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Developing generalizable, data-efficient machine learning (ML) models for advanced manufacturing remains challenging because experimental datasets are limited and process-property relationships vary across materials and operating conditions. In laser powder bed fusion (LPBF), melt pool width, depth, and melting mode (conduction, transition, or keyhole) govern process stability and defect formation. Conventional ML models typically use dimensional process parameters, which represent laser-material interactions only implicitly and may limit cross-material transfer. This study evaluates whether two physics-informed dimensionless features, normalized enthalpy and Peclet number, combining laser processing conditions with material thermophysical properties, improve melt pool prediction over raw process parameters. We systematically benchmark seven models: four classical ML methods (Gaussian process, support vector machine, random forest, and XGBoost) and three pretrained tabular foundation models (TabPFN, TabDPT, and TabICLv2). Experiments span 316L stainless steel, IN625, IN718, and combined-material datasets, covering regression of melt pool width and depth and classification of melting modes. Dimensionless features yield comparable or superior predictive performance in most settings, with the largest gains in cross-material depth prediction (R^2 = 0.96). Tabular foundation models generally achieve stronger classification performance than classical baselines, particularly for multi-material datasets. These findings indicate that combining physically meaningful dimensionless representations with pretrained tabular models can improve data-efficient melt pool modeling and support more transferable process-window identification in LPBF.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.26235",
+    "pdf": "https://arxiv.org/pdf/2611.26235"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.34549",
+   "slug": "arxiv-2611.34549",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [],
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "score": 54,
+   "domain_scores": {
+    "perception": 54
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "CADENCE: Sensor-GroundedWorld-Consistent Gaussian SLAM for Collaborative Mobile Reconstruction",
+   "title_en": "CADENCE: Sensor-GroundedWorld-Consistent Gaussian SLAM for Collaborative Mobile Reconstruction",
+   "authors": [
+    "Reshad Ul Karim",
+    "Abrar Samin",
+    "Md Rashad Al Hasan Rony"
+   ],
+   "cats": [
+    "cs.CV"
+   ],
+   "tags": [
+    "slam",
+    "localization"
+   ],
+   "one_liner": "Collaborative reconstruction with consumer phones promises faster and more complete indoor maps. However, heterogeneous devices introduce degraded observations and unreliable cros…",
+   "one_liner_en": "Collaborative reconstruction with consumer phones promises faster and more complete indoor maps. However, heterogeneous devices introduce degraded observations and unreliable cros…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Collaborative reconstruction with consumer phones promises faster and more complete indoor maps. However, heterogeneous devices introduce degraded observations and unreliable cross-device associations, so a single poor contributor or incorrect match can corrupt the shared Gaussian map. To address this, we propose \\textbf{CADENCE}, a collaborative Gaussian simultaneous localization and mapping (SLAM) system that separates finding cross-device matches from deciding whether and how peer observations update the map. To find matches, a sensor-grounded regional memory summarizes committed observations and ranks candidate peer regions using appearance, relative pose, gravity, barometric altitude, and observation quality. Deterministic geometric verification and optional physical checks then decide which of the proposed matches are accepted. Once a match is accepted, separate cue-based confidences control how its observations contribute to pose constraints, geometry, appearance, and memory. As a result, useful depth can still contribute even when color is unreliable. Throughout this process, local tracking remains isolated from mapping, verification, and networking. We evaluate CADENCE on eight Matterport3D houses that were not used to train the memory. On these houses, regional memory achieves an area under the receiver operating characteristic curve (AUROC) of $0.95$ to $0.97$ and thus outperforms appearance retrieval, while verification keeps false-link rates below $0.5\\,\\%$. Furthermore, soft confidence weighting reduces the mean receiver peak signal-to-noise ratio (PSNR) loss from $2.66$ to $1.05$\\,dB across eight degradations while retaining useful peer depth. Finally, using inertial and platform motion, CADENCE tracks all twelve held-out iPhone scans with a mean absolute trajectory error of $6.98$\\,cm, and its refined maps achieve better average rendering quality than the baselines.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.34549",
+    "pdf": "https://arxiv.org/pdf/2611.34549"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.34257",
+   "slug": "arxiv-2611.34257",
+   "domain": "embodied",
+   "domains": [
+    "embodied",
+    "training"
+   ],
+   "lenses": [
+    "uncertainty",
+    "multimodal"
+   ],
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "score": 69,
+   "domain_scores": {
+    "embodied": 69,
+    "training": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "CamAct: Learning Robotic Manipulation from In-the-Wild Videos via Camera Motion",
+   "title_en": "CamAct: Learning Robotic Manipulation from In-the-Wild Videos via Camera Motion",
+   "authors": [
+    "Haoming Gu",
+    "Yunpeng Qing",
+    "Zhi Hou",
+    "Weinan Zhang"
+   ],
+   "cats": [
+    "cs.RO"
+   ],
+   "tags": [
+    "vision-language-action",
+    "vla",
+    "manipulation"
+   ],
+   "one_liner": "Vision-Language-Action (VLA) models benefit from large, diverse datasets for robotic manipulation, yet collecting robot demonstrations remains costly. Recent work has explored ego…",
+   "one_liner_en": "Vision-Language-Action (VLA) models benefit from large, diverse datasets for robotic manipulation, yet collecting robot demonstrations remains costly. Recent work has explored ego…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Vision-Language-Action (VLA) models benefit from large, diverse datasets for robotic manipulation, yet collecting robot demonstrations remains costly. Recent work has explored egocentric videos as a source of supervision, primarily drawing on demonstrations of human-object interaction. We show that in-the-wild videos can improve robotic manipulation even when they contain no demonstrations of object manipulation. Specifically, camera motion recovered from these videos provides an additional source of motion supervision that complements robot demonstrations. Building on this finding, we introduce CamAct, which incorporates this camera-motion supervision into VLA policies alongside robot demonstrations, extending the use of human videos for manipulation learning beyond object interactions. Experiments show that incorporating this video supervision during fine-tuning improves success rates from 96.40% to 98.10% on LIBERO and from 22.96% to 29.32% on RoboCasa 365. The resulting policy also demonstrates strong results in out-of-distribution generalization on LIBERO-Plus and real-world manipulation tasks.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.34257",
+    "pdf": "https://arxiv.org/pdf/2611.34257"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.31166",
+   "slug": "arxiv-2611.31166",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [],
+   "date": "2026-11-23",
+   "updated": "2026-11-23",
+   "score": 69,
+   "domain_scores": {
+    "training": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Precision-Aware Learning Rate Transfer Across Block Count in LLM Post-Training",
+   "title_en": "Precision-Aware Learning Rate Transfer Across Block Count in LLM Post-Training",
+   "authors": [
+    "Nan Chen",
+    "Soledad Villar",
+    "Soufiane Hayou"
+   ],
+   "cats": [
+    "cs.LG",
+    "cs.CL"
+   ],
+   "tags": [
+    "sft",
+    "post-training",
+    "reinforcement learning"
+   ],
+   "one_liner": "The post-training of pretrained large language models, including supervised finetuning (SFT), direct preference optimization (DPO), and reinforcement learning with verifiable rewa…",
+   "one_liner_en": "The post-training of pretrained large language models, including supervised finetuning (SFT), direct preference optimization (DPO), and reinforcement learning with verifiable rewa…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "The post-training of pretrained large language models, including supervised finetuning (SFT), direct preference optimization (DPO), and reinforcement learning with verifiable reward (RLVR), is very sensitive to the learning rate, and tuning it through grid search is costly in both computation and memory. In this work, we propose \\textbf{TipSweep}, a method to transfer the learning rate across the number of trainable transformer blocks. To do so efficiently, we search for the best learning rate by training only the last $k_0$ blocks (in our experiments, typically $k_0=1$), and provide scaling rules that predict the optimal learning rate when training any set of $k$ blocks, including when $k=L$ (the full transformer). Across experiments with models ranging from 1 to 7 billion parameters, we observe that the optimal learning rate follows precision-dependent scaling rules: the optimal rate scales approximately as $k^{-1}$ with float32 (FP32) master weights, but as $k^{-1/2}$ when updates are applied directly to bfloat16 (BF16) weights without a master copy. We explain both rules using an analytical model that accounts for update rounding, under assumptions supported by profiling experiments. Finally, we develop two prototypes of the learning rate search for a 6.7-billion-parameter model. The first fits the search on a single consumer GPU with 16 GiB of memory. The second speeds up the search on a high-end GPU by evaluating all candidate learning rates in a single pass over the data, so that a five-candidate search takes about half the GPU hours of one full-depth ($k=L$) run.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.31166",
+    "pdf": "https://arxiv.org/pdf/2611.31166"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.25388",
+   "slug": "arxiv-2611.25388",
+   "domain": "ml",
+   "domains": [
+    "ml",
+    "training"
+   ],
+   "lenses": [],
+   "date": "2026-11-19",
+   "updated": "2026-11-19",
+   "score": 62,
+   "domain_scores": {
+    "ml": 62,
+    "training": 31
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Falsifiable Compositional Reasoning in Time Series Forecasting",
+   "title_en": "Falsifiable Compositional Reasoning in Time Series Forecasting",
+   "authors": [
+    "Hao Xue"
+   ],
+   "cats": [
+    "cs.AI"
+   ],
+   "tags": [
+    "forecasting",
+    "time series"
+   ],
+   "one_liner": "Time series foundation models as well as the language-guided analytical agents achieve strong accuracy on standard chronological benchmarks. However, models that rank highest on h…",
+   "one_liner_en": "Time series foundation models as well as the language-guided analytical agents achieve strong accuracy on standard chronological benchmarks. However, models that rank highest on h…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Time series foundation models as well as the language-guided analytical agents achieve strong accuracy on standard chronological benchmarks. However, models that rank highest on historical validation splits often degrade across non-stationary regime transitions. We hypothesise that this gap arises from using historical backtesting as an open-ended search and model-selection objective instead of using it to test pre-specified compositional assumptions. Real-world time series are generated by recurring latent primitives that co-move within finite historical windows. Under strong historical co-movement, chronological holdout error cannot separate predictors that learn invariant couplings among primitives from predictors that fit transient historical correlations. Searching over large pools of architectures, hyperparameters, or chain-of-thought rules further biases selection toward historical shortcuts. Through theoretical analysis and diagnostic experiments on a controlled multi-primitive benchmark and German day-ahead electricity prices, we show that expanding validation search fails to improve out-of-regime accuracy, and that decomposing primitives without an ex-ante falsification test still breaks down when residual correlations shift. Hence, we propose formulating time series forecasting and reasoning around falsifiable compositional hypotheses that combine neural primitive encoders, explicit coupling constraints, and training-calibrated falsification tests.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.25388",
+    "pdf": "https://arxiv.org/pdf/2611.25388"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.22574",
+   "slug": "arxiv-2611.22574",
+   "domain": "perception",
+   "domains": [
+    "perception"
+   ],
+   "lenses": [],
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "score": 54,
+   "domain_scores": {
+    "perception": 54
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Robust DOA Estimation for GNSS-like Signals Under Jamming: A Rotation-Enhanced SWN-MUSIC Approach",
+   "title_en": "Robust DOA Estimation for GNSS-like Signals Under Jamming: A Rotation-Enhanced SWN-MUSIC Approach",
+   "authors": [
+    "Jiyao Jiang",
+    "Xiaowei Cui",
+    "Gang Liu",
+    "Sihao Zhao",
+    "Mingquan Lu"
+   ],
+   "cats": [
+    "eess.SP"
+   ],
+   "tags": [
+    "jamming",
+    "spoofing"
+   ],
+   "one_liner": "In jamming environments, accurate direction-of-arrival (DOA) estimation for Global Navigation Satellite System (GNSS)-like signals using antenna arrays is crucial for spoofing det…",
+   "one_liner_en": "In jamming environments, accurate direction-of-arrival (DOA) estimation for Global Navigation Satellite System (GNSS)-like signals using antenna arrays is crucial for spoofing det…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "In jamming environments, accurate direction-of-arrival (DOA) estimation for Global Navigation Satellite System (GNSS)-like signals using antenna arrays is crucial for spoofing detection and subsequent countermeasures. However, estimation accuracy strongly depends on the incident direction of the signal of interest (SOI) under a given jamming and array configuration, with severe errors occurring in certain directions---a phenomenon whose physical mechanisms remain unclear. To address this gap, we identify two types of geometric ill-conditions between the array manifold and the jamming subspace, clarifying that certain directions suffer from inherently unfavorable observation geometry, which cannot be overcome by algorithmic refinement alone. Motivated by this insight, we introduce a paradigm namely rotational diversity, which treats the array attitude as a controllable sensing resource to actively reconfigure the observation geometry, thereby providing complementary perspectives in which the problematic directions can be accurately estimated. To implement this paradigm, we develop a Rotation-Enhanced Spatial Whitening and Normalized Multiple Signal Classification (SWN-MUSIC) framework, which performs independent DOA estimations across multiple rotation angles and selectively integrates reliable estimates. Simulation results demonstrate substantial improvement in accuracy in the directions that were poorly estimated under the fixed-array SWN-MUSIC, while maintaining performance in well-conditioned directions, thereby producing more robust DOA estimates.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.22574",
+    "pdf": "https://arxiv.org/pdf/2611.22574"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.33010",
+   "slug": "arxiv-2611.33010",
+   "domain": "embodied",
+   "domains": [
+    "embodied"
+   ],
+   "lenses": [
+    "multimodal"
+   ],
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "score": 69,
+   "domain_scores": {
+    "embodied": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Embodied AI Fails the Mirror Test: How a Simple Mirror Breaks Robot Policies",
+   "title_en": "Embodied AI Fails the Mirror Test: How a Simple Mirror Breaks Robot Policies",
+   "authors": [
+    "Xuanchen Liu",
+    "Hejun Zhang",
+    "Boxuan Dong",
+    "Ying Wu",
+    "Heshuai Li",
+    "Wen Gao",
+    "Yonghong Tian",
+    "Weihao Yu"
+   ],
+   "cats": [
+    "cs.CV",
+    "cs.AI",
+    "cs.RO"
+   ],
+   "tags": [
+    "vision-language-action",
+    "embodied",
+    "manipulation"
+   ],
+   "one_liner": "Can a simple mirror expose the limitations of today's robotic manipulation policies? Inspired by the mirror self-recognition test in animal cognition, we investigate whether robot…",
+   "one_liner_en": "Can a simple mirror expose the limitations of today's robotic manipulation policies? Inspired by the mirror self-recognition test in animal cognition, we investigate whether robot…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "Can a simple mirror expose the limitations of today's robotic manipulation policies? Inspired by the mirror self-recognition test in animal cognition, we investigate whether robot policies can reliably manipulate physical objects in scenes containing their reflections. We introduce RoboDojo-Mirror, a benchmark built on RoboDojo that preserves task objectives, success criteria, and policy checkpoints while comparing a mirror-free baseline with single-mirror, dual-mirror, and mirrored-tabletop conditions. Across five policies spanning Vision-Language-Action models, World Action Models, and agentic policies, every mirror condition reduces aggregate success rates: averaged over the three conditions, the drop ranges from 10.8 to 56.7 percentage points across policies, and it reaches 62.5 points on the mirrored tabletop. Because a mirror is also a physical obstacle, we compare it against geometrically matched non-reflective panels; 50--88\\% of mirror-specific failures occur without recorded robot--panel contact, so direct collisions alone do not explain the degradation. Trajectory and contact analyses instead reveal recurring behaviors consistent with phantom targeting of reflected objects and spatial mislocalization of real ones. Targeted diagnostics further characterize grasping near reflections, policy-dependent pushing progress, and physical-target interaction under main-camera occlusion. Real-robot experiments with $π_{0.5}$ and FastWAM also show lower overall success rates under the upright-mirror and mirrored-tabletop conditions. These findings reveal a shared vulnerability to reflective environments across diverse robot policies and motivate reflection-aware evaluation of embodied intelligence. Code is available at https://github.com/iPPLab/robodojo-mirror.",
+   "version": "v1",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.33010",
+    "pdf": "https://arxiv.org/pdf/2611.33010"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  },
+  {
+   "id": "2611.27376",
+   "slug": "arxiv-2611.27376",
+   "domain": "training",
+   "domains": [
+    "training"
+   ],
+   "lenses": [
+    "data-efficient"
+   ],
+   "date": "2026-11-20",
+   "updated": "2026-11-24",
+   "score": 69,
+   "domain_scores": {
+    "training": 69
+   },
+   "tier": "检索初筛",
+   "auto": true,
+   "reading_status": "metadata",
+   "title_zh": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training",
+   "title_en": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training",
+   "authors": [
+    "Zhen Zhang",
+    "Changyi Yang",
+    "Xuehai He",
+    "Chengzhi Liu",
+    "Yutong Yin",
+    "Ziyue Liu",
+    "Zhuoran Yin",
+    "Yangmin Li",
+    "Zhihan Liu",
+    "Jisen Li",
+    "Mingyu Jin",
+    "Chuhan Li",
+    "Zhaotian Weng",
+    "Ruoyu He",
+    "Wenyao Gao",
+    "Jiaxin Deng",
+    "Chenwei Wu",
+    "Hui Shen",
+    "Wenhao Chai",
+    "Chenyang Zhao",
+    "Zhuofan Ying",
+    "Kieran Liu",
+    "Andrew Chen",
+    "Pony Ma",
+    "Zhaoran Wang",
+    "Alkesh Patel",
+    "Zhe Gan",
+    "Xin Eric Wang"
+   ],
+   "cats": [
+    "cs.LG",
+    "cs.CL"
+   ],
+   "tags": [
+    "lora",
+    "post-training",
+    "distillation"
+   ],
+   "one_liner": "RL post-training typically produces domain experts that must then be consolidated into one model, and as new experts keep arriving, this consolidation becomes a continual process.…",
+   "one_liner_en": "RL post-training typically produces domain experts that must then be consolidated into one model, and as new experts keep arriving, this consolidation becomes a continual process.…",
+   "lead_zh": "自动检索条目，尚未生成中文解读。以下为 arXiv 原始摘要；初筛分数不代表论文质量。",
+   "lead_en": "Retrieved from arXiv. No AI interpretation is available yet; metadata and abstract are from the source.",
+   "abstract_en": "RL post-training typically produces domain experts that must then be consolidated into one model, and as new experts keep arriving, this consolidation becomes a continual process. Weight merging and multi-teacher on-policy distillation (MOPD) must re-consolidate the whole model whenever an expert is added, and can erode capabilities outside the target domains. We propose Composable Soft-Prompt Distillation (CSPD), which keeps the pre-RL model frozen, distills each RL expert independently into a soft prompt, and composes experts by concatenating their prompts without joint training. A single soft prompt suffices to distill an RL expert, recovering at least 90% of the teacher's gain in 22 of 23 math, code, and agent settings. Independently trained prompts compose well. In a multi-expert setting, the average rises with every expert added, and the full composition matches MOPD (67.83 vs. 67.79). The composition generalizes best across six held-out benchmarks. Input-space adaptation adds little serving overhead, keeping throughput within 1.5% of the unadapted backbone and reaching 2.40x that of rank-4 LoRA. These results point toward continual post-training on a fixed backbone.",
+   "version": "v2",
+   "links": {
+    "abs": "https://arxiv.org/abs/2611.27376",
+    "pdf": "https://arxiv.org/pdf/2611.27376"
+   },
+   "retrieved_at": "2026-11-28T05:40:45Z"
+  }
+ ],
+ "discovery": [
+  {
+   "title": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion - Skip to main content",
+   "url": "https://arxiv.org/abs/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "Two stage GNSS outlier detection for factor graph optimization based GNSS-RTK/INS/odometer fusion ... GNSS pseudorange outliers severely disturb carrier-phase ambiguity resolution and positioning, particularly during signal blockages and recovery. ... Under continuous tracking ... the a-contrario baseline by 58.56%."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - License: arXiv",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "[16] proposes a robust iterated cubature Kalman filter to minimize the impact of GNSS outliers under NLOS and multipath conditions in GNSS/INS fusion. ... In this work, we use calibrated wheel measurements to support GNSS pseudorange screening when a Doppler reference is unavailable or insufficient."
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 2 shows the motion errors and their confidence intervals, where the joint-covariance 95% intervals achieve mean pointwise covera...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "This paper presents a two-stage GNSS pseudorange outlier mitigation method for tightly coupled GNSS-RTK/INS/odometer navigation. ... - [4] Z. Shen, X. Li ... Li (2024) Advancing High-Precision Navigation: Leveraging Homogeneous Sensors in Tightly Coupled PPP-RTK/IMU Integration."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - 4i), leaving transverse scan orientation as the clearest angular association",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "provide dual-frequency carrier-phase observations at 1- or 30-s intervals for calculating ROTI (rate-of-TEC index) ... We therefore used detrended fluctuations to characterize amplitude response on each satellite signal, supplemented by ROTI from the dual-frequency carrier measurements Cesaroni et al."
+  },
+  {
+   "title": "Observing Earth’s ionospheric irregularities from the Moon - License: CC BY 4.0",
+   "url": "https://arxiv.org/html/2611.21062v1",
+   "date": "2026-11-15T16:00:00+00:00",
+   "snippet": "The rate-of-TEC index (ROTI) was calculated from dual-frequency carrier-phase observations over 1-min windows and mapped using within the same spatial cells (Fig. 2d). Elevated ROTI extended across a broader latitude range than"
+  },
+  {
+   "title": "Popular Physics",
+   "url": "https://arxiv.org/list/physics.pop-ph/recent",
+   "date": "2026-11-25T16:00:00+00:00",
+   "snippet": "Title: Revisiting the Fermi Paradox ... - [3] arXiv:2611.26025 (cross-list from astro-ph.EP) [pdf, html ... The Ionospheric Cut-off as a Potential Radio Technosignature Michael A. Garrett (University of Manchester, Leiden Observatory and University of Malta) Comments: 16 pages..."
+  },
+  {
+   "title": "Tabby: An Open Pretraining Recipe for Time Series Foundation Models",
+   "url": "https://arxiv.org/html/2609.13956v3",
+   "date": "2026-11-24T16:00:00+00:00",
+   "snippet": "2026) is the model most closely related to Tabby, as both adopt a channel independent patch Transformer, masked reconstruction, long input contexts, and dense quantile prediction. ... In probabilistic forecasting, the model estimates a predictive distribution for each future value rather than producing only a single point estimate. Beyond forecasting ... Quantile Forecasting Objective ... Tabby is an encoder-only, non-autoregressive model that supports forecasting, classification, and anomaly detection. We use forecasting as the pretraining task..."
+  },
+  {
+   "title": "Rethinking Universal Time Series Foundation Models from Unified Representations to Shared Dynamics (UniTFU)",
+   "url": "https://arxiv.org/abs/2611.31921v1",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "Time series foundation models (TSFMs) have attracted increasing attention in cross-domain forecasting. ... we propose Time Series Foundation Units (TFUs) as reusable building blocks discovered from multi-scale temporal segments ... Building on TFUs, we develop a unified time series foundation model (UniTFU) ... regularities across domains for forecasting."
+  },
+  {
+   "title": "Time Series Foundation Models on the Edge",
+   "url": "https://arxiv.org/abs/2611.30404v1",
+   "date": "2026-11-22T16:00:00+00:00",
+   "snippet": "Time series foundation models (TSFMs) forecast zero-shot with accuracy exceeding that of task-specific models, and the smaller ones fit on edge devices. ... To serve as a forecasting system there, a TSFM must refresh quickly ... as the stream grows, and retain its accuracy as the observed history accumulates."
+  },
+  {
+   "title": "VISOR: A Vision-Language Selector for Multimodal Time-Series Forecasting",
+   "url": "https://arxiv.org/html/2611.31780",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "3.2 Step 1: Text-Free Stochastic Predictor ... The candidates cover a wide range of futures, and the best candidate in hindsight is far closer to the truth than the medoid, the candidate closest to all others (Appendix C.3). ### 3.3 Step 2: VLM Selector ... 3.4 Shape-Aware Selection Target"
+  },
+  {
+   "title": "When Do Foundation Models Pay Off? A Break-Even Analysis of Pretrained Time Series Forecasters - Dataset | Best FM | MASE | Best CL | MASE | n∗n^{*} | ntrn_{\\text{tr}} | τacf\\tau_{\\text{acf}} | HH | σr\\sigma_{r} | SS | Φ\\Phi ...",
+   "url": "https://arxiv.org/html/2607.04919v2",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "M4-Daily and Sunspot are non-monotonic ... No dataset breaks even at 10%. ### IV-B Model and Setting Analysis Zero-shot | LoRA FT ---|--- Model | MASE | kk | MASE | kk | Classical | MASE | kk ... IV-C Determinants of Break-Even (RQ2)"
+  },
+  {
+   "title": "Two stage GNSS outlier detection for graph optimization based GNSS-RTK/INS/odometer fusion - 𝐯o,km=𝐞y(1+sv)v^o,k,𝝎o,km=𝐞z(1+sω)ω^o,k,\\mathbf{v}_{o,k}^{m}=\\mathbf{e}_{y}(1+s_{v})\\hat{v}_{o,k},\\qquad\\bm{\\omega}_{o,k}^{m}=\\m...",
+   "url": "https://arxiv.org/html/2510.00524v2",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "III-A Motion-based model Relative odometry has been used in GNSS consistency screening [23], and tight GNSS and IMU integration similarly leverages inertial propagation to bound state uncertainty during signal degradation [24]. We use calibrated IMU-odometer prediction to obtain the antenna positions and their uncertainty without including the GNSS observations being tested. Current prediction graph uses the state"
+  },
+  {
+   "title": "Multi-UAV Trajectory Optimization for Bearing-Only Localization in GPS-Denied Environments",
+   "url": "https://arxiv.org/html/2602.11116v2",
+   "date": "2026-11-24T16:00:00+00:00",
+   "snippet": "the present study extends existing localization frameworks to generate operationally realistic paths that enhance UAV survivability and maximize overall mission effectiveness. ... In three-dimensional target localization, [27] ... This study advances estimation-aware trajectory optimization for bearing-only localization by incorporating mission constraints, dynamic constraints, and sensing constraints within a time-efficient optimization scheme."
+  },
+  {
+   "title": "CADENCE: Sensor-GroundedWorld-Consistent Gaussian SLAM for Collaborative Mobile Reconstruction",
+   "url": "https://arxiv.org/abs/2611.34549",
+   "date": "2026-11-24T16:00:00+00:00",
+   "snippet": "and more complete indoor maps. ... a collaborative Gaussian simultaneous localization and mapping (SLAM) system that separates finding cross-device matches from deciding whether and how peer observations update the map. To find matches, a sensor-grounded regional memory summarizes committed observations and ranks candidate peer regions using appearance..."
+  },
+  {
+   "title": "CADENCE: Sensor-Grounded World-Consistent Gaussian SLAM for Collaborative Mobile Reconstruction",
+   "url": "https://arxiv.org/html/2611.34549",
+   "date": "2026-11-24T16:00:00+00:00",
+   "snippet": "geometric verification decides acceptance ... Only the owning agent modifies its map.ZWZ_{W} ### 3.2 Reliability-Aware Local Reconstruction ... Sparse feature tracking [36, 32] refines an available preintegrated IMU prediction [13] through robust reprojection optimization. Profiles with dense depth registration align ... Each cubic region stores a token rr, an evidence ... 3.4 Verified Collaborative Fusion"
+  },
+  {
+   "title": "Semidefinite Programming for Cold-Start GNSS Doppler-Based Alignment: A Comparison with Nonlinear Least Squares",
+   "url": "https://arxiv.org/abs/2611.32715v1",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "Initial attitude alignment between local navigation frames and the Earth-centered Earth-fixed (ECEF) frame is a critical prerequisite for multi-sensor integrated navigation, such as Global Navigation Satellite System (GNSS)/inertial/odometry fusion, before global and local measurements can be jointly processed."
+  },
+  {
+   "title": "EgoLoAF: Learning Humanoid Loco-Manipulation from Egocentric Demonstrations with Hand–Object Affordances",
+   "url": "https://arxiv.org/html/2611.32260",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "We post-train the VLA entirely on the converted data, without real-robot teleoperation demonstrations. ... We also release 128,400 egocentric demonstration episodes spanning 1,000 hours and 1,284 tasks ... External Links: Link ... to universal manipulation interface."
+  },
+  {
+   "title": "NF-VLA: A Normalizing-Flow Baseline for Vision-Language-Action Learning - License: arXiv",
+   "url": "https://arxiv.org/html/2611.20314v1",
+   "date": "2026-11-14T16:00:00+00:00",
+   "snippet": "We present NF-VLA, an autoregressive-flow VLA baseline trained end to end with a single likelihood objective and using the learned density for both sampling and score-based action correction. ... Vision-language-action (VLA) models adapt pretrained vision–language representations to language-conditioned robot control."
+  },
+  {
+   "title": "$ζ_0$: A Framework for World Action Models with Joint Scene and Body Foresight in Humanoid Control",
+   "url": "https://arxiv.org/abs/2611.29277v1",
+   "date": "2026-11-21T16:00:00+00:00",
+   "snippet": "World Action Models anticipate visual outcomes to guide robot actions, yet humanoid interaction also depends on how the robot's body responds. ... a framework that turns vision-language-action policies into World Action Models by foreseeing future visual features and measured joint trajectories in a shared latent representation."
+  },
+  {
+   "title": "Beyond Expert Replay: Cross-Instruction Anchoring for Continual Vision-Language-Action Learning",
+   "url": "https://arxiv.org/html/2611.31903",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "3 What Does Limited Replay Preserve? #### Old Instructions Can Trigger Later-learned Goals. We first examine a controlled two-task transition in LIBERO-Goal, where QwenVLA learns to place a bowl on the stove and subsequently on top of a cabinet. Across two training seeds, the policy"
+  },
+  {
+   "title": "DiffGR00T: Execution-Aware Differentiable Training for Humanoid Whole-Body Vision-Language-Action ModelsThanks: †Corresponding author: Hesheng Wang (e-mail: wanghesheng@sjtu.edu.cn).",
+   "url": "https://arxiv.org/html/2611.32665",
+   "date": "2026-11-23T16:00:00+00:00",
+   "snippet": "body linear and angular velocity ... The world model predicts all state channels, including velocities, because they are needed for integration. ... We therefore assign zero cost to angular velocity, root linear velocity, and yaw rate ... body-linear-velocity weight. For the anti-stall term, we use the 3D root displacement, including its vertical component.H=10H=10 The anti-stall error targets root-motion stalls. Letdenote the root position at step pi∈ℝ3p_{i}\\in\\mathbb{R}^{3}, and defineii mi\\displaystyle m_{i} | =‖pi−pi−1‖Δt..."
+  },
+  {
+   "title": "WAM-Policy: World Action Models with On-Policy Distillation for Quadrupedal Loco-Manipulation - Equation 1 handles the first on any context; for the second, training contexts are drawn from a mixture of the two closed-loop d...",
+   "url": "https://arxiv.org/html/2611.24011",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "Time is the per-chunk sampling time of the two streams on an RTX 5070 Ti, without encoding the observations and with the LoRA update of each student merged (Sec. ... the specialist teachers add the LoRA update η=0.5\\eta=0.5 of Stage 2.1 to Δg\\Delta_{g}"
+  },
+  {
+   "title": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training - Baseline implementation.",
+   "url": "https://arxiv.org/html/2611.27376v1",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "To control for distillation data, we also train one LoRA adapter per domain on the same data used for the prompts and combine the adapters with TA or TIES. LoRA adapters train for 200 updates with the same data and batch order as the prompts, using rank 16..."
+  },
+  {
+   "title": "ProxySearch: Decoupled Inference-Time Scaling for Diffusion Models via Asymmetric Noise-Rank Transfer - B.4 Teacher RL post-training",
+   "url": "https://arxiv.org/html/2611.23929v1",
+   "date": "2026-11-17T16:00:00+00:00",
+   "snippet": "It is the third-party distilled checkpoint tensorart/stable-diffusion-3.5-medium-turbo, run at step with guidance 11. ... with the FlowGRPO text-rendering LoRA (jieliu/SD3.5M-FlowGRPO-Text) ... Distillation contributes on the finer statistics."
+  },
+  {
+   "title": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training - Method | XSTest | TruthfulQA | BFCL | TriviaQA | BBEH | FinQA | Mean",
+   "url": "https://arxiv.org/html/2611.27376v1",
+   "date": "2026-11-19T16:00:00+00:00",
+   "snippet": "With the same distillation data, merged LoRA adapters reach 65.50 with TA and 66.19 with TIES, below the 67.83 of composed soft prompts (Table 2). ... LoRA"
+  },
+  {
+   "title": "Auto-Features: An LLM-Assisted Corpus for Contextual Recognition of Standard and Optional Car Features",
+   "url": "https://arxiv.org/abs/2611.33974",
+   "date": "2026-11-24T16:00:00+00:00",
+   "snippet": "On advert-disjoint splits, a LoRA-tuned 4B LLM reaches 63.9% span F1 and 76.1% on the entity-linking view. A fine-tuned encoder reaches 59.0% and 74.1%."
+  }
+ ]
+}
